@@ -1,2 +1,3 @@
-# cosy-corner
-A place where I can add random projects.
+# Cosy-Corner
+This is an angular app where i'll put my ideas
+
