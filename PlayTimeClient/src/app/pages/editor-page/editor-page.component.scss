@@ -19,3 +19,35 @@ as-split {
         }
     }
 }
+
+textarea {
+    width: 100%;
+    background-color: $backgroundShade1;
+    border: 0;
+}
+
+.noverflow {
+    overflow-y: hidden !important;
+}
+
+.code-editor {
+    min-height: 100%;
+    display: flex;
+    font-family: monospace;
+}
+
+#lineNumbers {
+    padding: 10px;
+    text-align: right;
+    background-color: $backgroundShade1;
+    margin: 0;
+}
+
+#codeContent {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.greyShade {
+    background-color: $backgroundShade1;
+}

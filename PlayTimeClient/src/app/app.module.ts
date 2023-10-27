@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
 import { AngularSplitModule } from 'angular-split';
 import { EditorPageComponent } from './pages/editor-page/editor-page.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { EditorPageComponent } from './pages/editor-page/editor-page.component';
     imports: [
         BrowserModule,
         AngularSplitModule,
-        AppRoutingModule
+        AppRoutingModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
