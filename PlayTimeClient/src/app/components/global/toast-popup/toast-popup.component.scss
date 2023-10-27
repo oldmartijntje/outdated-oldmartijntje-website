@@ -1,0 +1,52 @@
+@import '../../../../styles.scss';
+
+.toast-container {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast {
+    padding: 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px $toast-secondary-color;
+    display: flex;
+    align-items: center;
+}
+
+.dismiss-button {
+    border: none;
+    background: none;
+    font-size: 12px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.info {
+    background-color: $toast-info-background-color;
+    color: $toast-info-text-color;
+}
+
+.info .dismiss-button {
+    color: $toast-info-close-color;
+}
+
+.warning {
+    background-color: $toast-warning-background-color;
+    color: $toast-warning-text-color;
+}
+
+.warning .dismiss-button {
+    color: $toast-warning-close-color;
+}
+
+.error {
+    background-color: $toast-error-background-color;
+    color: $toast-error-text-color;
+}
+
+.error .dismiss-button {
+    color: $toast-error-close-color;
+}

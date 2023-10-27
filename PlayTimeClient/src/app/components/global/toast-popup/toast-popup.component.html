@@ -1,0 +1,8 @@
+<div class="toast-container">
+    <div class="toast {{toast.type}}" *ngFor="let toast of toastQueue">
+        <span [innerHTML]="scanForBreak(toast.message)"></span>
+        <button class="dismiss-button" (click)="dismissToast(toast.id)">
+            X
+        </button>
+    </div>
+</div>
