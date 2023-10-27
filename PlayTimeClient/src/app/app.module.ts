@@ -7,6 +7,7 @@ import { ToastPopupComponent } from './components/global/toast-popup/toast-popup
 import { AngularSplitModule } from 'angular-split';
 import { EditorPageComponent } from './pages/editor-page/editor-page.component';
 import { FormsModule } from '@angular/forms';
+import { MONACO_PATH, MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 
 @NgModule({
     declarations: [
@@ -18,9 +19,13 @@ import { FormsModule } from '@angular/forms';
         BrowserModule,
         AngularSplitModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        MonacoEditorModule
     ],
-    providers: [],
+    providers: [{
+        provide: MONACO_PATH,
+        useValue: 'https://unpkg.com/monaco-editor@0.24.0/min/vs'
+    }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

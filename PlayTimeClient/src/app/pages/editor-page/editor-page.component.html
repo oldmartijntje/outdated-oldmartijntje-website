@@ -1,5 +1,5 @@
 <div style="width: 100vw; height: 100vh;">
-    <as-split direction="vertical">
+    <as-split direction="vertical" (dragEnd)="dragEndHorizontal($event)">
         <as-split-area [size]="80" minSize="20" maxSize="90">
             <as-split direction="horizontal" gutterSize="15">
                 <as-split-area [size]="5" minSize="0" maxSize="25">
@@ -8,11 +8,9 @@
                 <as-split-area [size]="70" class="greyShade">
                     <!-- <p>Editor</p> -->
                     <div class="code-editor">
-                        <ol id="lineNumbers" wrap="off" readonly>
-                            <li *ngFor="let line of codeLines; let i = index">{{i + 1}}</li>
-                        </ol>
-                        <textarea id="codeContent" name="" cols="30" rows="10" [(ngModel)]="code" class="noverflow"
-                            (input)="updateCodeLines()"></textarea>
+                        <ngx-monaco-editor fxFlex [options]="editorOptions" [(ngModel)]="code"
+                            [style.height.px]="calculatedHeight" style="width: 100%;"
+                            (init)="editorInit($event)"></ngx-monaco-editor>
                     </div>
                 </as-split-area>
                 <as-split-area [size]="25" minSize="10" maxSize="50">
