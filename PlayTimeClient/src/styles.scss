@@ -21,3 +21,9 @@ $popup-menu-button-background: #16122b;
 $popup-menu-button-background-hover: #5f4195;
 $popup-menu-button-text: #ffffff;
 $popup-menu-text: #ffffff;
+
+body {
+    margin: 0;
+    background-color: $background-color;
+    color: $secondary-text-color;
+}

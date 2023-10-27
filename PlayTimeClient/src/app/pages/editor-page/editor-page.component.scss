@@ -1,0 +1,21 @@
+@import '../../../styles.scss';
+
+as-split {
+    overflow: inherit;
+
+    ::ng-deep .as-split-gutter {
+        background-color: $backgroundShade2 !important;
+        align-items: flex-end !important;
+        pointer-events: none;
+
+        &>.as-split-gutter-icon {
+            pointer-events: all;
+            transition: all 0.3s;
+            opacity: 0.6;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
