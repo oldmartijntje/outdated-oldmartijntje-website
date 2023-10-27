@@ -4,6 +4,8 @@
             <as-split direction="horizontal" gutterSize="15">
                 <as-split-area [size]="5" minSize="0" maxSize="25">
                     <p>Sidebar</p>
+                    <input type="text" [(ngModel)]="language" (input)="languageChanged()">
+                    <button (click)="log()">Log CodeString</button>
                 </as-split-area>
                 <as-split-area [size]="70" class="greyShade">
                     <!-- <p>Editor</p> -->

@@ -14,11 +14,16 @@ export class EditorPageComponent implements OnInit {
         autoIndent: 'full',
         automaticLayout: true
     };
-    code = 'function x() { }\nvar aa = 12;\nfunction hwnn() {\nconsole.log("aaaa")\n}'
+    code = 'function x() { }\nvar aa = 12;\nfunction hwnn() {\nconsole.log("aaaa")\n}\n<a></a>\n<h1></h1>\nhenk = "sss"\nprint(f"{henk}")\na = input()\n\nfor x in range(2):\n    pass\n    # owo\n    // owo\n\n<?php\n// The next line contains a syntax error:\nif () {\n	return "The parser recovers from this type of syntax error";\n}\n?>\n\n#codeContent {\n    flex-grow: 1;\n    padding: 10px;\n}\n'
     height = 80;
+    language = 'javascript';
 
     dragEndHorizontal({ sizes }: any) {
         console.log(sizes);
+    }
+
+    languageChanged() {
+        this.editorOptions = { ...this.editorOptions, language: this.language };
     }
 
     calculatedHeight(): number {
@@ -26,6 +31,15 @@ export class EditorPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+    }
+
+    log() {
+        var logText = '';
+        this.code.split('\n').forEach((line, index) => {
+            logText += `${line}\\n`;
+        });
+        console.log(logText);
 
     }
 
