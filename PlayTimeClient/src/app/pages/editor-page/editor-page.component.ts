@@ -31,7 +31,6 @@ export class EditorPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
     }
 
     log() {

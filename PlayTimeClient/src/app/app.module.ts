@@ -8,12 +8,14 @@ import { AngularSplitModule } from 'angular-split';
 import { EditorPageComponent } from './pages/editor-page/editor-page.component';
 import { FormsModule } from '@angular/forms';
 import { MONACO_PATH, MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
+import { RailroadinkPageComponent } from './pages/railroadink-page/railroadink-page.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         ToastPopupComponent,
-        EditorPageComponent
+        EditorPageComponent,
+        RailroadinkPageComponent
     ],
     imports: [
         BrowserModule,
