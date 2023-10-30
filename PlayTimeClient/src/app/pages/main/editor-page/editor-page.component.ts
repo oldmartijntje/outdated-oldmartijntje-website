@@ -3,6 +3,7 @@ import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@ma
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
 import { Message, TestMessages } from 'src/app/models/message.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-editor-page',
@@ -17,25 +18,30 @@ export class EditorPageComponent implements OnInit {
         autoIndent: 'full',
         automaticLayout: true
     };
-    code = 'function x() {\nconsole.log("Hello world!");\n}'
+    code = 'function x() {\nconsole.log("Hello world!");\n}\nx()\n'
     syntaxHighlightLanguage = 'javascript';
     language = 'javascript';
     consoleSubscription: any;
     outputSubscription: any;
     consoleList: Message[] = TestMessages;
     outputList: Message[] = TestMessages;
+    consoleWindowInput = '';
 
     constructor(private toastQueueService: ToastQueueService,
-        private runtimeServiceService: RuntimeServiceService) { }
+        private runtimeServiceService: RuntimeServiceService,
+        private datePipe: DatePipe) { }
 
-    sendCodeToRunner() {
+    sendCodeToRunner(input: string = '') {
         if (this.language == 'javascript') {
-            this.runJavaScript();
+            this.runJavaScript(input);
         }
     }
 
-    runJavaScript() {
-        var code = "try {\n" + this.code + "\n} catch (error) {\nthis.runtimeServiceService.addConsoleSubject({ message: `${error}`, type: 'error', from: 'EditorCode' });\nconsole.error(error);\n}";
+    runJavaScript(input: string = '') {
+        if (input == '') {
+            input = this.code;
+        }
+        var code = "try {\n" + input + "\n} catch (error) {\nthis.runtimeServiceService.addConsoleSubject({ message: `${error}`, type: 'error', from: 'EditorCode' });\nconsole.error(error);\n}";
         try {
             eval(code);
         } catch (error) {
@@ -53,22 +59,60 @@ export class EditorPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.consoleSubscription = this.runtimeServiceService.consoleSubjectValue$.subscribe((value) => {
-            this.consoleList = value;
-            this.consoleList = TestMessages;
+            console.log([...value]);
+            this.consoleList = [...value].reverse();
+            console.log([...this.consoleList]);
+            // this.consoleList = TestMessages;
         });
         this.outputSubscription = this.runtimeServiceService.outputSubjectValue$.subscribe((value) => {
-            this.outputList = value;
-            this.outputList = TestMessages;
+            this.outputList = [...value].reverse();
+            // this.outputList = TestMessages;
         });
     }
 
-    log() {
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            this.runtimeServiceService.addConsoleSubject({ message: this.consoleWindowInput, type: 'info', from: 'Console' });
+            this.sendCodeToRunner(this.consoleWindowInput);
+            this.consoleWindowInput = '';
+        }
+    }
+
+    logCode() {
         var logText = '';
         this.code.split('\n').forEach((line, index) => {
             logText += `${line}\\n`;
         });
         console.log(logText);
 
+    }
+
+    log(value: string = "") {
+        console.log(value);
+        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'info', from: 'Log', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS') });
+    }
+
+    warn(value: string = "") {
+        console.warn(value);
+        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'warning', from: 'Warn', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS') });
+    }
+
+    error(value: string = "") {
+        console.error(value);
+        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'error', from: 'Error', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS') });
+    }
+
+    formatMessage(message: Message) {
+        if (message.datetimeTimestamp == undefined || message.datetimeTimestamp == null || message.datetimeTimestamp == '') {
+            if (message.from == undefined) {
+                return `${message.message}`;
+            }
+            return `${message.from}: ${message.message}`;
+        }
+        else if (message.from == undefined) {
+            return `${message.datetimeTimestamp} - ${message.message}`;
+        }
+        return `${message.datetimeTimestamp} - ${message.from}: ${message.message}`;
     }
 
     editorInit(editor: MonacoStandaloneCodeEditor) {

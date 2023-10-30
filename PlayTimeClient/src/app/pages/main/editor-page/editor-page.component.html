@@ -5,7 +5,7 @@
                 <as-split-area [size]="5" minSize="0" maxSize="25">
                     <p>Sidebar</p>
                     <input type="text" [(ngModel)]="syntaxHighlightLanguage" (input)="syntaxHighlightLanguageChanged()">
-                    <button (click)="log()">Log CodeString</button>
+                    <button (click)="logCode()">Log CodeString</button>
                 </as-split-area>
                 <as-split-area [size]="70" class="greyShade">
                     <!-- <p>Editor</p> -->
@@ -33,20 +33,24 @@
                     <p>Console</p>
                     <div class="ConsoleField">
                         <div *ngFor="let message of consoleList" class="OutputField-Text">
-                            <p *ngIf="message.type == 'error'" class="errorMessage">{{message.message}}</p>
-                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{message.message}}</p>
-                            <p *ngIf="message.type == 'info'" class="infoMessage">{{message.message}}</p>
+                            <p *ngIf="message.type == 'error'" class="errorMessage">
+                                {{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'warning'" class="warningMessage">
+                                {{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'info'" class="infoMessage">
+                                {{formatMessage(message)}}</p>
                         </div>
                     </div>
-                    <input class="consoleInput" type="text">
+                    <input class="consoleInput" type="text" (keydown)="onKeyDown($event)"
+                        [(ngModel)]="consoleWindowInput">
                 </as-split-area>
                 <as-split-area [size]="30">
                     <p>Output</p>
                     <div class="OutputField">
                         <div *ngFor="let message of outputList" class="OutputField-Text">
-                            <p *ngIf="message.type == 'error'" class="errorMessage">{{message.message}}</p>
-                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{message.message}}</p>
-                            <p *ngIf="message.type == 'info'" class="infoMessage">{{message.message}}</p>
+                            <p *ngIf="message.type == 'error'" class="errorMessage">{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'info'" class="infoMessage">{{formatMessage(message)}}</p>
                         </div>
                     </div>
                 </as-split-area>

@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,9 @@ import { MatButtonModule } from '@angular/material/button';
     providers: [{
         provide: MONACO_PATH,
         useValue: 'https://unpkg.com/monaco-editor@0.24.0/min/vs'
-    }],
+    },
+        DatePipe
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
