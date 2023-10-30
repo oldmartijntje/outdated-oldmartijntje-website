@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
+import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
+import { Message, TestMessages } from 'src/app/models/message.interface';
 
 @Component({
     selector: 'app-editor-page',
@@ -16,11 +18,15 @@ export class EditorPageComponent implements OnInit {
         automaticLayout: true
     };
     code = 'function x() {\nconsole.log("Hello world!");\n}'
-    height = 80;
     syntaxHighlightLanguage = 'javascript';
     language = 'javascript';
+    consoleSubscription: any;
+    outputSubscription: any;
+    consoleList: Message[] = TestMessages;
+    outputList: Message[] = TestMessages;
 
-    constructor(private toastQueueService: ToastQueueService) { }
+    constructor(private toastQueueService: ToastQueueService,
+        private runtimeServiceService: RuntimeServiceService) { }
 
     sendCodeToRunner() {
         if (this.language == 'javascript') {
@@ -29,13 +35,15 @@ export class EditorPageComponent implements OnInit {
     }
 
     runJavaScript() {
-        var code = "try {\n" + this.code + "\n} catch (error) {\nthis.toastQueueService.showToast( `${error}`, 'error', 0);\nconsole.error(error);\n}";
+        var code = "try {\n" + this.code + "\n} catch (error) {\nthis.runtimeServiceService.addConsoleSubject({ message: `${error}`, type: 'error', from: 'EditorCode' });\nconsole.error(error);\n}";
         try {
             eval(code);
         } catch (error) {
             console.error(error);
             var errorText = `${error}`;
-            this.toastQueueService.showToast(errorText, 'error', 0);
+            console.log("aaaaa")
+            this.runtimeServiceService.addConsoleSubject({ message: errorText, type: 'error', from: 'EditorCode' });
+            //this.toastQueueService.showToast(errorText, 'error', 0);
         }
     }
 
@@ -43,11 +51,15 @@ export class EditorPageComponent implements OnInit {
         this.editorOptions = { ...this.editorOptions, language: this.syntaxHighlightLanguage };
     }
 
-    calculatedHeight(): number {
-        return 100 / this.height * window.innerHeight;
-    }
-
     ngOnInit(): void {
+        this.consoleSubscription = this.runtimeServiceService.consoleSubjectValue$.subscribe((value) => {
+            this.consoleList = value;
+            this.consoleList = TestMessages;
+        });
+        this.outputSubscription = this.runtimeServiceService.outputSubjectValue$.subscribe((value) => {
+            this.outputList = value;
+            this.outputList = TestMessages;
+        });
     }
 
     log() {
