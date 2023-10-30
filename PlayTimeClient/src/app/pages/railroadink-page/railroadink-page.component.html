@@ -23,8 +23,8 @@
 <div id="diceBox">
     <div class="diceDiv" *ngFor="let dice of activeDice">
         <img src="{{dice['image']}}" alt="RoadSplit" class="dice rotated{{dice.rotation}}">
-        <button id="diceDeleteButton1" (click)="deleteDice(1)">Delete
+        <button id="diceDeleteButton1" (click)="deleteDice(dice.id)">Delete
             Dice</button>
-        <button id="diceRollId1" (click)="rollDice(1)">Roll Dice</button>
+        <button id="diceRollId1" (click)="rollDice(dice.id)">Roll Dice</button>
     </div>
 </div>

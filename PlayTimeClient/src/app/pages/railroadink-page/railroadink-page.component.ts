@@ -6,6 +6,7 @@ export interface Dice {
     diceId: number;
     image: string;
     rotation: number;
+    id: number;
 }
 
 export interface DiceInfo {
@@ -147,7 +148,8 @@ export class RailroadinkPageComponent implements OnInit {
             "diceType": name,
             "diceId": this.diceId,
             "image": "",
-            "rotation": 0
+            "rotation": 0,
+            "id": this.diceId
         }
         this.diceId += 1;
         this.activeDice.push(json)
