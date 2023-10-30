@@ -17,9 +17,9 @@ export class AppComponent implements OnInit {
 
     }
     ngOnInit(): void {
-        this.showToast('Hello World!', 'info', 0);
-        this.showToast('Hello World!', 'warning', 0);
-        this.showToast('Hello World!', 'error', 0);
+        this.toastQueueService.showToast('Hello World!', 'info', 0);
+        this.toastQueueService.showToast('Hello World!', 'warning', 0);
+        this.toastQueueService.showToast('Hello World!', 'error', 0);
         this.editorSubscription = this.editorServiceService.currentValue$.subscribe((value) => {
             this.showEditor = value;
         });
@@ -27,7 +27,5 @@ export class AppComponent implements OnInit {
 
     }
 
-    showToast(toastMessage: string = 'Default Toast: "Hello World!"', type: string = 'info', timeModifier: number = 0) {
-        this.toastQueueService.enqueueToast(toastMessage, type, timeModifier);
-    }
+
 }

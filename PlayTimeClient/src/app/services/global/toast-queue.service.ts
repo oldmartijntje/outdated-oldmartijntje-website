@@ -53,4 +53,8 @@ export class ToastQueueService {
         }
     }
 
+    showToast(toastMessage: string = 'Default Toast: "Hello World!"', type: string = 'info', timeModifier: number = 0) {
+        this.enqueueToast(toastMessage, type, timeModifier);
+    }
+
 }

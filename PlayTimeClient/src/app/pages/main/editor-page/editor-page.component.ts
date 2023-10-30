@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
+import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
 
 @Component({
     selector: 'app-editor-page',
@@ -14,16 +15,32 @@ export class EditorPageComponent implements OnInit {
         autoIndent: 'full',
         automaticLayout: true
     };
-    code = 'function x() { }\nvar aa = 12;\nfunction hwnn() {\nconsole.log("aaaa")\n}\n<a></a>\n<h1></h1>\nhenk = "sss"\nprint(f"{henk}")\na = input()\n\nfor x in range(2):\n    pass\n    # owo\n    // owo\n\n<?php\n// The next line contains a syntax error:\nif () {\n	return "The parser recovers from this type of syntax error";\n}\n?>\n\n#codeContent {\n    flex-grow: 1;\n    padding: 10px;\n}\n'
+    code = 'function x() {\nconsole.log("Hello world!");\n}'
     height = 80;
+    syntaxHighlightLanguage = 'javascript';
     language = 'javascript';
 
-    dragEndHorizontal({ sizes }: any) {
-        console.log(sizes);
+    constructor(private toastQueueService: ToastQueueService) { }
+
+    sendCodeToRunner() {
+        if (this.language == 'javascript') {
+            this.runJavaScript();
+        }
     }
 
-    languageChanged() {
-        this.editorOptions = { ...this.editorOptions, language: this.language };
+    runJavaScript() {
+        var code = "try {\n" + this.code + "\n} catch (error) {\nthis.toastQueueService.showToast( `${error}`, 'error', 0);\nconsole.error(error);\n}";
+        try {
+            eval(code);
+        } catch (error) {
+            console.error(error);
+            var errorText = `${error}`;
+            this.toastQueueService.showToast(errorText, 'error', 0);
+        }
+    }
+
+    syntaxHighlightLanguageChanged() {
+        this.editorOptions = { ...this.editorOptions, language: this.syntaxHighlightLanguage };
     }
 
     calculatedHeight(): number {
@@ -52,11 +69,4 @@ export class EditorPageComponent implements OnInit {
         });
     }
 
-    getCode() {
-        return (
-            // tslint:disable-next-line: max-line-length
-            '<html><!-- // !!! Tokens can be inspected using F1 > Developer: Inspect Tokens !!! -->\n<head>\n	<!-- HTML comment -->\n	<style type="text/css">\n		/* CSS comment */\n	</style>\n	<script type="javascript">\n		// JavaScript comment\n	</' +
-            'script>\n</head>\n<body></body>\n</html>'
-        );
-    }
 }

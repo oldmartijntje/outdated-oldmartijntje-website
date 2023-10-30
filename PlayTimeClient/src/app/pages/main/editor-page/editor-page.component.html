@@ -1,10 +1,10 @@
 <div style="width: 100vw; height: 100vh;">
-    <as-split direction="vertical" (dragEnd)="dragEndHorizontal($event)">
+    <as-split direction="vertical">
         <as-split-area [size]="80" minSize="20" maxSize="90">
             <as-split direction="horizontal" gutterSize="15">
                 <as-split-area [size]="5" minSize="0" maxSize="25">
                     <p>Sidebar</p>
-                    <input type="text" [(ngModel)]="language" (input)="languageChanged()">
+                    <input type="text" [(ngModel)]="syntaxHighlightLanguage" (input)="syntaxHighlightLanguageChanged()">
                     <button (click)="log()">Log CodeString</button>
                 </as-split-area>
                 <as-split-area [size]="70" class="greyShade">
@@ -33,8 +33,19 @@
                 <as-split-area [size]="40">
                     <p>Console</p>
                 </as-split-area>
+                <as-split-area [size]="40">
+                    <p>Output</p>
+                </as-split-area>
                 <as-split-area [size]="60" minSize="10" maxSize="100">
-                    <p>Debug</p>
+                    <!-- <p>Run</p> -->
+                    <mat-form-field>
+                        <mat-label>Select an option</mat-label>
+                        <mat-select [(ngModel)]="language">
+                            <mat-option value="javascript">Javascript</mat-option>
+                            <mat-option value="2">My own language</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="sendCodeToRunner()">Run Code</button>
                 </as-split-area>
             </as-split>
         </as-split-area>

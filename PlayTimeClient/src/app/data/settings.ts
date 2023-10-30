@@ -1,5 +1,6 @@
 export const EditorSettings: any = {
     "EditorPathing": [
-        "Railroad"
+        "Railroad",
+        "404"
     ]
 }
