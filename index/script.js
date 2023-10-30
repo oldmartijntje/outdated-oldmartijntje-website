@@ -1,6 +1,3 @@
-// Define a context to store variables
-const context = {};
-
 function runFunction(command, arguments) {
     const functions = {
         print: (args) => {
@@ -21,38 +18,14 @@ function runFunction(command, arguments) {
     }
 }
 
-function interpretCommand(commands, context) {
-    const cleanedCommands = commands.replace(/\s+/g, '');
+function interpretCommand(commands) {
+    // Split the input into individual commands based on newlines.
+    const commandList = commands.split('\n');
 
-    const stack = [];
-    let currentCommand = '';
-    let i = 0;
-
-    while (i < cleanedCommands.length) {
-        const char = cleanedCommands[i];
-
-        if (char === '{') {
-            stack.push(currentCommand);
-            currentCommand = '';
-            i++;
-        } else if (char === '}') {
-            const block = currentCommand;
-            currentCommand = stack.pop();
-            i++;
-
-            // Execute the block as a separate set of commands, passing the current context.
-            interpretCommand(block, context);
-        } else if (char === ';' || char === '\n') {
-            i++;
-        } else {
-            currentCommand += char;
-            i++;
-        }
-    }
-
-    if (currentCommand) {
+    for (const command of commandList) {
+        // Use a regular expression to match the command pattern.
         const pattern = /^([a-zA-Z]+)\(([^)]*)\)$/; // Matches "command(value1, value2, ...)"
-        const match = currentCommand.match(pattern);
+        const match = command.match(pattern);
 
         if (match) {
             const commandName = match[1];
@@ -61,29 +34,13 @@ function interpretCommand(commands, context) {
             // Split the values string into individual values.
             const values = valuesString.split(',').map(value => value.trim());
 
-            // Handle the 'loop' command.
-            if (commandName === 'loop') {
-                if (values.length !== 2) {
-                    console.log("Invalid 'loop' command: " + currentCommand);
-                } else {
-                    const iterations = parseInt(values[0], 10);
-                    const loopVar = values[1];
-
-                    for (let i = 0; i < iterations; i++) {
-                        context[loopVar] = i;
-                        interpretCommand(valuesString, context);
-                    }
-                }
-            } else {
-                // Run other commands using runFunction.
-                runFunction(commandName, values);
-            }
+            // Run the associated function using runFunction.
+            runFunction(commandName, values);
         } else {
-            console.log("Invalid command format: " + currentCommand);
+            console.log("Invalid command format: " + command);
         }
     }
 }
-
 
 // Example usage:
 interpretCommand("print()"); // Command: print, Value: null
@@ -99,10 +56,10 @@ interpretCommand("setValues(1, 2, 3, 4)");
 
 interpretCommand("nonExistentCommand()");
 // Output: Command not found: nonExistentCommand
-console.log("--------------------");
+console.log("--------------------")
 interpretCommand(`
     loop(5, 'i') {
         print('Iteration: ' + i);
         setValues(i, 2, 3);
     }
-`, context);
+`);
