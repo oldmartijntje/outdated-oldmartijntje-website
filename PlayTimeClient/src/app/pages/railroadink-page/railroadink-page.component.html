@@ -10,15 +10,15 @@
 
 </div>
 <div>
-    <button (click)="addSet(0)">Add Blue/Red default set</button>
-    <button (click)="addSet(1)">Add Yellow/Green default set</button>
-    <button (click)="addSet(2)">Add Dessert expansion set</button>
-    <button (click)="addSet(3)">Add Cliff expansion set</button>
-    <button (click)="addSet(4)">Add River expansion set</button>
-    <button (click)="addSet(5)">Add Lake expansion set</button>
-    <button (click)="addSet(6)">Add Hiking paths expansion set</button>
-    <button (click)="addSet(7)">Add Forrest expansion set</button>
-    <button class="niceButton" (click)="rollAllDice()">Roll Dice</button>
+    <button class="headerButton" (click)="addSet(0)">Add Blue/Red default set</button>
+    <button class="headerButton" (click)="addSet(1)">Add Yellow/Green default set</button>
+    <button class="headerButton" (click)="addSet(2)">Add Dessert expansion set</button>
+    <button class="headerButton" (click)="addSet(3)">Add Cliff expansion set</button>
+    <button class="headerButton" (click)="addSet(4)">Add River expansion set</button>
+    <button class="headerButton" (click)="addSet(5)">Add Lake expansion set</button>
+    <button class="headerButton" (click)="addSet(6)">Add Hiking paths expansion set</button>
+    <button class="headerButton" (click)="addSet(7)">Add Forrest expansion set</button>
+    <button class="headerButton niceButton" (click)="rollAllDice()">Roll Dice</button>
 </div>
 <div id="diceBox">
     <div class="diceDiv" *ngFor="let dice of activeDice">
