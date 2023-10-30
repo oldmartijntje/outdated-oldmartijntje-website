@@ -36,8 +36,25 @@ function interpretAndExecuteCode(code) {
             // Trim spaces that are not within quotes.
             valuesString = valuesString.replace(/\s+(?=(?:(?:[^"]*"){2})*[^"]*$)/g, '');
 
-            const values = valuesString.split(',').map(value => value.trim());
-            commandsToExecute.push({ command: commandName, arguments: values });
+            const values = valuesString.split(',').map(value => {
+                // Remove single or double quotes around string values.
+                if (value.startsWith("'") && value.endsWith("'")) {
+                    return value.slice(1, -1);
+                } else if (value.startsWith('"') && value.endsWith('"')) {
+                    return value.slice(1, -1);
+                }
+                return value;
+            });
+
+            // Convert values to integers if they are numeric.
+            const numericValues = values.map(value => {
+                if (!isNaN(value)) {
+                    return parseInt(value, 10);
+                }
+                return value;
+            });
+
+            commandsToExecute.push({ command: commandName, arguments: numericValues });
         } else if (trimmedCommand == "") {
             // Ignore empty lines.
         } else {
