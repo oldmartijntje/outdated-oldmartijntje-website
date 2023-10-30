@@ -22,47 +22,68 @@ function interpretAndExecuteCode(code) {
     const commandList = code.split('\n');
     const commandsToExecute = [];
 
+    const loopStack = [];
+
     for (const command of commandList) {
-        // Trim leading and trailing spaces on each line.
         const trimmedCommand = command.trim();
 
-        const pattern = /^([a-zA-Z]+)\(([^]*)\)$/; // Matches "command(value1, value2, ...)"
-        const match = trimmedCommand.match(pattern);
-
-        if (match) {
-            const commandName = match[1];
-            let valuesString = match[2];
-
-            // Trim spaces that are not within quotes.
-            valuesString = valuesString.replace(/\s+(?=(?:(?:[^"]*"){2})*[^"]*$)/g, '');
-
-            const values = valuesString.split(',').map(value => {
-                // Remove single or double quotes around string values.
-                if (value.startsWith("'") && value.endsWith("'")) {
-                    return value.slice(1, -1);
-                } else if (value.startsWith('"') && value.endsWith('"')) {
-                    return value.slice(1, -1);
+        if (trimmedCommand.startsWith("for(") && trimmedCommand.endsWith(") {")) {
+            const iterations = parseInt(trimmedCommand.match(/\d+/)[0], 10);
+            loopStack.push({ iterations, commands: [] });
+        } else if (trimmedCommand === "}") {
+            const loop = loopStack.pop();
+            if (loop) {
+                for (let i = 0; i < loop.iterations; i++) {
+                    for (const loopCommand of loop.commands) {
+                        interpretAndExecuteCode(loopCommand);
+                    }
                 }
-                return value;
-            });
-
-            // Convert values to integers if they are numeric.
-            const numericValues = values.map(value => {
-                if (!isNaN(value)) {
-                    return parseInt(value, 10);
-                }
-                return value;
-            });
-
-            commandsToExecute.push({ command: commandName, arguments: numericValues });
+            } else {
+                console.error("Unmatched '}' in code.");
+            }
+        } else if (loopStack.length > 0) {
+            loopStack[loopStack.length - 1].commands.push(trimmedCommand);
         } else if (trimmedCommand == "") {
             // Ignore empty lines.
         } else {
-            console.error("Invalid command format: " + trimmedCommand);
+            // Execute individual commands.
+            const pattern = /^([a-zA-Z]+)\(([^]*)\)$/; // Matches "command(value1, value2, ...)"
+            const match = trimmedCommand.match(pattern);
+
+            if (match) {
+                const commandName = match[1];
+                let valuesString = match[2];
+
+                valuesString = valuesString.replace(/\s+(?=(?:(?:[^"]*"){2})*[^"]*$)/g, '');
+
+                const values = valuesString.split(',').map(value => {
+                    if (value.startsWith("'") && value.endsWith("'")) {
+                        return value.slice(1, -1);
+                    } else if (value.startsWith('"') && value.endsWith('"')) {
+                        return value.slice(1, -1);
+                    }
+                    return value;
+                });
+
+                const numericValues = values.map(value => {
+                    if (!isNaN(value)) {
+                        return parseInt(value, 10);
+                    }
+                    return value;
+                });
+
+                commandsToExecute.push({ command: commandName, arguments: numericValues });
+            } else {
+                console.error("Invalid command format: " + trimmedCommand);
+            }
         }
     }
 
-    // Execute all accumulated commands.
+    if (loopStack.length > 0) {
+        console.error("Unmatched 'for' loop in code.");
+    }
+
+    // Execute the commands.
     for (const cmd of commandsToExecute) {
         runFunction(cmd.command, cmd.arguments);
     }
@@ -70,9 +91,14 @@ function interpretAndExecuteCode(code) {
 
 // Example usage:
 const code = `
-    print('ss', '123abc')
-    setValues(1, 2, 3, 4)
-    anotherCommand('value with spaces', 'noSpaces')
+    for(5) {
+        print('henk', '123abc')
+        for(3) {
+            print('ss', '123abc')
+            setValues(1, 2, 3, 4)
+        }
+    }
+    
 `;
 
 interpretAndExecuteCode(code);
