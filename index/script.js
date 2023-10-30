@@ -18,48 +18,44 @@ function runFunction(command, arguments) {
     }
 }
 
-function interpretCommand(commands) {
-    // Split the input into individual commands based on newlines.
-    const commandList = commands.split('\n');
+function interpretAndExecuteCode(code) {
+    const commandList = code.split('\n');
+    const commandsToExecute = [];
 
     for (const command of commandList) {
-        // Use a regular expression to match the command pattern.
-        const pattern = /^([a-zA-Z]+)\(([^)]*)\)$/; // Matches "command(value1, value2, ...)"
-        const match = command.match(pattern);
+        // Trim leading and trailing spaces on each line.
+        const trimmedCommand = command.trim();
+
+        const pattern = /^([a-zA-Z]+)\(([^]*)\)$/; // Matches "command(value1, value2, ...)"
+        const match = trimmedCommand.match(pattern);
 
         if (match) {
             const commandName = match[1];
-            const valuesString = match[2];
+            let valuesString = match[2];
 
-            // Split the values string into individual values.
+            // Trim spaces that are not within quotes.
+            valuesString = valuesString.replace(/\s+(?=(?:(?:[^"]*"){2})*[^"]*$)/g, '');
+
             const values = valuesString.split(',').map(value => value.trim());
-
-            // Run the associated function using runFunction.
-            runFunction(commandName, values);
+            commandsToExecute.push({ command: commandName, arguments: values });
+        } else if (trimmedCommand == "") {
+            // Ignore empty lines.
         } else {
-            console.log("Invalid command format: " + command);
+            console.error("Invalid command format: " + trimmedCommand);
         }
+    }
+
+    // Execute all accumulated commands.
+    for (const cmd of commandsToExecute) {
+        runFunction(cmd.command, cmd.arguments);
     }
 }
 
 // Example usage:
-interpretCommand("print()"); // Command: print, Value: null
-interpretCommand("print('ss', '123abc')"); // Command: print, Value: 'ss', '123abc'
-interpretCommand("setVariable(42)"); // Command: setVariable, Value: 42
-interpretCommand("invalidCommand"); // Invalid command format: invalidCommand
-interpretCommand("print()\nsetValues(42)"); // Command: print, Value: null (and) Setting values: 42
-interpretCommand("print('ss', '123abc')");
-// Output: Printing: 'ss', '123abc'
+const code = `
+    print('ss', '123abc')
+    setValues(1, 2, 3, 4)
+    anotherCommand('value with spaces', 'noSpaces')
+`;
 
-interpretCommand("setValues(1, 2, 3, 4)");
-// Output: Setting values: 1, 2, 3, 4
-
-interpretCommand("nonExistentCommand()");
-// Output: Command not found: nonExistentCommand
-console.log("--------------------")
-interpretCommand(`
-    loop(5, 'i') {
-        print('Iteration: ' + i);
-        setValues(i, 2, 3);
-    }
-`);
+interpretAndExecuteCode(code);
