@@ -1,1 +1,30 @@
-<p>railroadink-page works!</p>
+<header>
+    <label>
+        Size:
+        <input type="number" name="width" value="7" />
+        X
+        <input type="number" name="height" value="7" />
+    </label>
+</header>
+<div>
+
+</div>
+<div>
+    <button (click)="addSet(0)">Add Blue/Red default set</button>
+    <button (click)="addSet(1)">Add Yellow/Green default set</button>
+    <button (click)="addSet(2)">Add Dessert expansion set</button>
+    <button (click)="addSet(3)">Add Cliff expansion set</button>
+    <button (click)="addSet(4)">Add River expansion set</button>
+    <button (click)="addSet(5)">Add Lake expansion set</button>
+    <button (click)="addSet(6)">Add Hiking paths expansion set</button>
+    <button (click)="addSet(7)">Add Forrest expansion set</button>
+    <button class="niceButton" (click)="rollAllDice()">Roll Dice</button>
+</div>
+<div id="diceBox">
+    <div class="diceDiv" *ngFor="let dice of activeDice">
+        <img src="{{dice['image']}}" alt="RoadSplit" class="dice rotated{{dice.rotation}}">
+        <button id="diceDeleteButton1" (click)="deleteDice(1)">Delete
+            Dice</button>
+        <button id="diceRollId1" (click)="rollDice(1)">Roll Dice</button>
+    </div>
+</div>
