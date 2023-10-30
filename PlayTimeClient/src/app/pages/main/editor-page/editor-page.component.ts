@@ -4,6 +4,7 @@ import { RuntimeServiceService } from 'src/app/services/global/runtime-service.s
 import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
 import { Message, TestMessages } from 'src/app/models/message.interface';
 import { DatePipe } from '@angular/common';
+import { EditorServiceService } from 'src/app/services/global/editor-service.service';
 
 @Component({
     selector: 'app-editor-page',
@@ -23,12 +24,15 @@ export class EditorPageComponent implements OnInit {
     language = 'javascript';
     consoleSubscription: any;
     outputSubscription: any;
+    sandBoxModeSubscription: any;
     consoleList: Message[] = TestMessages;
     outputList: Message[] = TestMessages;
     consoleWindowInput = '';
+    sandBoxMode = false;
 
     constructor(private toastQueueService: ToastQueueService,
         private runtimeServiceService: RuntimeServiceService,
+        private editorServiceService: EditorServiceService,
         private datePipe: DatePipe) { }
 
     sendCodeToRunner(input: string = '') {
@@ -68,6 +72,21 @@ export class EditorPageComponent implements OnInit {
             this.outputList = [...value].reverse();
             // this.outputList = TestMessages;
         });
+        this.sandBoxModeSubscription = this.editorServiceService.sandboxValue$.subscribe((value) => {
+            this.sandBoxMode = value;
+            console.log(value)
+            if (value == true) {
+                this.language = 'MarjinScript';
+            }
+        });
+    }
+
+    saveCode() {
+        localStorage.setItem('code', this.code);
+    }
+
+    loadCode() {
+        this.code = localStorage.getItem('code') || '';
     }
 
     onKeyDown(event: KeyboardEvent) {

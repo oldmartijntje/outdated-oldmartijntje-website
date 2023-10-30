@@ -1,11 +1,14 @@
 <div style="width: 100vw; height: 100vh;">
     <as-split direction="vertical">
-        <as-split-area [size]="70" minSize="20" maxSize="90">
+        <as-split-area [size]="70" minSize="10">
             <as-split direction="horizontal" gutterSize="15">
                 <as-split-area [size]="5" minSize="0" maxSize="25">
                     <p>Sidebar</p>
-                    <input type="text" [(ngModel)]="syntaxHighlightLanguage" (input)="syntaxHighlightLanguageChanged()">
-                    <button (click)="logCode()">Log CodeString</button>
+                    <input *ngIf="!sandBoxMode" type="text" [(ngModel)]="syntaxHighlightLanguage"
+                        (input)="syntaxHighlightLanguageChanged()">
+                    <button *ngIf="!sandBoxMode" (click)="logCode()">Log CodeString</button>
+                    <button *ngIf="!sandBoxMode" (click)="loadCode()">Load from Localstorage</button>
+                    <button *ngIf="!sandBoxMode" (click)="saveCode()">Save to Localstorage</button>
                 </as-split-area>
                 <as-split-area [size]="70" class="greyShade">
                     <!-- <p>Editor</p> -->
@@ -14,9 +17,9 @@
                             (init)="editorInit($event)"></ngx-monaco-editor>
                     </div>
                 </as-split-area>
-                <as-split-area [size]="25" minSize="10" maxSize="50">
+                <as-split-area [size]="25" minSize="10">
                     <as-split direction="vertical">
-                        <as-split-area [size]="40" minSize="10" maxSize="90">
+                        <as-split-area [size]="40">
                             <p>Help</p>
                         </as-split-area>
                         <as-split-area [size]="60">
@@ -54,13 +57,13 @@
                         </div>
                     </div>
                 </as-split-area>
-                <as-split-area [size]="30" minSize="10" maxSize="100">
+                <as-split-area [size]="30" minSize="10">
                     <!-- <p>Run</p> -->
                     <mat-form-field>
-                        <mat-label>Select an option</mat-label>
-                        <mat-select [(ngModel)]="language">
+                        <mat-label>Language Mode</mat-label>
+                        <mat-select [(ngModel)]="language" disabled="{{sandBoxMode}}">
                             <mat-option value="javascript">Javascript</mat-option>
-                            <mat-option value="2">My own language</mat-option>
+                            <mat-option value="MarjinScript">MarjinScript</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <button mat-raised-button color="primary" (click)="sendCodeToRunner()">Run Code</button>

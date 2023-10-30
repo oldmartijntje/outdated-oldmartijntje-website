@@ -10,9 +10,11 @@ export class EditorServiceService {
     private booleanSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private allowEditor = false;
     private lastEditorParams: boolean = false;
+    private sandboxSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     // Create an observable for subscribers
     currentValue$: Observable<boolean> = this.booleanSubject.asObservable();
+    sandboxValue$: Observable<boolean> = this.sandboxSubject.asObservable();
 
     constructor(private route: ActivatedRoute, private router: Router) {
 
@@ -38,6 +40,11 @@ export class EditorServiceService {
                 this.setEditor(false);
                 this.lastEditorParams = false;
             }
+            if (params['Sandbox'] !== undefined && (params['Sandbox'] == "true" || params['Sandbox'] == "True")) {
+                this.setSandbox(true);
+            } else {
+                this.setSandbox(false);
+            }
         });
     }
 
@@ -53,5 +60,9 @@ export class EditorServiceService {
         } else if (this.lastEditorParams) {
             this.setEditor(true);
         }
+    }
+
+    setSandbox(value: boolean) {
+        this.sandboxSubject.next(value);
     }
 }
