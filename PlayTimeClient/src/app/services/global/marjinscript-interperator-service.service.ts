@@ -64,14 +64,25 @@ export class MarjinscriptInterperatorServiceService {
 
     }
 
-    runFunction(command: string, args: any[], mode: number = 0): void {
+    runFunction(command: string, args: any[], line: number, mode: number = 0): void {
 
         const commandFunction = this.functions[command];
 
         if (typeof commandFunction === 'function') {
             commandFunction(args, mode);
         } else {
-            this.sendErrorToConsole("Command not found: " + command, mode);
+            this.sendErrorToConsole("Line " + line + ": Command not found: " + command, mode);
+        }
+    }
+
+    checkFunction(command: string, line: number, mode: number = 0): void {
+
+        const commandFunction = this.functions[command];
+
+        if (typeof commandFunction === 'function') {
+            // Do nothing
+        } else {
+            this.sendErrorToConsole("Line " + line + ": Command not found: " + command, mode);
         }
     }
 
@@ -79,7 +90,7 @@ export class MarjinscriptInterperatorServiceService {
         // mode 0 is normal mode
         // mode 1 is check mode and return errors
         const commandList = code.split('\n');
-        const commandsToExecute: { command: string; arguments: any[] }[] = [];
+        const commandsToExecute: { command: string; arguments: any[], line: number }[] = [];
         var indentLevel = 0;
         var commandLine = []
         for (var i = 0; i < commandList.length + 1; i++) {
@@ -165,7 +176,7 @@ export class MarjinscriptInterperatorServiceService {
                         }
                         return value;
                     });
-                    commandsToExecute.push({ command: commandName as string, arguments: numericValues });
+                    commandsToExecute.push({ command: commandName as string, arguments: numericValues, line: commandLine[0] });
                 } else {
                     this.sendErrorToConsole("Line " + commandLine[0] + ": Invalid command format: '" + trimmedCommand + "'", mode);
                 }
@@ -179,10 +190,13 @@ export class MarjinscriptInterperatorServiceService {
         // Execute the commands.
         if (mode == 1) {
             this.runtimeServiceService.flushProblemsSubject();
+            for (const cmd of commandsToExecute) {
+                this.checkFunction(cmd.command, cmd.line, mode);
+            }
             return;
         }
         for (const cmd of commandsToExecute) {
-            this.runFunction(cmd.command, cmd.arguments, mode);
+            this.runFunction(cmd.command, cmd.arguments, cmd.line, mode);
         }
     }
 }
