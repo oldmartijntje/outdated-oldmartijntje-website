@@ -8,6 +8,7 @@ import { EditorServiceService } from 'src/app/services/global/editor-service.ser
 import { MarjinscriptInterperatorServiceService } from 'src/app/services/global/marjinscript-interperator-service.service';
 import { PageCode } from 'src/app/data/settings';
 import { NavigationEnd, Router } from '@angular/router';
+import { defaultPageVariables } from 'src/app/data/pageVariables';
 
 @Component({
     selector: 'app-editor-page',
@@ -35,6 +36,7 @@ export class EditorPageComponent implements OnInit {
     problemList: Message[] = TestMessages;
     consoleWindowInput = '';
     sandBoxMode = false;
+    runDefaultPageButton = false;
 
     constructor(private toastQueueService: ToastQueueService,
         private runtimeServiceService: RuntimeServiceService,
@@ -82,6 +84,10 @@ export class EditorPageComponent implements OnInit {
         }
     }
 
+    runDefaultPage() {
+        this.runtimeServiceService.setPageVariablesToEmpty();
+    }
+
     syntaxHighlightLanguageChanged() {
         this.editorOptions = { ...this.editorOptions, language: this.syntaxHighlightLanguage };
     }
@@ -117,6 +123,11 @@ export class EditorPageComponent implements OnInit {
                 this.code = PageCode[currentPathWithoutQueryParams][this.language];
             }
             this.checkCode();
+            if (currentPathWithoutQueryParams in defaultPageVariables) {
+                this.runDefaultPageButton = true;
+            } else {
+                this.runDefaultPageButton = false;
+            }
         });
     }
 

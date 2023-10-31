@@ -99,7 +99,11 @@
                             <mat-option value="MarjinScript">MarjinScript</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <button mat-raised-button color="primary" (click)="sendCodeToRunner()">Run Code</button>
+                    <button mat-raised-button color="primary" class="marginLeftBottom" (click)="sendCodeToRunner()">Run
+                        Code</button>
+                    <button *ngIf="runDefaultPageButton" mat-raised-button color="primary" class="marginLeftBottom">Run
+                        Default
+                        Code</button>
                 </as-split-area>
             </as-split>
         </as-split-area>
