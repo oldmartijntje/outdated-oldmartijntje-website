@@ -22,7 +22,7 @@ export class EditorPageComponent implements OnInit {
         autoIndent: 'full',
         automaticLayout: true
     };
-    code = "for(5){\n    print('henk', 'loop1')\n}\nprint('henk', 'noloop1')\nprint('henk', 'noloop2')\nfor(3) {\n    print('ss', 'loop2')\n    setValues(1, 2, 3, 4)\n    for(3) {\n        print('ss', 'loop2 subloop')\n        setValues(1, 2, 3, 4)\n    }\n}\n'123abc'\n6\n//cheeseI\nnoCommand(1)\n"
+    code = "";
     lastCheckedCode = '';
     syntaxHighlightLanguage = 'javascript';
     language = 'MarjinScript';
@@ -116,7 +116,7 @@ export class EditorPageComponent implements OnInit {
             if (currentPathWithoutQueryParams in PageCode) {
                 this.code = PageCode[currentPathWithoutQueryParams][this.language];
             }
-
+            this.checkCode();
         });
     }
 
