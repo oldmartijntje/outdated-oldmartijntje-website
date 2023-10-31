@@ -61,9 +61,11 @@
                     <p>Problems</p>
                     <div class="OutputField">
                         <div *ngFor="let message of problemList" class="OutputField-Text">
-                            <p *ngIf="message.type == 'error'" class="errorMessage">{{formatMessage(message)}}</p>
-                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{formatMessage(message)}}</p>
-                            <p *ngIf="message.type == 'info'" class="infoMessage">{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'error'" class="errorMessage">{{formatMessage(message, false)}}
+                            </p>
+                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{formatMessage(message,
+                                false)}}</p>
+                            <p *ngIf="message.type == 'info'" class="infoMessage">{{formatMessage(message, false)}}</p>
                         </div>
                     </div>
                 </as-split-area>

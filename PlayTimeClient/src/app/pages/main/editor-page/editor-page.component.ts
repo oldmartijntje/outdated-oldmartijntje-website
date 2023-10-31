@@ -148,9 +148,9 @@ export class EditorPageComponent implements OnInit {
         this.runtimeServiceService.addConsoleSubject({ message: value, type: 'error', from: 'Error', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS') });
     }
 
-    formatMessage(message: Message) {
-        if (message.datetimeTimestamp == undefined || message.datetimeTimestamp == null || message.datetimeTimestamp == '') {
-            if (message.from == undefined) {
+    formatMessage(message: Message, enableTimeAndFrom: boolean = true) {
+        if (enableTimeAndFrom == false || (message.datetimeTimestamp == undefined || message.datetimeTimestamp == null || message.datetimeTimestamp == '')) {
+            if (enableTimeAndFrom == false || message.from == undefined) {
                 return `${message.message}`;
             }
             return `${message.from}: ${message.message}`;

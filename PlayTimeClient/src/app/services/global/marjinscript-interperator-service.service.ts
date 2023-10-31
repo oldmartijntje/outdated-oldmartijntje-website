@@ -81,10 +81,14 @@ export class MarjinscriptInterperatorServiceService {
         const commandList = code.split('\n');
         const commandsToExecute: { command: string; arguments: any[] }[] = [];
         var indentLevel = 0;
-
+        var commandLine = []
+        for (var i = 0; i < commandList.length + 1; i++) {
+            commandLine.push(i);
+        }
         const loopStack: { iterations: number; commands: string[]; indentLevel: number }[] = [];
 
         while (commandList.length > 0) {
+            commandLine.shift();
             var command = commandList.shift();
             if (command == null) {
                 continue;
@@ -95,7 +99,7 @@ export class MarjinscriptInterperatorServiceService {
                 indentLevel++;
                 var amount = trimmedCommand.match(/\d+/);
                 if (amount == null) {
-                    this.sendErrorToConsole("Invalid for loop format: '" + trimmedCommand + "'", mode);
+                    this.sendErrorToConsole("Line " + commandLine[0] + ": Invalid for loop format: '" + trimmedCommand + "'", mode);
                     return;
                 }
                 const iterations = parseInt(amount[0], 10);
@@ -114,17 +118,18 @@ export class MarjinscriptInterperatorServiceService {
                             if (indentLevel > 1) {
                                 const indexToAddTo = loopStack.findIndex(loop => loop.indentLevel === indentLevel);
                                 if (indexToAddTo !== -1) {
-                                    loopStack[indexToAddTo].commands.unshift(loopCommand);;
+                                    loopStack[indexToAddTo].commands.unshift(loopCommand);
                                 }
                             } else {
                                 commandList.unshift(loopCommand);
+                                commandLine.unshift(commandLine[0])
                             }
                         }
                     }
                 } else {
-                    this.sendErrorToConsole("Unmatched '}' in code.", mode);
+                    this.sendErrorToConsole("Line " + commandLine[0] + ": Unmatched '}' in code.", mode);
                 }
-            } else if (indentLevel > 0) {
+            } else if (indentLevel > 0 && mode != 1) {
                 // Add the command to the current loop.
                 const index = loopStack.findIndex(loop => loop.indentLevel === indentLevel);
                 if (index !== -1) {
@@ -162,13 +167,13 @@ export class MarjinscriptInterperatorServiceService {
                     });
                     commandsToExecute.push({ command: commandName as string, arguments: numericValues });
                 } else {
-                    this.sendErrorToConsole("Invalid command format: '" + trimmedCommand + "'", mode);
+                    this.sendErrorToConsole("Line " + commandLine[0] + ": Invalid command format: '" + trimmedCommand + "'", mode);
                 }
             }
         }
 
         if (loopStack.length > 0) {
-            this.sendErrorToConsole("Unmatched 'for' loop in code.", mode);
+            this.sendErrorToConsole("Line " + commandLine[0] + ": Unmatched 'for' loop in code.", mode);
         }
 
         // Execute the commands.
