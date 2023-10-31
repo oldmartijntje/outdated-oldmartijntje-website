@@ -10,11 +10,14 @@ export class RuntimeServiceService {
     private outputSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private consoleSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private problemsSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
+    private pageVariablesSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({});
 
     outputSubjectValue$: Observable<Message[]> = this.outputSubject.asObservable();
+    pageVariables$: Observable<{ [key: string]: any }> = this.pageVariablesSubject.asObservable();
     problemsSubjectValue$: Observable<Message[]> = this.problemsSubject.asObservable();
     consoleSubjectValue$: Observable<Message[]> = this.consoleSubject.asObservable();
     setProblems: Message[] = [];
+    tempPageVariables: { [key: string]: any } = {};
 
     emptyProblemsSubject() {
         this.setProblems = [];
@@ -88,6 +91,35 @@ export class RuntimeServiceService {
         while (this.outputSubject.getValue().length > EditorSettings["MaxLines"]["Output"]) {
             this.removeFirstOutputSubject();
         }
+    }
+
+    setPageVariablesToEmpty() {
+        this.pageVariablesSubject.next({});
+        this.tempPageVariables = {};
+    }
+
+    setPageVariable(key: string, value: any) {
+        this.tempPageVariables[key] = value;
+    }
+
+    flushPageVariables() {
+        this.pageVariablesSubject.next(this.tempPageVariables);
+    }
+
+    resetTempPageVariables() {
+        this.tempPageVariables = {};
+    }
+
+    readPageVariable(key: string) {
+        return this.pageVariablesSubject.getValue()[key];
+    }
+
+    readPageVariables() {
+        return this.pageVariablesSubject.getValue();
+    }
+
+    readTempPageVariables() {
+        return this.tempPageVariables;
     }
 
 

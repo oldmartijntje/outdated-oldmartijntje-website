@@ -17,7 +17,6 @@ export class EditorServiceService {
     sandboxValue$: Observable<boolean> = this.sandboxSubject.asObservable();
 
     constructor(private route: ActivatedRoute, private router: Router) {
-
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 // This event is triggered when the navigation is complete

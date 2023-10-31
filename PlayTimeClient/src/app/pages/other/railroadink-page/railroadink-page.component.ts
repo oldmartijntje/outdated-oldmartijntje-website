@@ -20,6 +20,7 @@ export interface DiceInfo {
 })
 
 export class RailroadinkPageComponent implements OnInit {
+
     diceId = 1
 
     diceDict: { [key: string]: DiceInfo } = {
