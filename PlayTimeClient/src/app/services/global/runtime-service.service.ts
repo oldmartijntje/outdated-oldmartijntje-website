@@ -9,9 +9,16 @@ import { EditorSettings } from 'src/app/data/settings';
 export class RuntimeServiceService {
     private outputSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private consoleSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
+    private problemsSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
 
     outputSubjectValue$: Observable<Message[]> = this.outputSubject.asObservable();
+    problemsSubjectValue$: Observable<Message[]> = this.problemsSubject.asObservable();
     consoleSubjectValue$: Observable<Message[]> = this.consoleSubject.asObservable();
+    setProblems: Message[] = [];
+
+    emptyProblemsSubject() {
+        this.setProblems = [];
+    }
 
     setOutputSubject(value: Message[]) {
         this.outputSubject.next(value);
@@ -40,6 +47,16 @@ export class RuntimeServiceService {
         currentValue.push(value);
         this.outputSubject.next(currentValue);
         this.checkMaxLines();
+    }
+
+    addProblemsSubject(value: Message) {
+        var currentValue = this.problemsSubject.getValue();
+        this.setProblems.push(value);
+        this.problemsSubject.next(currentValue);
+    }
+
+    flushProblemsSubject() {
+        this.problemsSubject.next(this.setProblems);
     }
 
     addConsoleSubject(value: Message) {

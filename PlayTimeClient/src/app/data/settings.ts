@@ -4,7 +4,7 @@ export const EditorSettings: any = {
         "404"
     ],
     "MaxLines": {
-        "Cosnole": 20,
-        "Output": 20
+        "Cosnole": 50,
+        "Output": 50
     }
 }

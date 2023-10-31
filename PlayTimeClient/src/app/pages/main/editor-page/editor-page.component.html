@@ -14,7 +14,7 @@
                     <!-- <p>Editor</p> -->
                     <div class="code-editor">
                         <ngx-monaco-editor fxFlex [options]="editorOptions" [(ngModel)]="code" style="width: 100%;"
-                            (init)="editorInit($event)"></ngx-monaco-editor>
+                            (init)="editorInit($event)" (keyup)="checkCode()"></ngx-monaco-editor>
                     </div>
                 </as-split-area>
                 <as-split-area [size]="25" minSize="10">
@@ -32,7 +32,7 @@
         </as-split-area>
         <as-split-area [size]="30">
             <as-split direction="horizontal">
-                <as-split-area [size]="40" class="console-container">
+                <as-split-area [size]="30" class="console-container">
                     <p>Console</p>
                     <div class="ConsoleField">
                         <div *ngFor="let message of consoleList" class="OutputField-Text">
@@ -47,10 +47,20 @@
                     <input class="consoleInput" type="text" (keydown)="onKeyDown($event)"
                         [(ngModel)]="consoleWindowInput">
                 </as-split-area>
-                <as-split-area [size]="30">
+                <as-split-area [size]="20">
                     <p>Output</p>
                     <div class="OutputField">
                         <div *ngFor="let message of outputList" class="OutputField-Text">
+                            <p *ngIf="message.type == 'error'" class="errorMessage">{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'info'" class="infoMessage">{{formatMessage(message)}}</p>
+                        </div>
+                    </div>
+                </as-split-area>
+                <as-split-area [size]="20">
+                    <p>Problems</p>
+                    <div class="OutputField">
+                        <div *ngFor="let message of problemList" class="OutputField-Text">
                             <p *ngIf="message.type == 'error'" class="errorMessage">{{formatMessage(message)}}</p>
                             <p *ngIf="message.type == 'warning'" class="warningMessage">{{formatMessage(message)}}</p>
                             <p *ngIf="message.type == 'info'" class="infoMessage">{{formatMessage(message)}}</p>

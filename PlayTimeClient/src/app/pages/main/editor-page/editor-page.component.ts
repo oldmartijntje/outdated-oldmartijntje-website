@@ -5,6 +5,7 @@ import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
 import { Message, TestMessages } from 'src/app/models/message.interface';
 import { DatePipe } from '@angular/common';
 import { EditorServiceService } from 'src/app/services/global/editor-service.service';
+import { MarjinscriptInterperatorServiceService } from 'src/app/services/global/marjinscript-interperator-service.service';
 
 @Component({
     selector: 'app-editor-page',
@@ -19,26 +20,41 @@ export class EditorPageComponent implements OnInit {
         autoIndent: 'full',
         automaticLayout: true
     };
-    code = 'function x() {\nconsole.log("Hello world!");\n}\nx()\n'
+    code = "for(5){\n    print('henk', 'loop1')\n}\nprint('henk', 'noloop1')\nprint('henk', 'noloop2')\nfor(3) {\n    print('ss', 'loop2')\n    setValues(1, 2, 3, 4)\n    for(3) {\n        print('ss', 'loop2 subloop')\n        setValues(1, 2, 3, 4)\n    }\n}\n'123abc'\n6\n//cheeseI\nnoCommand(1)\n"
+    lastCheckedCode = '';
     syntaxHighlightLanguage = 'javascript';
-    language = 'javascript';
+    language = 'MarjinScript';
     consoleSubscription: any;
     outputSubscription: any;
+    problemsSubscription: any;
     sandBoxModeSubscription: any;
     consoleList: Message[] = TestMessages;
     outputList: Message[] = TestMessages;
+    problemList: Message[] = TestMessages;
     consoleWindowInput = '';
     sandBoxMode = false;
 
     constructor(private toastQueueService: ToastQueueService,
         private runtimeServiceService: RuntimeServiceService,
         private editorServiceService: EditorServiceService,
+        private marjinScriptInterperatorServiceService: MarjinscriptInterperatorServiceService,
         private datePipe: DatePipe) { }
 
-    sendCodeToRunner(input: string = '') {
+    sendCodeToRunner(input: string = '', mode: number = 0, from: string = 'EditorCode') {
         if (this.language == 'javascript') {
             this.runJavaScript(input);
+        } else if (this.language == 'MarjinScript' && (this.problemList.length == 0 || mode != 0)) {
+            this.runMarjinScript(input, mode, from);
+        } else if (this.language == 'MarjinScript') {
+            this.toastQueueService.showToast('Code has errors, please fix them first.', 'error', 0);
         }
+    }
+
+    runMarjinScript(input: string = '', mode: number = 0, from: string = 'EditorCode') {
+        if (input == '') {
+            input = this.code;
+        }
+        this.marjinScriptInterperatorServiceService.interpretAndExecuteCode(input, mode);
     }
 
     runJavaScript(input: string = '') {
@@ -62,14 +78,17 @@ export class EditorPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.checkCode();
         this.consoleSubscription = this.runtimeServiceService.consoleSubjectValue$.subscribe((value) => {
-            console.log([...value]);
             this.consoleList = [...value].reverse();
-            console.log([...this.consoleList]);
             // this.consoleList = TestMessages;
         });
         this.outputSubscription = this.runtimeServiceService.outputSubjectValue$.subscribe((value) => {
             this.outputList = [...value].reverse();
+            // this.outputList = TestMessages;
+        });
+        this.problemsSubscription = this.runtimeServiceService.problemsSubjectValue$.subscribe((value) => {
+            this.problemList = [...value].reverse();
             // this.outputList = TestMessages;
         });
         this.sandBoxModeSubscription = this.editorServiceService.sandboxValue$.subscribe((value) => {
@@ -91,9 +110,17 @@ export class EditorPageComponent implements OnInit {
 
     onKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter' && !event.shiftKey) {
-            this.runtimeServiceService.addConsoleSubject({ message: this.consoleWindowInput, type: 'info', from: 'Console' });
-            this.sendCodeToRunner(this.consoleWindowInput);
+            this.runtimeServiceService.addConsoleSubject({ message: this.consoleWindowInput, type: 'info', from: 'Console Input' });
+            this.sendCodeToRunner(this.consoleWindowInput, 2, 'Console');
             this.consoleWindowInput = '';
+        }
+    }
+
+    checkCode() {
+        if (this.language == 'MarjinScript' && this.lastCheckedCode != this.code) {
+            this.lastCheckedCode = this.code;
+            this.runtimeServiceService.emptyProblemsSubject();
+            this.sendCodeToRunner(this.code, 1);
         }
     }
 
