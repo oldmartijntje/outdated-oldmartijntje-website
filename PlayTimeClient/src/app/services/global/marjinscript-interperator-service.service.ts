@@ -7,11 +7,11 @@ import { Message } from 'src/app/models/message.interface';
     providedIn: 'root'
 })
 export class MarjinscriptInterperatorServiceService {
-    functions: Record<string, (args: any[], mode: number) => void> = {
-        print: (args, mode) => {
+    functions: Record<string, (args: any[], mode: number, line: number) => void> = {
+        print: (args, mode, line) => {
             this.sendLogToConsole('Printing: ' + args.join(', '), mode);
         },
-        setValues: (args, mode) => {
+        setValues: (args, mode, line) => {
             this.sendLogToConsole('Setting values: ' + args.join(', '), mode);
         },
         // Add more functions for other commands as needed.
@@ -34,6 +34,7 @@ export class MarjinscriptInterperatorServiceService {
             message: text,
             type: type,
             from: from,
+            amount: 1,
             datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS')
         }
         if (mode == 0) {
@@ -69,7 +70,7 @@ export class MarjinscriptInterperatorServiceService {
         const commandFunction = this.functions[command];
 
         if (typeof commandFunction === 'function') {
-            commandFunction(args, mode);
+            commandFunction(args, mode, line);
         } else {
             this.sendErrorToConsole("Line " + line + ": Command not found: " + command, mode);
         }

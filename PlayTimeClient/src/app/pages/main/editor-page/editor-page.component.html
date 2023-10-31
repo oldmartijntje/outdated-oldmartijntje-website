@@ -36,11 +36,17 @@
                     <p>Console</p>
                     <div class="ConsoleField">
                         <div *ngFor="let message of consoleList" class="OutputField-Text">
-                            <p *ngIf="message.type == 'error'" class="errorMessage">
+                            <p *ngIf="message.type == 'error'" class="errorMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>
                                 {{formatMessage(message)}}</p>
-                            <p *ngIf="message.type == 'warning'" class="warningMessage">
+                            <p *ngIf="message.type == 'warning'" class="warningMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>
                                 {{formatMessage(message)}}</p>
-                            <p *ngIf="message.type == 'info'" class="infoMessage">
+                            <p *ngIf="message.type == 'info'" class="infoMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>
                                 {{formatMessage(message)}}</p>
                         </div>
                     </div>
@@ -51,9 +57,15 @@
                     <p>Output</p>
                     <div class="OutputField">
                         <div *ngFor="let message of outputList" class="OutputField-Text">
-                            <p *ngIf="message.type == 'error'" class="errorMessage">{{formatMessage(message)}}</p>
-                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{formatMessage(message)}}</p>
-                            <p *ngIf="message.type == 'info'" class="infoMessage">{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'error'" class="errorMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'warning'" class="warningMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>{{formatMessage(message)}}</p>
+                            <p *ngIf="message.type == 'info'" class="infoMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>{{formatMessage(message)}}</p>
                         </div>
                     </div>
                 </as-split-area>
@@ -61,11 +73,19 @@
                     <p>Problems</p>
                     <div class="OutputField">
                         <div *ngFor="let message of problemList" class="OutputField-Text">
-                            <p *ngIf="message.type == 'error'" class="errorMessage">{{formatMessage(message, false)}}
+                            <p *ngIf="message.type == 'error'" class="errorMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>{{formatMessage(message,
+                                false)}}
                             </p>
-                            <p *ngIf="message.type == 'warning'" class="warningMessage">{{formatMessage(message,
+                            <p *ngIf="message.type == 'warning'" class="warningMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>{{formatMessage(message,
                                 false)}}</p>
-                            <p *ngIf="message.type == 'info'" class="infoMessage">{{formatMessage(message, false)}}</p>
+                            <p *ngIf="message.type == 'info'" class="infoMessage"><span class="amountOfMessages"
+                                    *ngIf="message.amount != undefined && message.amount > 1">{{message.amount}}x
+                                </span>{{formatMessage(message,
+                                false)}}</p>
                         </div>
                     </div>
                 </as-split-area>
@@ -73,7 +93,8 @@
                     <!-- <p>Run</p> -->
                     <mat-form-field>
                         <mat-label>Language Mode</mat-label>
-                        <mat-select [(ngModel)]="language" disabled="{{sandBoxMode}}">
+                        <mat-select [(ngModel)]="language" disabled="{{sandBoxMode}}"
+                            (valueChange)="setLanguage($event)">
                             <mat-option value="javascript">Javascript</mat-option>
                             <mat-option value="MarjinScript">MarjinScript</mat-option>
                         </mat-select>

@@ -6,6 +6,8 @@ import { Message, TestMessages } from 'src/app/models/message.interface';
 import { DatePipe } from '@angular/common';
 import { EditorServiceService } from 'src/app/services/global/editor-service.service';
 import { MarjinscriptInterperatorServiceService } from 'src/app/services/global/marjinscript-interperator-service.service';
+import { PageCode } from 'src/app/data/settings';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
     selector: 'app-editor-page',
@@ -38,7 +40,9 @@ export class EditorPageComponent implements OnInit {
         private runtimeServiceService: RuntimeServiceService,
         private editorServiceService: EditorServiceService,
         private marjinScriptInterperatorServiceService: MarjinscriptInterperatorServiceService,
-        private datePipe: DatePipe) { }
+        private datePipe: DatePipe,
+        private router: Router
+    ) { }
 
     sendCodeToRunner(input: string = '', mode: number = 0, from: string = 'EditorCode') {
         if (this.language == 'javascript') {
@@ -57,6 +61,11 @@ export class EditorPageComponent implements OnInit {
         this.marjinScriptInterperatorServiceService.interpretAndExecuteCode(input, mode);
     }
 
+    setLanguage(event: any) {
+        this.language = event;
+        localStorage.setItem('language', this.language);
+    }
+
     runJavaScript(input: string = '') {
         if (input == '') {
             input = this.code;
@@ -68,7 +77,7 @@ export class EditorPageComponent implements OnInit {
             console.error(error);
             var errorText = `${error}`;
             console.log("aaaaa")
-            this.runtimeServiceService.addConsoleSubject({ message: errorText, type: 'error', from: 'EditorCode' });
+            this.runtimeServiceService.addConsoleSubject({ message: errorText, type: 'error', from: 'EditorCode', amount: 1 });
             //this.toastQueueService.showToast(errorText, 'error', 0);
         }
     }
@@ -78,6 +87,9 @@ export class EditorPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (localStorage.getItem('language') != null) {
+            this.language = localStorage.getItem('language') || 'MarjinScript';
+        }
         this.checkCode();
         this.consoleSubscription = this.runtimeServiceService.consoleSubjectValue$.subscribe((value) => {
             this.consoleList = [...value].reverse();
@@ -93,10 +105,18 @@ export class EditorPageComponent implements OnInit {
         });
         this.sandBoxModeSubscription = this.editorServiceService.sandboxValue$.subscribe((value) => {
             this.sandBoxMode = value;
-            console.log(value)
             if (value == true) {
                 this.language = 'MarjinScript';
             }
+        });
+        this.router.events.subscribe(event => {
+            // This event is triggered when the navigation is complete
+            const currentUrl = this.router.url; // Get the full URL
+            const currentPathWithoutQueryParams = currentUrl.split('?')[0].substring(1); // Extract the path
+            if (currentPathWithoutQueryParams in PageCode) {
+                this.code = PageCode[currentPathWithoutQueryParams][this.language];
+            }
+
         });
     }
 
@@ -106,11 +126,12 @@ export class EditorPageComponent implements OnInit {
 
     loadCode() {
         this.code = localStorage.getItem('code') || '';
+        this.checkCode();
     }
 
     onKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter' && !event.shiftKey) {
-            this.runtimeServiceService.addConsoleSubject({ message: this.consoleWindowInput, type: 'info', from: 'Console Input' });
+            this.runtimeServiceService.addConsoleSubject({ message: this.consoleWindowInput, type: 'info', from: 'Console Input', amount: 1 });
             this.sendCodeToRunner(this.consoleWindowInput, 2, 'Console');
             this.consoleWindowInput = '';
         }
@@ -135,17 +156,17 @@ export class EditorPageComponent implements OnInit {
 
     log(value: string = "") {
         console.log(value);
-        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'info', from: 'Log', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS') });
+        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'info', from: 'Log', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS'), amount: 1 });
     }
 
     warn(value: string = "") {
         console.warn(value);
-        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'warning', from: 'Warn', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS') });
+        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'warning', from: 'Warn', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS'), amount: 1 });
     }
 
     error(value: string = "") {
         console.error(value);
-        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'error', from: 'Error', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS') });
+        this.runtimeServiceService.addConsoleSubject({ message: value, type: 'error', from: 'Error', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS'), amount: 1 });
     }
 
     formatMessage(message: Message, enableTimeAndFrom: boolean = true) {

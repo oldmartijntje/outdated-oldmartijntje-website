@@ -44,14 +44,14 @@ export class RuntimeServiceService {
 
     addOutputSubject(value: Message) {
         var currentValue = this.outputSubject.getValue();
-        currentValue.push(value);
+        currentValue = this.checkForCopyMessage(value, currentValue);
         this.outputSubject.next(currentValue);
         this.checkMaxLines();
     }
 
     addProblemsSubject(value: Message) {
         var currentValue = this.problemsSubject.getValue();
-        this.setProblems.push(value);
+        this.setProblems = this.checkForCopyMessage(value, this.setProblems);
         this.problemsSubject.next(currentValue);
     }
 
@@ -61,9 +61,24 @@ export class RuntimeServiceService {
 
     addConsoleSubject(value: Message) {
         var currentValue = this.consoleSubject.getValue();
-        currentValue.push(value);
+        currentValue = this.checkForCopyMessage(value, currentValue);
         this.consoleSubject.next(currentValue);
         this.checkMaxLines();
+    }
+
+    checkForCopyMessage(value: Message, whole: Message[]) {
+        const length = whole.length - 1;
+        if (whole.length == 0) {
+            whole.push(value);
+        } else if (whole[length].message == value.message && whole[length].type == value.type && whole[length].from == value.from) {
+            if (value.datetimeTimestamp != undefined) {
+                whole[length].datetimeTimestamp = value.datetimeTimestamp;
+            }
+            whole[length].amount++;
+        } else {
+            whole.push(value);
+        }
+        return whole;
     }
 
     checkMaxLines() {
