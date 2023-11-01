@@ -201,17 +201,12 @@ export class MarjinscriptInterperatorServiceService {
                     loopStack.push({ iterations, commands: [], indentLevel });
                 } else if (match && this.trimSpaces(match[1]) != "") {
                     const capturedText = match[1];
-                    console.log(capturedText)
-                    console.log(this.definedVariables, this.variables)
                     if (this.definedVariables.includes(capturedText)) {
-                        console.log(this.variables[capturedText])
                         var variableRetrieved = this.getVariableData(this.variables[capturedText]);
-                        console.log(variableRetrieved)
                         if (typeof variableRetrieved === 'string') {
                             variableRetrieved = parseInt(variableRetrieved);
                         }
                         const iterations = variableRetrieved;
-                        console.log(iterations)
                         loopStack.push({ iterations, commands: [], indentLevel });
                     } else {
                         this.sendErrorToConsole("Line " + commandLine[0] + ": Variable not found: " + capturedText, mode);
@@ -302,7 +297,6 @@ export class MarjinscriptInterperatorServiceService {
                             this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
                         }
                     } else {
-                        console.log(value)
                         this.definedVariables.push(variableName);
                         this.variables[variableName] = value;
                         commandsToExecute.push({ command: ["var", variableName], arguments: [value], line: commandLine[0] });
