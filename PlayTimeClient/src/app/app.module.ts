@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
 import { AngularSplitModule } from 'angular-split';
 import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MONACO_PATH, MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/not-found-page/not-found-page.component';
@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { DatePipe } from '@angular/common';
         BrowserAnimationsModule,
         MatIconModule,
         MatDividerModule,
-        MatButtonModule
+        MatButtonModule,
+        MatCheckboxModule
     ],
     providers: [{
         provide: MONACO_PATH,

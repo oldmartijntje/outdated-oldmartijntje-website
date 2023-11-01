@@ -2,20 +2,12 @@ import { Injectable } from '@angular/core';
 import { RuntimeServiceService } from './runtime-service.service';
 import { DatePipe } from '@angular/common';
 import { Message } from 'src/app/models/message.interface';
+import { Packages } from 'src/app/data/packages';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MarjinscriptInterperatorServiceService {
-    functions: Record<string, (args: any[], mode: number, line: number) => void> = {
-        print: (args, mode, line) => {
-            this.sendLogToConsole('Printing: ' + args.join(', '), mode);
-        },
-        setValues: (args, mode, line) => {
-            this.sendLogToConsole('Setting values: ' + args.join(', '), mode);
-        },
-        // Add more functions for other commands as needed.
-    };
     variables: { [key: string]: string | number } = {}
 
     constructor(
@@ -120,9 +112,12 @@ export class MarjinscriptInterperatorServiceService {
 
     }
 
-    runFunction(command: string, args: any[], line: number, mode: number = 0): void {
-
-        const commandFunction = this.functions[command];
+    runFunction(command: string, args: any[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
+        if (packageDict == null) {
+            this.sendErrorToConsole("Line " + line + ": There are no code modules selected.", mode);
+            return;
+        }
+        const commandFunction = packageDict[command];
 
         if (typeof commandFunction === 'function') {
             commandFunction(this.processList(args, line, mode), mode, line);
@@ -131,9 +126,12 @@ export class MarjinscriptInterperatorServiceService {
         }
     }
 
-    checkFunction(command: string, line: number, mode: number = 0): void {
-
-        const commandFunction = this.functions[command];
+    checkFunction(command: string, line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
+        if (packageDict == null) {
+            this.sendErrorToConsole("Line " + line + ": There are no code modules selected.", mode);
+            return;
+        }
+        const commandFunction = packageDict[command];
 
         if (typeof commandFunction === 'function') {
             // Do nothing
@@ -142,7 +140,7 @@ export class MarjinscriptInterperatorServiceService {
         }
     }
 
-    interpretAndExecuteCode(code: string, mode: number = 0): void {
+    interpretAndExecuteCode(code: string, mode: number = 0, packages: number[] = [0]): void {
         // mode 0 is normal mode
         // mode 1 is check mode and return errors
         const commandList = code.split('\n');
@@ -279,15 +277,16 @@ export class MarjinscriptInterperatorServiceService {
         }
 
         // Execute the commands.
+        var dict = new Packages(this).mergeDicts(packages);
         if (mode == 1) {
             this.runtimeServiceService.flushProblemsSubject();
             for (const cmd of commandsToExecute) {
-                this.checkFunction(cmd.command, cmd.line, mode);
+                this.checkFunction(cmd.command, cmd.line, mode, dict);
             }
             return;
         }
         for (const cmd of commandsToExecute) {
-            this.runFunction(cmd.command, cmd.arguments, cmd.line, mode);
+            this.runFunction(cmd.command, cmd.arguments, cmd.line, mode, dict);
         }
     }
 

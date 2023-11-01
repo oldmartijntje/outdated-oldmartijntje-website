@@ -3,17 +3,26 @@ import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@ma
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
 import { Message, TestMessages } from 'src/app/models/message.interface';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgFor } from '@angular/common';
 import { EditorServiceService } from 'src/app/services/global/editor-service.service';
 import { MarjinscriptInterperatorServiceService } from 'src/app/services/global/marjinscript-interperator-service.service';
 import { PageCode } from 'src/app/data/settings';
 import { NavigationEnd, Router } from '@angular/router';
 import { defaultPageVariables } from 'src/app/data/pageVariables';
+import { ThemePalette } from '@angular/material/core';
+import { PackagesByPage, PackageDescriptions, Packages } from 'src/app/data/packages';
+
+export interface Task {
+    name: string;
+    completed: boolean;
+    color: ThemePalette;
+    subtasks?: Task[];
+}
 
 @Component({
     selector: 'app-editor-page',
     templateUrl: './editor-page.component.html',
-    styleUrls: ['./editor-page.component.scss']
+    styleUrls: ['./editor-page.component.scss'],
 })
 export class EditorPageComponent implements OnInit {
     editorOptions: MonacoEditorConstructionOptions = {
@@ -38,6 +47,37 @@ export class EditorPageComponent implements OnInit {
     sandBoxMode = false;
     runDefaultPageButton = false;
 
+    task: Task = {
+        name: 'All Modules',
+        completed: false,
+        color: 'primary',
+        subtasks: [
+            { name: 'Primary Module', completed: true, color: 'primary' },
+            { name: 'RailroadInk Module', completed: false, color: 'accent' },
+        ],
+    };
+    updateAllComplete() {
+        this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+    }
+
+    someComplete(): boolean {
+        if (this.task.subtasks == null) {
+            return false;
+        }
+        return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+    }
+
+    setAll(completed: boolean) {
+        this.allComplete = completed;
+        if (this.task.subtasks == null) {
+            return;
+        }
+        this.task.subtasks.forEach(t => (t.completed = completed));
+        this.checkCode(true);
+    }
+
+    allComplete: boolean = false;
+
     constructor(private toastQueueService: ToastQueueService,
         private runtimeServiceService: RuntimeServiceService,
         private editorServiceService: EditorServiceService,
@@ -60,7 +100,16 @@ export class EditorPageComponent implements OnInit {
         if (input == '') {
             input = this.code;
         }
-        this.marjinScriptInterperatorServiceService.interpretAndExecuteCode(input, mode);
+        if (this.task.subtasks == undefined) {
+            this.task.subtasks = [];
+        }
+        var packages: number[] = [];
+        for (let index = 0; index < this.task.subtasks.length; index++) {
+            if (this.task.subtasks[index].completed == true) {
+                packages.push(index);
+            }
+        }
+        this.marjinScriptInterperatorServiceService.interpretAndExecuteCode(input, mode, packages);
     }
 
     setLanguage(event: any) {
@@ -78,7 +127,6 @@ export class EditorPageComponent implements OnInit {
         } catch (error) {
             console.error(error);
             var errorText = `${error}`;
-            console.log("aaaaa")
             this.runtimeServiceService.addConsoleSubject({ message: errorText, type: 'error', from: 'EditorCode', amount: 1 });
             //this.toastQueueService.showToast(errorText, 'error', 0);
         }
@@ -128,6 +176,22 @@ export class EditorPageComponent implements OnInit {
             } else {
                 this.runDefaultPageButton = false;
             }
+            console.log(currentPathWithoutQueryParams);
+            if (currentPathWithoutQueryParams in PackagesByPage) {
+                if (this.task.subtasks == undefined) {
+                    this.task.subtasks = [];
+                }
+                for (let index = 0; index < this.task.subtasks.length; index++) {
+                    if (index in PackagesByPage[currentPathWithoutQueryParams]) {
+                        this.task.subtasks[index].name = PackageDescriptions[PackagesByPage[currentPathWithoutQueryParams][index]]["moduleName"];
+                        this.task.subtasks[index].completed = true;
+                    } else {
+                        this.task.subtasks[index].completed = false;
+                    }
+                }
+            } else {
+
+            }
         });
     }
 
@@ -148,11 +212,11 @@ export class EditorPageComponent implements OnInit {
         }
     }
 
-    checkCode() {
-        if (this.language == 'MarjinScript' && this.lastCheckedCode != this.code) {
+    checkCode(overRule: boolean = false) {
+        if (this.language == 'MarjinScript' && (this.lastCheckedCode != this.code || overRule == true)) {
             this.lastCheckedCode = this.code;
             this.runtimeServiceService.emptyProblemsSubject();
-            this.sendCodeToRunner(this.code, 1);
+            this.sendCodeToRunner(this.code, 1, undefined);
         }
     }
 
