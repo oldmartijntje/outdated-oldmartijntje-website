@@ -118,7 +118,10 @@ export class MarjinscriptInterperatorServiceService {
             return;
         }
         if (Array.isArray(command)) {
-            this.variables[command[0]] = command[1];
+            if (command[0] == "SetVar") {
+                this.variables[command[1]] = args[0];
+                return;
+            }
             return;
         }
         const commandFunction = packageDict[command];
@@ -130,13 +133,16 @@ export class MarjinscriptInterperatorServiceService {
         }
     }
 
-    checkFunction(command: string | string[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
+    checkFunction(command: string | string[], args: any[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
         if (packageDict == null) {
             this.sendErrorToConsole("Line " + line + ": There are no code modules selected.", mode);
             return;
         }
         if (Array.isArray(command)) {
-            this.variables[command[0]] = command[1];
+            if (command[0] == "SetVar") {
+                this.variables[command[1]] = args[0];
+                return;
+            }
             return;
         }
         const commandFunction = packageDict[command];
@@ -265,14 +271,14 @@ export class MarjinscriptInterperatorServiceService {
                     // Store the variable in the variables object
                     if (this.isVariableName(value)) {
                         if (this.variables.hasOwnProperty(value)) {
-                            commandsToExecute.push({ command: [variableName, value], arguments: [], line: commandLine[0] });
+                            commandsToExecute.push({ command: ["SetVar", variableName], arguments: [value], line: commandLine[0] });
                             this.variables[variableName] = value;
                         } else {
                             console.log("Variable '" + value + "' is not defined.", commandLine[0])
                             this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
                         }
                     } else {
-                        commandsToExecute.push({ command: [variableName, value], arguments: [], line: commandLine[0] });
+                        commandsToExecute.push({ command: ["SetVar", variableName], arguments: [value], line: commandLine[0] });
                         this.variables[variableName] = value;
                     }
                     this.processVariable(value);
@@ -291,7 +297,7 @@ export class MarjinscriptInterperatorServiceService {
         if (mode == 1) {
             this.runtimeServiceService.flushProblemsSubject();
             for (const cmd of commandsToExecute) {
-                this.checkFunction(cmd.command, cmd.line, mode, dict);
+                this.checkFunction(cmd.command, cmd.arguments, cmd.line, mode, dict);
             }
             return;
         }
