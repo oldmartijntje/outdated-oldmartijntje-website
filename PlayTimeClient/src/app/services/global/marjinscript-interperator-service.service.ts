@@ -114,7 +114,7 @@ export class MarjinscriptInterperatorServiceService {
 
     runFunction(command: string | string[], args: any[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
         if (packageDict == null) {
-            this.sendErrorToConsole("Line " + line + ": There are no code modules selected.", mode);
+            this.sendErrorToConsole("There are no code modules selected.", mode);
             return;
         }
         if (Array.isArray(command)) {
@@ -135,7 +135,7 @@ export class MarjinscriptInterperatorServiceService {
 
     checkFunction(command: string | string[], args: any[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
         if (packageDict == null) {
-            this.sendErrorToConsole("Line " + line + ": There are no code modules selected.", mode);
+            this.sendErrorToConsole("There are no code modules selected.", mode);
             return;
         }
         if (Array.isArray(command)) {
@@ -256,7 +256,6 @@ export class MarjinscriptInterperatorServiceService {
                                 if (this.variables[value] != undefined) {
                                     return value;
                                 } else {
-                                    console.log("Variable '" + value + "' is not defined.", commandLine[0])
                                     this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
                                     return undefined;
                                 }

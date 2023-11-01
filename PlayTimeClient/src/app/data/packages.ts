@@ -28,19 +28,17 @@ export class Packages {
         print: (args, mode, line) => {
             this.marjinscriptInterperatorServiceService.sendLogToConsole('Printing: ' + args.join(', '), mode);
         },
-        setValues: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendLogToConsole('Setting values: ' + args.join(', '), mode);
+        warning: (args, mode, line) => {
+            this.marjinscriptInterperatorServiceService.sendWarnToConsole('Printing: ' + args.join(', '), mode);
         },
+        error: (args, mode, line) => {
+            this.marjinscriptInterperatorServiceService.sendErrorToConsole('Printing: ' + args.join(', '), mode);
+        }
         // Add more functions for other commands as needed.
     }
 
     railroadFunctions: Record<string, (args: any[], mode: number, line: number) => void> = {
-        print2: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendLogToConsole('Printing: ' + args.join(', '), mode);
-        },
-        setValues2: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendLogToConsole('Setting values: ' + args.join(', '), mode);
-        },
+
         // Add more functions for other commands as needed.
     }
 
