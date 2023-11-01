@@ -112,9 +112,13 @@ export class MarjinscriptInterperatorServiceService {
 
     }
 
-    runFunction(command: string, args: any[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
+    runFunction(command: string | string[], args: any[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
         if (packageDict == null) {
             this.sendErrorToConsole("Line " + line + ": There are no code modules selected.", mode);
+            return;
+        }
+        if (Array.isArray(command)) {
+            this.variables[command[0]] = command[1];
             return;
         }
         const commandFunction = packageDict[command];
@@ -126,9 +130,13 @@ export class MarjinscriptInterperatorServiceService {
         }
     }
 
-    checkFunction(command: string, line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
+    checkFunction(command: string | string[], line: number, mode: number = 0, packageDict: Record<string, any> | null = {}): void {
         if (packageDict == null) {
             this.sendErrorToConsole("Line " + line + ": There are no code modules selected.", mode);
+            return;
+        }
+        if (Array.isArray(command)) {
+            this.variables[command[0]] = command[1];
             return;
         }
         const commandFunction = packageDict[command];
@@ -145,7 +153,7 @@ export class MarjinscriptInterperatorServiceService {
         // mode 1 is check mode and return errors
         const commandList = code.split('\n');
         this.variables = {};
-        const commandsToExecute: { command: string; arguments: any[], line: number }[] = [];
+        const commandsToExecute: { command: string | string[]; arguments: any[], line: number }[] = [];
         var indentLevel = 0;
         var commandLine: number[] = []
         for (var i = 0; i < commandList.length + 1; i++) {
@@ -257,12 +265,14 @@ export class MarjinscriptInterperatorServiceService {
                     // Store the variable in the variables object
                     if (this.isVariableName(value)) {
                         if (this.variables.hasOwnProperty(value)) {
+                            commandsToExecute.push({ command: [variableName, value], arguments: [], line: commandLine[0] });
                             this.variables[variableName] = value;
                         } else {
                             console.log("Variable '" + value + "' is not defined.", commandLine[0])
                             this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
                         }
                     } else {
+                        commandsToExecute.push({ command: [variableName, value], arguments: [], line: commandLine[0] });
                         this.variables[variableName] = value;
                     }
                     this.processVariable(value);
