@@ -16,6 +16,7 @@ export class MarjinscriptInterperatorServiceService {
         },
         // Add more functions for other commands as needed.
     };
+    variables: { [key: string]: string | number } = {}
 
     constructor(
         private runtimeServiceService: RuntimeServiceService,
@@ -24,6 +25,60 @@ export class MarjinscriptInterperatorServiceService {
 
     trimSpaces(inputString: string): string {
         return inputString.replace(/\s/g, '');
+    }
+
+    processList(arr: any[], line: number | undefined = undefined, mode: number = 0) {
+        const processedArr = [];
+        for (let item of arr) {
+            if (typeof item === 'string') {
+                // Check if the string has quotes and remove them
+                if (item.startsWith('"') && item.endsWith('"')) {
+                    processedArr.push(item.slice(1, -1));
+                } else if (item.startsWith('\'') && item.endsWith('\'')) {
+                    processedArr.push(item.slice(1, -1));
+                } else if (item.startsWith('`') && item.endsWith('`')) {
+                    processedArr.push(item.slice(1, -1));
+                } else {
+                    if (this.variables[item] != undefined) {
+                        var variableRetrieved = this.processVariable(item);
+                        processedArr.push(variableRetrieved);
+                    } else {
+                        this.sendErrorToConsole("Line " + line + ": Variable not found: " + item, mode);
+                        processedArr.push(undefined);
+                    }
+                }
+            } else if (!isNaN(item)) {
+                // If it's a number or a string that can be converted to a number, convert it
+                processedArr.push(Number(item));
+            } else {
+                // For other data types, add to the processed array as is
+                processedArr.push(item);
+            }
+        }
+        return processedArr;
+    }
+
+    processVariable(code: string): number | string {
+        var variable = this.variables[code];
+        if (typeof variable === 'string' && !isNaN(Number(variable))) {
+            // If the variable is a numeric string, convert it to a number
+            return Number(variable);
+        } else if (typeof variable === 'string') {
+            // Check if the string has quotes and remove them
+            if (
+                (variable.startsWith('"') && variable.endsWith('"')) ||
+                (variable.startsWith("'") && variable.endsWith("'")) ||
+                (variable.startsWith('`') && variable.endsWith('`'))
+            ) {
+                return variable.slice(1, -1) as string;
+            } else {
+                // If the string doesn't have quotes, attempt to retrieve another variable
+                return this.processVariable(variable);
+            }
+        } else {
+            // If it's already a number, return it as is
+            return variable as number;
+        }
     }
 
     sendToConsole(text: string, type: string = "info", mode: number = 0, from: string = 'Interperator'): void {
@@ -70,7 +125,7 @@ export class MarjinscriptInterperatorServiceService {
         const commandFunction = this.functions[command];
 
         if (typeof commandFunction === 'function') {
-            commandFunction(args, mode, line);
+            commandFunction(this.processList(args, line, mode), mode, line);
         } else {
             this.sendErrorToConsole("Line " + line + ": Command not found: " + command, mode);
         }
@@ -91,9 +146,10 @@ export class MarjinscriptInterperatorServiceService {
         // mode 0 is normal mode
         // mode 1 is check mode and return errors
         const commandList = code.split('\n');
+        this.variables = {};
         const commandsToExecute: { command: string; arguments: any[], line: number }[] = [];
         var indentLevel = 0;
-        var commandLine = []
+        var commandLine: number[] = []
         for (var i = 0; i < commandList.length + 1; i++) {
             commandLine.push(i);
         }
@@ -110,12 +166,22 @@ export class MarjinscriptInterperatorServiceService {
             if (trimmedCommand.startsWith("for(") && this.trimSpaces(trimmedCommand).endsWith("){")) {
                 indentLevel++;
                 var amount = trimmedCommand.match(/\d+/);
-                if (amount == null) {
+                const pattern = /\(([^"'()]*)\)/;
+                const match = trimmedCommand.match(pattern);
+                if (amount != null) {
+                    const iterations = parseInt(amount[0], 10);
+                    loopStack.push({ iterations, commands: [], indentLevel });
+                } else if (match && this.trimSpaces(match[1]) != "") {
+                    const capturedText = match[1];
+                    if (this.variables[capturedText] != undefined) {
+                        const iterations = parseInt(this.variables[capturedText].toString(), 10);
+                        loopStack.push({ iterations, commands: [], indentLevel });
+                    } else {
+                        this.sendErrorToConsole("Line " + commandLine[0] + ": Variable not found: " + capturedText, mode);
+                    }
+                } else {
                     this.sendErrorToConsole("Line " + commandLine[0] + ": Invalid for loop format: '" + trimmedCommand + "'", mode);
-                    return;
                 }
-                const iterations = parseInt(amount[0], 10);
-                loopStack.push({ iterations, commands: [], indentLevel });
             } else if (trimmedCommand.includes("}")) {
 
                 const indexToRemove = loopStack.findIndex(loop => loop.indentLevel === indentLevel);
@@ -154,6 +220,7 @@ export class MarjinscriptInterperatorServiceService {
                 // Execute individual commands.
                 const pattern = /^([a-zA-Z]+)\(([^]*)\)$/; // Matches "command(value1, value2, ...)"
                 const match = trimmedCommand.match(pattern);
+                const variableMatch = trimmedCommand.match(/^(.*) = (.*)$/);
 
                 if (match) {
                     const commandName = match[1];
@@ -163,21 +230,44 @@ export class MarjinscriptInterperatorServiceService {
 
                     const values = valuesString.split(',').map(value => {
                         if (value.startsWith("'") && value.endsWith("'")) {
-                            return value.slice(1, -1);
+                            // String with single quotes, keep as-is
+                            return value;
                         } else if (value.startsWith('"') && value.endsWith('"')) {
-                            return value.slice(1, -1);
+                            // String with double quotes, keep as-is
+                            return value;
+                        } else {
+                            const numericValue = Number(value);
+                            if (!isNaN(numericValue)) {
+                                // It's a valid number, convert to a number
+                                return numericValue;
+                            } else {
+                                if (this.variables[value] != undefined) {
+                                    return value;
+                                } else {
+                                    console.log("Variable '" + value + "' is not defined.", commandLine[0])
+                                    this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
+                                    return undefined;
+                                }
+                            }
                         }
-                        return value;
                     });
+                    commandsToExecute.push({ command: commandName as string, arguments: values, line: commandLine[0] });
+                } else if (variableMatch) {
+                    const variableName = variableMatch[1].trim();
+                    const value = variableMatch[2].trim();
 
-                    const numericValues = values.map(value => {
-                        const parsedValue = parseFloat(value);
-                        if (!isNaN(parsedValue)) {
-                            return parsedValue;
+                    // Store the variable in the variables object
+                    if (this.isVariableName(value)) {
+                        if (this.variables.hasOwnProperty(value)) {
+                            this.variables[variableName] = value;
+                        } else {
+                            console.log("Variable '" + value + "' is not defined.", commandLine[0])
+                            this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
                         }
-                        return value;
-                    });
-                    commandsToExecute.push({ command: commandName as string, arguments: numericValues, line: commandLine[0] });
+                    } else {
+                        this.variables[variableName] = value;
+                    }
+                    this.processVariable(value);
                 } else {
                     this.sendErrorToConsole("Line " + commandLine[0] + ": Invalid command format: '" + trimmedCommand + "'", mode);
                 }
@@ -199,5 +289,11 @@ export class MarjinscriptInterperatorServiceService {
         for (const cmd of commandsToExecute) {
             this.runFunction(cmd.command, cmd.arguments, cmd.line, mode);
         }
+    }
+
+    isVariableName(str: string) {
+        // Regular expression to match valid variable names
+        const variableNameRegex = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
+        return variableNameRegex.test(str);
     }
 }

@@ -1,6 +1,5 @@
 export const defaultPageVariables = {
     "Railroad": {
-        "amountOfButtons": 1,
         "buttons": {
             "Normal1": {
                 "name": "Add Blue/Red default set",
