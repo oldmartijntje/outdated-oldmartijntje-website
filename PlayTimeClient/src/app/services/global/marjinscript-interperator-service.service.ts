@@ -9,6 +9,7 @@ import { Packages } from 'src/app/data/packages';
 })
 export class MarjinscriptInterperatorServiceService {
     variables: { [key: string]: string | number } = {}
+    definedVariables: string[] = [];
 
     constructor(
         private runtimeServiceService: RuntimeServiceService,
@@ -33,7 +34,7 @@ export class MarjinscriptInterperatorServiceService {
                 } else {
                     if (this.variables[item] != undefined) {
                         var variableRetrieved = this.processVariable(item);
-                        processedArr.push(variableRetrieved);
+                        processedArr.push(["var", variableRetrieved, item]);
                     } else {
                         this.sendErrorToConsole("Line " + line + ": Variable not found: " + item, mode);
                         processedArr.push(undefined);
@@ -50,8 +51,14 @@ export class MarjinscriptInterperatorServiceService {
         return processedArr;
     }
 
-    processVariable(code: string): number | string {
+    processVariable(code: string | number): number | string {
+        if (typeof code === 'number') {
+            return code;
+        }
         var variable = this.variables[code];
+        if (variable == undefined) {
+            return code;
+        }
         if (typeof variable === 'string' && !isNaN(Number(variable))) {
             // If the variable is a numeric string, convert it to a number
             return Number(variable);
@@ -70,6 +77,14 @@ export class MarjinscriptInterperatorServiceService {
         } else {
             // If it's already a number, return it as is
             return variable as number;
+        }
+    }
+
+    getVariableData(code: string | number): number | string {
+        if (this.variables[code] == undefined) {
+            return code;
+        } else {
+            return this.getVariableData(this.variables[code]);
         }
     }
 
@@ -118,8 +133,8 @@ export class MarjinscriptInterperatorServiceService {
             return;
         }
         if (Array.isArray(command)) {
-            if (command[0] == "SetVar") {
-                this.variables[command[1]] = args[0];
+            if (command[0] == "var") {
+                this.variables[command[1]] = this.getVariableData(args[0]);
                 return;
             }
             return;
@@ -139,8 +154,8 @@ export class MarjinscriptInterperatorServiceService {
             return;
         }
         if (Array.isArray(command)) {
-            if (command[0] == "SetVar") {
-                this.variables[command[1]] = args[0];
+            if (command[0] == "var") {
+                this.variables[command[1]] = this.getVariableData(args[0]);
                 return;
             }
             return;
@@ -159,6 +174,7 @@ export class MarjinscriptInterperatorServiceService {
         // mode 1 is check mode and return errors
         const commandList = code.split('\n');
         this.variables = {};
+        this.definedVariables = [];
         const commandsToExecute: { command: string | string[]; arguments: any[], line: number }[] = [];
         var indentLevel = 0;
         var commandLine: number[] = []
@@ -185,8 +201,17 @@ export class MarjinscriptInterperatorServiceService {
                     loopStack.push({ iterations, commands: [], indentLevel });
                 } else if (match && this.trimSpaces(match[1]) != "") {
                     const capturedText = match[1];
-                    if (this.variables[capturedText] != undefined) {
-                        const iterations = parseInt(this.variables[capturedText].toString(), 10);
+                    console.log(capturedText)
+                    console.log(this.definedVariables, this.variables)
+                    if (this.definedVariables.includes(capturedText)) {
+                        console.log(this.variables[capturedText])
+                        var variableRetrieved = this.getVariableData(this.variables[capturedText]);
+                        console.log(variableRetrieved)
+                        if (typeof variableRetrieved === 'string') {
+                            variableRetrieved = parseInt(variableRetrieved);
+                        }
+                        const iterations = variableRetrieved;
+                        console.log(iterations)
                         loopStack.push({ iterations, commands: [], indentLevel });
                     } else {
                         this.sendErrorToConsole("Line " + commandLine[0] + ": Variable not found: " + capturedText, mode);
@@ -253,7 +278,7 @@ export class MarjinscriptInterperatorServiceService {
                                 // It's a valid number, convert to a number
                                 return numericValue;
                             } else {
-                                if (this.variables[value] != undefined) {
+                                if (this.definedVariables.includes(value)) {
                                     return value;
                                 } else {
                                     this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
@@ -269,16 +294,18 @@ export class MarjinscriptInterperatorServiceService {
 
                     // Store the variable in the variables object
                     if (this.isVariableName(value)) {
-                        if (this.variables.hasOwnProperty(value)) {
-                            commandsToExecute.push({ command: ["SetVar", variableName], arguments: [value], line: commandLine[0] });
-                            this.variables[variableName] = value;
+                        if (this.definedVariables.includes(value)) {
+                            this.definedVariables.push(variableName);
+                            this.variables[variableName] = this.getVariableData(this.variables[value]);
+                            commandsToExecute.push({ command: ["var", variableName], arguments: [value], line: commandLine[0] });
                         } else {
-                            console.log("Variable '" + value + "' is not defined.", commandLine[0])
                             this.sendErrorToConsole("Line " + commandLine[0] + ": Variable '" + value + "' is not defined.", mode);
                         }
                     } else {
-                        commandsToExecute.push({ command: ["SetVar", variableName], arguments: [value], line: commandLine[0] });
+                        console.log(value)
+                        this.definedVariables.push(variableName);
                         this.variables[variableName] = value;
+                        commandsToExecute.push({ command: ["var", variableName], arguments: [value], line: commandLine[0] });
                     }
                     this.processVariable(value);
                 } else {

@@ -26,14 +26,27 @@ export class Packages {
 
     mainFunctions: Record<string, (args: any[], mode: number, line: number) => void> = {
         print: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendLogToConsole('Printing: ' + args.join(', '), mode);
+            this.marjinscriptInterperatorServiceService.sendLogToConsole('Printing: ' + this.convertVars(args).join(', '), mode);
         },
         warning: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendWarnToConsole('Printing: ' + args.join(', '), mode);
+            this.marjinscriptInterperatorServiceService.sendWarnToConsole('Printing: ' + this.convertVars(args).join(', '), mode);
         },
         error: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendErrorToConsole('Printing: ' + args.join(', '), mode);
-        }
+            this.marjinscriptInterperatorServiceService.sendErrorToConsole('Printing: ' + this.convertVars(args).join(', '), mode);
+        },
+        combine: (args, mode, line) => {
+            var variable = undefined;
+            for (const arg of this.convertVars(args)) {
+                if (variable == undefined) {
+                    variable = arg;
+                } else {
+                    variable += arg;
+                }
+            }
+            if (this.checkForVar(args[0])) {
+                this.marjinscriptInterperatorServiceService.variables[args[0][2]] = variable;
+            }
+        },
         // Add more functions for other commands as needed.
     }
 
@@ -43,6 +56,34 @@ export class Packages {
     }
 
     libraries: Record<string, any>[] = [this.mainFunctions, this.railroadFunctions];
+
+    convertVars(vars: any[]) {
+        //vars = (["var", variableRetrieved, item] || variableRetrieved)[]
+        // i need to return a list of [variableRetrieved]
+        var returnList: any[] = [];
+        for (const variable of vars) {
+            if (variable[0] === "var") {
+                if (this.marjinscriptInterperatorServiceService.variables[variable[2]] === undefined) {
+                    returnList.push(variable);
+                } else {
+                    returnList.push(this.marjinscriptInterperatorServiceService.processVariable(variable[2]));
+                    //returnList.push(this.marjinscriptInterperatorServiceService.variables[variable[2]]);
+                }
+            } else {
+                returnList.push(variable);
+            }
+        }
+        return returnList;
+    }
+
+    checkForVar(variable: any) {
+        if (variable[0] === "var") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     mergeDicts(args: number[]): Record<string, any> | null {
         if (Array.isArray(args) && args.length > 0) {
