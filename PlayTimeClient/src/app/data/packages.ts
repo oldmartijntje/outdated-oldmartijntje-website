@@ -29,10 +29,10 @@ export class Packages {
             this.marjinscriptInterperatorServiceService.sendLogToConsole('Printing: ' + this.convertVars(args).join(', '), mode);
         },
         warning: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendWarnToConsole('Printing: ' + this.convertVars(args).join(', '), mode);
+            this.marjinscriptInterperatorServiceService.sendWarnToConsole('Warning: ' + this.convertVars(args).join(', '), mode);
         },
         error: (args, mode, line) => {
-            this.marjinscriptInterperatorServiceService.sendErrorToConsole('Printing: ' + this.convertVars(args).join(', '), mode);
+            this.marjinscriptInterperatorServiceService.sendErrorToConsole('Error: ' + this.convertVars(args).join(', '), mode);
         },
         combine: (args, mode, line) => {
             var variable = undefined;
