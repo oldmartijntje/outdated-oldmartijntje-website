@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Settings } from 'src/app/data/settings';
+import { BuildData } from 'src/app/models/buildData';
 
 @Component({
     selector: 'app-home-page',
@@ -7,6 +8,10 @@ import { Settings } from 'src/app/data/settings';
     styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent {
-    versionNumber = Settings["version"]["value"];
-    versionWord = Settings["version"]["word"];
+    versionNumber = BuildData["BuildNumber"];
+    versionWord = "BuildId";
+
+    logBuildData() {
+        console.log(BuildData);
+    }
 }
