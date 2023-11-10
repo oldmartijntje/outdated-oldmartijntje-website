@@ -131,7 +131,7 @@ try:
 
         update_build_data_file(builder_data["BuildNumber"], builder_data["JSONVersion"])
 
-        # Change the current working directory to the PistonClient folder
+        # Change the current working directory to the PlayTimeClient folder
         os.chdir('PlayTimeClient')
 
         npm_build_command = 'npm install'
