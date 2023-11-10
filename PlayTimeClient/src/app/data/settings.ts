@@ -10,10 +10,7 @@ export const EditorSettings: any = {
 }
 
 export const Settings: any = {
-    "version": {
-        "word": "applicationVersionID",
-        "value": "5"
-    }
+
 }
 
 export const PageCode: any = {

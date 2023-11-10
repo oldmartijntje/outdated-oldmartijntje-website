@@ -6,4 +6,4 @@
     <a [routerLink]="['/Railroad']">Railroad</a>
     <a [routerLink]="['/Railroad']" [queryParams]="{Editor: 'true'}">RailroadE</a>
 </div>
-<p>{{versionWord}}: <span>{{versionNumber}}</span></p>
+<p (click)="logBuildData()">{{versionWord}}: <span>{{versionNumber}}</span></p>
