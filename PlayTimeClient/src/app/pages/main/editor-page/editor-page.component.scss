@@ -113,3 +113,11 @@ textarea {
     margin-left: 10px;
     margin-bottom: 10px;
 }
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    cursor: pointer;
+}

@@ -11,6 +11,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { defaultPageVariables } from 'src/app/data/pageVariables';
 import { ThemePalette } from '@angular/material/core';
 import { PackagesByPage, PackageDescriptions, Packages } from 'src/app/data/packages';
+import { BuildData } from 'src/app/models/buildData';
 
 export interface Task {
     name: string;
@@ -25,6 +26,9 @@ export interface Task {
     styleUrls: ['./editor-page.component.scss'],
 })
 export class EditorPageComponent implements OnInit {
+    versionNumber = BuildData["BuildNumber"];
+    versionWord = "BuildId";
+
     editorOptions: MonacoEditorConstructionOptions = {
         theme: 'vs-dark',
         language: 'javascript',
@@ -56,6 +60,11 @@ export class EditorPageComponent implements OnInit {
             { name: 'RailroadInk Module', completed: false, color: 'accent' },
         ],
     };
+
+    logBuildData() {
+        this.log(BuildData)
+    }
+
     updateAllComplete() {
         this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
     }
@@ -229,8 +238,12 @@ export class EditorPageComponent implements OnInit {
 
     }
 
-    log(value: string = "") {
+    log(value: string | any = "") {
         console.log(value);
+        if (typeof value != 'string') {
+            value = JSON.stringify(value);
+            value = value.replace(/,"/g, ', "').replace(/":"/g, '" : "');
+        }
         this.runtimeServiceService.addConsoleSubject({ message: value, type: 'info', from: 'Log', datetimeTimestamp: this.datePipe.transform(Date.now(), 'HH:mm:ss.SSS'), amount: 1 });
     }
 
