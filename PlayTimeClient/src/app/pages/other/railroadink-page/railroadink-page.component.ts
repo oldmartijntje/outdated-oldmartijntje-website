@@ -131,8 +131,8 @@ export class RailroadinkPageComponent implements OnInit {
     ]
 
     constructor(
-        private editorService: EditorServiceService,
-        private runtimeServiceService: RuntimeServiceService
+        private runtimeServiceService: RuntimeServiceService,
+        private editorServiceService: EditorServiceService
     ) { }
 
     ngOnInit(): void {
