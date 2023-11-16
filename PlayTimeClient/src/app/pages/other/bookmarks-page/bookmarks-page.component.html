@@ -34,7 +34,8 @@
                         <label>{{button['AfterText']}}</label>
                     </section>
                 </article>
-                <div style="display: flex; align-items:center;" *ngFor="let popup of bookmark['Popup']">
+                <div style="display: flex; align-items:center; column-gap: 1rem; margin-left: 1rem;"
+                    *ngFor="let popup of bookmark['Popup']">
                     <img style="width: 25px; height: 25px;" src="{{popup['Img']}}" alt="">
                     <p>{{popup['Text']}}</p>
                 </div>

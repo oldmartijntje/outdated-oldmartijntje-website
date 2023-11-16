@@ -3,12 +3,20 @@ export const bookmarks: Record<string, any>[] = [
         "Popup": [
             {
                 "Text": "Error",
-                "Img": "//i.imgur.com/rJnYQnG.png"
+                "Img": "assets/icons/Critical Error.png"
             },
             {
-                "Text": "Error",
-                "Img": "//i.imgur.com/rJnYQnG.png"
+                "Text": "Info",
+                "Img": "assets/icons/Information.png"
             },
+            {
+                "Text": "Question",
+                "Img": "assets/icons/Question.png"
+            },
+            {
+                "Text": "Warning",
+                "Img": "assets/icons/Exclamation.png"
+            }
         ],
         "Title": "Codepen",
         "Size": { "Width": "400px", "Height": "350px" },
@@ -97,53 +105,13 @@ export const bookmarks: Record<string, any>[] = [
     {
         "Popup": [
             {
-                "Text": "Error",
-                "Img": "https://i.imgur.com/rJnYQnG.png"
+                "Text": "Catastrophic failure",
+                "Img": "assets/icons/Exclamation.png"
             }
         ],
         "Title": "1",
         "Size": { "Width": "400px", "Height": "350px" },
         "Id": 1,
-        "ActiveTabId": 0,
-        "Buttons": [
-            {
-                "Text": "OK",
-                "Command": "",
-                "Link": ""
-            }
-        ],
-        "Tabs": []
-    },
-    {
-        "Popup": [
-            {
-                "Text": "Error",
-                "Img": "https://i.imgur.com/rJnYQnG.png"
-            }
-        ],
-        "Title": "2",
-        "Size": { "Width": "400px", "Height": "350px" },
-        "Id": 2,
-        "ActiveTabId": 0,
-        "Buttons": [
-            {
-                "Text": "OK",
-                "Command": "",
-                "Link": ""
-            }
-        ],
-        "Tabs": []
-    },
-    {
-        "Popup": [
-            {
-                "Text": "Error",
-                "Img": "https://i.imgur.com/rJnYQnG.png"
-            }
-        ],
-        "Title": "3",
-        "Size": { "Width": "400px", "Height": "350px" },
-        "Id": 3,
         "ActiveTabId": 0,
         "Buttons": [
             {
