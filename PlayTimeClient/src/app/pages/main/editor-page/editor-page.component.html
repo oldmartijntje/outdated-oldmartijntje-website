@@ -133,12 +133,16 @@
                 </as-split-area>
                 <as-split-area [size]="30" minSize="10">
                     <!-- <p>Run</p> -->
-                    <button mat-raised-button color="primary" class="marginLeftBottom" (click)="sendCodeToRunner()">Run
+                    <button mat-raised-button color="primary" class="marginLeftBottom topSpace"
+                        (click)="sendCodeToRunner()">Run
                         Code</button>
-                    <button *ngIf="runDefaultPageButton" mat-raised-button color="primary" class="marginLeftBottom"
-                        (click)="runDefaultPage()">Run
+                    <button *ngIf="runDefaultPageButton" mat-raised-button color="primary"
+                        class="marginLeftBottom topSpace" (click)="runDefaultPage()">Run
                         Default
                         Code</button>
+                    <button (click)="routerNav([''])" mat-raised-button color="accent"
+                        class="marginLeftBottom topSpace">Back to
+                        Homepage</button>
                 </as-split-area>
             </as-split>
         </as-split-area>

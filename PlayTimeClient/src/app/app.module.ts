@@ -19,6 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BookmarksPageComponent } from './pages/other/bookmarks-page/bookmarks-page.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         EditorPageComponent,
         RailroadinkPageComponent,
         NotFoundPageComponent,
-        HomePageComponent
+        HomePageComponent,
+        BookmarksPageComponent
     ],
     imports: [
         BrowserModule,

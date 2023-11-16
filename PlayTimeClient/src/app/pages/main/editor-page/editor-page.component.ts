@@ -304,4 +304,9 @@ export class EditorPageComponent implements OnInit {
         });
     }
 
+    routerNav(routeSegments: string[]): void {
+        // Navigate to the specified route
+        this.router.navigate(routeSegments);
+    }
+
 }

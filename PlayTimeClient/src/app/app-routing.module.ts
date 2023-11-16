@@ -4,12 +4,14 @@ import { EditorPageComponent } from './pages/main/editor-page/editor-page.compon
 import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/not-found-page/not-found-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
+import { BookmarksPageComponent } from './pages/other/bookmarks-page/bookmarks-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
     { path: 'Home', component: HomePageComponent },
     { path: 'Editor', component: EditorPageComponent },
     { path: 'Railroad', component: RailroadinkPageComponent },
+    { path: 'Bookmarks', component: BookmarksPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 
