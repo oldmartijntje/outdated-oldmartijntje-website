@@ -2,8 +2,8 @@
 
 <article class="windows_xp" style="overflow: hidden;">
     <section *ngFor="let bookmark of bookmarks" cdkDrag>
-        <div class="window window__tab" style="width: 400px"
-            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left, 'top': getDivById(bookmark['Id']).top, 'z-index': bookmark['Id'] + 3 }">
+        <div class="window window__tab" style="width: 400px" *ngIf="bookmark['Type'] === 'WinXP'"
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3 }">
             <div class="title-bar">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
@@ -17,7 +17,7 @@
             <div class="window-body" cdkDragDisabled="true">
                 <p *ngIf="bookmark['TopText']">{{bookmark['TopText']}}
                 </p>
-                <menu role="tablist">
+                <menu role="tablist" style="flex-wrap: wrap-reverse; display: flex;">
                     <button [attr.aria-selected]="isActiveTab(tab['Id'], bookmark['Id'], bookmark) ? 'true' : 'false'"
                         aria-controls="music" *ngFor="let tab of bookmark['Tabs']"
                         (click)="setActiveTab(tab['Id'], bookmark['Id'])">{{tab['Title']}}</button>

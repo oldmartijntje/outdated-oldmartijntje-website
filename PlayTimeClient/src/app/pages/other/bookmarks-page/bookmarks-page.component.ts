@@ -22,15 +22,19 @@ export class BookmarksPageComponent implements OnInit {
             if (this.bookmarks[i]["ActiveTabId"] == undefined) {
                 this.bookmarks[i]["ActiveTabId"] = 0;
             }
+            if (this.bookmarks[i]["Type"] == undefined) {
+                this.bookmarks[i]["Type"] = "WinXP";
+            }
             for (let j = 0; j < this.bookmarks[i]["Tabs"].length; j++) {
                 this.bookmarks[i]["Tabs"][j]["Id"] = j;
             }
         }
         for (let i = 0; i < bookmarks.length; i++) { // Change 10 to the number of divs you want
-            const left = `${Math.random() * 50}vw`; // Adjust the range as needed
-            const top = `${Math.random() * 50}vh`; // Adjust the range as needed
+            const left = `${Math.random() * 50}`; // Adjust the range as needed
+            const top = `${Math.random() * 50}`; // Adjust the range as needed
             this.divs.push({ left, top, id: i });
         }
+        console.log(this.divs)
     }
 
     executeCommand(button: any, bookmark: Record<string, any>): void {
@@ -66,8 +70,8 @@ export class BookmarksPageComponent implements OnInit {
         for (let i = 0; i < this.bookmarks[this.bookmarks.length - 1]["Tabs"].length; i++) {
             this.bookmarks[this.bookmarks.length - 1]["Tabs"][i]["Id"] = i;
         }
-        const left = `${Math.random() * 50}vw`; // Adjust the range as needed
-        const top = `${Math.random() * 50}vh`; // Adjust the range as needed
+        const left = `${Math.random() * 50}`; // Adjust the range as needed
+        const top = `${Math.random() * 50}`; // Adjust the range as needed
         this.divs.push({ left, top, id: this.lastId });
         this.lastId++;
     }
@@ -103,7 +107,7 @@ export class BookmarksPageComponent implements OnInit {
     getDivById(id: number): { left: string; top: string, id: number } {
         var div = this.divs.find(div => div.id === id);
         if (div == undefined) {
-            return { left: "0px", top: "0px", id: 0 };
+            return { left: "0", top: "0", id: 0 };
         }
         return div;
     }
