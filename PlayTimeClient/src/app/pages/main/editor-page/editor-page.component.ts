@@ -67,13 +67,11 @@ export class EditorPageComponent implements OnInit {
     onKeyPress(event: KeyboardEvent): void {
         // Check if the pressed key is F5
         if (event.key === 'F5' && event.shiftKey) {
-            console.log('Shift + F5 pressed');
             // Add your custom logic here
             // For example, prevent the default behavior to avoid browser refresh
             event.preventDefault();
             this.runDefaultPage();
         } else if (event.key === 'F5') {
-            console.log('F5 pressed');
             // Add your custom logic here
             // For example, prevent the default behavior to avoid browser refresh
             event.preventDefault();
