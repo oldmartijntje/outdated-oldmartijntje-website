@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+}
+
+.windows_xp {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('https://i.imgur.com/yOpoaJH.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    background: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7);
+    width: 100vw;
+    height: 30px;
+
+    &__start {
+        height: 100%;
+        color: white;
+        font-weight: bold;
+        font-size: 1.1rem;
+        font-style: italic;
+        border: none;
+        border-radius: 0px 10px 12px 0px;
+        box-shadow: 0px 5px 10px #79ce71 inset;
+        background: radial-gradient(circle, #5eac56 0%, #3c873c 100%) center/cover no-repeat;
+
+        display: flex;
+        align-items: center;
+
+        &--logo {
+            width: auto;
+            height: 80%;
+        }
+    }
+}
+
+.window {
+
+    &__hello {
+        z-index: 3;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+
+    &__tab {
+        position: absolute;
+        left: 3rem;
+        top: 3rem;
+    }
+}
