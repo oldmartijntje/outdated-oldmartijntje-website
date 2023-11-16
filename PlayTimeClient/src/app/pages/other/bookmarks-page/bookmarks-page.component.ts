@@ -34,7 +34,6 @@ export class BookmarksPageComponent implements OnInit {
             const top = `${Math.random() * 50}`; // Adjust the range as needed
             this.divs.push({ left, top, id: i });
         }
-        console.log(this.divs)
     }
 
     executeCommand(button: any, bookmark: Record<string, any>): void {
@@ -45,7 +44,6 @@ export class BookmarksPageComponent implements OnInit {
         } else if (button['Command'].toLocaleLowerCase() == "virus") {
             this.virus(bookmark)
         }
-        console.log(button);
     }
 
     virus(bookmark: Record<string, any>): void {
