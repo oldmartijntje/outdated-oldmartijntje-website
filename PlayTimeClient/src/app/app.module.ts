@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BookmarksPageComponent } from './pages/other/bookmarks-page/bookmarks-page.component';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { BookmarksPageComponent } from './pages/other/bookmarks-page/bookmarks-p
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        CdkDrag
     ],
     providers: [{
         provide: MONACO_PATH,

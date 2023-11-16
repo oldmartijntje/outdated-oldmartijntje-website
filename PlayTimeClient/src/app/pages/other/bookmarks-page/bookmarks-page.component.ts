@@ -8,10 +8,17 @@ import { bookmarks } from 'src/app/data/bookmarks';
     styleUrls: ['./bookmarks-page.component.scss']
 })
 export class BookmarksPageComponent {
-
-    constructor(private router: Router) { }
-
+    divs: { left: string; top: string }[] = [];
     bookmarks = bookmarks;
+
+    constructor(private router: Router) {
+        for (let i = 0; i < bookmarks.length; i++) { // Change 10 to the number of divs you want
+            const left = `${Math.random() * 50}vw`; // Adjust the range as needed
+            const top = `${Math.random() * 50}vh`; // Adjust the range as needed
+            this.divs.push({ left, top });
+        }
+    }
+
 
     routerNav(routeSegments: string[]): void {
         // Navigate to the specified route
@@ -27,6 +34,10 @@ export class BookmarksPageComponent {
     }
 
     deleteBookmark(bookmarkId: number): void {
-        this.bookmarks.splice(bookmarkId, 1);
+        const index = this.bookmarks.findIndex(bookmark => bookmark['Id'] === bookmarkId);
+
+        if (index !== -1) {
+            this.bookmarks.splice(index, 1);
+        }
     }
 }

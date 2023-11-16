@@ -1,32 +1,9 @@
 <link rel="stylesheet" href="//unpkg.com/xp.css">
 
-<article class="windows_xp">
-    <section>
-        <div class="window window__hello" style="margin: 32px; width: 350px">
-            <div class="title-bar">
-                <div class="title-bar-text">
-                    aaaaaaaaaaa
-                </div>
-
-                <div class="title-bar-controls">
-                    <button aria-label="Minimize"></button>
-                    <button aria-label="Maximize"></button>
-                    <button aria-label="Close"></button>
-                </div>
-            </div>
-            <div class="window-body">
-                <div style="display: flex; align-items:center;">
-                    <img style="width: 25px; height: 25px;" src="//i.imgur.com/rJnYQnG.png" alt="">
-                    <p>text 1</p>
-                </div>
-                <section class="field-row" style="justify-content: flex-end">
-                    <button>OK</button>
-                </section>
-            </div>
-        </div>
-    </section>
-    <section *ngFor="let bookmark of bookmarks">
-        <div class="window window__tab" style="width: 400px">
+<article class="windows_xp" style="overflow: hidden;">
+    <section *ngFor="let bookmark of bookmarks" cdkDrag>
+        <div class="window window__tab" style="width: 400px"
+            [ngStyle]="{ 'left': divs[bookmark['Id']].left, 'top': divs[bookmark['Id']].top, 'z-index': bookmark['Id'] + 3 }">
             <div class="title-bar">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
@@ -35,13 +12,13 @@
                     <button aria-label="Close" (click)="deleteBookmark(bookmark['Id'])"></button>
                 </div>
             </div>
-            <div class="window-body">
+            <div class="window-body" cdkDragDisabled="true">
                 <menu role="tablist">
                     <button [attr.aria-selected]="isActiveTab(tab['Id'], bookmark['Id'], bookmark) ? 'true' : 'false'"
                         aria-controls="music" *ngFor="let tab of bookmark['Tabs']"
                         (click)="setActiveTab(tab['Id'], bookmark['Id'])">{{tab['Title']}}</button>
                 </menu>
-                <article role="tabpanel">
+                <article role="tabpanel" *ngIf="bookmark['Tabs'].length > 0">
                     <p *ngFor="let textArea of bookmark['Tabs'][bookmark['ActiveTabId']]['Text']">{{textArea['Text']}}
                     </p>
                     <fieldset *ngFor="let radioPanel of bookmark['Tabs'][bookmark['ActiveTabId']]['RadioButtons']">
@@ -57,6 +34,10 @@
                         <label>{{button['AfterText']}}</label>
                     </section>
                 </article>
+                <div style="display: flex; align-items:center;" *ngFor="let popup of bookmark['Popup']">
+                    <img style="width: 25px; height: 25px;" src="{{popup['Img']}}" alt="">
+                    <p>{{popup['Text']}}</p>
+                </div>
                 <section class="field-row" style="justify-content: flex-end">
                     <button *ngFor="let bottemButtons of bookmark['Buttons']">{{bottemButtons['Text']}}</button>
                 </section>
