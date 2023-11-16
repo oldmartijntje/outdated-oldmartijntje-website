@@ -5,12 +5,18 @@
                 <as-split-area [size]="5" minSize="0" maxSize="25">
                     <div class="sidebar">
                         <div class="sidebarContent">
-                            <p>Sidebar</p>
-                            <input *ngIf="!sandBoxMode" type="text" [(ngModel)]="syntaxHighlightLanguage"
-                                (input)="syntaxHighlightLanguageChanged()">
-                            <button *ngIf="!sandBoxMode" (click)="logCode()">Log CodeString</button>
-                            <button *ngIf="!sandBoxMode" (click)="loadCode()">Load from Localstorage</button>
-                            <button *ngIf="!sandBoxMode" (click)="saveCode()">Save to Localstorage</button>
+                            <!-- <p>Sidebar</p> -->
+                            <input class="topSpace" matInput *ngIf="!sandBoxMode" type="text"
+                                [(ngModel)]="syntaxHighlightLanguage" (input)="syntaxHighlightLanguageChanged()">
+                            <button class="bottomSpace topSpace" mat-raised-button color="primary" *ngIf="!sandBoxMode"
+                                (click)="logCode()">Log
+                                CodeString</button>
+                            <button class="bottomSpace" mat-raised-button color="primary" *ngIf="!sandBoxMode"
+                                (click)="loadCode()">Load
+                                from Localstorage</button>
+                            <button class="bottomSpace" mat-raised-button color="primary" *ngIf="!sandBoxMode"
+                                (click)="saveCode()">Save to
+                                Localstorage</button>
                             <section class="example-section">
                                 <span class="example-list-section">
                                     <mat-checkbox disabled="{{sandBoxMode}}" class="example-margin"
@@ -32,6 +38,14 @@
                                 </span>
                             </section>
                             <p *ngIf="sandBoxMode">You can't manage Modules</p>
+                            <mat-form-field>
+                                <mat-label>Language Mode</mat-label>
+                                <mat-select [(ngModel)]="language" disabled="{{sandBoxMode}}"
+                                    (valueChange)="setLanguage($event)">
+                                    <mat-option value="javascript">Javascript</mat-option>
+                                    <mat-option value="MarjinScript">MarjinScript</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                         <footer>
                             <p (click)="logBuildData()">{{versionWord}}: <span>{{versionNumber}}</span></p>
@@ -119,14 +133,6 @@
                 </as-split-area>
                 <as-split-area [size]="30" minSize="10">
                     <!-- <p>Run</p> -->
-                    <mat-form-field>
-                        <mat-label>Language Mode</mat-label>
-                        <mat-select [(ngModel)]="language" disabled="{{sandBoxMode}}"
-                            (valueChange)="setLanguage($event)">
-                            <mat-option value="javascript">Javascript</mat-option>
-                            <mat-option value="MarjinScript">MarjinScript</mat-option>
-                        </mat-select>
-                    </mat-form-field>
                     <button mat-raised-button color="primary" class="marginLeftBottom" (click)="sendCodeToRunner()">Run
                         Code</button>
                     <button *ngIf="runDefaultPageButton" mat-raised-button color="primary" class="marginLeftBottom"
