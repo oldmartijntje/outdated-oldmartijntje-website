@@ -3,23 +3,30 @@
 <article class="windows_xp" style="overflow: hidden;">
     <section *ngFor="let bookmark of bookmarks" cdkDrag>
         <div class="window window__tab" style="width: 400px"
-            [ngStyle]="{ 'left': divs[bookmark['Id']].left, 'top': divs[bookmark['Id']].top, 'z-index': bookmark['Id'] + 3 }">
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left, 'top': getDivById(bookmark['Id']).top, 'z-index': bookmark['Id'] + 3 }">
             <div class="title-bar">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
                     <button aria-label="Maximize"></button>
-                    <button aria-label="Close" (click)="deleteBookmark(bookmark['Id'])"></button>
+                    <button aria-label="Close" *ngIf="!bookmark['DisableCloseButton']"
+                        (click)="deleteBookmark(bookmark['Id'])"></button>
+                    <button aria-label="Close" *ngIf="bookmark['DisableCloseButton']"></button>
                 </div>
             </div>
             <div class="window-body" cdkDragDisabled="true">
+                <p *ngIf="bookmark['TopText']">{{bookmark['TopText']}}
+                </p>
                 <menu role="tablist">
                     <button [attr.aria-selected]="isActiveTab(tab['Id'], bookmark['Id'], bookmark) ? 'true' : 'false'"
                         aria-controls="music" *ngFor="let tab of bookmark['Tabs']"
                         (click)="setActiveTab(tab['Id'], bookmark['Id'])">{{tab['Title']}}</button>
                 </menu>
                 <article role="tabpanel" *ngIf="bookmark['Tabs'].length > 0">
-                    <p *ngFor="let textArea of bookmark['Tabs'][bookmark['ActiveTabId']]['Text']">{{textArea['Text']}}
+                    <p *ngFor="let textArea of bookmark['Tabs'][bookmark['ActiveTabId']]['Text']"><a
+                            *ngIf="textArea['Link']" href="{{textArea['Link']}}"
+                            target="_blank">{{textArea['Text']}}</a><span
+                            *ngIf="!textArea['Link']">{{textArea['Text']}}</span>
                     </p>
                     <fieldset *ngFor="let radioPanel of bookmark['Tabs'][bookmark['ActiveTabId']]['RadioButtons']">
                         <legend>{{radioPanel['BoxTitle']}}</legend>
@@ -30,7 +37,7 @@
                     </fieldset>
                     <section class="field-row"
                         *ngFor="let button of bookmark['Tabs'][bookmark['ActiveTabId']]['Buttons']">
-                        <button>{{button['Text']}}</button>
+                        <button (click)="executeCommand(button, bookmark)">{{button['Text']}}</button>
                         <label>{{button['AfterText']}}</label>
                     </section>
                 </article>
@@ -40,7 +47,8 @@
                     <p>{{popup['Text']}}</p>
                 </div>
                 <section class="field-row" style="justify-content: flex-end">
-                    <button *ngFor="let bottemButtons of bookmark['Buttons']">{{bottemButtons['Text']}}</button>
+                    <button *ngFor="let bottemButtons of bookmark['Buttons']"
+                        (click)="executeCommand(bottemButtons, bookmark)">{{bottemButtons['Text']}}</button>
                 </section>
             </div>
         </div>

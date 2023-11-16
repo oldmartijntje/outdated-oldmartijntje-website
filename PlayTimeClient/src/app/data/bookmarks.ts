@@ -1,5 +1,6 @@
 export const bookmarks: Record<string, any>[] = [
     {
+        "TopText": "This is a test",
         "Popup": [
             {
                 "Text": "Error",
@@ -18,7 +19,7 @@ export const bookmarks: Record<string, any>[] = [
                 "Img": "assets/icons/Exclamation.png"
             }
         ],
-        "Title": "Codepen",
+        "Title": "Test Window",
         "Size": { "Width": "400px", "Height": "350px" },
         "Tabs": [
             {
@@ -37,7 +38,6 @@ export const bookmarks: Record<string, any>[] = [
                         "AfterText": "AfterText2"
                     }
                 ],
-                "Id": 0,
                 "Text": [
                     {
                         "Text": "This is text",
@@ -52,11 +52,11 @@ export const bookmarks: Record<string, any>[] = [
                     {
                         "BoxTitle": "Today's mood",
                         "Options": [
-                            { "Text": "Nicki Minaj" },
-                            { "Text": "Bell Towers" },
+                            { "Text": "Henk" },
+                            { "Text": "Gertruda" },
                             { "Text": "Frietpan frank" },
-                            { "Text": "The Glamorous Monique" },
-                            { "Text": "EN. V" }
+                            { "Text": "Wilco" },
+                            { "Text": "DieTim" }
                         ]
                     }
                 ]
@@ -82,8 +82,6 @@ export const bookmarks: Record<string, any>[] = [
 
             }
         ],
-        "ActiveTabId": 0,
-        "Id": 0,
         "Buttons": [
             {
                 "Text": "OK",
@@ -109,17 +107,50 @@ export const bookmarks: Record<string, any>[] = [
                 "Img": "assets/icons/Exclamation.png"
             }
         ],
-        "Title": "1",
+        "Title": "Error",
         "Size": { "Width": "400px", "Height": "350px" },
-        "Id": 1,
-        "ActiveTabId": 0,
+        "DisableCloseButton": true,
         "Buttons": [
             {
                 "Text": "OK",
-                "Command": "",
+                "Command": "virus",
                 "Link": ""
             }
         ],
         "Tabs": []
+    },
+    {
+        "Popup": [
+        ],
+        "Title": "Codepen",
+        "TopText": "This Codepen gave me the design for this page",
+        "Size": { "Width": "400px", "Height": "350px" },
+        "Tabs": [
+            {
+                "Title": "Codepen",
+                "Buttons": [
+                    {
+                        "Text": "Visit Codepen",
+                        "Command": "Nav",
+                        "Link": "https://codepen.io/tsukamoto/pen/KKVPeRp",
+                        "AfterText": "or you can't do that?"
+                    }
+                ],
+                "Text": [
+                    {
+                        "Text": "Made By: Sho Tsukamoto",
+                        "Link": "https://codepen.io/tsukamoto"
+                    }
+                ],
+
+            }
+        ],
+        "Buttons": [
+            {
+                "Text": "OK",
+                "Command": "Close",
+                "Link": ""
+            }
+        ]
     }
 ]
