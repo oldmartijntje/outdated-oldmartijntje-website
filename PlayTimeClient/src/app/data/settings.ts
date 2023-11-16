@@ -20,7 +20,7 @@ export const PageCode: any = {
     },
     "Railroad": {
         "javascript": "",
-        "MarjinScript": ""
+        "MarjinScript": 'showTypeButton("ExpCliff")\nshowTypeButton("ExpDessert")\nshowTypeButton("ExpForrest")\nshowTypeButton("ExpHiking")\nshowTypeButton("ExpLake")\nshowTypeButton("ExpRiver")\nshowTypeButton("Normal1")\nshowTypeButton("Normal2")\nshowRollAllButton()\nshowDiceRollButton()\nshowDiceDeleteButton()\nshowDiceImage()\nsynchroniseCodeToPage()\n\n'
     },
     "404": {
         "javascript": "",

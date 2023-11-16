@@ -1,4 +1,5 @@
 import { MarjinscriptInterperatorServiceService } from "../services/global/marjinscript-interperator-service.service";
+import { RuntimeServiceService } from "../services/global/runtime-service.service";
 
 export const PackageDescriptions: Record<string, Record<string, string>> = {
     "0": {
@@ -13,16 +14,25 @@ export const PackageDescriptions: Record<string, Record<string, string>> = {
         "description": "The railroadFunctions package contains the functions for the RailroadInk Page.",
         "id": "1"
     },
+    "2": {
+        "moduleName": "AppLink Module",
+        "name": "applinkFunctions",
+        "description": "The AppLink package contains the functions for linking the editor to the page.",
+        "id": "2"
+    },
 }
 
 export const PackagesByPage: Record<string, number[]> = {
     "Editor": [0],
-    "Railroad": [0, 1],
+    "Railroad": [0, 1, 2],
 }
 
 
 export class Packages {
-    constructor(private marjinscriptInterperatorServiceService: MarjinscriptInterperatorServiceService) { }
+    constructor(
+        private marjinscriptInterperatorServiceService: MarjinscriptInterperatorServiceService,
+        private runtimeServiceService: RuntimeServiceService
+    ) { }
 
     mainFunctions: Record<string, (args: any[], mode: number, line: number) => void> = {
         print: (args, mode, line) => {
@@ -51,11 +61,41 @@ export class Packages {
     }
 
     railroadFunctions: Record<string, (args: any[], mode: number, line: number) => void> = {
-
-        // Add more functions for other commands as needed.
+        showDiceImage: (args, mode, line) => {
+            this.marjinscriptInterperatorServiceService.addToPageVariable(["buttons", "image", "amount"], 1)
+        },
+        showDiceDeleteButton: (args, mode, line) => {
+            this.marjinscriptInterperatorServiceService.addToPageVariable(["buttons", "delete", "amount"], 1)
+        },
+        showDiceRollButton: (args, mode, line) => {
+            this.marjinscriptInterperatorServiceService.addToPageVariable(["buttons", "Roll", "amount"], 1)
+        },
+        showRollAllButton: (args, mode, line) => {
+            this.marjinscriptInterperatorServiceService.addToPageVariable(["buttons", "RollAll", "amount"], 1)
+        },
+        showTypeButton: (args, mode, line) => {
+            if (args.length < 1) {
+                this.marjinscriptInterperatorServiceService.sendErrorToConsole("showTypeButton expects at least 1 argument", mode);
+                return;
+            }
+            this.marjinscriptInterperatorServiceService.addToPageVariable(["buttons", args[0], "amount"], 1)
+        },
+        setNameOfTypeButton: (args, mode, line) => {
+            if (args.length < 2) {
+                this.marjinscriptInterperatorServiceService.sendErrorToConsole("setNameOfTypeButton expects at least 2 arguments", mode);
+                return;
+            }
+            this.marjinscriptInterperatorServiceService.setPageVariable(["buttons", args[0], "name"], args[1])
+        },
     }
 
-    libraries: Record<string, any>[] = [this.mainFunctions, this.railroadFunctions];
+    applinkFunctions: Record<string, (args: any[], mode: number, line: number) => void> = {
+        synchroniseCodeToPage: (args, mode, line) => {
+            this.runtimeServiceService.setPageVariables(this.marjinscriptInterperatorServiceService.readPageVariables());
+        },
+    }
+
+    libraries: Record<string, any>[] = [this.mainFunctions, this.railroadFunctions, this.applinkFunctions];
 
     convertVars(vars: any[]) {
         //vars = (["var", variableRetrieved, item] || variableRetrieved)[]

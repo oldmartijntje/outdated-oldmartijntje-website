@@ -1,4 +1,4 @@
-export const defaultPageVariables = {
+export const defaultPageVariables: { [key: string]: any } = {
     "Railroad": {
         "buttons": {
             "Normal1": {

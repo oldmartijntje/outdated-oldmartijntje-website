@@ -129,7 +129,8 @@
                     </mat-form-field>
                     <button mat-raised-button color="primary" class="marginLeftBottom" (click)="sendCodeToRunner()">Run
                         Code</button>
-                    <button *ngIf="runDefaultPageButton" mat-raised-button color="primary" class="marginLeftBottom">Run
+                    <button *ngIf="runDefaultPageButton" mat-raised-button color="primary" class="marginLeftBottom"
+                        (click)="runDefaultPage()">Run
                         Default
                         Code</button>
                 </as-split-area>

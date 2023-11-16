@@ -19,6 +19,8 @@ export class RuntimeServiceService {
     setProblems: Message[] = [];
     tempPageVariables: { [key: string]: any } = {};
 
+
+
     emptyProblemsSubject() {
         this.setProblems = [];
     }
@@ -100,6 +102,10 @@ export class RuntimeServiceService {
 
     setPageVariable(key: string, value: any) {
         this.tempPageVariables[key] = value;
+    }
+
+    setPageVariables(value: any) {
+        this.tempPageVariables = value;
     }
 
     flushPageVariables() {

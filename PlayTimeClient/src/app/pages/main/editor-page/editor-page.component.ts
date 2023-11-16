@@ -50,6 +50,7 @@ export class EditorPageComponent implements OnInit {
     consoleWindowInput = '';
     sandBoxMode = false;
     runDefaultPageButton = false;
+    pagePath = "";
 
     task: Task = {
         name: 'All Modules',
@@ -58,6 +59,7 @@ export class EditorPageComponent implements OnInit {
         subtasks: [
             { name: 'Primary Module', completed: true, color: 'primary' },
             { name: 'RailroadInk Module', completed: false, color: 'accent' },
+            { name: 'Applink Module', completed: false, color: 'primary' },
         ],
     };
 
@@ -143,6 +145,10 @@ export class EditorPageComponent implements OnInit {
 
     runDefaultPage() {
         this.runtimeServiceService.setPageVariablesToEmpty();
+        const pageVar = { ...defaultPageVariables }
+        console.log(pageVar[this.pagePath])
+        this.runtimeServiceService.setPageVariables(pageVar[this.pagePath]);
+        this.runtimeServiceService.flushPageVariables();
     }
 
     syntaxHighlightLanguageChanged() {
@@ -186,6 +192,7 @@ export class EditorPageComponent implements OnInit {
                 this.runDefaultPageButton = false;
             }
             console.log(currentPathWithoutQueryParams);
+            this.pagePath = currentPathWithoutQueryParams;
             if (currentPathWithoutQueryParams in PackagesByPage) {
                 if (this.task.subtasks == undefined) {
                     this.task.subtasks = [];
@@ -201,6 +208,7 @@ export class EditorPageComponent implements OnInit {
             } else {
 
             }
+            this.checkCode(true);
         });
     }
 

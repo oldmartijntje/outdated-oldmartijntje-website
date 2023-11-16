@@ -8,8 +8,9 @@ import { Packages } from 'src/app/data/packages';
     providedIn: 'root'
 })
 export class MarjinscriptInterperatorServiceService {
-    variables: { [key: string]: string | number } = {}
+    variables: { [key: string]: string | number } = {};
     definedVariables: string[] = [];
+    pageVariables: { [key: string]: any } = {};
 
     constructor(
         private runtimeServiceService: RuntimeServiceService,
@@ -18,6 +19,41 @@ export class MarjinscriptInterperatorServiceService {
 
     trimSpaces(inputString: string): string {
         return inputString.replace(/\s/g, '');
+    }
+
+    setPageVariable(key: string | string[], value: any) {
+        if (typeof key === 'string') {
+            this.pageVariables[key] = value;
+        } else if (Array.isArray(key)) {
+            let currentLevel = this.pageVariables;
+            for (let i = 0; i < key.length - 1; i++) {
+                const key1 = key[i];
+                currentLevel[key1] = currentLevel[key1] || {};
+                currentLevel = currentLevel[key1] as { [key: string]: any };
+            }
+            currentLevel[key[key.length - 1]] = value;
+        }
+        return this.pageVariables;
+    }
+
+    addToPageVariable(key: string | string[], value: any) {
+        if (typeof key === 'string') {
+            this.pageVariables[key] = this.pageVariables[key] ? this.pageVariables[key] + value : value;
+        } else if (Array.isArray(key)) {
+            let currentLevel = this.pageVariables;
+            for (let i = 0; i < key.length - 1; i++) {
+                const key1 = key[i];
+                currentLevel[key1] = currentLevel[key1] || {};
+                currentLevel = currentLevel[key1] as { [key: string]: any };
+            }
+            const lastKey = key[key.length - 1];
+            currentLevel[lastKey] = currentLevel[lastKey] ? currentLevel[lastKey] + value : value;
+        }
+        return this.pageVariables;
+    }
+
+    readPageVariables(): { [key: string]: any } {
+        return this.pageVariables;
     }
 
     processList(arr: any[], line: number | undefined = undefined, mode: number = 0) {
@@ -313,7 +349,7 @@ export class MarjinscriptInterperatorServiceService {
         }
 
         // Execute the commands.
-        var dict = new Packages(this).mergeDicts(packages);
+        var dict = new Packages(this, this.runtimeServiceService).mergeDicts(packages);
         if (mode == 1) {
             this.runtimeServiceService.flushProblemsSubject();
             for (const cmd of commandsToExecute) {
@@ -321,9 +357,13 @@ export class MarjinscriptInterperatorServiceService {
             }
             return;
         }
+        this.pageVariables = {};
+        this.runtimeServiceService.setPageVariablesToEmpty();
         for (const cmd of commandsToExecute) {
             this.runFunction(cmd.command, cmd.arguments, cmd.line, mode, dict);
         }
+        this.runtimeServiceService.flushPageVariables();
+
     }
 
     isVariableName(str: string) {

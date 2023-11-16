@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EditorServiceService } from 'src/app/services/global/editor-service.service';
+import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 
 export interface Dice {
     diceType: string;
@@ -21,6 +22,7 @@ export interface DiceInfo {
 
 export class RailroadinkPageComponent implements OnInit {
 
+    pageVariables: { [key: string]: any } = {};
     diceId = 1
 
     diceDict: { [key: string]: DiceInfo } = {
@@ -128,11 +130,17 @@ export class RailroadinkPageComponent implements OnInit {
         ["forrest", "forrest"],
     ]
 
-    constructor(private editorService: EditorServiceService) { }
+    constructor(
+        private editorService: EditorServiceService,
+        private runtimeServiceService: RuntimeServiceService
+    ) { }
 
     ngOnInit(): void {
         // this.editorService.setAllowEditor(true);
-        this.addSet(0)
+        this.runtimeServiceService.pageVariables$.subscribe((value) => {
+            console.log(value)
+            this.pageVariables = value;
+        });
     }
 
     addSet(number: number) {
