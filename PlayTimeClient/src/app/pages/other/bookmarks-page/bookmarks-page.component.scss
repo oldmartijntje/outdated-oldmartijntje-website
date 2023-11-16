@@ -3,19 +3,20 @@ body {
 }
 
 .windows_xp {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-image: url('https://i.imgur.com/yOpoaJH.jpg');
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
+    // overflow: hidden;
 }
 
 .taskbar {
     position: fixed;
     bottom: 0;
     background: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7);
-    width: 100vw;
-    height: 30px;
+    width: 100%;
+    height: 2rem;
 
     &__start {
         height: 100%;

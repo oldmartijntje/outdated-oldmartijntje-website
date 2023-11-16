@@ -1,9 +1,10 @@
 export const bookmarks: Record<string, any>[] = [
     {
         "Title": "Codepen",
+        "Size": { "Width": "400px", "Height": "350px" },
         "Tabs": [
             {
-                "Text": "Tab1",
+                "Title": "Tab1",
                 "Buttons": [
                     {
                         "Text": "Reset Alarm...",
@@ -18,11 +19,33 @@ export const bookmarks: Record<string, any>[] = [
                         "AfterText": "AfterText2"
                     }
                 ],
-                "Id": 0
+                "Id": 0,
+                "Text": [
+                    {
+                        "Text": "This is text",
+                        "Link": "https://codepen.io/"
+                    },
+                    {
+                        "Text": "Set your listening preferences",
+                        "Link": ""
+                    },
+                ],
+                "RadioButtons": [
+                    {
+                        "BoxTitle": "Today's mood",
+                        "Options": [
+                            { "Text": "Nicki Minaj" },
+                            { "Text": "Bell Towers" },
+                            { "Text": "Frietpan frank" },
+                            { "Text": "The Glamorous Monique" },
+                            { "Text": "EN. V" }
+                        ]
+                    }
+                ]
 
             },
             {
-                "Text": "Tab2",
+                "Title": "Tab2",
                 "Buttons": [
                     {
                         "Text": "Button3",
@@ -47,14 +70,17 @@ export const bookmarks: Record<string, any>[] = [
             {
                 "Text": "OK",
                 "Command": "",
-                "Link": "",
-                "AfterText": "AfterText1"
+                "Link": ""
             },
             {
                 "Text": "Cancel",
                 "Command": "",
-                "Link": "",
-                "AfterText": "AfterText2"
+                "Link": ""
+            },
+            {
+                "Text": "OwO",
+                "Command": "",
+                "Link": ""
             }
         ]
     }
