@@ -152,6 +152,23 @@ export class RailroadinkPageComponent implements OnInit {
         }
     }
 
+    getPageVariable(key: string | string[]): any | undefined {
+        if (typeof key === 'string') {
+            return this.pageVariables[key];
+        } else if (Array.isArray(key)) {
+            let currentLevel = this.pageVariables;
+            for (const currentKey of key) {
+                if (currentLevel && typeof currentLevel === 'object' && currentKey in currentLevel) {
+                    currentLevel = currentLevel[currentKey];
+                } else {
+                    return false; // Return undefined if any intermediate key is missing
+                }
+            }
+            return currentLevel;
+        }
+        return false; // Return undefined for unsupported key types
+    }
+
     createDiceJson(name: string) {
         var json: Dice = {
             "diceType": name,

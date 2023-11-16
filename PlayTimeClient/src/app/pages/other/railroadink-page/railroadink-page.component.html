@@ -9,22 +9,75 @@
 <div>
 
 </div>
-<div>
-    <button class="headerButton" (click)="addSet(0)">Add Blue/Red default set</button>
-    <button class="headerButton" (click)="addSet(1)">Add Yellow/Green default set</button>
-    <button class="headerButton" (click)="addSet(2)">Add Dessert expansion set</button>
-    <button class="headerButton" (click)="addSet(3)">Add Cliff expansion set</button>
-    <button class="headerButton" (click)="addSet(4)">Add River expansion set</button>
-    <button class="headerButton" (click)="addSet(5)">Add Lake expansion set</button>
-    <button class="headerButton" (click)="addSet(6)">Add Hiking paths expansion set</button>
-    <button class="headerButton" (click)="addSet(7)">Add Forrest expansion set</button>
-    <button class="headerButton niceButton" (click)="rollAllDice()">Roll Dice</button>
+<div class="flex">
+    <div *ngIf="getPageVariable(['buttons', 'Normal1']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'Normal1', 'amount'])); let i = index"
+            (click)="addSet(0)">Add Blue/Red default set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'Normal2']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'Normal2', 'amount'])); let i = index"
+            (click)="addSet(1)">Add Yellow/Green default set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'ExpDessert']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'ExpDessert', 'amount'])); let i = index"
+            (click)="addSet(2)">Add Dessert expansion set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'ExpCliff']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'ExpCliff', 'amount'])); let i = index"
+            (click)="addSet(3)">Add Cliff expansion set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'ExpRiver']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'ExpRiver', 'amount'])); let i = index"
+            (click)="addSet(4)">Add River expansion set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'ExpLake']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'ExpLake', 'amount'])); let i = index"
+            (click)="addSet(5)">Add Lake expansion set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'ExpHiking']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'ExpHiking', 'amount'])); let i = index"
+            (click)="addSet(6)">Add Hiking paths expansion set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'ExpForrest']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'ExpForrest', 'amount'])); let i = index"
+            (click)="addSet(7)">Add Forrest expansion set</button>
+    </div>
+    <div *ngIf="getPageVariable(['buttons', 'RollAll']) != false">
+        <button class="headerButton"
+            *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'RollAll', 'amount'])); let i = index"
+            class="headerButton niceButton" (click)="rollAllDice()">Roll Dice</button>
+    </div>
 </div>
-<div id="diceBox">
+<!-- <div id="diceBox">
     <div class="diceDiv" *ngFor="let dice of activeDice">
         <img src="{{dice['image']}}" alt="RoadSplit" class="dice rotated{{dice.rotation}}">
-        <button id="diceDeleteButton1" (click)="deleteDice(dice.id)">Delete
+        <button class="headerButton" id="diceDeleteButton1" (click)="deleteDice(dice.id)">Delete
             Dice</button>
-        <button id="diceRollId1" (click)="rollDice(dice.id)">Roll Dice</button>
+        <button class="headerButton" id="diceRollId1" (click)="rollDice(dice.id)">Roll Dice</button>
+    </div>
+</div> -->
+<div id="diceBox">
+    <div class="diceDiv" *ngFor="let dice of activeDice">
+        <div *ngIf="getPageVariable(['buttons', 'image']) != false">
+            <img *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'image', 'amount'])); let i = index"
+                src="{{dice['image']}}" alt="RoadSplit" class="dice rotated{{dice.rotation}}">
+        </div>
+        <div *ngIf="getPageVariable(['buttons', 'delete']) != false">
+            <button *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'delete', 'amount'])); let i = index"
+                class="headerButton" id="diceDeleteButton1" (click)="deleteDice(dice.id)">Delete
+                Dice</button>
+        </div>
+        <div *ngIf="getPageVariable(['buttons', 'Roll']) != false">
+            <button *ngFor="let _ of [].constructor(getPageVariable(['buttons', 'Roll', 'amount'])); let i = index"
+                class="headerButton" id="diceRollId1" (click)="rollDice(dice.id)">Roll Dice</button>
+        </div>
     </div>
 </div>

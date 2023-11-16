@@ -45,3 +45,9 @@
     background-color: $primary-color;
     color: $primary-text-color;
 }
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+}

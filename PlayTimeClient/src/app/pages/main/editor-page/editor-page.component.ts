@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
@@ -62,6 +62,24 @@ export class EditorPageComponent implements OnInit {
             { name: 'Applink Module', completed: false, color: 'primary' },
         ],
     };
+
+    @HostListener('window:keydown', ['$event'])
+    onKeyPress(event: KeyboardEvent): void {
+        // Check if the pressed key is F5
+        if (event.key === 'F5' && event.shiftKey) {
+            console.log('Shift + F5 pressed');
+            // Add your custom logic here
+            // For example, prevent the default behavior to avoid browser refresh
+            event.preventDefault();
+            this.runDefaultPage();
+        } else if (event.key === 'F5') {
+            console.log('F5 pressed');
+            // Add your custom logic here
+            // For example, prevent the default behavior to avoid browser refresh
+            event.preventDefault();
+            this.sendCodeToRunner();
+        }
+    }
 
     logBuildData() {
         this.log(BuildData)
@@ -146,7 +164,6 @@ export class EditorPageComponent implements OnInit {
     runDefaultPage() {
         this.runtimeServiceService.setPageVariablesToEmpty();
         const pageVar = { ...defaultPageVariables }
-        console.log(pageVar[this.pagePath])
         this.runtimeServiceService.setPageVariables(pageVar[this.pagePath]);
         this.runtimeServiceService.flushPageVariables();
     }
@@ -209,6 +226,7 @@ export class EditorPageComponent implements OnInit {
 
             }
             this.checkCode(true);
+            this.runDefaultPage();
         });
     }
 
