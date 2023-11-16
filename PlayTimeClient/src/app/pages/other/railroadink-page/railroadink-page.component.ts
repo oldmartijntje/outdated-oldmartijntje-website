@@ -138,7 +138,6 @@ export class RailroadinkPageComponent implements OnInit {
     ngOnInit(): void {
         // this.editorService.setAllowEditor(true);
         this.runtimeServiceService.pageVariables$.subscribe((value) => {
-            console.log(value)
             this.pageVariables = value;
         });
     }

@@ -6,19 +6,22 @@ export const PackageDescriptions: Record<string, Record<string, string>> = {
         "moduleName": "Main Module",
         "name": "mainFunctions",
         "description": "The mainFunctions package contains the most important functions for the MarjinScript language.",
-        "id": "0"
+        "id": "0",
+        "version": "1",
     },
     "1": {
         "moduleName": "railroad Module",
         "name": "railroadFunctions",
         "description": "The railroadFunctions package contains the functions for the RailroadInk Page.",
-        "id": "1"
+        "id": "1",
+        "version": "1"
     },
     "2": {
         "moduleName": "AppLink Module",
         "name": "applinkFunctions",
         "description": "The AppLink package contains the functions for linking the editor to the page.",
-        "id": "2"
+        "id": "2",
+        "version": "1"
     },
 }
 
@@ -44,19 +47,25 @@ export class Packages {
         error: (args, mode, line) => {
             this.marjinscriptInterperatorServiceService.sendErrorToConsole('Error: ' + this.convertVars(args).join(', '), mode);
         },
-        combine: (args, mode, line) => {
-            var variable = undefined;
-            for (const arg of this.convertVars(args)) {
-                if (variable == undefined) {
-                    variable = arg;
-                } else {
-                    variable += arg;
-                }
-            }
-            if (this.checkForVar(args[0])) {
-                this.marjinscriptInterperatorServiceService.variables[args[0][2]] = variable;
-            }
+        clearConsole: (args, mode, line) => {
+            this.runtimeServiceService.setConsoleSubject([]);
         },
+        clear: (args, mode, line) => {
+            this.runtimeServiceService.setOutputSubject([]);
+        },
+        // combine: (args, mode, line) => {
+        //     var variable = undefined;
+        //     for (const arg of this.convertVars(args)) {
+        //         if (variable == undefined) {
+        //             variable = arg;
+        //         } else {
+        //             variable += arg;
+        //         }
+        //     }
+        //     if (this.checkForVar(args[0])) {
+        //         this.marjinscriptInterperatorServiceService.variables[args[0][2]] = variable;
+        //     }
+        // },
         // Add more functions for other commands as needed.
     }
 
