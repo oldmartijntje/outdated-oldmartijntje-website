@@ -33,9 +33,19 @@ export class BookmarksPageComponent implements OnInit {
         }
     }
 
+    toggleMinimisedWindow(bookmark: Record<string, any>): void {
+        bookmark["Minimised"] = !bookmark["Minimised"];
+    }
+
+    devInfo(bookmark: Record<string, any>): void {
+        console.log(bookmark);
+    }
+
     checkBookmarkForMissingData(bookmark: Record<string, any>): void {
-        console.log(this.lastId);
         bookmark["Id"] = this.lastId;
+        if (bookmark["Minimised"] == undefined) {
+            bookmark["Minimised"] = false;
+        }
         if (bookmark["ActiveTabId"] == undefined) {
             bookmark["ActiveTabId"] = 0;
         }

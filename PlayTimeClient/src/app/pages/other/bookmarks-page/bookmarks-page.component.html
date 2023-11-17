@@ -7,12 +7,12 @@
             <div class="title-bar">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
-                    <button aria-label="Minimize"></button>
-                    <button aria-label="Maximize"></button>
+                    <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
+                    <button aria-label="Maximize" (click)="devInfo(bookmark)"></button>
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
-            <div class="window-body" cdkDragDisabled="true">
+            <div *ngIf="!bookmark['Minimised']" class="window-body" cdkDragDisabled="true">
                 <p *ngIf="bookmark['TopText']">{{bookmark['TopText']}}
                 </p>
                 <menu role="tablist" style="flex-wrap: wrap-reverse; display: flex;">

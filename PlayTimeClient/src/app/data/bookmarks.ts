@@ -149,19 +149,14 @@ export const bookmarks: Record<string, any>[] = [
             {
                 "Title": "Welcome!",
                 "Buttons": [
-                    {
-                        "Text": "Visit Website",
-                        "Command": "Nav",
-                        "Link": "https://dimden.dev",
-                        "AfterText": "It's pretty nice!"
-                    }
                 ],
                 "Text": [
                     {
                         "Text": "This is a cool website that someone sent me.",
                         "Link": ""
                     }
-                ]
+                ],
+                "InnerHTML": '<a href="https://dimden.dev/" target="_blank"><img src="https://dimden.dev/services/images/88x31.gif"></a>'
 
             },
             {
