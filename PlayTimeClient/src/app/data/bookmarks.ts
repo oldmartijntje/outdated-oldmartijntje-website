@@ -173,6 +173,36 @@ export const bookmarks: Record<string, any>[] = [
 
             },
             {
+                "Title": "vaerael",
+                "Text": [
+                    {
+                        "Text": "I found this one that kinda looks like mine.",
+                        "Link": ""
+                    }
+                ],
+                "InnerHTML": '<a href="http://vaerael.neocities.org/"><img src="https://64.media.tumblr.com/fb603cee5834488971d74d7f66cdf99d/6c005a58dfcc6d02-12/s540x810/e2aaabc47e427d4f1af027a67dd03a5306ccb88f.png"/></a>'
+
+            },
+            {
+                "Title": "Notable Links",
+                "Buttons": [
+                    {
+                        "Text": "Cool PC?",
+                        "Command": "Nav",
+                        "Link": "https://www.windows93.net",
+                        "AfterText": "Check this thing I found on the vaerael page."
+                    }
+                ],
+                "Text": [
+                    {
+                        "Text": "Basically all cool websites, but if I keep adding pages to this window it'll be too clutterred.",
+                        "Link": ""
+                    }
+                ],
+                "InnerHTML": ''
+
+            },
+            {
                 "InnerHTML": '<iframe width="180" height="180" style="border:none; margin-top: 0.5rem;" src="https://dimden.neocities.org/navlink/" name="neolink"></iframe>',
                 "Title": " NavLink Ads!",
                 "Buttons": [
