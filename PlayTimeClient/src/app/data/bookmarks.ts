@@ -8,7 +8,7 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Title": "Error",
-        "Size": { "Width": "800px", "Height": "350px" },
+        "Size": { "Width": "200px", "Height": "350px" },
         "Buttons": [
             {
                 "Text": "No",
@@ -26,8 +26,8 @@ export const bookmarks: Record<string, any>[] = [
                 "Img": "assets/icons/Question.png"
             }
         ],
-        "Title": "Error",
-        "Size": { "Width": "400px", "Height": "350px" },
+        "Title": "Curiosity",
+        "Size": { "Width": "200px", "Height": "350px" },
         "Buttons": [
             {
                 "Text": "Install",
@@ -195,7 +195,7 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Title": "Hey!",
-        "Size": { "Width": "400px", "Height": "350px" },
+        "Size": { "Width": "200px", "Height": "350px" },
         "Buttons": [
             {
                 "Text": "OK",
@@ -217,7 +217,7 @@ export const bookmarks: Record<string, any>[] = [
             "Link": ""
         },
         "Title": "WARNING",
-        "Size": { "Width": "400px", "Height": "350px" },
+        "Size": { "Width": "300px", "Height": "350px" },
         "Buttons": [
             {
                 "Text": "Previous",
@@ -245,7 +245,7 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Title": ".exe",
-        "Size": { "Width": "400px", "Height": "350px" },
+        "Size": { "Width": "200px", "Height": "350px" },
         "Buttons": [
             {
                 "Text": "OK",
