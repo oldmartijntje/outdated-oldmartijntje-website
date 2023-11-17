@@ -73,6 +73,24 @@ body {
     margin-top: 0;
 }
 
+.no-margin {
+    margin: 0px;
+}
+
 .no-left-margin {
     margin-left: 3px;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0px;
+}
+
+
+.webContent {
+    background-color: #fafafa;
+    width: auto;
+    border-width: 2px;
+    border-color: #919b9c;
+    min-height: 10rem;
+    border-style: solid;
 }

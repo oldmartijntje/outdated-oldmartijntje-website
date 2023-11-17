@@ -143,11 +143,11 @@ export const bookmarks: Record<string, any>[] = [
     {
         "Popup": [
         ],
-        "Title": "dimden.dev",
+        "Title": "neocities",
         "Size": { "Width": "400px" },
         "Tabs": [
             {
-                "Title": "Welcome!",
+                "Title": "dimden.dev",
                 "Buttons": [
                 ],
                 "Text": [
@@ -157,6 +157,19 @@ export const bookmarks: Record<string, any>[] = [
                     }
                 ],
                 "InnerHTML": '<a href="https://dimden.dev/" target="_blank"><img src="https://dimden.dev/services/images/88x31.gif"></a>'
+
+            },
+            {
+                "Title": "melankorin.net",
+                "Buttons": [
+                ],
+                "Text": [
+                    {
+                        "Text": "I found this one through the Navlink Ads.",
+                        "Link": ""
+                    }
+                ],
+                "InnerHTML": '<a href="https://melankorin.net/"><img src="https://melankorin.net/assets/img/buttons/button-2.gif" alt=""></a>'
 
             },
             {
@@ -262,6 +275,26 @@ export const bookmarks: Record<string, any>[] = [
         "Title": "Page Explorer",
         "Type": "Router"
     },
+    {
+        "Popup": [
+        ],
+        "Title": "Flag Counter",
+        "Size": { "Width": "330px" },
+        "Buttons": [
+            {
+                "Text": "OK",
+                "Command": "close",
+                "Link": ""
+            },
+            {
+                "Text": "What?",
+                "Command": "nav",
+                "Link": "https://s11.flagcounter.com/more/cH0p/"
+            }
+        ],
+        "Tabs": [],
+        "InnerHTML": '<a href="https://info.flagcounter.com/cH0p"><img src="https://s11.flagcounter.com/count2/cH0p/bg_FAF9F9/txt_000000/border_919B9C/columns_4/maxflags_12/viewers_0/labels_0/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>'
+    }
 ]
 
 var test = {

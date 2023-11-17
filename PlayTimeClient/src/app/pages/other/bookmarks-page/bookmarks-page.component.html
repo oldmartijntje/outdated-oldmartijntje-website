@@ -69,8 +69,9 @@
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
-            <div *ngIf="!bookmark['Minimised']" class="window-body no-top-margin no-left-margin" cdkDragDisabled="true">
-                <div>
+            <div *ngIf="!bookmark['Minimised']" class="window-body" cdkDragDisabled="true"
+                style="margin: 0px 3px 0px 3px; overflow: hidden; max-width: 100%;">
+                <div style="overflow: hidden; max-width: 100%;">
                     <header>
                         <button class="headerButton">File</button>
                         <button class="headerButton">Edit</button>
@@ -80,10 +81,28 @@
                         <button class="headerButton">Help</button>
                     </header>
                     <hr class="solid no-top-margin">
+                    <div></div>
+                    <hr class="solid no-top-margin">
+                    <div style="display: flex; flex-direction: row;">
+                        <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Adress</p>
+                        <input type="text" style="width: 100%;" placeholder="https://www.google.com">
+                        <button>Go</button>
+                    </div>
+                    <div class="webContent">
+                        <ng-content></ng-content>
+                    </div>
+                    <footer>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Done</p>
+                            <div style="display: flex; flex-direction: row;">
+                                <img src="../../../../assets/icons/Internet.ico"
+                                    style="width: 18px; height: 18px; padding-top: 3px">
+                                <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 5px;">Internet</p>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
-                <div>
-                    <ng-content></ng-content>
-                </div>
+
 
             </div>
         </div>
