@@ -49,9 +49,12 @@ export class Packages {
         },
         clearConsole: (args, mode, line) => {
             this.runtimeServiceService.setConsoleSubject([]);
+            console.clear();
         },
         clear: (args, mode, line) => {
             this.runtimeServiceService.setOutputSubject([]);
+            this.runtimeServiceService.setConsoleSubject([]);
+            console.clear();
         },
         // combine: (args, mode, line) => {
         //     var variable = undefined;
