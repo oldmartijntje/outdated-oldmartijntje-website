@@ -31,12 +31,13 @@ try:
     ng_build_command = 'ng build --configuration "production" --base-href "https://oldmartijntje.nl"'
     subprocess.run(ng_build_command, shell=True, check=True)
 
-    gh_pages_command = "npx angular-cli-ghpages --dir=dist/play-time"
-    subprocess.run(gh_pages_command, shell=True, check=True)
-    
     source_index_html = 'dist/play-time/index.html'
     destination_404_html = 'dist/play-time/404.html'
     shutil.copyfile(source_index_html, destination_404_html)
+    
+    gh_pages_command = "npx angular-cli-ghpages --dir=dist/play-time"
+    subprocess.run(gh_pages_command, shell=True, check=True)
+    
 except Exception as e:
     print(f'An error occurred while building the project: {e}')
     input(exitMessage)

@@ -22,12 +22,11 @@ export class BookmarksPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.bookmarks = bookmarks;
-        for (let i = 0; i < bookmarks.length; i++) { // Change 10 to the number of divs you want
-            this.bookmarks[i]["Id"] = i;
+        for (let i = 0; i < bookmarks.length; i++) {
             this.lastId = i;
             this.checkBookmarkForMissingData(this.bookmarks[i]);
         }
-        for (let i = 0; i < bookmarks.length; i++) { // Change 10 to the number of divs you want
+        for (let i = 0; i < bookmarks.length; i++) {
             const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
             const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
             this.divs.push({ left, top, id: i });
@@ -35,6 +34,8 @@ export class BookmarksPageComponent implements OnInit {
     }
 
     checkBookmarkForMissingData(bookmark: Record<string, any>): void {
+        console.log(this.lastId);
+        bookmark["Id"] = this.lastId;
         if (bookmark["ActiveTabId"] == undefined) {
             bookmark["ActiveTabId"] = 0;
         }
@@ -42,6 +43,11 @@ export class BookmarksPageComponent implements OnInit {
             bookmark["CloseButton"] = {
                 "Command": "close",
                 "Link": ""
+            };
+        }
+        if (bookmark["Size"] == undefined) {
+            bookmark["Size"] = {
+                "Width": "400px"
             };
         }
         if (bookmark["Type"] == undefined) {
@@ -85,18 +91,13 @@ export class BookmarksPageComponent implements OnInit {
     }
 
     reCreateBookmark(bookmark: Record<string, any>): void {
-        console.log(bookmark);
-        this.checkBookmarkForMissingData(bookmark);
-        this.bookmarks.push({ ...bookmark });
-        this.bookmarks[this.bookmarks.length - 1]["Id"] = this.lastId + 1;
-        for (let i = 0; i < this.bookmarks[this.bookmarks.length - 1]["Tabs"].length; i++) {
-            this.bookmarks[this.bookmarks.length - 1]["Tabs"][i]["Id"] = i;
-        }
+        this.lastId++;
+        var newBookmark = { ...bookmark };
+        this.checkBookmarkForMissingData(newBookmark);
+        this.bookmarks.push({ ...newBookmark });
         const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
         const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
         this.divs.push({ left, top, id: this.lastId });
-        this.lastId++;
-        console.log(this.bookmarks)
     }
 
     routerNav(routeSegments: string[]): void {
@@ -128,10 +129,10 @@ export class BookmarksPageComponent implements OnInit {
     }
 
     getDivById(id: number): { left: string; top: string, id: number } {
-        var div = this.divs.find(div => div.id === id);
-        if (div == undefined) {
+        var divFound = this.divs.find(div => div.id === id);
+        if (divFound == undefined) {
             return { left: `${Math.random() * 50}`, top: `${Math.random() * 50}`, id: 0 };
         }
-        return div;
+        return { ...divFound };
     }
 }

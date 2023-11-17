@@ -38,7 +38,6 @@ export const bookmarks: Record<string, any>[] = [
                     ],
                     "Title": "Error",
                     "Size": { "Width": "400px", "Height": "350px" },
-
                     "Buttons": [
                         {
                             "Text": "Close",
