@@ -302,23 +302,26 @@ export const bookmarks: Record<string, any>[] = [
     {
         "Popup": [
         ],
+        "Size": { "Width": "400px" },
+        "Title": "Link me!",
+        "Tabs": [
+            {
+                "Title": "Small",
+                "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="/assets/icons/oldmartijntje.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://oldmartijntje.nl/assets/icons/oldmartijntje.png" alt=""&gt;&lt;/a&gt;</textarea>'
+            },
+            {
+                "Title": "Wide",
+                "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="/assets/icons/oldmartijntje-long.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://oldmartijntje.nl/assets/icons/oldmartijntje-long.png" alt=""&gt;&lt;/a&gt;</textarea>'
+            }
+        ],
         "TopText": "Link me!",
-        "Title": "Flag Counter",
-        "Size": { "Width": "330px" },
         "Buttons": [
             {
                 "Text": "OK",
                 "Command": "close",
                 "Link": ""
-            },
-            {
-                "Text": "What?",
-                "Command": "nav",
-                "Link": "https://s11.flagcounter.com/more/cH0p/"
             }
         ],
-        "Tabs": [],
-        "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="/assets/icons/oldmartijntje.png" alt=""></a><textarea rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://oldmartijntje.nl/assets/icons/oldmartijntje.png" alt=""&gt;&lt;/a&gt;</textarea>\n'
     }
 ]
 
