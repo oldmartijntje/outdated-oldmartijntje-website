@@ -9,15 +9,54 @@ export const bookmarks: Record<string, any>[] = [
         ],
         "Title": "Error",
         "Size": { "Width": "400px", "Height": "350px" },
-        "DisableCloseButton": true,
         "Buttons": [
             {
-                "Text": "OK",
-                "Command": "virus",
+                "Text": "No",
+                "Command": "close",
                 "Link": ""
             }
         ],
-        "Tabs": []
+        "Tabs": [],
+
+    },
+    {
+        "Popup": [
+            {
+                "Text": "Want to download a virus?",
+                "Img": "assets/icons/Question.png"
+            }
+        ],
+        "Title": "Error",
+        "Size": { "Width": "400px", "Height": "350px" },
+        "Buttons": [
+            {
+                "Text": "Install",
+                "Command": "openNewTab",
+                "Link": "",
+                "Payload": {
+                    "Popup": [
+                    ],
+                    "Title": "Error",
+                    "Size": { "Width": "400px", "Height": "350px" },
+
+                    "Buttons": [
+                        {
+                            "Text": "Close",
+                            "Command": "virus",
+                            "Link": ""
+                        }
+                    ],
+                    "Tabs": [],
+                    "InnerHTML": '<img src="https://media.tenor.com/W9t4G8la9w4AAAAd/you-are-idiot.gif" style="width: 100%">'
+                }
+            },
+            {
+                "Text": "Cancel",
+                "Command": "close",
+                "Link": "",
+            }
+        ],
+        "Tabs": [],
     },
     {
         "Popup": [
@@ -179,6 +218,10 @@ export const bookmarks: Record<string, any>[] = [
                 "Img": "assets/icons/Exclamation.png"
             }
         ],
+        "CloseButton": {
+            "Command": "",
+            "Link": ""
+        },
         "Title": "WARNING",
         "Size": { "Width": "400px", "Height": "350px" },
         "Buttons": [
@@ -188,9 +231,32 @@ export const bookmarks: Record<string, any>[] = [
                 "Link": "https://hotlinewebring.club/oldma/previous"
             },
             {
+                "Text": "HOTLINE WEBRING",
+                "Command": "nav",
+                "Link": "https://hotlinewebring.club"
+            },
+            {
                 "Text": "Next",
                 "Command": "nav",
                 "Link": "https://hotlinewebring.club/oldma/next"
+            }
+        ],
+        "Tabs": []
+    },
+    {
+        "Popup": [
+            {
+                "Text": "Virus Detected?",
+                "Img": "assets/icons/Question.png"
+            }
+        ],
+        "Title": ".exe",
+        "Size": { "Width": "400px", "Height": "350px" },
+        "Buttons": [
+            {
+                "Text": "OK",
+                "Command": "nav",
+                "Link": "https://tominhisroom.dev"
             }
         ],
         "Tabs": []

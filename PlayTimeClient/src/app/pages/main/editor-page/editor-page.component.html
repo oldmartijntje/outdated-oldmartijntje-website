@@ -140,8 +140,8 @@
                         class="marginLeftBottom topSpace" (click)="runDefaultPage()">Run
                         Default
                         Code</button>
-                    <button (click)="routerNav([''])" mat-raised-button color="accent"
-                        class="marginLeftBottom topSpace">Back to
+                    <button (click)="routerNav([''])" mat-raised-button color="accent" class="marginLeftBottom topSpace"
+                        *ngIf="!sandBoxMode">Back to
                         Homepage</button>
                 </as-split-area>
             </as-split>

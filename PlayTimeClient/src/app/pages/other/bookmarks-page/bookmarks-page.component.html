@@ -9,9 +9,7 @@
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
                     <button aria-label="Maximize"></button>
-                    <button aria-label="Close" *ngIf="!bookmark['DisableCloseButton']"
-                        (click)="deleteBookmark(bookmark['Id'])"></button>
-                    <button aria-label="Close" *ngIf="bookmark['DisableCloseButton']"></button>
+                    <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
             <div class="window-body" cdkDragDisabled="true">
