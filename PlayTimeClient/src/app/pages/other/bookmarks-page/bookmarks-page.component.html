@@ -40,7 +40,10 @@
                         <button (click)="executeCommand(button, bookmark)">{{button['Text']}}</button>
                         <label>{{button['AfterText']}}</label>
                     </section>
+                    <div *ngIf="bookmark['Tabs'][bookmark['ActiveTabId']]['InnerHTML']"
+                        [innerHTML]="trustHTML(bookmark['Tabs'][bookmark['ActiveTabId']]['InnerHTML'])"></div>
                 </article>
+                <div *ngIf="bookmark['InnerHTML']" [innerHTML]="trustHTML(bookmark['InnerHTML'])"></div>
                 <div style="display: flex; align-items:center; column-gap: 1rem; margin-left: 1rem;"
                     *ngFor="let popup of bookmark['Popup']">
                     <img style="width: 25px; height: 25px;" src="{{popup['Img']}}" alt="">

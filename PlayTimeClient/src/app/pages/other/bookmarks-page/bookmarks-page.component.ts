@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { bookmarks } from 'src/app/data/bookmarks';
 
@@ -12,7 +13,10 @@ export class BookmarksPageComponent implements OnInit {
     bookmarks: Record<string, any>[] = [];
     lastId: number = 0;
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private sanitizer: DomSanitizer
+    ) { }
 
     ngOnInit(): void {
         this.bookmarks = bookmarks;
@@ -34,6 +38,10 @@ export class BookmarksPageComponent implements OnInit {
             const top = `${Math.random() * 50}`; // Adjust the range as needed
             this.divs.push({ left, top, id: i });
         }
+    }
+
+    trustHTML(html: string): any {
+        return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
     executeCommand(button: any, bookmark: Record<string, any>): void {

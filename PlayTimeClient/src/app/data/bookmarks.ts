@@ -36,6 +36,7 @@ export const bookmarks: Record<string, any>[] = [
                         "AfterText": "or you can't do that?"
                     }
                 ],
+                'InnerHTML': '',
                 "Text": [
                     {
                         "Text": "This Codepen gave me the design for this page",
@@ -123,9 +124,11 @@ export const bookmarks: Record<string, any>[] = [
                         "Link": ""
                     }
                 ],
+                "InnerHTML": 'Template <script>alert("0wned")</script> <b>Syntax</b>'
 
             },
             {
+                "InnerHTML": '<iframe width="180" height="180" style="border:none; margin-top: 0.5rem;" src="https://dimden.neocities.org/navlink/" name="neolink"></iframe>',
                 "Title": " NavLink Ads!",
                 "Buttons": [
                     {
@@ -161,12 +164,34 @@ export const bookmarks: Record<string, any>[] = [
         ],
         "Title": "Hey!",
         "Size": { "Width": "400px", "Height": "350px" },
-        "DisableCloseButton": true,
         "Buttons": [
             {
                 "Text": "OK",
                 "Command": "nav",
                 "Link": "https://github.com/oldmartijntje"
+            }
+        ],
+        "Tabs": []
+    },
+    {
+        "Popup": [
+            {
+                "Text": "You encountered HOTLINE WEBRING!",
+                "Img": "assets/icons/Exclamation.png"
+            }
+        ],
+        "Title": "WARNING",
+        "Size": { "Width": "400px", "Height": "350px" },
+        "Buttons": [
+            {
+                "Text": "Next",
+                "Command": "nav",
+                "Link": "https://hotlinewebring.club/oldma/next"
+            },
+            {
+                "Text": "Previous",
+                "Command": "nav",
+                "Link": "https://hotlinewebring.club/oldma/previous"
             }
         ],
         "Tabs": []
@@ -196,8 +221,10 @@ var test = {
     ],
     "Title": "Test Window",
     "Size": { "Width": "400px", "Height": "350px" },
+    "InnerHTML": "<h1>Test</h1>",
     "Tabs": [
         {
+            "InnerHTML": "<h1>Test</h1>",
             "Title": "Tab1",
             "Buttons": [
                 {

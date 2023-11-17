@@ -7,11 +7,11 @@ import { HomePageComponent } from './pages/main/home-page/home-page.component';
 import { BookmarksPageComponent } from './pages/other/bookmarks-page/bookmarks-page.component';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/Home' },
+    { path: '', pathMatch: 'full', redirectTo: '/Pages' },
     { path: 'Home', component: HomePageComponent },
     { path: 'Editor', component: EditorPageComponent },
     { path: 'Railroad', component: RailroadinkPageComponent },
-    { path: 'Bookmarks', component: BookmarksPageComponent },
+    { path: 'Pages', component: BookmarksPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 
