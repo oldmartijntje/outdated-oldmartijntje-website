@@ -54,3 +54,25 @@ body {
         top: 3rem;
     }
 }
+
+.headerButton {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0.5rem;
+    min-width: 0;
+}
+
+.headerButton:hover {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.no-top-margin {
+    margin-top: 0;
+}
+
+.no-left-margin {
+    margin-left: 3px;
+}

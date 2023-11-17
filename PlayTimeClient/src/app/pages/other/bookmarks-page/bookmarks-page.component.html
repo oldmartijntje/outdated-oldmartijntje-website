@@ -56,15 +56,35 @@
         <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router' && showRouter" style="overflow: hidden;"
             [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3, 'width': getWindowSize(bookmark, '400px') }">
             <div class="title-bar">
-                <div class="title-bar-text">{{bookmark['Title']}}</div>
+                <div style="display: flex; flex-direction: row;">
+                    <img src="../../../../assets/icons/Internet.ico"
+                        style="width: 18px; height: 18px; padding-top: 3px">
+                    <div class="title-bar-text" style="padding-top: 5px;">
+                        {{bookmark['Title']}}
+                    </div>
+                </div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
                     <button aria-label="Maximize" (click)="devInfo(bookmark)"></button>
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
-            <div *ngIf="!bookmark['Minimised']" class="window-body" cdkDragDisabled="true">
-                <ng-content></ng-content>
+            <div *ngIf="!bookmark['Minimised']" class="window-body no-top-margin no-left-margin" cdkDragDisabled="true">
+                <div>
+                    <header>
+                        <button class="headerButton">File</button>
+                        <button class="headerButton">Edit</button>
+                        <button class="headerButton">View</button>
+                        <button class="headerButton">Favorites</button>
+                        <button class="headerButton">Tools</button>
+                        <button class="headerButton">Help</button>
+                    </header>
+                    <hr class="solid no-top-margin">
+                </div>
+                <div>
+                    <ng-content></ng-content>
+                </div>
+
             </div>
         </div>
 

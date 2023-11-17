@@ -27,7 +27,7 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Title": "Curiosity",
-        "Size": { "Width": "200px", "Height": "350px" },
+        "Size": { "Width": "200px" },
         "Buttons": [
             {
                 "Text": "Install",
@@ -37,7 +37,7 @@ export const bookmarks: Record<string, any>[] = [
                     "Popup": [
                     ],
                     "Title": "Error",
-                    "Size": { "Width": "400px", "Height": "350px" },
+                    "Size": { "Width": "400px" },
                     "Buttons": [
                         {
                             "Text": "Close",
@@ -62,7 +62,7 @@ export const bookmarks: Record<string, any>[] = [
         ],
         "Title": "Codepen",
         "TopText": "A few Codepens that I like",
-        "Size": { "Width": "400px", "Height": "350px" },
+        "Size": { "Width": "400px" },
         "Tabs": [
             {
                 "Title": "Windows XP in browser",
@@ -144,7 +144,7 @@ export const bookmarks: Record<string, any>[] = [
         "Popup": [
         ],
         "Title": "dimden.dev",
-        "Size": { "Width": "400px", "Height": "350px" },
+        "Size": { "Width": "400px" },
         "Tabs": [
             {
                 "Title": "Welcome!",
@@ -195,7 +195,7 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Title": "Hey!",
-        "Size": { "Width": "200px", "Height": "350px" },
+        "Size": { "Width": "200px" },
         "Buttons": [
             {
                 "Text": "OK",
@@ -217,7 +217,7 @@ export const bookmarks: Record<string, any>[] = [
             "Link": ""
         },
         "Title": "WARNING",
-        "Size": { "Width": "300px", "Height": "350px" },
+        "Size": { "Width": "300px" },
         "Buttons": [
             {
                 "Text": "Previous",
@@ -245,7 +245,7 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Title": ".exe",
-        "Size": { "Width": "200px", "Height": "350px" },
+        "Size": { "Width": "200px" },
         "Buttons": [
             {
                 "Text": "OK",
@@ -256,6 +256,7 @@ export const bookmarks: Record<string, any>[] = [
         "Tabs": []
     },
     {
+        "Size": { "Width": "600px" },
         "Popup": [
         ],
         "Title": "Page Explorer",
@@ -285,7 +286,7 @@ var test = {
         }
     ],
     "Title": "Test Window",
-    "Size": { "Width": "400px", "Height": "350px" },
+    "Size": { "Width": "400px" },
     "InnerHTML": "<h1>Test</h1>",
     "Tabs": [
         {
