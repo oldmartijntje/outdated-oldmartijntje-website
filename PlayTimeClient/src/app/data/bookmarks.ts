@@ -123,8 +123,7 @@ export const bookmarks: Record<string, any>[] = [
                         "Text": "This is a cool website that someone sent me.",
                         "Link": ""
                     }
-                ],
-                "InnerHTML": 'Template <script>alert("0wned")</script> <b>Syntax</b>'
+                ]
 
             },
             {
