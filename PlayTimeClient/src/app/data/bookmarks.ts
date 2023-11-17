@@ -184,14 +184,14 @@ export const bookmarks: Record<string, any>[] = [
         "Size": { "Width": "400px", "Height": "350px" },
         "Buttons": [
             {
-                "Text": "Next",
-                "Command": "nav",
-                "Link": "https://hotlinewebring.club/oldma/next"
-            },
-            {
                 "Text": "Previous",
                 "Command": "nav",
                 "Link": "https://hotlinewebring.club/oldma/previous"
+            },
+            {
+                "Text": "Next",
+                "Command": "nav",
+                "Link": "https://hotlinewebring.club/oldma/next"
             }
         ],
         "Tabs": []
