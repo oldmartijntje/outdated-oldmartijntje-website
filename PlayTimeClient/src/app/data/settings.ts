@@ -10,7 +10,9 @@ export const EditorSettings: any = {
 }
 
 export const Settings: any = {
-
+    "inWindowsRouter": [
+        "404"
+    ]
 }
 
 export const PageCode: any = {

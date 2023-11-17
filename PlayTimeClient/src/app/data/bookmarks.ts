@@ -8,7 +8,7 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Title": "Error",
-        "Size": { "Width": "400px", "Height": "350px" },
+        "Size": { "Width": "800px", "Height": "350px" },
         "Buttons": [
             {
                 "Text": "No",
@@ -254,6 +254,12 @@ export const bookmarks: Record<string, any>[] = [
             }
         ],
         "Tabs": []
+    },
+    {
+        "Popup": [
+        ],
+        "Title": "Page Explorer",
+        "Type": "Router"
     },
 ]
 

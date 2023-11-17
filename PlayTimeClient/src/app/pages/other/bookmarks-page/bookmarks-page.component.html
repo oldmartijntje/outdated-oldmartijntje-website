@@ -2,8 +2,8 @@
 
 <article class="windows_xp" style="overflow: hidden;">
     <section *ngFor="let bookmark of bookmarks" cdkDrag>
-        <div class="window window__tab" style="width: 400px" *ngIf="bookmark['Type'] === 'WinXP'"
-            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3 }">
+        <div class="window window__tab" *ngIf="bookmark['Type'] === 'WinXP'"
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3, 'width': getWindowSize(bookmark, '400px') }">
             <div class="title-bar">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
@@ -53,6 +53,21 @@
                 </section>
             </div>
         </div>
+        <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router' && showRouter" style="overflow: hidden;"
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3, 'width': getWindowSize(bookmark, '400px') }">
+            <div class="title-bar">
+                <div class="title-bar-text">{{bookmark['Title']}}</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
+                    <button aria-label="Maximize" (click)="devInfo(bookmark)"></button>
+                    <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
+                </div>
+            </div>
+            <div *ngIf="!bookmark['Minimised']" class="window-body" cdkDragDisabled="true">
+                <ng-content></ng-content>
+            </div>
+        </div>
+
     </section>
     <aside>
         <div class="taskbar">
