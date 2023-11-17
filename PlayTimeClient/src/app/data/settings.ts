@@ -4,7 +4,7 @@ export const EditorSettings: any = {
         "404"
     ],
     "MaxLines": {
-        "Cosnole": 50,
+        "Console": 50,
         "Output": 50
     }
 }
@@ -14,6 +14,28 @@ export const Settings: any = {
         "404"
     ]
 }
+
+export const PageInfo: any = [
+    {
+        "Navigate": {
+            "Base": ["404"],
+            "QueryParams": {}
+        },
+        "Title": "404 Not Found Page",
+        "Description": "This page does not exist.",
+        "TitlePath": "404"
+    },
+    {
+        "Navigate": {
+            "Base": ["Pages"],
+            "QueryParams": {}
+        },
+        "Title": "Empty Page",
+        "Description": "This is the main page.",
+        "TitlePath": "OwO"
+    },
+
+]
 
 export const PageCode: any = {
     "Editor": {

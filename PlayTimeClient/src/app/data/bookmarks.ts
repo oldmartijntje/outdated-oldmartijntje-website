@@ -187,6 +187,10 @@ export const bookmarks: Record<string, any>[] = [
                     {
                         "Text": "NavLink Ads is an ad system for personal websites. It cycles between ads every 30 seconds. It does not host any commercial ADs, and it does not cost money to join. Every ad in the system is for personal websites only, and preferrably hand coded sites (so nothing made with a website builder).",
                         "Link": ""
+                    },
+                    {
+                        "Text": "Sadly Angular components keep refreshing every time the page changes (which is a lot more than you'd think), it instantly changes ads. (And for some reason chrome does on mouse move)",
+                        "Link": ""
                     }
                 ],
 
@@ -294,6 +298,27 @@ export const bookmarks: Record<string, any>[] = [
         ],
         "Tabs": [],
         "InnerHTML": '<a href="https://info.flagcounter.com/cH0p"><img src="https://s11.flagcounter.com/count2/cH0p/bg_FAF9F9/txt_000000/border_919B9C/columns_4/maxflags_12/viewers_0/labels_0/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>'
+    },
+    {
+        "Popup": [
+        ],
+        "TopText": "Link me!",
+        "Title": "Flag Counter",
+        "Size": { "Width": "330px" },
+        "Buttons": [
+            {
+                "Text": "OK",
+                "Command": "close",
+                "Link": ""
+            },
+            {
+                "Text": "What?",
+                "Command": "nav",
+                "Link": "https://s11.flagcounter.com/more/cH0p/"
+            }
+        ],
+        "Tabs": [],
+        "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="/assets/icons/oldmartijntje.png" alt=""></a><textarea rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://oldmartijntje.nl/assets/icons/oldmartijntje.png" alt=""&gt;&lt;/a&gt;</textarea>\n'
     }
 ]
 

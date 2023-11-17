@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { bookmarks } from 'src/app/data/bookmarks';
@@ -16,6 +16,8 @@ export class BookmarksPageComponent implements OnInit {
     randomX = 50;
     randomY = 50;
     showRouter: boolean = false;
+    activePage = "";
+    isBlockDraggable = false;
 
     constructor(
         private router: Router,
@@ -36,13 +38,18 @@ export class BookmarksPageComponent implements OnInit {
         this.router.events.subscribe(event => {
             const currentUrl = this.router.url; // Get the full URL
             const currentPathWithoutQueryParams = currentUrl.split('?')[0].substring(1); // Extract the path
-            currentPathWithoutQueryParams;
+            this.activePage = currentPathWithoutQueryParams;
             if (Settings["inWindowsRouter"].includes(currentPathWithoutQueryParams)) {
                 this.showRouter = true;
             } else {
                 this.showRouter = false;
             }
         });
+    }
+
+    switchPage(newPage: string): void {
+        this.activePage = newPage;
+        this.router.navigate([newPage]);
     }
 
     getWindowSize(bookmark: Record<string, any>, defaultWidth: string): string {
@@ -137,8 +144,8 @@ export class BookmarksPageComponent implements OnInit {
         this.router.navigate(routeSegments);
     }
 
-    setActiveTab(tabId: number, bookmarkId: number): void {
-        this.bookmarks[bookmarkId]["ActiveTabId"] = tabId;
+    setActiveTab(tabId: number, bookmark: Record<string, any>): void {
+        bookmark["ActiveTabId"] = tabId;
     }
 
     isActiveTab(tabId: string, bookmarkId: string, bookmark: any): boolean {

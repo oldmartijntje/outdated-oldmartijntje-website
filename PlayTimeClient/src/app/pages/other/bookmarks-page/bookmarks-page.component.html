@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="//unpkg.com/xp.css">
 
 <article class="windows_xp" style="overflow: hidden;">
-    <section *ngFor="let bookmark of bookmarks" cdkDrag>
+    <section *ngFor="let bookmark of bookmarks" cdkDrag [cdkDragDisabled]="!isBlockDraggable">
         <div class="window window__tab" *ngIf="bookmark['Type'] === 'WinXP'"
             [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3, 'width': getWindowSize(bookmark, '400px') }">
-            <div class="title-bar">
+            <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
@@ -12,13 +12,13 @@
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
-            <div *ngIf="!bookmark['Minimised']" class="window-body" cdkDragDisabled="true">
+            <div *ngIf="!bookmark['Minimised']" class="window-body">
                 <p *ngIf="bookmark['TopText']">{{bookmark['TopText']}}
                 </p>
                 <menu role="tablist" style="flex-wrap: wrap-reverse; display: flex;">
                     <button [attr.aria-selected]="isActiveTab(tab['Id'], bookmark['Id'], bookmark) ? 'true' : 'false'"
                         aria-controls="music" *ngFor="let tab of bookmark['Tabs']"
-                        (click)="setActiveTab(tab['Id'], bookmark['Id'])">{{tab['Title']}}</button>
+                        (click)="setActiveTab(tab['Id'], bookmark)">{{tab['Title']}}</button>
                 </menu>
                 <article role="tabpanel" *ngIf="bookmark['Tabs'].length > 0">
                     <p *ngFor="let textArea of bookmark['Tabs'][bookmark['ActiveTabId']]['Text']"><a
@@ -53,9 +53,9 @@
                 </section>
             </div>
         </div>
-        <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router' && showRouter" style="overflow: hidden;"
+        <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router'" style="overflow: hidden;"
             [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3, 'width': getWindowSize(bookmark, '400px') }">
-            <div class="title-bar">
+            <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
                 <div style="display: flex; flex-direction: row;">
                     <img src="../../../../assets/icons/Internet.ico"
                         style="width: 18px; height: 18px; padding-top: 3px">
@@ -69,7 +69,7 @@
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
-            <div *ngIf="!bookmark['Minimised']" class="window-body" cdkDragDisabled="true"
+            <div *ngIf="!bookmark['Minimised']" class="window-body"
                 style="margin: 0px 3px 0px 3px; overflow: hidden; max-width: 100%;">
                 <div style="overflow: hidden; max-width: 100%;">
                     <header>
@@ -85,11 +85,18 @@
                     <hr class="solid no-top-margin">
                     <div style="display: flex; flex-direction: row;">
                         <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Adress</p>
-                        <input type="text" style="width: 100%;" placeholder="https://www.google.com">
-                        <button>Go</button>
+                        <select style="width: 100%;" [(ngModel)]="activePage">
+                            <option value="https://www.google.com">Google</option>
+                            <!-- Add more options as needed -->
+                        </select>
+
+                        <button (click)="switchPage(activePage)">Go</button>
                     </div>
-                    <div class="webContent">
+                    <div class="webContent" *ngIf="showRouter">
                         <ng-content></ng-content>
+                    </div>
+                    <div class="webContent" *ngIf="!showRouter">
+                        <h1>OwO</h1>
                     </div>
                     <footer>
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
