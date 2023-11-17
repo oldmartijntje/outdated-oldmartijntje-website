@@ -27,7 +27,7 @@ try:
     subprocess.run(npm_build_command, shell=True, check=True)
 
     # Build the Angular project
-    ng_build_command = 'ng build --configuration "production" --base-href "https://oldmartijntje.github.io/playtime/"'
+    ng_build_command = 'ng build --configuration "production" --base-href "https://oldmartijntje.nl"'
     subprocess.run(ng_build_command, shell=True, check=True)
 
     gh_pages_command = "npx angular-cli-ghpages --dir=dist/play-time"
