@@ -287,12 +287,12 @@ export const bookmarks: Record<string, any>[] = [
     {
         "Popup": [
             {
-                "Text": "Virus Detected?",
+                "Text": "Do you want to check out my friends website?",
                 "Img": "assets/icons/Question.png"
             }
         ],
-        "Title": ".exe",
-        "Size": { "Width": "200px" },
+        "Title": "tominhisrtoom.dev",
+        "Size": { "Width": "250px" },
         "Buttons": [
             {
                 "Text": "OK",

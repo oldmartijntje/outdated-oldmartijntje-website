@@ -1,9 +1,11 @@
 <app-editor-page *ngIf="showEditor">
     <router-outlet></router-outlet>
 </app-editor-page>
-<app-bookmarks-page *ngIf="!showEditor && showWindows">
-    <router-outlet pc></router-outlet>
-    <router-outlet mobile></router-outlet>
+<app-bookmarks-page *ngIf="!showEditor && showWindows && !mobileMode['MobileMode']">
+    <router-outlet></router-outlet>
 </app-bookmarks-page>
+<app-mobile-bookmarks-page *ngIf="!showEditor && showWindows && mobileMode['MobileMode']">
+    <router-outlet></router-outlet>
+</app-mobile-bookmarks-page>
 <router-outlet *ngIf="!showEditor && !showWindows"></router-outlet>
 <app-toast></app-toast>

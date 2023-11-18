@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { bookmarks } from 'src/app/data/bookmarks';
-import { Settings } from '../../../data/settings';
+import { Settings, PageInfo } from '../../../data/settings';
+import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 
 @Component({
     selector: 'app-bookmarks-page',
@@ -18,13 +19,15 @@ export class BookmarksPageComponent implements OnInit {
     showRouter: boolean = false;
     activePage = "";
     isBlockDraggable = false;
-    mobileMode = {
+    pageInfo: Record<string, any>[] = [];
+    mobileMode: { [key: string]: any } = {
         "MobileUser": false,
         "MobileMode": false
     };
 
     constructor(
         private router: Router,
+        private runtimeServiceService: RuntimeServiceService,
         private sanitizer: DomSanitizer
     ) { }
 
@@ -49,11 +52,19 @@ export class BookmarksPageComponent implements OnInit {
                 this.showRouter = false;
             }
         });
+        this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {
+            this.mobileMode = value;
+        });
+        this.pageInfo = PageInfo;
     }
 
     switchPage(newPage: string): void {
         this.activePage = newPage;
         this.router.navigate([newPage]);
+    }
+
+    setMobileMode(value: boolean) {
+        this.runtimeServiceService.setMobileMode(value);
     }
 
     getWindowSize(bookmark: Record<string, any>, defaultWidth: string): string {

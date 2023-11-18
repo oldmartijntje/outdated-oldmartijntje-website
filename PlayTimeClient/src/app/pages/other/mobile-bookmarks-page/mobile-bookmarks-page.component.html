@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="//unpkg.com/xp.css">
+
+<article class="windows_xp" style="overflow: hidden;">
+    <div style="height: calc(100% - 35px); overflow-y: scroll;">
+        <div class="window window__mobile" style="overflow: hidden; height: max-content;">
+            <div class="title-bar">
+                <div style="display: flex; flex-direction: row;">
+                    <img src="../../../../assets/icons/Internet.ico"
+                        style="width: 18px; height: 18px; padding-top: 3px">
+                    <div class="title-bar-text" style="padding-top: 5px;">
+                        placeholder
+                    </div>
+                </div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body" style="margin: 0px 3px 0px 3px; overflow: hidden; max-width: 100%; height: 100%;">
+                <div style="overflow: hidden; max-width: 100%; height: 100%;">
+                    <header>
+                        <button class="headerButton">File</button>
+                        <button class="headerButton">Edit</button>
+                        <button class="headerButton">View</button>
+                        <button class="headerButton">Favorites</button>
+                        <button class="headerButton">Tools</button>
+                        <button class="headerButton">Help</button>
+                        <button class="headerButton" *ngIf="!mobileMode['MobileUser']"
+                            (click)="setMobileMode(false)">Mobile mode</button>
+                    </header>
+                    <hr class="solid no-top-margin">
+                    <div>
+                        <button (click)="goToWebPage('https://hotlinewebring.club/oldma/previous')" class="headerButton"
+                            href="https://hotlinewebring.club/oldma/previous"><img
+                                src="../../../../assets/icons/greenArrow.png" alt="Previous"
+                                style="transform: rotate(180deg);"></button>
+                        <button class="headerButton" (click)="goToWebPage('https://hotlinewebring.club')">Hotline
+                            Webring</button>
+                        <button class="headerButton"
+                            (click)="goToWebPage('https://hotlinewebring.club/oldma/previous')"><img
+                                src="../../../../assets/icons/greenArrow.png" alt="Next"></button>
+                    </div>
+                    <hr class="solid no-top-margin">
+                    <div style="display: flex; flex-direction: row;">
+                        <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Adress</p>
+                        <select style="width: 100%;" [(ngModel)]="activePage">
+                            <option *ngFor="let page of pageInfo" value="{{page['TitlePath']}}">{{page['Title']}}
+                            </option>
+                            <!-- Add more options as needed -->
+                        </select>
+
+                        <button (click)="switchPage(activePage)">Go</button>
+                    </div>
+                    <div class="webContent">
+                        <div>
+                            <a href="https://dimden.dev/" target="_blank"><img
+                                    src="https://dimden.dev/services/images/88x31.gif"></a>
+                            <a href="https://melankorin.net/"><img
+                                    src="https://melankorin.net/assets/img/buttons/button-2.gif" alt=""></a>
+                            <a href="http://vaerael.neocities.org/"><img
+                                    src="https://64.media.tumblr.com/fb603cee5834488971d74d7f66cdf99d/6c005a58dfcc6d02-12/s540x810/e2aaabc47e427d4f1af027a67dd03a5306ccb88f.png" /></a>
+                        </div>
+                        <hr class="solid no-top-margin">
+                        <div *ngIf="showRouter">
+                            <ng-content></ng-content>
+                        </div>
+                        <div *ngIf="!showRouter">
+                            <app-home-page></app-home-page>
+                        </div>
+                        <hr class="solid no-top-margin">
+                        <div>
+                            <iframe width="180" height="180" style="border:none; margin-top: 0.5rem;"
+                                src="https://dimden.neocities.org/navlink/" name="neolink"></iframe>
+                            <a href="https://info.flagcounter.com/cH0p"><img
+                                    src="https://s11.flagcounter.com/count2/cH0p/bg_FAF9F9/txt_000000/border_919B9C/columns_4/maxflags_12/viewers_0/labels_0/pageviews_1/flags_0/percent_0/"
+                                    alt="Flag Counter" border="0"></a>
+                        </div>
+                    </div>
+
+                    <footer>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Done</p>
+                            <div style="display: flex; flex-direction: row;">
+                                <img src="../../../../assets/icons/Internet.ico"
+                                    style="width: 18px; height: 18px; padding-top: 3px">
+                                <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 5px;">Internet
+                                </p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div style="height: 32px">
+        <div class="taskbar">
+            <button class="taskbar__start" (click)="routerNav(['Home'])">
+                <img class="taskbar__start--logo" src="//i.imgur.com/PzXcMsP.png" alt="Windows">
+                Home
+            </button>
+        </div>
+    </div>
+</article>

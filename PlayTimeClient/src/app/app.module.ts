@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BookmarksPageComponent } from './pages/other/bookmarks-page/bookmarks-page.component';
 import { CdkDrag } from '@angular/cdk/drag-drop';
+import { MobileBookmarksPageComponent } from './pages/other/mobile-bookmarks-page/mobile-bookmarks-page.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
         RailroadinkPageComponent,
         NotFoundPageComponent,
         HomePageComponent,
-        BookmarksPageComponent
+        BookmarksPageComponent,
+        MobileBookmarksPageComponent
     ],
     imports: [
         BrowserModule,

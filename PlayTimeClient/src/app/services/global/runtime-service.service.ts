@@ -8,21 +8,34 @@ import { EditorSettings } from 'src/app/data/settings';
 })
 export class RuntimeServiceService {
     private outputSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
+    private mobileModeSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({});
     private consoleSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private problemsSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private pageVariablesSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({});
 
     outputSubjectValue$: Observable<Message[]> = this.outputSubject.asObservable();
+    mobileModeSubjectValue$: Observable<{ [key: string]: any }> = this.mobileModeSubject.asObservable();
     pageVariables$: Observable<{ [key: string]: any }> = this.pageVariablesSubject.asObservable();
     problemsSubjectValue$: Observable<Message[]> = this.problemsSubject.asObservable();
     consoleSubjectValue$: Observable<Message[]> = this.consoleSubject.asObservable();
     setProblems: Message[] = [];
     tempPageVariables: { [key: string]: any } = {};
+    tempMobileMode: { [key: string]: any } = { "MobileUser": false, "MobileMode": false };
 
 
 
     emptyProblemsSubject() {
         this.setProblems = [];
+    }
+
+    setMobileMode(value: boolean) {
+        this.tempMobileMode["MobileMode"] = value;
+        this.mobileModeSubject.next(this.tempMobileMode);
+    }
+
+    setMobileUserType(value: boolean) {
+        this.tempMobileMode["MobileUser"] = value;
+        this.mobileModeSubject.next(this.tempMobileMode);
     }
 
     setOutputSubject(value: Message[]) {

@@ -11,7 +11,7 @@ export const EditorSettings: any = {
 
 export const Settings: any = {
     "inWindowsRouter": [
-        "404"
+        "404", "Railroad", "Home"
     ]
 }
 
@@ -27,12 +27,21 @@ export const PageInfo: any = [
     },
     {
         "Navigate": {
-            "Base": ["Pages"],
+            "Base": ["Home"],
             "QueryParams": {}
         },
-        "Title": "Empty Page",
+        "Title": "Main Page",
         "Description": "This is the main page.",
-        "TitlePath": "OwO"
+        "TitlePath": "Home"
+    },
+    {
+        "Navigate": {
+            "Base": ["Railroad"],
+            "QueryParams": {}
+        },
+        "Title": "Railroad Page",
+        "Description": "This is the page for Railroad ink dice.",
+        "TitlePath": "Railroad"
     },
 
 ]
