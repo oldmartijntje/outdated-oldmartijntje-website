@@ -60,6 +60,7 @@ export class MobileBookmarksPageComponent implements OnInit {
     }
 
     setMobileMode(value: boolean) {
+        localStorage.setItem("MobileMode", value.toString());
         this.runtimeServiceService.setMobileMode(value);
     }
 }
