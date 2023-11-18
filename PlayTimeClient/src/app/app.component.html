@@ -2,7 +2,8 @@
     <router-outlet></router-outlet>
 </app-editor-page>
 <app-bookmarks-page *ngIf="!showEditor && showWindows">
-    <router-outlet></router-outlet>
+    <router-outlet pc></router-outlet>
+    <router-outlet mobile></router-outlet>
 </app-bookmarks-page>
 <router-outlet *ngIf="!showEditor && !showWindows"></router-outlet>
 <app-toast></app-toast>

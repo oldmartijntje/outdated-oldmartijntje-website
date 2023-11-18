@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { bookmarks } from 'src/app/data/bookmarks';
@@ -7,7 +7,7 @@ import { Settings } from '../../../data/settings';
 @Component({
     selector: 'app-bookmarks-page',
     templateUrl: './bookmarks-page.component.html',
-    styleUrls: ['./bookmarks-page.component.scss']
+    styleUrls: ['./bookmarks-page.component.scss'],
 })
 export class BookmarksPageComponent implements OnInit {
     divs: { left: string; top: string, id: number }[] = [];
@@ -18,6 +18,10 @@ export class BookmarksPageComponent implements OnInit {
     showRouter: boolean = false;
     activePage = "";
     isBlockDraggable = false;
+    mobileMode = {
+        "MobileUser": false,
+        "MobileMode": false
+    };
 
     constructor(
         private router: Router,
