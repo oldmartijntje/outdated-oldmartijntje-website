@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
         "MobileUser": false,
         "MobileMode": false
     };
+    mobileModePopup: boolean = true;
 
     constructor(
         private toastQueueService: ToastQueueService,
