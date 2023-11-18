@@ -1,3 +1,24 @@
+<div>
+    <img src="../../../../assets/images/navigator.png" alt="Click in the adress bar to switch pages."
+        style="width: 90%; max-height: 3rem;">
+</div>
+<div class="content">
+    <div id="aboutMii">
+        <img src="../../../../assets/images/mii.png" alt="My Mii">
+        <div style="width: fit-content;" role="tabpanel">
+            <p>Name: Martijn</p>
+            <p>Country: Netherlands</p>
+            <p>Interests: Programming, gaming, being social</p>
+        </div>
+    </div>
+
+    <div class="mario">
+        <div class="mario" role="tabpanel"><img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin"
+                style="width:0.5rem">{{coinCounter}}</div>
+        <button (click)="addCoin()"><img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin"
+                style="width:1rem"></button>
+    </div>
+</div>
 <div class="navbar">
     <a [routerLink]="['/404']">404</a>
     <a [routerLink]="['/404']" [queryParams]="{Editor: 'true'}">404E</a>

@@ -1,14 +1,6 @@
 @import '../../../../styles.scss';
 
-a {
-    color: $primary-color;
-    /* Set the default color to orange */
-    text-decoration: none;
-    /* Remove the default underline */
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background-color: $backgroundShade1;
-}
+
 
 a:visited {
     color: $primary-color;
@@ -19,5 +11,20 @@ a:visited {
     display: flex;
     // flex-direction: column;
     justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#aboutMii {
+    border: 1px solid #d0d0bf;
+    display: flex;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 1rem;
+    column-gap: 1rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
 }
