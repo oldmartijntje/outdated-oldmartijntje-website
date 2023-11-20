@@ -337,11 +337,11 @@ export const bookmarks: Record<string, any>[] = [
         "Tabs": [
             {
                 "Title": "Small",
-                "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="/assets/icons/oldmartijntje.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://oldmartijntje.nl/assets/icons/oldmartijntje.png" alt=""&gt;&lt;/a&gt;</textarea>'
+                "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="https://i.imgur.com/5svJRQD.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://i.imgur.com/5svJRQD.png" alt=""&gt;&lt;/a&gt;</textarea>'
             },
             {
                 "Title": "Wide",
-                "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="/assets/icons/oldmartijntje-long.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://oldmartijntje.nl/assets/icons/oldmartijntje-long.png" alt=""&gt;&lt;/a&gt;</textarea>'
+                "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="https://i.imgur.com/HCb2U1H.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://i.imgur.com/HCb2U1H.png" alt=""&gt;&lt;/a&gt;</textarea>'
             }
         ],
         "TopText": "Link me!",

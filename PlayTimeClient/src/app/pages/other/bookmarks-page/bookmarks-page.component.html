@@ -8,7 +8,7 @@
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
-                    <button aria-label="Maximize" (click)="devInfo(bookmark)"></button>
+                    <!-- <button aria-label="Maximize" (click)="devInfo(bookmark)"></button> -->
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
-                    <button aria-label="Maximize" (click)="devInfo(bookmark)"></button>
+                    <button aria-label="Maximize" (click)="setMobileMode(true)"></button>
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
@@ -79,8 +79,7 @@
                         <button class="headerButton">Favorites</button>
                         <button class="headerButton">Tools</button>
                         <button class="headerButton">Help</button>
-                        <button class="headerButton" *ngIf="!mobileMode['MobileUser']"
-                            (click)="setMobileMode(true)">Mobile mode</button>
+                        <button class="headerButton" (click)="setMobileMode(true)">Mobile mode</button>
                     </header>
                     <hr class="solid no-top-margin">
                     <div></div>
