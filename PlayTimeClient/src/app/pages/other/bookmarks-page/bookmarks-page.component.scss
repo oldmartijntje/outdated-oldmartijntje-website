@@ -42,6 +42,33 @@ body {
         height: 100%;
         max-height: 100%;
     }
+
+    &__item {
+        height: 75%;
+        color: white;
+        font-weight: bold;
+        font-size: 1rem;
+        font-style: italic;
+        border: none;
+        border-radius: 5px 5px 5px 5px;
+        box-shadow: 0px 5px 10px #4e8afa inset;
+        background: radial-gradient(circle, #4880f5 0%, #4685f6 100%) center/cover no-repeat;
+        display: flex;
+        align-items: center;
+
+        margin-top: 4px;
+
+        &--logo {
+            width: auto;
+            height: 80%;
+        }
+
+        &__opened {
+            background: radial-gradient(circle, #2b4ef3 0%, #3c59dc 100%) center/cover no-repeat;
+            box-shadow: 0px 5px 10px #213dc0 inset;
+        }
+
+    }
 }
 
 .window {

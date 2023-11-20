@@ -1,11 +1,4 @@
 export const bookmarks: Record<string, any>[] = [
-    {
-        "Size": { "Width": "600px" },
-        "Popup": [
-        ],
-        "Title": "Page Explorer",
-        "Type": "Router"
-    }
 
 ]
 
@@ -429,7 +422,46 @@ export const applications: Application[] = [
             "Y": 0
         }
     },
+    {
+        "Title": "Page Explorer",
+        "Icon": "assets/icons/Internet.ico",
+        "Command": "openSingleNewTab",
+        "Link": "",
+        "Payload": {
+            "Size": { "Width": "600px" },
+            "Popup": [
+            ],
+            "Title": "Page Explorer",
+            "Type": "Router",
+            "SinglePageId": "page-explorer",
+        },
+        "Location": {
+            "X": 2,
+            "Y": -5
+        }
+    },
 
+]
+
+export const navBar: Application[] = [
+    {
+        "Title": "Page Explorer",
+        "Icon": "assets/icons/Internet.ico",
+        "Command": "openSingleNewTab",
+        "Link": "",
+        "Payload": {
+            "Size": { "Width": "600px" },
+            "Popup": [
+            ],
+            "Title": "Page Explorer",
+            "Type": "Router",
+            "SinglePageId": "page-explorer",
+        },
+        "Location": {
+            "X": 2,
+            "Y": -5
+        }
+    }
 ]
 
 var test = {

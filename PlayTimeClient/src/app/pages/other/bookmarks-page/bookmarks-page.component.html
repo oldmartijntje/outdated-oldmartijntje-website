@@ -17,7 +17,8 @@
     </div>
 
     <section *ngFor="let bookmark of bookmarks">
-        <div class="window window__tab" *ngIf="bookmark['Type'] === 'WinXP'" style="z-index: 9;" cdkDrag
+        <div class="window window__tab" *ngIf="bookmark['Type'] === 'WinXP'" style="z-index: 9;"
+            [ngStyle]="{'display': !bookmark['Hidden'] ? 'block' : 'none'}" cdkDrag
             [cdkDragDisabled]="!isBlockDraggable" style="top:0px" (cdkDragStarted)="onWindowDragStarted($event)"
             (cdkDragReleased)="onWindowDragReleased($event)"
             [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'width': getWindowSize(bookmark, '400px'), 'z-index': getDivById(bookmark['Id']).zIndex }">
@@ -73,7 +74,7 @@
         <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router'" style="overflow: hidden;" cdkDrag
             style="z-index:99999" [cdkDragDisabled]="!isBlockDraggable" style="top:0px"
             (cdkDragStarted)="onWindowDragStarted($event)" (cdkDragReleased)="onWindowDragReleased($event)"
-            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'width': getWindowSize(bookmark, '400px') }">
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'width': getWindowSize(bookmark, '400px'), 'z-index': getDivById(bookmark['Id']).zIndex }">
             <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
                 <div style="display: flex; flex-direction: row;">
                     <img src="../../../../assets/icons/Internet.ico"
@@ -140,12 +141,24 @@
 
 
 
-    <div style="height: 32px">
-        <div class="taskbar">
+    <div style="height: 32px; z-index: 7;">
+        <div class="taskbar" style="display:flex; column-gap: 1rem; z-index: 7;">
             <button class="taskbar__start" (click)="routerNav(['Home'])">
                 <img class="taskbar__start--logo" src="//i.imgur.com/PzXcMsP.png" alt="Windows">
                 Home
             </button>
+            <div *ngFor="let application of navBar">
+                <button (click)="executeCommand(application, application)" class="taskbar__item"
+                    *ngIf="!checkForOpenTabWithValue(application.Payload['SinglePageId'])">
+                    <img class="taskbar__start--logo" src="{{application.Icon}}" alt="{{application.Title}}">
+                    {{application.Title}}
+                </button>
+                <button (click)="executeCommand(application, application)" class="taskbar__item taskbar__item__opened"
+                    *ngIf="checkForOpenTabWithValue(application.Payload['SinglePageId'])">
+                    <img class="taskbar__start--logo" src="{{application.Icon}}" alt="{{application.Title}}">
+                    {{application.Title}}
+                </button>
+            </div>
         </div>
     </div>
 </article>

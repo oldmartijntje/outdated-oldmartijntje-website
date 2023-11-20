@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { bookmarks, applications, Application } from 'src/app/data/bookmarks';
+import { bookmarks, applications, Application, navBar } from 'src/app/data/bookmarks';
 import { Settings, PageInfo } from '../../../data/settings';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
@@ -30,6 +30,7 @@ export class BookmarksPageComponent implements OnInit {
     isDragging = false;
     private clickStartTime!: number;
     lastGrabbedId: number = 9;
+    navBar: Application[] = [];
 
 
     constructor(
@@ -63,8 +64,9 @@ export class BookmarksPageComponent implements OnInit {
         this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {
             this.mobileMode = value;
         });
-        this.pageInfo = PageInfo;
-        this.applications = applications;
+        this.pageInfo = [...PageInfo];
+        this.applications = [...applications];
+        this.navBar = [...navBar];
     }
 
     onWindowDragStarted(event: CdkDragStart<any>) {
@@ -178,7 +180,30 @@ export class BookmarksPageComponent implements OnInit {
             this.virus(bookmark)
         } else if (button['Command'].toLocaleLowerCase() == "opennewtab") {
             this.reCreateBookmark(button['Payload'])
+        } else if (button['Command'].toLocaleLowerCase() == "opensinglenewtab") {
+            if (!this.checkForOpenTabWithValue(button['Payload']['SinglePageId'])) {
+                this.reCreateBookmark(button['Payload'])
+            } else {
+                this.toggleHiddenById(button['Payload']['SinglePageId']);
+            }
         }
+    }
+
+    toggleHiddenById(id: string): void {
+        const index = this.bookmarks.findIndex(bookmark => bookmark['SinglePageId'] === id);
+
+        if (index !== -1) {
+            this.bookmarks[index]["Minimised"] = !this.bookmarks[index]["Minimised"];
+        }
+    }
+
+    checkForOpenTabWithValue(id: string) {
+        const index = this.bookmarks.findIndex(bookmark => bookmark['SinglePageId'] === id);
+
+        if (index !== -1) {
+            return true;
+        }
+        return false;
     }
 
     virus(bookmark: Record<string, any>): void {
