@@ -4,7 +4,7 @@
 </div>
 <div class="content">
     <div id="aboutMii">
-        <img src="../../../../assets/images/mii.png" style="width:auto" alt="My Mii">
+        <img src="../../../../assets/images/mii.png" style="width: 140px; height: 140px;" alt="My Mii">
         <div style="width: fit-content;" role="tabpanel">
             <p>Name: Martijn</p>
             <p>Country: Netherlands</p>
@@ -14,26 +14,80 @@
     </div>
 
     <div class="mario">
+        <button *ngIf="logButton" (click)="logGame()">Log game</button>
         <div class="mario" role="tabpanel">
-            <img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin" style="width:1rem;">
-            <span
-                style="font-size: 25px; font-family: 'New Super Mario Font U', sans-serif;">{{clickerGame['coin']}}</span>
-            <div *ngIf="clickerGame['discovery']['1up']">
-                <img src="../../../../assets/icons/1up.png" alt="coin" style="width:1rem;">
-                <span
-                    style="font-size: 25px; font-family: 'New Super Mario Font U', sans-serif;">{{clickerGame['life']}}</span>
+            <img src="{{getIcon('coin')}}" alt="coin" style="width:1rem;">
+            <span class="marioText" style="font-size: 25px;">
+                {{clickerGame['coin']}}</span>
+            <div *ngIf="clickerGame['discovery']['1up']" style="font-size: 25px;">
+                <img src="{{getIcon('life')}}" alt="" style="width:1rem;">
+                <span class="marioText">
+                    {{clickerGame['life']}}</span>
             </div>
-            <div *ngIf="clickerGame['discovery']['goomba']">
-                <img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin" style="width:1rem;">
-                <span style="font-size: 25px; font-family: 'New Super Mario Font U', sans-serif;">
-                    {{clickerGame['perSecond']}} Per Second</span>
+            <div *ngIf="clickerGame['discovery']['para-dry-bones']" style="font-size: 25px;">
+                <img src="{{getIcon('heart')}}" alt="" style="width:1rem;">
+                <span class="marioText">
+                    {{clickerGame['heart']}}</span>
+            </div>
+            <div *ngIf="clickerGame['discovery']['']" style="font-size: 25px;">
+                <img src="{{getIcon('powerHeart')}}" alt="" style="width:1rem;">
+                <span class="marioText">
+                    {{clickerGame['powerHeart']}}</span>
+            </div>
+            <div *ngIf="clickerGame['discovery']['mini goomba']" style="font-size: 25px;">
+                <img src="{{getIcon('coin')}}" alt="" style="width:1rem;">
+                <span class="marioText">
+                    {{clickerGame['perSecond']['coin']}} Per Second</span>
+            </div>
+            <div *ngIf="clickerGame['discovery']['goomba']" style="font-size: 25px;">
+                <img src="{{getIcon('life')}}" alt="" style="width:1rem;">
+                <span class="marioText">
+                    {{clickerGame['perSecond']['life']}} Per Second</span>
+            </div>
+            <div *ngIf="clickerGame['discovery']['para-dry-bones']" style="font-size: 25px;">
+                <img src="{{getIcon('heart')}}" alt="" style="width:1rem;">
+                <span class="marioText">
+                    {{clickerGame['perSecond']['heart']}} Per Second</span>
+            </div>
+            <div *ngIf="clickerGame['discovery']['']" style="font-size: 25px;">
+                <img src="{{getIcon('powerHeart')}}" alt="" style="width:1rem;">
+                <span class="marioText">
+                    {{clickerGame['perSecond']['powerHeart']}} Per Second</span>
             </div>
         </div>
-        <button (click)="addCoin()"><img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin"
-                style="width:1rem"></button>
-        <button (click)="addCoin()" *ngIf="clickerGame['discovery']['1up']">Buy 1 Goomba (1ps) for
-            {{clickerGame['buys']['goomba']['cost']}}<img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin"
-                style="width:1rem"></button>
+        <div class="flexBox">
+            <button (click)="addCoin(1, true)" class="growButton"><img
+                    src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin" style="width:1rem"></button>
+        </div>
+        <div class="flexBox">
+            <div *ngFor="let shopItem of getObjectKeys(clickerGame['buys'])">
+                <button (click)="buyItem(shopItem)"
+                    *ngIf="clickerGame['discovery'][clickerGame['buys'][shopItem]['requires']]"
+                    class="marioText growButton">Buy
+                    1 {{shopItem}},
+                    costs {{roundDown(clickerGame['buys'][shopItem]['cost']['amount'])}} <img
+                        src="{{getIcon(clickerGame['buys'][shopItem]['cost']['type'])}}"
+                        *ngIf="getIcon(clickerGame['buys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
+                        *ngIf="clickerGame['buys'][shopItem]['cost']['mode'] == 'perSecond'">PS</span>, get
+                    {{roundDown(clickerGame['buys'][shopItem]['gives']['amount'])}} <img
+                        src="{{getIcon(clickerGame['buys'][shopItem]['gives']['type'])}}"
+                        *ngIf="getIcon(clickerGame['buys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
+                        *ngIf="clickerGame['buys'][shopItem]['gives']['mode'] == 'perSecond'">PS</span>
+                </button>
+            </div>
+        </div>
+        <div class="flexBox">
+            <button (click)="clickerDataHandler(0)" *ngIf="clickerGame['discovery']['click']"
+                class="marioText growButton">Save Game
+                <img src="../../../../assets/icons/save.ico" alt="coin" style="width:1rem"></button>
+            <button (click)="clickerDataHandler(1)" *ngIf="clickerGame['discovery']['click']"
+                class="marioText growButton">Load Game
+                <img src="../../../../assets/icons/load.ico" alt="coin" style="width:1rem"></button>
+            <button (click)="clickerDataHandler(2)" *ngIf="clickerGame['discovery']['click']"
+                class="marioText growButton">Reset Game
+                <img src="../../../../assets/icons/trash.ico" alt="coin" style="width:1rem"></button>
+        </div>
+        <p *ngIf="clickerGame['discovery']['click']">Auto saves in {{120 - clickerGame['autoSave']}} seconds.</p>
     </div>
 </div>
 <div class="navbar">
