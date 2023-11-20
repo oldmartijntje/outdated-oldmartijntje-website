@@ -1,9 +1,26 @@
 <link rel="stylesheet" href="//unpkg.com/xp.css">
 
 <article class="windows_xp" style="overflow: hidden;">
-    <section *ngFor="let bookmark of bookmarks" cdkDrag [cdkDragDisabled]="!isBlockDraggable">
-        <div class="window window__tab" *ngIf="bookmark['Type'] === 'WinXP'"
-            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3, 'width': getWindowSize(bookmark, '400px') }">
+
+    <div style="display: flex; flex-direction: column; flex-wrap: wrap;column-gap: 12px; row-gap: 12px; z-index: 0;">
+        <div *ngFor="let application of applications" cdkDrag (cdkDragStarted)="dragStarted()"
+            (cdkDragEnded)="dragEnded()" (mousedown)="onMouseDown()"
+            (mouseup)="onMouseUp(false, application, application)" [class.ignore-click]="isDragging"
+            [ngStyle]="{'transform': 'translate3d('+ ((application.Location.X * (96+ 12))+ 0) +'px ,' + ((application.Location.Y * (72 + 12))+12) +'px , -100px)', 'z-index': '0'}"
+            style="top:0px; left:0px; display: flex; flex-direction: column; width:96px; align-items: center; height: 72px; z-index: 1;">
+            <img src="{{application.Icon}}" alt="" style="height:48px; width: 48px; cursor: pointer;"
+                (mouseup)="onMouseUp(true, application, application)">
+            <span
+                style="text-align: center; word-wrap: break-word; max-width: 96px; cursor: pointer; padding: 2px; background-color: #2a48ed; border-radius: 5px; color:#fff;"
+                (mouseup)="onMouseUp(true, application, application)">{{application.Title}}</span>
+        </div>
+    </div>
+
+    <section *ngFor="let bookmark of bookmarks">
+        <div class="window window__tab" *ngIf="bookmark['Type'] === 'WinXP'" style="z-index: 9;" cdkDrag
+            [cdkDragDisabled]="!isBlockDraggable" style="top:0px" (cdkDragStarted)="onWindowDragStarted($event)"
+            (cdkDragReleased)="onWindowDragReleased($event)"
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'width': getWindowSize(bookmark, '400px'), 'z-index': getDivById(bookmark['Id']).zIndex }">
             <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
@@ -53,8 +70,10 @@
                 </section>
             </div>
         </div>
-        <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router'" style="overflow: hidden;"
-            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'z-index': bookmark['Id'] + 3, 'width': getWindowSize(bookmark, '400px') }">
+        <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router'" style="overflow: hidden;" cdkDrag
+            style="z-index:99999" [cdkDragDisabled]="!isBlockDraggable" style="top:0px"
+            (cdkDragStarted)="onWindowDragStarted($event)" (cdkDragReleased)="onWindowDragReleased($event)"
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'width': getWindowSize(bookmark, '400px') }">
             <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
                 <div style="display: flex; flex-direction: row;">
                     <img src="../../../../assets/icons/Internet.ico"
@@ -118,6 +137,8 @@
             </div>
         </div>
     </section>
+
+
 
     <div style="height: 32px">
         <div class="taskbar">

@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { bookmarks } from 'src/app/data/bookmarks';
+import { bookmarks, applications, Application } from 'src/app/data/bookmarks';
 import { Settings, PageInfo } from '../../../data/settings';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
+import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-bookmarks-page',
@@ -11,7 +12,8 @@ import { RuntimeServiceService } from 'src/app/services/global/runtime-service.s
     styleUrls: ['./bookmarks-page.component.scss'],
 })
 export class BookmarksPageComponent implements OnInit {
-    divs: { left: string; top: string, id: number }[] = [];
+
+    divs: { left: string; top: string, id: number, zIndex: number }[] = [];
     bookmarks: Record<string, any>[] = [];
     lastId: number = 0;
     randomX = 50;
@@ -24,6 +26,11 @@ export class BookmarksPageComponent implements OnInit {
         "MobileUser": false,
         "MobileMode": false
     };
+    applications: Application[] = []
+    isDragging = false;
+    private clickStartTime!: number;
+    lastGrabbedId: number = 9;
+
 
     constructor(
         private router: Router,
@@ -38,9 +45,10 @@ export class BookmarksPageComponent implements OnInit {
             this.checkBookmarkForMissingData(this.bookmarks[i]);
         }
         for (let i = 0; i < bookmarks.length; i++) {
-            const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
-            const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
-            this.divs.push({ left, top, id: i });
+            const left = `0`; // Adjust the range as needed
+            const top = `0`; // Adjust the range as needed
+            const zIndex = this.setNewZIndex();
+            this.divs.push({ left, top, id: i, zIndex });
         }
         this.router.events.subscribe(event => {
             const currentUrl = this.router.url; // Get the full URL
@@ -56,6 +64,50 @@ export class BookmarksPageComponent implements OnInit {
             this.mobileMode = value;
         });
         this.pageInfo = PageInfo;
+        this.applications = applications;
+    }
+
+    onWindowDragStarted(event: CdkDragStart<any>) {
+        this.setNewZIndex();
+
+        const draggedElement = event.source.element.nativeElement;
+        draggedElement.style.setProperty('z-index', `${this.lastGrabbedId}`, 'important');
+    }
+    onWindowDragReleased(event: CdkDragRelease<any>) {
+        const draggedElement = event.source.element.nativeElement;
+        //draggedElement.style.zIndex = '3';
+    }
+
+    setNewZIndex() {
+        if (this.lastGrabbedId < this.lastId) {
+            this.lastGrabbedId = this.lastId + 1;
+        } else {
+            this.lastGrabbedId++;
+        }
+        return this.lastGrabbedId;
+    }
+
+    dragStarted() {
+        this.isDragging = true;
+    }
+
+    dragEnded() {
+        this.isDragging = false;
+    }
+
+    onMouseDown() {
+        this.clickStartTime = Date.now();
+    }
+
+    onMouseUp(onIcon: boolean, button: any, bookmark: Record<string, any>) {
+        const clickDuration = Date.now() - this.clickStartTime;
+
+        // Define your threshold for short click duration (e.g., 300 milliseconds)
+        const shortClickThreshold = 300;
+
+        if (!this.isDragging && clickDuration < shortClickThreshold && onIcon) {
+            this.executeCommand(button, bookmark)
+        }
     }
 
     switchPage(newPage: string): void {
@@ -152,7 +204,7 @@ export class BookmarksPageComponent implements OnInit {
         this.bookmarks.push({ ...newBookmark });
         const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
         const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
-        this.divs.push({ left, top, id: this.lastId });
+        this.divs.push({ left, top, id: this.lastId, zIndex: this.setNewZIndex() });
     }
 
     routerNav(routeSegments: string[]): void {
@@ -181,10 +233,10 @@ export class BookmarksPageComponent implements OnInit {
         }
     }
 
-    getDivById(id: number): { left: string; top: string, id: number } {
+    getDivById(id: number): { left: string; top: string, id: number, zIndex: number } {
         var divFound = this.divs.find(div => div.id === id);
         if (divFound == undefined) {
-            return { left: `${Math.random() * 50}`, top: `${Math.random() * 50}`, id: 0 };
+            return { left: `${Math.random() * 50}`, top: `${Math.random() * 50}`, id: 0, zIndex: this.setNewZIndex() };
         }
         return { ...divFound };
     }
