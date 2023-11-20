@@ -3,6 +3,7 @@ import { Settings } from 'src/app/data/settings';
 import { BuildData } from 'src/app/models/buildData';
 import { AudioPlayerService } from 'src/app/services/global/audio-player.service';
 import { MarioClickerMain } from 'src/app/data/gamesData';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-home-page',
@@ -11,7 +12,7 @@ import { MarioClickerMain } from 'src/app/data/gamesData';
 })
 export class HomePageComponent implements OnInit {
     private intervalId: any;
-    logButton = true;
+    logButton = !environment["production"];
     clickerGame: Record<string, any> = {}
     defaultClickerGame: Record<string, any> = { ...MarioClickerMain }
     rename: Record<string, any> = {
@@ -115,11 +116,11 @@ export class HomePageComponent implements OnInit {
                 this.clickerGame = JSON.parse(data);
                 this.checkContent();
             } else {
-                this.clickerGame = this.defaultClickerGame;
+                this.clickerGame = { ...this.defaultClickerGame };
             }
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 2) {
-            this.clickerGame = this.defaultClickerGame;
+            this.clickerGame = { ...this.defaultClickerGame };
             this.clickerGame['autoSave'] = 0;
         }
     }
