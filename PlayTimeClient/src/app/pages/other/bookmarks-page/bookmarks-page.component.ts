@@ -188,4 +188,8 @@ export class BookmarksPageComponent implements OnInit {
         }
         return { ...divFound };
     }
+
+    deleteLocalStorage() {
+        localStorage.clear();
+    }
 }

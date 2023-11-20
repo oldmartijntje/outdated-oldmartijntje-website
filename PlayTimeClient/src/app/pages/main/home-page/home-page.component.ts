@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Settings } from 'src/app/data/settings';
 import { BuildData } from 'src/app/models/buildData';
 import { AudioPlayerService } from 'src/app/services/global/audio-player.service';
+import { MarioClickerMain } from 'src/app/data/gamesData';
 
 @Component({
     selector: 'app-home-page',
@@ -10,144 +11,15 @@ import { AudioPlayerService } from 'src/app/services/global/audio-player.service
 })
 export class HomePageComponent implements OnInit {
     private intervalId: any;
-    logButton = false;
+    logButton = true;
     clickerGame: Record<string, any> = {}
-    defaultClickerGame: Record<string, any> = {
-        "coin": 0,
-        "life": 0,
-        "heart": 0,
-        "powerHeart": 0,
-        "discovery": {
-            "click": false,
-            "1up": false,
-            "mini goomba": false,
-            "goomba": false,
-            "koopa": false,
-            "para-koopa": false,
-            "dry-bones": false,
-            "para-dry-bones": false,
-
-        },
-        "buys": {
-            "mini goomba": {
-                "cost": {
-                    "amount": 1,
-                    "type": "life",
-                    "mode": "once"
-                },
-                "amount": 0,
-                "costMultiplier": 1.25,
-                "gives": {
-                    "amount": 1,
-                    "type": "coin",
-                    "mode": "perSecond"
-                },
-                "requires": "1up"
-            },
-            "goomba": {
-                "cost": {
-                    "amount": 5,
-                    "type": "life",
-                    "mode": "once"
-                },
-                "amount": 0,
-                "costMultiplier": 1.25,
-                "gives": {
-                    "amount": 10,
-                    "type": "coin",
-                    "mode": "perSecond"
-                },
-                "requires": "mini goomba"
-            },
-            "koopa": {
-                "cost": {
-                    "amount": 69,
-                    "type": "life",
-                    "mode": "once"
-                },
-                "amount": 0,
-                "costMultiplier": 1.25,
-                "gives": {
-                    "amount": 1,
-                    "type": "life",
-                    "mode": "perSecond"
-                },
-                "requires": "goomba"
-            },
-            "para-koopa": {
-                "cost": {
-                    "amount": 50,
-                    "type": "life",
-                    "mode": "once"
-                },
-                "amount": 0,
-                "costMultiplier": 1.05,
-                "gives": {
-                    "amount": 1,
-                    "type": "heart",
-                    "mode": "once"
-                },
-                "requires": "goomba"
-            },
-            "dry-bones": {
-                "cost": {
-                    "amount": 5,
-                    "type": "heart",
-                    "mode": "once"
-                },
-                "amount": 0,
-                "costMultiplier": 1.05,
-                "gives": {
-                    "amount": 10,
-                    "type": "life",
-                    "mode": "perSecond"
-                },
-                "requires": "para-koopa"
-            },
-            "para-dry-bones": {
-                "cost": {
-                    "amount": 10,
-                    "type": "heart",
-                    "mode": "once"
-                },
-                "amount": 0,
-                "costMultiplier": 1.1,
-                "gives": {
-                    "amount": 20,
-                    "type": "life",
-                    "mode": "perSecond"
-                },
-                "requires": "dry-bones"
-            },
-            "hammer-Bro": {
-                "cost": {
-                    "amount": 10,
-                    "type": "life",
-                    "mode": "perSecond"
-                },
-                "amount": 0,
-                "costMultiplier": 1.15,
-                "gives": {
-                    "amount": 1,
-                    "type": "heart",
-                    "mode": "perSecond"
-                },
-                "requires": "dry-bones"
-            },
-        },
-        "perSecond": {
-            "coin": 0,
-            "life": 0,
-            "heart": 0,
-            "powerHeart": 0,
-        },
-        "autoSave": 0
-    }
+    defaultClickerGame: Record<string, any> = { ...MarioClickerMain }
     rename: Record<string, any> = {
         "coin": "../../../../assets/icons/Retro-Coin-icon.png",
         "life": "../../../../assets/icons/1up.png",
         "heart": "../../../../assets/icons/marioHeart.png",
         "powerHeart": "../../../../assets/icons/marioPowerHeart.png",
+        "rebirth": "../../../../assets/icons/flag.png",
     }
     versionNumber = BuildData["BuildNumber"];
     versionWord = "BuildId";
@@ -181,18 +53,12 @@ export class HomePageComponent implements OnInit {
     addCoin(amount: number = 1, byClick: boolean = false) {
         this.checkTimer();
         this.clickerGame['discovery']['click'] = true;
-        this.clickerGame['coin'] += amount;
-        while (this.clickerGame['coin'] >= 100) {
-            this.clickerGame['coin'] -= 100;
-            this.clickerGame['discovery']['1up'] = true;
-            if (byClick) {
-                var temp = this.getVolume();
-                this.setVolume(0.1);
-                this.playAudio("../../../../assets/audio/mario-1-up.mp3");
-            }
-            if (this.clickerGame['life'] < 99) {
-                this.clickerGame['life']++;
-            }
+        this.clickerGame['currency']['coin']['amount'] += amount;
+        if (this.clickerGame['currency']['coin']['amount'] >= this.clickerGame['currency']['coin']['max']) {
+
+            var overflow = Math.floor(this.clickerGame['currency']['coin']['amount'] / this.clickerGame['currency']['coin']['max']);
+            this.clickerGame['currency']['coin']['amount'] -= overflow * this.clickerGame['currency']['coin']['max'];
+            this.addLife(overflow, byClick)
         }
     }
 
@@ -203,9 +69,9 @@ export class HomePageComponent implements OnInit {
             this.setVolume(0.1);
             this.playAudio("../../../../assets/audio/mario-1-up.mp3");
         }
-        this.clickerGame['life'] += amount
-        if (this.clickerGame['life'] > 999) {
-            this.clickerGame['life'] = 999;
+        this.clickerGame['currency']['life']['amount'] += amount
+        if (this.clickerGame['currency']['life']['amount'] > this.clickerGame['currency']['life']['max']) {
+            this.clickerGame['currency']['life']['amount'] = this.clickerGame['currency']['life']['max'];
         }
     }
 
@@ -277,66 +143,94 @@ export class HomePageComponent implements OnInit {
     }
 
     getIcon(type: string): string | boolean {
-        if (this.rename.hasOwnProperty(type)) {
+        if (this.rename.hasOwnProperty(type.toLocaleLowerCase())) {
             return this.rename[type];
         } else {
             return false;
         }
     }
 
+    addCurrency(amount: number = 1, type: string = "heart") {
+        this.clickerGame['currency'][type]['amount'] += amount;
+    }
+
     perSecond() {
-        if (this.clickerGame['perSecond']['coin'] > 0) {
-            while (this.clickerGame['perSecond']['coin'] >= 100) {
-                this.clickerGame['perSecond']['coin'] -= 100;
+        if (this.clickerGame['perSecond']['coin']['amount'] > 0) {
+            while (this.clickerGame['perSecond']['coin']['amount'] >= 100) {
+                this.clickerGame['perSecond']['coin']['amount'] -= 100;
                 this.clickerGame['discovery']['1up'] = true;
-                if (this.clickerGame['perSecond']['life'] < 99) {
-                    this.clickerGame['perSecond']['life']++;
+                if (this.clickerGame['perSecond']['life']['amount'] < this.clickerGame['perSecond']['life']['max']) {
+                    this.clickerGame['perSecond']['life']['amount']++;
                 }
             }
-            this.addCoin(this.clickerGame['perSecond']['coin'])
+            this.addCoin(this.clickerGame['perSecond']['coin']['amount'])
         }
-        if (this.clickerGame['perSecond']['life'] > 0) {
-            this.addLife(this.clickerGame['perSecond']['life'])
+        if (this.clickerGame['perSecond']['life']['amount'] > 0) {
+            this.addLife(this.clickerGame['perSecond']['life']['amount'])
         }
-        if (this.clickerGame['autoSave'] >= 120) {
+        if (this.clickerGame['perSecond']['heart']['amount'] > 0) {
+            this.addCurrency(this.clickerGame['perSecond']['heart']['amount'], 'heart')
+        }
+        if (this.clickerGame['perSecond']['powerHeart']['amount'] > 0) {
+            this.addCurrency(this.clickerGame['perSecond']['powerHeart']['amount'], 'powerHeart')
+        }
+        if (this.clickerGame['autoSave'] >= this.clickerGame['autoSaveCooldwon']) {
             this.clickerDataHandler(0);
         }
         this.clickerGame['autoSave']++;
     }
 
     buyItem(item: string) {
+        var dir = "";
         if (this.clickerGame['buys'].hasOwnProperty(item)) {
-            var type = this.clickerGame['buys'][item]['cost']['type'];
-            var amount = this.clickerGame['buys'][item]['cost']['amount'];
-            if (this.clickerGame['buys'][item]['cost']['mode'] == "once" && this.clickerGame[type] >= Math.floor(amount)) {
-                this.clickerGame[type] -= Math.floor(amount);
-                this.clickerGame['buys'][item]['amount']++;
-                this.clickerGame['buys'][item]['cost']['amount'] = this.clickerGame['buys'][item]['cost']['amount'] * this.clickerGame['buys'][item]['costMultiplier'];
-                var typeGain = this.clickerGame['buys'][item]['gives']['type'];
-                if (this.clickerGame['buys'][item]['gives']['mode'] == "perSecond") {
-                    this.clickerGame['perSecond'][typeGain] += this.clickerGame['buys'][item]['gives']['amount'];
-                } else if (this.clickerGame['buys'][item]['gives']['mode'] == "once") {
-                    this.clickerGame[typeGain] += this.clickerGame['buys'][item]['gives']['amount'];
+            dir = "buys";
+        } else if (this.clickerGame['specialBuys'].hasOwnProperty(item)) {
+            dir = "specialBuys";
+        }
+        if (dir != "") {
+            var type = this.clickerGame[dir][item]['cost']['type'];
+            var amount = this.clickerGame[dir][item]['cost']['amount'];
+            if (this.clickerGame[dir][item]['cost']['mode'] == "once" && this.clickerGame['currency'][type]['amount'] >= this.roundDown(amount)) {
+                this.clickerGame['currency'][type]['amount'] -= this.roundDown(amount);
+                this.clickerGame[dir][item]['amount']++;
+                this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
+                var typeGain = this.clickerGame[dir][item]['gives']['type'];
+                if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
+                    this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
+                    this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
                 }
                 if (this.clickerGame['discovery'].hasOwnProperty(item)) {
                     this.clickerGame['discovery'][item] = true;
                 }
-            } else if (this.clickerGame['buys'][item]['cost']['mode'] == "once" && this.clickerGame['perSecond'][type] >= Math.floor(amount)) {
-                this.clickerGame['perSecond'][type] -= Math.floor(amount);
-                this.clickerGame['buys'][item]['amount']++;
-                this.clickerGame['buys'][item]['cost']['amount'] = this.clickerGame['buys'][item]['cost']['amount'] * this.clickerGame['buys'][item]['costMultiplier'];
-                var typeGain = this.clickerGame['buys'][item]['gives']['type'];
-                if (this.clickerGame['buys'][item]['gives']['mode'] == "perSecond") {
-                    this.clickerGame['perSecond'][typeGain] += this.clickerGame['buys'][item]['gives']['amount'];
-                } else if (this.clickerGame['buys'][item]['gives']['mode'] == "once") {
-                    this.clickerGame[typeGain] += this.clickerGame['buys'][item]['gives']['amount'];
+            } else if (this.clickerGame[dir][item]['cost']['mode'] == "perSecond" && this.clickerGame['perSecond'][type]['amount'] >= this.roundDown(amount)) {
+                this.clickerGame['perSecond'][type]['amount'] -= this.roundDown(amount);
+                this.clickerGame[dir][item]['amount']++;
+                this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
+                var typeGain = this.clickerGame[dir][item]['gives']['type'];
+                if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
+                    this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
+                    this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
                 }
                 if (this.clickerGame['discovery'].hasOwnProperty(item)) {
                     this.clickerGame['discovery'][item] = true;
                 }
             }
-
+            if (dir == "specialBuys" && this.clickerGame['specialBuys'][item].hasOwnProperty('run')) {
+                this.runFunction(this.clickerGame['specialBuys'][item]['run'])
+            }
         }
+    }
+
+    runFunction(cmd: string) {
+        if (cmd == "rebirth") {
+            this.rebirth();
+        }
+    }
+
+    rebirth() {
+
     }
 
     checkTimer() {

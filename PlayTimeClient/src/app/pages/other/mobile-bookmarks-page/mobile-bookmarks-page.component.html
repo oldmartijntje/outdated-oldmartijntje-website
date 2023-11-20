@@ -27,6 +27,7 @@
                         <button class="headerButton">Favorites</button>
                         <button class="headerButton">Tools</button>
                         <button class="headerButton">Help</button>
+                        <button class="headerButton" (click)="deleteLocalStorage()">Delete Data</button>
                         <button class="headerButton" *ngIf="!mobileMode['MobileUser']"
                             (click)="setMobileMode(false)">Mobile mode</button>
                     </header>
