@@ -50,8 +50,12 @@ export class MobileBookmarksPageComponent implements OnInit {
         this.router.navigate([newPage]);
     }
 
-    goToWebPage(url: string): void {
-        window.location.href = url;
+    goToWebPage(url: string, openInNewTab: boolean = false): void {
+        if (openInNewTab) {
+            window.open(url, '_blank');
+        } else {
+            window.location.href = url;
+        }
     }
 
     routerNav(routeSegments: string[]): void {

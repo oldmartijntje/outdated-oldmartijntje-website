@@ -1,5 +1,12 @@
 export const bookmarks: Record<string, any>[] = [
-
+    {
+        "Size": { "Width": "600px" },
+        "Popup": [
+        ],
+        "Title": "Page Explorer",
+        "Type": "Router",
+        "SinglePageId": "page-explorer",
+    }
 ]
 
 export interface Application {

@@ -157,11 +157,13 @@ export class HomePageComponent implements OnInit {
 
     perSecond() {
         if (this.clickerGame['perSecond']['coin']['amount'] > 0) {
-            while (this.clickerGame['perSecond']['coin']['amount'] >= 100) {
-                this.clickerGame['perSecond']['coin']['amount'] -= 100;
+            if (this.clickerGame['perSecond']['coin']['amount'] >= this.clickerGame['currency']['coin']['max']) {
+                var overflow = Math.floor(this.clickerGame['perSecond']['coin']['amount'] / this.clickerGame['currency']['coin']['max']);
+                this.clickerGame['perSecond']['coin']['amount'] -= overflow * this.clickerGame['currency']['coin']['max'];
                 this.clickerGame['discovery']['1up'] = true;
-                if (this.clickerGame['perSecond']['life']['amount'] < this.clickerGame['perSecond']['life']['max']) {
-                    this.clickerGame['perSecond']['life']['amount']++;
+                this.clickerGame['perSecond']['life']['amount'] += overflow;
+                if (this.clickerGame['perSecond']['life']['amount'] > this.clickerGame['perSecond']['life']['max']) {
+                    this.clickerGame['perSecond']['life']['amount'] = this.clickerGame['perSecond']['life']['max'];
                 }
             }
             this.addCoin(this.clickerGame['perSecond']['coin']['amount'])

@@ -46,8 +46,8 @@ export class BookmarksPageComponent implements OnInit {
             this.checkBookmarkForMissingData(this.bookmarks[i]);
         }
         for (let i = 0; i < bookmarks.length; i++) {
-            const left = `0`; // Adjust the range as needed
-            const top = `0`; // Adjust the range as needed
+            const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
+            const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
             const zIndex = this.setNewZIndex();
             this.divs.push({ left, top, id: i, zIndex });
         }
@@ -171,11 +171,19 @@ export class BookmarksPageComponent implements OnInit {
         return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
+    goToWebPage(url: string, openInNewTab: boolean = false): void {
+        if (openInNewTab) {
+            window.open(url, '_blank');
+        } else {
+            window.location.href = url;
+        }
+    }
+
     executeCommand(button: any, bookmark: Record<string, any>): void {
         if (button['Command'].toLocaleLowerCase() == "close") {
             this.deleteBookmark(bookmark["Id"]);
         } else if (button['Command'].toLocaleLowerCase() == "nav") {
-            window.location.href = button['Link'];
+            this.goToWebPage(button['Link']);
         } else if (button['Command'].toLocaleLowerCase() == "virus") {
             this.virus(bookmark)
         } else if (button['Command'].toLocaleLowerCase() == "opennewtab") {
@@ -261,7 +269,7 @@ export class BookmarksPageComponent implements OnInit {
     getDivById(id: number): { left: string; top: string, id: number, zIndex: number } {
         var divFound = this.divs.find(div => div.id === id);
         if (divFound == undefined) {
-            return { left: `${Math.random() * 50}`, top: `${Math.random() * 50}`, id: 0, zIndex: this.setNewZIndex() };
+            return { left: `${Math.random() * this.randomX}`, top: `${Math.random() * this.randomY}`, id: 0, zIndex: this.setNewZIndex() };
         }
         return { ...divFound };
     }
