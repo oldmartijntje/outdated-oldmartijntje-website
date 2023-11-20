@@ -121,7 +121,7 @@ export class BookmarksPageComponent implements OnInit {
         if (button['Command'].toLocaleLowerCase() == "close") {
             this.deleteBookmark(bookmark["Id"]);
         } else if (button['Command'].toLocaleLowerCase() == "nav") {
-            window.open(button['Link'], "_blank");
+            window.location.href = button['Link'];
         } else if (button['Command'].toLocaleLowerCase() == "virus") {
             this.virus(bookmark)
         } else if (button['Command'].toLocaleLowerCase() == "opennewtab") {

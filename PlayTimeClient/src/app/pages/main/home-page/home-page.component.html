@@ -8,14 +8,31 @@
         <div style="width: fit-content;" role="tabpanel">
             <p>Name: Martijn</p>
             <p>Country: Netherlands</p>
-            <p>Interests: Programming, gaming, being social</p>
+            <p>Interests: Programming, gaming, being social
+            </p>
         </div>
     </div>
 
     <div class="mario">
-        <div class="mario" role="tabpanel"><img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin"
-                style="width:0.5rem">{{coinCounter}}</div>
+        <div class="mario" role="tabpanel">
+            <img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin" style="width:1rem;">
+            <span
+                style="font-size: 25px; font-family: 'New Super Mario Font U', sans-serif;">{{clickerGame['coin']}}</span>
+            <div *ngIf="clickerGame['discovery']['1up']">
+                <img src="../../../../assets/icons/1up.png" alt="coin" style="width:1rem;">
+                <span
+                    style="font-size: 25px; font-family: 'New Super Mario Font U', sans-serif;">{{clickerGame['life']}}</span>
+            </div>
+            <div *ngIf="clickerGame['discovery']['goomba']">
+                <img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin" style="width:1rem;">
+                <span style="font-size: 25px; font-family: 'New Super Mario Font U', sans-serif;">
+                    {{clickerGame['perSecond']}} Per Second</span>
+            </div>
+        </div>
         <button (click)="addCoin()"><img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin"
+                style="width:1rem"></button>
+        <button (click)="addCoin()" *ngIf="clickerGame['discovery']['1up']">Buy 1 Goomba (1ps) for
+            {{clickerGame['buys']['goomba']['cost']}}<img src="../../../../assets/icons/Retro-Coin-icon.png" alt="coin"
                 style="width:1rem"></button>
     </div>
 </div>

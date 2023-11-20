@@ -51,7 +51,7 @@ export class MobileBookmarksPageComponent implements OnInit {
     }
 
     goToWebPage(url: string): void {
-        window.open(url);
+        window.location.href = url;
     }
 
     routerNav(routeSegments: string[]): void {
