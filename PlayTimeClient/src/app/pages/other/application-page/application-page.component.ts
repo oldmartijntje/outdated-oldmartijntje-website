@@ -314,4 +314,14 @@ export class ApplicationPageComponent implements OnInit {
         var adHandler = new AdHandler();
         adHandler.sendToLink(ad);
     }
+
+    ngForScroll() {
+        var adHandler = new AdHandler();
+        return adHandler.ngForScroll();
+    }
+
+    calculateWidth(): string {
+        var width = `${this.getListOfSmallAds().length * 88 * 3}`
+        return width
+    }
 }

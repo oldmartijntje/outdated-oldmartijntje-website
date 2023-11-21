@@ -125,9 +125,15 @@
                     </header>
                     <hr class="solid no-top-margin">
                     <div class="smallAdBox scrollingBar">
-                        <div *ngFor="let ad of getListOfSmallAds()">
-                            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"
-                                style="cursor:pointer; max-height: 31px; max-width: 88px;">
+                        <div class="marquee">
+                            <div class="marquee__content" [ngStyle]="{'width': calculateWidth() + 'px'}">
+                                <ul class="list-inline" *ngFor="let i of ngForScroll()">
+                                    <li *ngFor="let ad of getListOfSmallAds()">
+                                        <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"
+                                            style="cursor:pointer; max-height: 31px; max-width: 88px;">
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <hr class="solid no-top-margin">

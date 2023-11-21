@@ -23,4 +23,8 @@ export class AdHandler {
             }
         }
     }
+
+    ngForScroll(): any[] {
+        return [0, 0, 0]
+    }
 }
