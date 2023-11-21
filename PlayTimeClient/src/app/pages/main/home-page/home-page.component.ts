@@ -37,7 +37,37 @@ export class HomePageComponent implements OnInit {
         if (this.clickerGame['discovery']['click']) {
             this.startLoop();
         }
+        var a = this.encryptString("jij bent mijn henk")
+        console.log(a);
+        console.log(this.decryptString(a));
     }
+
+    stringToAsciiList(str: string): number[] {
+        const asciiList: number[] = [];
+        for (let i = 0; i < str.length; i++) {
+            const asciiValue = str.charCodeAt(i);
+            asciiList.push(asciiValue);
+        }
+        return asciiList;
+    }
+
+    // Function to convert a list of ASCII values to a string
+    asciiListToString(asciiList: number[]): string {
+        return asciiList.map(asciiValue => String.fromCharCode(asciiValue)).join('');
+    }
+
+    encryptString(inputString: string): string {
+        const asciiList = this.stringToAsciiList(inputString);
+        const encryptedList = asciiList.map(value => value * environment['encryptionKey']);
+        return encryptedList.join(',');
+    }
+
+    decryptString(encryptedString: string): string {
+        const encryptedList = encryptedString.split(',').map(value => parseInt(value, 10));
+        const asciiList = encryptedList.map(value => value / environment['encryptionKey']);
+        return this.asciiListToString(asciiList);
+    }
+
 
     getObjectKeys(obj: Record<string, any>): string[] {
         return Object.keys(obj);
@@ -108,12 +138,12 @@ export class HomePageComponent implements OnInit {
     clickerDataHandler(mode: number = 0) {
         // 0 = save, 1 = load, 2 = reset
         if (mode == 0) {
-            localStorage.setItem("clickerGame", JSON.stringify(this.clickerGame));
+            localStorage.setItem("clickerGame", this.encryptString(JSON.stringify(this.clickerGame)));
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 1) {
             var data = localStorage.getItem("clickerGame")
             if (data != null) {
-                this.clickerGame = JSON.parse(data);
+                this.clickerGame = JSON.parse(this.decryptString(data));
                 this.checkContent();
             } else {
                 this.clickerGame = { ...this.defaultClickerGame };

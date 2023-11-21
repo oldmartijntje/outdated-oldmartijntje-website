@@ -68,7 +68,6 @@ export class BookmarksPageComponent implements OnInit {
         this.applications = [...applications];
         this.navBar = [...navBar];
     }
-
     onWindowDragStarted(event: CdkDragStart<any>) {
         this.setNewZIndex();
 
