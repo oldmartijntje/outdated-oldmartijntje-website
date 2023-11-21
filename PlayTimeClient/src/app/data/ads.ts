@@ -41,6 +41,11 @@ export const smallAdList: smallAd[] = [
         "blank_": true
     },
     {
+        "link": "https://www.duolingo.com",
+        "image": "https://i.imgur.com/r5c8NVi.png",
+        "blank_": true
+    },
+    {
         "link": "",
         "image": "https://i.imgur.com/unFAOY1.gif",
         "blank_": true
