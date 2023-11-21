@@ -5,6 +5,7 @@ import { AudioPlayerService } from 'src/app/services/global/audio-player.service
 import { MarioClickerMain } from 'src/app/data/gamesData';
 import { environment } from 'src/environments/environment';
 import { adHandler } from 'src/app/models/adHandler';
+import { Encryptor } from 'src/app/models/encryptor';
 
 @Component({
     selector: 'app-home-page',
@@ -41,31 +42,7 @@ export class HomePageComponent implements OnInit {
         }
     }
 
-    stringToAsciiList(str: string): number[] {
-        const asciiList: number[] = [];
-        for (let i = 0; i < str.length; i++) {
-            const asciiValue = str.charCodeAt(i);
-            asciiList.push(asciiValue);
-        }
-        return asciiList;
-    }
 
-    // Function to convert a list of ASCII values to a string
-    asciiListToString(asciiList: number[]): string {
-        return asciiList.map(asciiValue => String.fromCharCode(asciiValue)).join('');
-    }
-
-    encryptString(inputString: string): string {
-        const asciiList = this.stringToAsciiList(inputString);
-        const encryptedList = asciiList.map(value => value * environment['encryptionKey']);
-        return encryptedList.join(',');
-    }
-
-    decryptString(encryptedString: string): string {
-        const encryptedList = encryptedString.split(',').map(value => parseInt(value, 10));
-        const asciiList = encryptedList.map(value => value / environment['encryptionKey']);
-        return this.asciiListToString(asciiList);
-    }
 
 
     getObjectKeys(obj: Record<string, any>): string[] {
@@ -147,14 +124,15 @@ export class HomePageComponent implements OnInit {
 
     clickerDataHandler(mode: number = 0) {
         // 0 = save, 1 = load, 2 = reset
+        var encr = new Encryptor();
         if (mode == 0) {
-            localStorage.setItem("clickerGame", this.encryptString(JSON.stringify(this.clickerGame)));
+            localStorage.setItem("clickerGame", encr.encryptString(JSON.stringify(this.clickerGame)));
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 1) {
             var data = localStorage.getItem("clickerGame")
             if (data != null) {
                 try {
-                    this.clickerGame = JSON.parse(this.decryptString(data));
+                    this.clickerGame = JSON.parse(encr.decryptString(data));
                     this.checkContent();
                 } catch (error) {
                     console.error("The save file is corrupted, resetting the save file...\nIt's not overwritten yet, so save it whilst you can!\n" + error);
