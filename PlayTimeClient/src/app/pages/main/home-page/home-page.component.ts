@@ -37,9 +37,6 @@ export class HomePageComponent implements OnInit {
         if (this.clickerGame['discovery']['click']) {
             this.startLoop();
         }
-        var a = this.encryptString("jij bent mijn henk")
-        console.log(a);
-        console.log(this.decryptString(a));
     }
 
     stringToAsciiList(str: string): number[] {
@@ -143,8 +140,14 @@ export class HomePageComponent implements OnInit {
         } else if (mode == 1) {
             var data = localStorage.getItem("clickerGame")
             if (data != null) {
-                this.clickerGame = JSON.parse(this.decryptString(data));
-                this.checkContent();
+                try {
+                    this.clickerGame = JSON.parse(this.decryptString(data));
+                    this.checkContent();
+                } catch (error) {
+                    console.error("The save file is corrupted, resetting the save file...\nIt's not overwritten yet, so save it whilst you can!\n" + error);
+                    this.clickerGame = { ...this.defaultClickerGame };
+                }
+
             } else {
                 this.clickerGame = { ...this.defaultClickerGame };
             }
