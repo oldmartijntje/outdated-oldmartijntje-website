@@ -95,12 +95,12 @@ export class HomePageComponent implements OnInit {
     checkContent() {
         for (var i = 0; i < Object.keys(this.defaultClickerGame["buys"]).length; i++) {
             if (!this.clickerGame['buys'].hasOwnProperty(Object.keys(this.defaultClickerGame["buys"])[i])) {
-                this.clickerGame['buys'][Object.keys(this.defaultClickerGame["buys"])[i]] = this.defaultClickerGame["buys"][Object.keys(this.defaultClickerGame["buys"])[i]];
+                this.clickerGame['buys'][Object.keys(this.defaultClickerGame["buys"])[i]] = { ...this.defaultClickerGame["buys"][Object.keys(this.defaultClickerGame["buys"])[i]] };
             }
         }
         for (var i = 0; i < Object.keys(this.defaultClickerGame).length; i++) {
             if (!this.clickerGame.hasOwnProperty(Object.keys(this.defaultClickerGame)[i])) {
-                this.clickerGame[Object.keys(this.defaultClickerGame)[i]] = this.defaultClickerGame[Object.keys(this.defaultClickerGame)[i]];
+                this.clickerGame[Object.keys(this.defaultClickerGame)[i]] = { ...this.defaultClickerGame[Object.keys(this.defaultClickerGame)[i]] };
             }
         }
     }
