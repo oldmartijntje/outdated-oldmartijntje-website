@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { bookmarks, applications, Application, navBar } from 'src/app/data/bookmarks';
 import { Settings, PageInfo } from '../../../data/settings';
@@ -168,6 +168,11 @@ export class BookmarksPageComponent implements OnInit {
 
     trustHTML(html: string): any {
         return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+
+    getTrustedUrl(url: string): SafeResourceUrl {
+        // Use DomSanitizer to mark the URL as trusted
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     goToWebPage(url: string, openInNewTab: boolean = false): void {

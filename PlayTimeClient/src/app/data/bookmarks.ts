@@ -72,8 +72,8 @@ export const applications: Application[] = [
         }
     },
     {
-        "Title": "Doom.exe",
-        "Icon": "https://i.imgur.com/3Ry6Cvl.png",
+        "Title": "Minecraft.exe",
+        "Icon": "",
         "Command": "openNewTab",
         "Link": "",
         "Payload": {
@@ -93,6 +93,34 @@ export const applications: Application[] = [
                 }
             ],
             "Tabs": [],
+        },
+        "Location": {
+            "X": 0,
+            "Y": 0
+        }
+    },
+    {
+        "Title": "Doom.exe",
+        "Icon": "https://i.imgur.com/3Ry6Cvl.png",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
+
+            ],
+            "Title": "Click me to play Doom!",
+            "Size": { "Width": "700px", "Height": "350px" },
+            "Buttons": [
+
+            ],
+            "Tabs": [],
+            "Type": "Iframe",
+            "iframe": {
+                "src": "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fdoom.jsdos?anonymous=1",
+                "width": "680",
+                "height": "400",
+                "frameborder": true
+            }
         },
         "Location": {
             "X": 0,

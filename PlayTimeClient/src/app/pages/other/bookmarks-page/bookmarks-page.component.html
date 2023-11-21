@@ -71,6 +71,27 @@
                 </section>
             </div>
         </div>
+
+        <div class="window window__tab" *ngIf="bookmark['Type'] === 'Iframe'" style="z-index: 9;"
+            [ngStyle]="{'display': !bookmark['Hidden'] ? 'block' : 'none'}" cdkDrag
+            [cdkDragDisabled]="!isBlockDraggable" style="top:0px" (cdkDragStarted)="onWindowDragStarted($event)"
+            (cdkDragReleased)="onWindowDragReleased($event)"
+            [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'width': getWindowSize(bookmark, '400px'), 'z-index': getDivById(bookmark['Id']).zIndex }">
+            <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
+                <div class="title-bar-text">{{bookmark['Title']}}</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
+                    <!-- <button aria-label="Maximize" (click)="devInfo(bookmark)"></button> -->
+                    <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
+                </div>
+            </div>
+            <div *ngIf="!bookmark['Minimised']" class="window-body">
+                <iframe width="{{bookmark['iframe']['width']}}" height="{{bookmark['iframe']['height']}}"
+                    [src]="getTrustedUrl(bookmark['iframe']['src'])" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
         <div class="window window__tab" *ngIf="bookmark['Type'] === 'Router'" style="overflow: hidden;" cdkDrag
             style="z-index:99999" [cdkDragDisabled]="!isBlockDraggable" style="top:0px"
             (cdkDragStarted)="onWindowDragStarted($event)" (cdkDragReleased)="onWindowDragReleased($event)"
@@ -137,6 +158,7 @@
 
             </div>
         </div>
+
     </section>
 
 
