@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { smallAd } from 'src/app/data/ads';
 import { Settings, PageInfo } from 'src/app/data/settings';
+import { AdHandler } from 'src/app/models/adHandler';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class MobileApplicationPageComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private runtimeServiceService: RuntimeServiceService,
+        private runtimeServiceService: RuntimeServiceService
     ) { }
 
     ngOnInit(): void {
@@ -70,5 +72,15 @@ export class MobileApplicationPageComponent implements OnInit {
 
     deleteLocalStorage() {
         localStorage.clear();
+    }
+
+    getListOfSmallAds(): smallAd[] {
+        var adHandler = new AdHandler();
+        return adHandler.getSmallAdList();
+    }
+
+    sendToLink(ad: smallAd): void {
+        var adHandler = new AdHandler();
+        adHandler.sendToLink(ad);
     }
 }

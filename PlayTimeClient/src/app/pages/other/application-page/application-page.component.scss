@@ -131,3 +131,12 @@ body {
 .headerButton {
     cursor: pointer;
 }
+
+.scrollingBar {
+    overflow: hidden;
+}
+
+.smallAdBox {
+    display: flex;
+    flex-direction: row;
+}

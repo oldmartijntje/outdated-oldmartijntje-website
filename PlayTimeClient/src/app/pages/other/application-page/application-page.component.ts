@@ -7,6 +7,8 @@ import { RuntimeServiceService } from 'src/app/services/global/runtime-service.s
 import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { environment } from 'src/environments/environment';
 import { Shortcut } from 'src/app/models/applications';
+import { smallAd } from 'src/app/data/ads';
+import { AdHandler } from 'src/app/models/adHandler';
 
 @Component({
     selector: 'app-application-page',
@@ -301,5 +303,15 @@ export class ApplicationPageComponent implements OnInit {
 
     deleteLocalStorage() {
         localStorage.clear();
+    }
+
+    getListOfSmallAds(): smallAd[] {
+        var adHandler = new AdHandler();
+        return adHandler.getSmallAdList();
+    }
+
+    sendToLink(ad: smallAd): void {
+        var adHandler = new AdHandler();
+        adHandler.sendToLink(ad);
     }
 }

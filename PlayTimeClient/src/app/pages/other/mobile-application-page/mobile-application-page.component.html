@@ -55,29 +55,11 @@
                         <button (click)="switchPage(activePage)">Go</button>
                     </div>
                     <div class="webContent">
-                        <div>
-                            <a href="https://oldmartijntje.nl/"><img src="https://i.imgur.com/5svJRQD.png" alt=""></a>
-                            <a href="https://freakphone.net/" target="_blank"><img
-                                    src="https://www.dl.dropboxusercontent.com/s/aw6yvlcgdwcol0h/freakbutton.gif"></a>
-                            <a href="https://boxy.neocities.org/" target="_blank">
-                                <picture>
-                                    <source srcset="https://boxy.neocities.org/images/ggWebp.webp" type="image/webp">
-                                    <img src="https://boxy.neocities.org/images/ggPng.png">
-                                </picture>
-                            </a>
-                            <a href="https://arutemu64.neocities.org/" target="_blank"><img
-                                    src="https://arutemu64.neocities.org/button.gif" width="88" height="31"></a>
-                            <a href="https://hopeslair.neocities.org/" target="_blank"><img
-                                    src="https://hopeslair.neocities.org/pictures/buttonsite2.gif" alt=""
-                                    title="Hope's Lair" class=""></a>
-                            <a href="https://dimden.dev/" target="_blank"><img
-                                    src="https://dimden.dev/services/images/88x31.gif"></a>
-                            <a href="https://melankorin.net/"><img
-                                    src="https://melankorin.net/assets/img/buttons/button-2.gif" alt=""></a>
-                            <a href="http://vaerael.neocities.org/"><img
-                                    src="https://64.media.tumblr.com/fb603cee5834488971d74d7f66cdf99d/6c005a58dfcc6d02-12/s540x810/e2aaabc47e427d4f1af027a67dd03a5306ccb88f.png" /></a>
-                            <a href="https://open.spotify.com/track/0X3FKutBnvxqEBxH5xwkU2?si=f38dc45e5b734ef1"><img
-                                    src="../../../../assets/images/buttons/Button1.gif" alt=""></a>
+                        <div class="smallAdBox scrollingBar">
+                            <div *ngFor="let ad of getListOfSmallAds()">
+                                <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"
+                                    style="cursor:pointer; max-height: 31px; max-width: 88px;">
+                            </div>
                         </div>
                         <hr class="solid no-top-margin">
                         <div *ngIf="showRouter">
