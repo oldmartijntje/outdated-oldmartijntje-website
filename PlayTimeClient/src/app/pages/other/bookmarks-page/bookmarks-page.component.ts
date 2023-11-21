@@ -5,6 +5,7 @@ import { bookmarks, applications, Application, navBar } from 'src/app/data/bookm
 import { Settings, PageInfo } from '../../../data/settings';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-bookmarks-page',
@@ -15,7 +16,7 @@ export class BookmarksPageComponent implements OnInit {
 
     divs: { left: string; top: string, id: number, zIndex: number }[] = [];
     bookmarks: Record<string, any>[] = [];
-    lastId: number = 0;
+    lastId: number = -1;
     randomX = 50;
     randomY = 50;
     showRouter: boolean = false;
@@ -26,6 +27,7 @@ export class BookmarksPageComponent implements OnInit {
         "MobileUser": false,
         "MobileMode": false
     };
+    devMode = !environment.production;
     applications: Application[] = []
     isDragging = false;
     private clickStartTime!: number;
@@ -42,7 +44,7 @@ export class BookmarksPageComponent implements OnInit {
     ngOnInit(): void {
         this.bookmarks = bookmarks;
         for (let i = 0; i < bookmarks.length; i++) {
-            this.lastId = i;
+            this.lastId += 1;
             this.checkBookmarkForMissingData(this.bookmarks[i]);
         }
         for (let i = 0; i < bookmarks.length; i++) {
@@ -50,6 +52,15 @@ export class BookmarksPageComponent implements OnInit {
             const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
             const zIndex = this.setNewZIndex();
             this.divs.push({ left, top, id: i, zIndex });
+        }
+        for (let i = 0; i < applications.length; i++) {
+            try {
+                this.lastId += 1;
+                this.addIdToBookmark(applications[i]);
+            } catch (error) {
+
+            }
+
         }
         this.router.events.subscribe(event => {
             const currentUrl = this.router.url; // Get the full URL
@@ -137,8 +148,12 @@ export class BookmarksPageComponent implements OnInit {
         console.log(bookmark);
     }
 
-    checkBookmarkForMissingData(bookmark: Record<string, any>): void {
+    addIdToBookmark(bookmark: Record<string, any>): void {
         bookmark["Id"] = this.lastId;
+    }
+
+    checkBookmarkForMissingData(bookmark: Record<string, any>): void {
+        this.addIdToBookmark(bookmark);
         if (bookmark["Minimised"] == undefined) {
             bookmark["Minimised"] = false;
         }
@@ -189,12 +204,12 @@ export class BookmarksPageComponent implements OnInit {
         } else if (button['Command'].toLocaleLowerCase() == "nav") {
             this.goToWebPage(button['Link']);
         } else if (button['Command'].toLocaleLowerCase() == "virus") {
-            this.virus(bookmark)
+            this.virus(bookmark, bookmark)
         } else if (button['Command'].toLocaleLowerCase() == "opennewtab") {
-            this.reCreateBookmark(button['Payload'])
+            this.reCreateBookmark(button['Payload'], bookmark)
         } else if (button['Command'].toLocaleLowerCase() == "opensinglenewtab") {
             if (!this.checkForOpenTabWithValue(button['Payload']['SinglePageId'])) {
-                this.reCreateBookmark(button['Payload'])
+                this.reCreateBookmark(button['Payload'], bookmark)
             } else {
                 this.toggleHiddenById(button['Payload']['SinglePageId']);
             }
@@ -218,7 +233,7 @@ export class BookmarksPageComponent implements OnInit {
         return false;
     }
 
-    virus(bookmark: Record<string, any>): void {
+    virus(bookmark: Record<string, any>, parent: Record<string, any>): void {
         var calcAmount = 0;
         if (this.lastId == 0) {
             calcAmount = 1;
@@ -229,14 +244,19 @@ export class BookmarksPageComponent implements OnInit {
         }
         const amount = calcAmount;
         for (let index = 0; index < amount; index++) {
-            this.reCreateBookmark(bookmark)
+            this.reCreateBookmark(bookmark, parent)
 
         }
     }
 
-    reCreateBookmark(bookmark: Record<string, any>): void {
+    reCreateBookmark(bookmark: Record<string, any>, parent: Record<string, any>): void {
         this.lastId++;
         var newBookmark = { ...bookmark };
+        if (parent["ParentId"] == undefined) {
+            newBookmark["ParentId"] = parent["Id"];
+        } else {
+            newBookmark["ParentId"] = parent["ParentId"];
+        }
         this.checkBookmarkForMissingData(newBookmark);
         this.bookmarks.push({ ...newBookmark });
         const left = `${Math.random() * this.randomX}`; // Adjust the range as needed

@@ -73,7 +73,7 @@ export const applications: Application[] = [
     },
     {
         "Title": "Minecraft.exe",
-        "Icon": "",
+        "Icon": "https://i.imgur.com/QDCsTUb.png",
         "Command": "openNewTab",
         "Link": "",
         "Payload": {
