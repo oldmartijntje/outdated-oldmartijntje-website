@@ -22,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ApplicationPageComponent } from './pages/other/application-page/application-page.component';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { MobileApplicationPageComponent } from './pages/other/mobile-application-page/mobile-application-page.component';
+import { TaskManagerComponent } from './components/applications/task-manager/task-manager.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { MobileApplicationPageComponent } from './pages/other/mobile-application
         NotFoundPageComponent,
         HomePageComponent,
         ApplicationPageComponent,
-        MobileApplicationPageComponent
+        MobileApplicationPageComponent,
+        TaskManagerComponent
     ],
     imports: [
         BrowserModule,
