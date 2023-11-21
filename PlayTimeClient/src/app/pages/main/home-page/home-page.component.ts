@@ -40,6 +40,10 @@ export class HomePageComponent implements OnInit {
         if (this.clickerGame['discovery']['click']) {
             this.startLoop();
         }
+        // var encr = new Encryptor();
+        // var a = encr.encryptString("test");
+        // console.log(a);
+        // console.log(encr.decryptString(a));
     }
 
 

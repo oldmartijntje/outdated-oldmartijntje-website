@@ -2,5 +2,6 @@
 export const environment = {
     production: true,
     apiUrl: 'https://production-api-url.com/api', // Your production API URL
-    encryptionKey: 69
+    encryptionKey: 69,
+    encryptionModifier: 420
 };
