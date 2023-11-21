@@ -1,16 +1,16 @@
 <app-editor-page *ngIf="showEditor">
     <router-outlet></router-outlet>
 </app-editor-page>
-<app-bookmarks-page *ngIf="!showEditor && showWindows && !mobileMode['MobileMode']">
+<app-application-page *ngIf="!showEditor && showWindows && !mobileMode['MobileMode']">
     <router-outlet></router-outlet>
-</app-bookmarks-page>
+</app-application-page>
 <div *ngIf="!showEditor && showWindows && mobileMode['MobileMode']"
     style="background-image: url('https://i.imgur.com/yOpoaJH.jpg'); height:100%">
     <img *ngIf="mobileMode['MobileUser'] && mobileModePopup" src="../assets/images/mobileUser.png" alt=""
         (click)="mobileModePopup = false" style="width:100%;">
-    <app-mobile-bookmarks-page *ngIf="!mobileMode['MobileUser'] || !mobileModePopup">
+    <app-mobile-application-page *ngIf="!mobileMode['MobileUser'] || !mobileModePopup">
         <router-outlet></router-outlet>
-    </app-mobile-bookmarks-page>
+    </app-mobile-application-page>
 </div>
 
 <router-outlet *ngIf="!showEditor && !showWindows"></router-outlet>
