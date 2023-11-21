@@ -43,6 +43,18 @@
                             (click)="goToWebPage('https://hotlinewebring.club/oldma/next')"><img
                                 src="../../../../assets/icons/greenArrow.png" alt="Next"></button>
                     </div>
+                    <div class="smallAdBox scrollingBar">
+                        <div class="marquee">
+                            <div class="marquee__content" [ngStyle]="{'width': calculateWidth() + 'px'}">
+                                <ul class="list-inline" *ngFor="let i of ngForScroll()">
+                                    <li *ngFor="let ad of getListOfSmallAds()">
+                                        <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"
+                                            style="max-height: 31px; max-width: 88px;" [ngStyle]="hasNonEmptyLink(ad)">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <hr class="solid no-top-margin">
                     <div style="display: flex; flex-direction: row;">
                         <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Adress</p>
@@ -55,12 +67,6 @@
                         <button (click)="switchPage(activePage)">Go</button>
                     </div>
                     <div class="webContent">
-                        <div class="smallAdBox scrollingBar">
-                            <div *ngFor="let ad of getListOfSmallAds()">
-                                <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"
-                                    style="cursor:pointer; max-height: 31px; max-width: 88px;">
-                            </div>
-                        </div>
                         <hr class="solid no-top-margin">
                         <div *ngIf="showRouter">
                             <ng-content></ng-content>

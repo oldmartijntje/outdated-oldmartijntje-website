@@ -324,4 +324,11 @@ export class ApplicationPageComponent implements OnInit {
         var width = `${this.getListOfSmallAds().length * 88 * 3}`
         return width
     }
+
+    hasNonEmptyLink(ad: smallAd): any {
+        var adHandler = new AdHandler();
+        if (adHandler.hasNonEmptyLink(ad)) {
+            return { 'cursor': 'pointer' }
+        }
+    }
 }

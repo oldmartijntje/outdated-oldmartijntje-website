@@ -8,7 +8,7 @@ export const smallAdList: smallAd[] = [
     {
         "link": "https://oldmartijntje.nl/",
         "image": "https://i.imgur.com/5svJRQD.png",
-        "blank_": true
+        "blank_": false
     },
     {
         "link": "https://freakphone.net/",
@@ -48,6 +48,16 @@ export const smallAdList: smallAd[] = [
     {
         "link": "https://open.spotify.com/track/0X3FKutBnvxqEBxH5xwkU2?si=f38dc45e5b734ef1",
         "image": "../../../../assets/images/buttons/Button1.gif",
+        "blank_": true
+    },
+    {
+        "link": "https://nenrikido.neocities.org",
+        "image": "https://dl.dropbox.com/s/265wg2om8bjr5g6/nenrikido_button.gif",
+        "blank_": true
+    },
+    {
+        "link": "",
+        "image": "../../../../assets/images/buttons/brainTraining.gif",
         "blank_": true
     },
 ]

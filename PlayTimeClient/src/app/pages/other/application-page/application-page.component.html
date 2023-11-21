@@ -130,7 +130,7 @@
                                 <ul class="list-inline" *ngFor="let i of ngForScroll()">
                                     <li *ngFor="let ad of getListOfSmallAds()">
                                         <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"
-                                            style="cursor:pointer; max-height: 31px; max-width: 88px;">
+                                            style="max-height: 31px; max-width: 88px;" [ngStyle]="hasNonEmptyLink(ad)">
                                     </li>
                                 </ul>
                             </div>
