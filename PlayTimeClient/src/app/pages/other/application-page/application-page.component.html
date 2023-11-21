@@ -10,8 +10,8 @@
             style="top:0px; left:0px; display: flex; flex-direction: column; width:96px; align-items: center; height: 72px; z-index: 1;">
             <img src="{{application.Icon}}" alt="" style="height:48px; width: 48px; cursor: pointer;"
                 (mouseup)="onMouseUp(true, application, application)">
-            <span
-                style="text-align: center; word-wrap: break-word; max-width: 96px; cursor: pointer; padding: 2px; background-color: #2a48ed; border-radius: 5px; color:#fff;"
+            <span class="text-with-border"
+                style="text-align: center; word-wrap: break-word; max-width: 96px; cursor: pointer; padding: 2px;"
                 (mouseup)="onMouseUp(true, application, application)">{{application.Title}}</span>
         </div>
     </div>
@@ -125,8 +125,8 @@
                     </header>
                     <hr class="solid no-top-margin">
                     <div class="smallAdBox scrollingBar">
-                        <div class="marquee">
-                            <div class="marquee__content" [ngStyle]="{'width': calculateWidth() + 'px'}">
+                        <div class="text-scrollBox">
+                            <div class="text-scrollBox__content" [ngStyle]="{'width': calculateWidth() + 'px'}">
                                 <ul class="list-inline" *ngFor="let i of ngForScroll()">
                                     <li *ngFor="let ad of getListOfSmallAds()">
                                         <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"

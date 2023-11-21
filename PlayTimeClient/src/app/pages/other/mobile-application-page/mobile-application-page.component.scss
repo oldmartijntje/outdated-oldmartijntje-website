@@ -114,7 +114,7 @@ body {
     flex-direction: row;
 }
 
-.marquee {
+.text-scrollBox {
     margin: 0 auto;
     width: 100%;
     height: 30px;
@@ -124,8 +124,8 @@ body {
     position: relative;
 }
 
-.marquee:before,
-.marquee:after {
+.text-scrollBox:before,
+.text-scrollBox:after {
     position: absolute;
     top: 0;
     width: 50px;
@@ -134,24 +134,24 @@ body {
     z-index: 1;
 }
 
-.marquee:before {
+.text-scrollBox:before {
     left: 0;
     background: linear-gradient(to right, white 5%, transparent 100%);
 }
 
-.marquee:after {
+.text-scrollBox:after {
     right: 0;
     background: linear-gradient(to left, white 5%, transparent 100%);
 }
 
-.marquee__content {
+.text-scrollBox__content {
     // width: 300% !important;
     display: flex;
     line-height: 30px;
-    animation: marquee 10s linear infinite forwards;
+    animation: text-scrollBox 20s linear infinite forwards;
 }
 
-.marquee__content:hover {
+.text-scrollBox__content:hover {
     animation-play-state: paused;
 }
 
@@ -165,7 +165,7 @@ body {
     margin: 0;
 }
 
-@keyframes marquee {
+@keyframes text-scrollBox {
     0% {
         transform: translateX(0);
     }

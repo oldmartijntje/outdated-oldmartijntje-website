@@ -31,6 +31,11 @@ export const smallAdList: smallAd[] = [
         "blank_": true
     },
     {
+        "link": "http://www.saitogames.com/battlepainters/",
+        "image": "../../../../assets/images/buttons/battlePainters.gif",
+        "blank_": true
+    },
+    {
         "link": "https://dimden.dev/",
         "image": "https://dimden.dev/services/images/88x31.gif",
         "blank_": true

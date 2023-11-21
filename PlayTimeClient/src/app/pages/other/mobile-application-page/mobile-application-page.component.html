@@ -44,8 +44,8 @@
                                 src="../../../../assets/icons/greenArrow.png" alt="Next"></button>
                     </div>
                     <div class="smallAdBox scrollingBar">
-                        <div class="marquee">
-                            <div class="marquee__content" [ngStyle]="{'width': calculateWidth() + 'px'}">
+                        <div class="text-scrollBox">
+                            <div class="text-scrollBox__content" [ngStyle]="{'width': calculateWidth() + 'px'}">
                                 <ul class="list-inline" *ngFor="let i of ngForScroll()">
                                     <li *ngFor="let ad of getListOfSmallAds()">
                                         <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"

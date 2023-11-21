@@ -174,6 +174,32 @@ export const applications: Shortcut[] = [
 
                 },
                 {
+                    "Title": "CSS3 Marquee effect - with/without javascript",
+                    "Buttons": [
+                        {
+                            "Text": "Visit Codepen",
+                            "Command": "Nav",
+                            "Link": "https://codepen.io/ayulayol/pen/LvQNpV",
+                            "AfterText": " Scroll.. Scroll.. Scroll.."
+                        }
+                    ],
+                    "Text": [
+                        {
+                            "Text": "This helped me a lot with the ads.",
+                            "Link": ""
+                        },
+                        {
+                            "Text": "Made By: AYUL AYOL",
+                            "Link": "https://codepen.io/ayulayol"
+                        },
+                        {
+                            "Text": "Thanks Stan for making the same thing :D",
+                            "Link": "https://codepen.io/Staninna/pen/dyamjyQ"
+                        }
+                    ],
+
+                },
+                {
                     "Title": "Draggable Windows",
                     "Buttons": [
                         {
