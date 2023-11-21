@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApplicationPageComponent } from './bookmarks-page.component';
+import { ApplicationPageComponent } from './application-page.component';
 
 describe('BookmarksPageComponent', () => {
     let component: ApplicationPageComponent;

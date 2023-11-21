@@ -9,9 +9,9 @@ import { environment } from 'src/environments/environment';
 import { Shortcut } from 'src/app/models/applications';
 
 @Component({
-    selector: 'app-bookmarks-page',
-    templateUrl: './bookmarks-page.component.html',
-    styleUrls: ['./bookmarks-page.component.scss'],
+    selector: 'app-application-page',
+    templateUrl: './application-page.component.html',
+    styleUrls: ['./application-page.component.scss'],
 })
 export class ApplicationPageComponent implements OnInit {
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MobileApplicationPageComponent } from './mobile-bookmarks-page.component';
+import { MobileApplicationPageComponent } from './mobile-application-page.component';
 
 describe('MobileBookmarksPageComponent', () => {
     let component: MobileApplicationPageComponent;

@@ -4,9 +4,9 @@ import { Settings, PageInfo } from 'src/app/data/settings';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 
 @Component({
-    selector: 'app-mobile-bookmarks-page',
-    templateUrl: './mobile-bookmarks-page.component.html',
-    styleUrls: ['./mobile-bookmarks-page.component.scss']
+    selector: 'app-mobile-application-page',
+    templateUrl: './mobile-application-page.component.html',
+    styleUrls: ['./mobile-application-page.component.scss']
 })
 export class MobileApplicationPageComponent implements OnInit {
     divs: { left: string; top: string, id: number }[] = [];
