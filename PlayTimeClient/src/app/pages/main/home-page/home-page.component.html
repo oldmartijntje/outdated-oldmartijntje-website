@@ -81,8 +81,8 @@
             <button (click)="clickerDataHandler(1)" *ngIf="clickerGame['discovery']['click']"
                 class="marioText growButton">Load Game
                 <img src="../../../../assets/icons/load.ico" alt="coin" style="width:1rem"></button>
-            <button (click)="clickerDataHandler(2)" *ngIf="clickerGame['discovery']['click']"
-                class="marioText growButton">Reset Game
+            <button (click)="resetGame()" *ngIf="clickerGame['discovery']['click']" class="marioText growButton"><span
+                    *ngIf="deleteButton == 0">Reset Game</span><span *ngIf="deleteButton != 0">Confirm Reset</span>
                 <img src="../../../../assets/icons/trash.ico" alt="coin" style="width:1rem"></button>
         </div>
         <p *ngIf="clickerGame['discovery']['click']">Auto saves in {{120 - clickerGame['autoSave']}} seconds.</p>

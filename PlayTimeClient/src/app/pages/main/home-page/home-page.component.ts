@@ -24,6 +24,7 @@ export class HomePageComponent implements OnInit {
     }
     versionNumber = BuildData["BuildNumber"];
     versionWord = "BuildId";
+    deleteButton = 0;
 
     constructor(
         private audioPlayerService: AudioPlayerService,
@@ -120,15 +121,26 @@ export class HomePageComponent implements OnInit {
     }
 
     checkContent() {
-        for (var i = 0; i < Object.keys(this.defaultClickerGame["buys"]).length; i++) {
-            if (!this.clickerGame['buys'].hasOwnProperty(Object.keys(this.defaultClickerGame["buys"])[i])) {
-                this.clickerGame['buys'][Object.keys(this.defaultClickerGame["buys"])[i]] = { ...this.defaultClickerGame["buys"][Object.keys(this.defaultClickerGame["buys"])[i]] };
+        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)["buys"]).length; i++) {
+            if (!this.clickerGame['buys'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i])) {
+                this.clickerGame['buys'][Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i]] = this.deepClone(this.defaultClickerGame)["buys"][Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i]];
             }
         }
-        for (var i = 0; i < Object.keys(this.defaultClickerGame).length; i++) {
-            if (!this.clickerGame.hasOwnProperty(Object.keys(this.defaultClickerGame)[i])) {
-                this.clickerGame[Object.keys(this.defaultClickerGame)[i]] = { ...this.defaultClickerGame[Object.keys(this.defaultClickerGame)[i]] };
+        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)).length; i++) {
+            if (!this.clickerGame.hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame))[i])) {
+                this.clickerGame[Object.keys(this.deepClone(this.defaultClickerGame))[i]] = this.deepClone(this.defaultClickerGame)[Object.keys(this.deepClone(this.defaultClickerGame))[i]];
             }
+        }
+    }
+
+    deepClone(obj: Record<string, any>): Record<string, any> {
+        return JSON.parse(JSON.stringify(obj));
+    }
+
+    resetGame() {
+        this.deleteButton += 5;
+        if (this.deleteButton > 5) {
+            this.clickerDataHandler(2);
         }
     }
 
@@ -145,15 +157,16 @@ export class HomePageComponent implements OnInit {
                     this.checkContent();
                 } catch (error) {
                     console.error("The save file is corrupted, resetting the save file...\nIt's not overwritten yet, so save it whilst you can!\n" + error);
-                    this.clickerGame = { ...this.defaultClickerGame };
+                    this.clickerGame = this.deepClone(this.defaultClickerGame);
                 }
 
             } else {
-                this.clickerGame = { ...this.defaultClickerGame };
+                this.clickerGame = this.deepClone(this.defaultClickerGame);
             }
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 2) {
-            this.clickerGame = { ...this.defaultClickerGame };
+            localStorage.removeItem("clickerGame");
+            this.clickerGame = this.deepClone(this.defaultClickerGame);
             this.clickerGame['autoSave'] = 0;
         }
     }
@@ -189,6 +202,9 @@ export class HomePageComponent implements OnInit {
     }
 
     perSecond() {
+        if (this.deleteButton > 0) {
+            this.deleteButton--;
+        }
         if (this.clickerGame['perSecond']['coin']['amount'] > 0) {
             if (this.clickerGame['perSecond']['coin']['amount'] >= this.clickerGame['currency']['coin']['max']) {
                 var overflow = Math.floor(this.clickerGame['perSecond']['coin']['amount'] / this.clickerGame['currency']['coin']['max']);
