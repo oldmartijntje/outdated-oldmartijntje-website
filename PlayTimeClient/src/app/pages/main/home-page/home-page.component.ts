@@ -127,7 +127,7 @@ export class HomePageComponent implements OnInit {
     }
 
     clickerDataHandler(mode: number = 0) {
-        // 0 = save, 1 = load, 2 = reset
+        // 0 = save, 1 = load, 2 = reset, 3 = reset but not cookie
         var encr = new Encryptor();
         if (mode == 0) {
             localStorage.setItem("clickerGame", encr.encryptString(JSON.stringify(this.clickerGame)));
@@ -149,6 +149,9 @@ export class HomePageComponent implements OnInit {
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 2) {
             localStorage.removeItem("clickerGame");
+            this.clickerGame = this.deepClone(this.defaultClickerGame);
+            this.clickerGame['autoSave'] = 0;
+        } else if (mode == 3) {
             this.clickerGame = this.deepClone(this.defaultClickerGame);
             this.clickerGame['autoSave'] = 0;
         }
