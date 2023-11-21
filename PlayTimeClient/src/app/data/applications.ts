@@ -9,7 +9,7 @@ export const bookmarks: Record<string, any>[] = [
     }
 ]
 
-export interface Application {
+export interface Shortcut {
     Icon: string;
     Title: string;
     Command: string;
@@ -22,7 +22,7 @@ export interface Application {
     // Add other properties if needed
 }
 
-export const applications: Application[] = [
+export const applications: Shortcut[] = [
     {
         "Title": "Installer.iso",
         "Icon": "assets/icons/iso.png",
@@ -420,7 +420,7 @@ export const applications: Application[] = [
         },
         "Location": {
             "X": 5,
-            "Y": 1
+            "Y": 0
         }
     },
     {
@@ -454,7 +454,7 @@ export const applications: Application[] = [
         },
         "Location": {
             "X": 0,
-            "Y": 0
+            "Y": -1
         }
     },
     {
@@ -478,7 +478,7 @@ export const applications: Application[] = [
 
 ]
 
-export const navBar: Application[] = [
+export const taskBar: Shortcut[] = [
     {
         "Title": "Page Explorer",
         "Icon": "assets/icons/Internet.ico",

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { bookmarks, applications, Application, navBar } from 'src/app/data/bookmarks';
+import { bookmarks, applications, Shortcut, taskBar } from 'src/app/data/applications';
 import { Settings, PageInfo } from '../../../data/settings';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
     templateUrl: './bookmarks-page.component.html',
     styleUrls: ['./bookmarks-page.component.scss'],
 })
-export class BookmarksPageComponent implements OnInit {
+export class ApplicationPageComponent implements OnInit {
 
     divs: { left: string; top: string, id: number, zIndex: number }[] = [];
     bookmarks: Record<string, any>[] = [];
@@ -28,11 +28,11 @@ export class BookmarksPageComponent implements OnInit {
         "MobileMode": false
     };
     devMode = !environment.production;
-    applications: Application[] = []
+    applications: Shortcut[] = []
     isDragging = false;
     private clickStartTime!: number;
     lastGrabbedId: number = 9;
-    navBar: Application[] = [];
+    navBar: Shortcut[] = [];
 
 
     constructor(
@@ -77,7 +77,7 @@ export class BookmarksPageComponent implements OnInit {
         });
         this.pageInfo = [...PageInfo];
         this.applications = [...applications];
-        this.navBar = [...navBar];
+        this.navBar = [...taskBar];
     }
     onWindowDragStarted(event: CdkDragStart<any>) {
         this.setNewZIndex();

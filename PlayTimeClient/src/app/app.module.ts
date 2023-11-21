@@ -19,9 +19,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { BookmarksPageComponent } from './pages/other/bookmarks-page/bookmarks-page.component';
+import { ApplicationPageComponent } from './pages/other/application-page/bookmarks-page.component';
 import { CdkDrag } from '@angular/cdk/drag-drop';
-import { MobileBookmarksPageComponent } from './pages/other/mobile-bookmarks-page/mobile-bookmarks-page.component';
+import { MobileApplicationPageComponent } from './pages/other/mobile-application-page/mobile-bookmarks-page.component';
 
 @NgModule({
     declarations: [
@@ -31,8 +31,8 @@ import { MobileBookmarksPageComponent } from './pages/other/mobile-bookmarks-pag
         RailroadinkPageComponent,
         NotFoundPageComponent,
         HomePageComponent,
-        BookmarksPageComponent,
-        MobileBookmarksPageComponent
+        ApplicationPageComponent,
+        MobileApplicationPageComponent
     ],
     imports: [
         BrowserModule,

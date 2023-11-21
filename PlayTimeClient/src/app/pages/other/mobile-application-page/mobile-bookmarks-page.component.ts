@@ -8,7 +8,7 @@ import { RuntimeServiceService } from 'src/app/services/global/runtime-service.s
     templateUrl: './mobile-bookmarks-page.component.html',
     styleUrls: ['./mobile-bookmarks-page.component.scss']
 })
-export class MobileBookmarksPageComponent implements OnInit {
+export class MobileApplicationPageComponent implements OnInit {
     divs: { left: string; top: string, id: number }[] = [];
     bookmarks: Record<string, any>[] = [];
     lastId: number = 0;
