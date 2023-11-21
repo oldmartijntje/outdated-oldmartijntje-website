@@ -4,6 +4,7 @@ import { BuildData } from 'src/app/models/buildData';
 import { AudioPlayerService } from 'src/app/services/global/audio-player.service';
 import { MarioClickerMain } from 'src/app/data/gamesData';
 import { environment } from 'src/environments/environment';
+import { adHandler } from 'src/app/models/adHandler';
 
 @Component({
     selector: 'app-home-page',

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { bookmarks, applications, Shortcut, taskBar } from 'src/app/data/applications';
+import { bookmarks, applications, taskBar } from 'src/app/data/applications';
 import { Settings, PageInfo } from '../../../data/settings';
 import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { environment } from 'src/environments/environment';
+import { Shortcut } from 'src/app/models/applications';
 
 @Component({
     selector: 'app-bookmarks-page',

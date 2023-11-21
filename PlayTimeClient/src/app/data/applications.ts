@@ -1,3 +1,5 @@
+import { Shortcut } from "../models/applications"
+
 export const bookmarks: Record<string, any>[] = [
     {
         "Size": { "Width": "600px" },
@@ -8,19 +10,6 @@ export const bookmarks: Record<string, any>[] = [
         "SinglePageId": "page-explorer",
     }
 ]
-
-export interface Shortcut {
-    Icon: string;
-    Title: string;
-    Command: string;
-    Link: string;
-    Payload: any;
-    Location: {
-        X: number;
-        Y: number;
-    }
-    // Add other properties if needed
-}
 
 export const applications: Shortcut[] = [
     {

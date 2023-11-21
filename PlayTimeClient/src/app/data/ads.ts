@@ -1,4 +1,10 @@
-export const ads = [
+export interface smallAd {
+    link: string;
+    image: string;
+    blank_?: boolean;
+}
+
+export const smallAdList: smallAd[] = [
     {
         "link": "https://oldmartijntje.nl/",
         "image": "https://i.imgur.com/5svJRQD.png",
@@ -45,3 +51,4 @@ export const ads = [
         "blank_": true
     },
 ]
+
