@@ -3,9 +3,9 @@
 <article class="windows_xp" style="overflow: hidden;">
 
     <div style="display: flex; flex-direction: column; flex-wrap: wrap;column-gap: 12px; row-gap: 12px; z-index: 0;">
-        <div *ngFor="let application of applications" cdkDrag (cdkDragStarted)="dragStarted()"
-            (cdkDragEnded)="dragEnded()" (mousedown)="onMouseDown()"
-            (mouseup)="onMouseUp(false, application, application)" [class.ignore-click]="isDragging"
+        <div *ngFor="let application of shortcuts" cdkDrag (cdkDragStarted)="dragStarted()" (cdkDragEnded)="dragEnded()"
+            (mousedown)="onMouseDown()" (mouseup)="onMouseUp(false, application, application)"
+            [class.ignore-click]="isDragging"
             [ngStyle]="{'transform': 'translate3d('+ ((application.Location.X * (96+ 12))+ 0) +'px ,' + ((application.Location.Y * (72 + 12))+12) +'px , -100px)', 'z-index': '0'}"
             style="top:0px; left:0px; display: flex; flex-direction: column; width:96px; align-items: center; height: 72px; z-index: 1;">
             <img src="{{application.Icon}}" alt="" style="height:48px; width: 48px; cursor: pointer;"
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <section *ngFor="let bookmark of bookmarks">
+    <section *ngFor="let bookmark of applications">
         <div class="window window__tab" *ngIf="bookmark['Type'] === 'WinXP'" style="z-index: 9;"
             [ngStyle]="{'display': !bookmark['Hidden'] ? 'block' : 'none'}" cdkDrag
             [cdkDragDisabled]="!isBlockDraggable" style="top:0px" (cdkDragStarted)="onWindowDragStarted($event)"

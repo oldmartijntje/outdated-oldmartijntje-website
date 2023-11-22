@@ -1,6 +1,6 @@
 import { Shortcut } from "../models/applications"
 
-export const bookmarks: Record<string, any>[] = [
+export const application: Record<string, any>[] = [
     {
         "Size": { "Width": "600px" },
         "Popup": [
@@ -8,10 +8,22 @@ export const bookmarks: Record<string, any>[] = [
         "Title": "Page Explorer",
         "Type": "Router",
         "SinglePageId": "page-explorer",
+    },
+    {
+        "Popup": [
+
+        ],
+        "Title": "Task Manager",
+        "Size": { "Width": "450px", "Height": "350px" },
+        "Buttons": [
+
+        ],
+        "Tabs": [],
+        "Type": "TaskManager"
     }
 ]
 
-export const applications: Shortcut[] = [
+export const shortcuts: Shortcut[] = [
     {
         "Title": "Installer.iso",
         "Icon": "assets/icons/iso.png",

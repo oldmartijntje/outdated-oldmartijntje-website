@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { bookmarks, applications, taskBar } from 'src/app/data/applications';
+import { application, shortcuts, taskBar } from 'src/app/data/applications';
 import { Settings, PageInfo } from '../../../data/settings';
 import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { environment } from 'src/environments/environment';
@@ -18,7 +18,7 @@ import { RuntimeServiceService } from 'src/app/services/runtime-service.service'
 export class ApplicationPageComponent implements OnInit {
 
     divs: { left: string; top: string, id: number, zIndex: number }[] = [];
-    bookmarks: Record<string, any>[] = [];
+    applications: Record<string, any>[] = [];
     lastId: number = -1;
     randomX = 50;
     randomY = 50;
@@ -31,7 +31,7 @@ export class ApplicationPageComponent implements OnInit {
         "MobileMode": false
     };
     devMode = !environment.production;
-    applications: Shortcut[] = []
+    shortcuts: Shortcut[] = []
     isDragging = false;
     private clickStartTime!: number;
     lastGrabbedId: number = 9;
@@ -45,21 +45,21 @@ export class ApplicationPageComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.bookmarks = bookmarks;
-        for (let i = 0; i < bookmarks.length; i++) {
+        this.applications = application;
+        for (let i = 0; i < application.length; i++) {
             this.lastId += 1;
-            this.checkBookmarkForMissingData(this.bookmarks[i]);
+            this.checkBookmarkForMissingData(this.applications[i]);
         }
-        for (let i = 0; i < bookmarks.length; i++) {
+        for (let i = 0; i < application.length; i++) {
             const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
             const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
             const zIndex = this.setNewZIndex();
             this.divs.push({ left, top, id: i, zIndex });
         }
-        for (let i = 0; i < applications.length; i++) {
+        for (let i = 0; i < shortcuts.length; i++) {
             try {
                 this.lastId += 1;
-                this.addIdToBookmark(applications[i]);
+                this.addIdToBookmark(shortcuts[i]);
             } catch (error) {
 
             }
@@ -79,7 +79,7 @@ export class ApplicationPageComponent implements OnInit {
             this.mobileMode = value;
         });
         this.pageInfo = [...PageInfo];
-        this.applications = [...applications];
+        this.shortcuts = [...shortcuts];
         this.navBar = [...taskBar];
     }
     onWindowDragStarted(event: CdkDragStart<any>) {
@@ -220,15 +220,15 @@ export class ApplicationPageComponent implements OnInit {
     }
 
     toggleHiddenById(id: string): void {
-        const index = this.bookmarks.findIndex(bookmark => bookmark['SinglePageId'] === id);
+        const index = this.applications.findIndex(bookmark => bookmark['SinglePageId'] === id);
 
         if (index !== -1) {
-            this.bookmarks[index]["Minimised"] = !this.bookmarks[index]["Minimised"];
+            this.applications[index]["Minimised"] = !this.applications[index]["Minimised"];
         }
     }
 
     checkForOpenTabWithValue(id: string) {
-        const index = this.bookmarks.findIndex(bookmark => bookmark['SinglePageId'] === id);
+        const index = this.applications.findIndex(bookmark => bookmark['SinglePageId'] === id);
 
         if (index !== -1) {
             return true;
@@ -261,7 +261,7 @@ export class ApplicationPageComponent implements OnInit {
             newBookmark["ParentId"] = parent["ParentId"];
         }
         this.checkBookmarkForMissingData(newBookmark);
-        this.bookmarks.push({ ...newBookmark });
+        this.applications.push({ ...newBookmark });
         const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
         const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
         this.divs.push({ left, top, id: this.lastId, zIndex: this.setNewZIndex() });
@@ -281,10 +281,10 @@ export class ApplicationPageComponent implements OnInit {
     }
 
     deleteBookmark(bookmarkId: number): void {
-        const index = this.bookmarks.findIndex(bookmark => bookmark['Id'] === bookmarkId);
+        const index = this.applications.findIndex(bookmark => bookmark['Id'] === bookmarkId);
 
         if (index !== -1) {
-            this.bookmarks.splice(index, 1);
+            this.applications.splice(index, 1);
         }
         const divs = this.divs.findIndex(bookmark => bookmark.id === bookmarkId);
 
