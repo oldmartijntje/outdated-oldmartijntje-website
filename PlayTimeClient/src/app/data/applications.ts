@@ -9,7 +9,7 @@ export const application: Record<string, any>[] = [
         "Type": "Router",
         'ParentId': 9,
         "SinglePageId": "page-explorer",
-        'Minimised': true
+        'Minimised': false
     },
 ]
 
