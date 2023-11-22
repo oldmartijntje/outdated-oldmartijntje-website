@@ -23,6 +23,7 @@ import { ApplicationPageComponent } from './pages/other/application-page/applica
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { MobileApplicationPageComponent } from './pages/other/mobile-application-page/mobile-application-page.component';
 import { TaskManagerComponent } from './components/applications/task-manager/task-manager.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { TaskManagerComponent } from './components/applications/task-manager/tas
         MatDividerModule,
         MatButtonModule,
         MatCheckboxModule,
-        CdkDrag
+        CdkDrag,
+        HttpClientModule
     ],
     providers: [{
         provide: MONACO_PATH,
