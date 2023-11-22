@@ -8,6 +8,7 @@ export const application: Record<string, any>[] = [
         "Title": "Page Explorer",
         "Type": "Router",
         "SinglePageId": "page-explorer",
+        'Minimised': true
     },
     {
         "Popup": [
@@ -18,7 +19,21 @@ export const application: Record<string, any>[] = [
         "Buttons": [
 
         ],
-        "Tabs": [],
+        "Tabs": [
+            {
+                "Title": "Processes",
+                "Mode": "Processes",
+
+            },
+            {
+                "Title": "Startup",
+                "Mode": "Startup",
+            },
+            {
+                "Title": "Developer Data",
+                "Mode": "Dev",
+            }
+        ],
         "Type": "TaskManager"
     }
 ]

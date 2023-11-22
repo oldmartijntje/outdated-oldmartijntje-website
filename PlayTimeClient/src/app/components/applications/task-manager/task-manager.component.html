@@ -8,9 +8,24 @@
         <button class="headerButton">Help</button>
     </header>
     <hr class="solid no-top-margin">
-    <div style="display: flex; flex-direction: row;">
+    <div style="display: flex; flex-direction: column;">
+        <menu role="tablist" style="flex-wrap: wrap-reverse; display: flex;">
+            <button [attr.aria-selected]="isActiveTab(tab['Id'], bookmark) ? 'true' : 'false'" aria-controls="music"
+                *ngFor="let tab of bookmark['Tabs']"
+                (click)="setActiveTab(tab['Id'], bookmark)">{{tab['Title']}}</button>
+        </menu>
+        <article role="tabpanel" *ngIf="bookmark['Tabs'].length > 0">
+            <div *ngIf="comparePathToActiveTab('Processes', getCurrentTab(bookmark))">
+                <p>Process</p>
+            </div>
+            <div *ngIf="comparePathToActiveTab('Startup', getCurrentTab(bookmark))">
+                <p>Startup</p>
+            </div>
+            <div *ngIf="comparePathToActiveTab('dev', getCurrentTab(bookmark))">
+                <p>dev</p>
+            </div>
 
-
+        </article>
     </div>
 
     <footer>
