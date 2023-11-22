@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EditorServiceService } from 'src/app/services/global/editor-service.service';
-import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
+import { EditorServiceService } from 'src/app/services/editor-service.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 export interface Dice {
     diceType: string;

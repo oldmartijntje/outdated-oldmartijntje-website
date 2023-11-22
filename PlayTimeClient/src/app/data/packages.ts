@@ -1,5 +1,5 @@
-import { MarjinscriptInterperatorServiceService } from "../services/global/marjinscript-interperator-service.service";
-import { RuntimeServiceService } from "../services/global/runtime-service.service";
+import { MarjinscriptInterperatorServiceService } from "../services/marjinscript-interperator-service.service";
+import { RuntimeServiceService } from "../services/runtime-service.service";
 
 export const PackageDescriptions: Record<string, Record<string, string>> = {
     "0": {

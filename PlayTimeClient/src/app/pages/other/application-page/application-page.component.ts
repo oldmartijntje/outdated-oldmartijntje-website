@@ -3,12 +3,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { bookmarks, applications, taskBar } from 'src/app/data/applications';
 import { Settings, PageInfo } from '../../../data/settings';
-import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
 import { CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { environment } from 'src/environments/environment';
 import { Shortcut } from 'src/app/models/applications';
 import { smallAd } from 'src/app/data/ads';
 import { AdHandler } from 'src/app/models/adHandler';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 @Component({
     selector: 'app-application-page',

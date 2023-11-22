@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { smallAd } from 'src/app/data/ads';
 import { Settings, PageInfo } from 'src/app/data/settings';
 import { AdHandler } from 'src/app/models/adHandler';
-import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 @Component({
     selector: 'app-mobile-application-page',

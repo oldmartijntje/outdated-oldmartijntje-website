@@ -1,17 +1,17 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
-import { RuntimeServiceService } from 'src/app/services/global/runtime-service.service';
-import { ToastQueueService } from 'src/app/services/global/toast-queue.service';
 import { Message } from 'src/app/models/message.interface';
 import { DatePipe, NgFor } from '@angular/common';
-import { EditorServiceService } from 'src/app/services/global/editor-service.service';
-import { MarjinscriptInterperatorServiceService } from 'src/app/services/global/marjinscript-interperator-service.service';
 import { PageCode } from 'src/app/data/settings';
 import { NavigationEnd, Router } from '@angular/router';
 import { defaultPageVariables } from 'src/app/data/pageVariables';
 import { ThemePalette } from '@angular/material/core';
 import { PackagesByPage, PackageDescriptions, Packages } from 'src/app/data/packages';
 import { BuildData } from 'src/app/models/buildData';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
+import { EditorServiceService } from 'src/app/services/editor-service.service';
+import { MarjinscriptInterperatorServiceService } from 'src/app/services/marjinscript-interperator-service.service';
 
 export interface Task {
     name: string;
