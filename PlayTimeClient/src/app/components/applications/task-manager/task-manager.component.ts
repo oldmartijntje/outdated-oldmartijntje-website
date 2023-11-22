@@ -12,7 +12,6 @@ export class TaskManagerComponent implements OnInit {
     selectedProcessId: number = -1;
 
     ngOnInit(): any {
-        console.log(this.application);
         this.refreshProcesses()
     }
 
@@ -30,14 +29,6 @@ export class TaskManagerComponent implements OnInit {
                 dict[shortcut['Id']] = 0;
             });
             return dict;
-        }
-
-        function getNameById(id: number): string {
-            let shortcut = shortcuts.find(shortcut => shortcut['Id'] == id);
-            if (shortcut == undefined) {
-                return "Unknown";
-            }
-            return shortcut['Title'];
         }
         function getShortcutById(id: number): Record<string, any> {
             let shortcut = shortcuts.find(shortcut => shortcut['Id'] == id);
