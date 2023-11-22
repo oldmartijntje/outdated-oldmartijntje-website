@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ToastQueueService } from './services/global/toast-queue.service';
-import { EditorServiceService } from './services/global/editor-service.service';
+import { ToastQueueService } from './services/toast-queue.service';
+import { EditorServiceService } from './services/editor-service.service';
 import { Router } from '@angular/router';
 import { Settings } from './data/settings';
-import { RuntimeServiceService } from './services/global/runtime-service.service';
+import { RuntimeServiceService } from './services/runtime-service.service';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
 
 @Component({

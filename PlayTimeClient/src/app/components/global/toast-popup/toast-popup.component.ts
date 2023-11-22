@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastQueueService } from '../../../services/global/toast-queue.service';
+import { ToastQueueService } from '../../../services/toast-queue.service';
 import { Toast } from '../../../models/toast.interface';
 
 @Component({

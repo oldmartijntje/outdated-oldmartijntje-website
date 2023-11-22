@@ -490,6 +490,28 @@ export const applications: Shortcut[] = [
             "Y": -5
         }
     },
+    {
+        "Title": "Task Manager",
+        "Icon": "assets/icons/pc.ico",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
+
+            ],
+            "Title": "Task Manager",
+            "Size": { "Width": "450px", "Height": "350px" },
+            "Buttons": [
+
+            ],
+            "Tabs": [],
+            "Type": "TaskManager",
+        },
+        "Location": {
+            "X": 1,
+            "Y": -3
+        }
+    },
 
 ]
 
