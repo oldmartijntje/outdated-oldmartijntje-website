@@ -85,8 +85,8 @@
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
-            <div *ngIf="!bookmark['Minimised']" class="window-body">
-                <app-task-manager>
+            <div *ngIf="!bookmark['Minimised']" class="window-body" style="margin: 0px 3px 0px 3px">
+                <app-task-manager style="margin: 0px" [bookmark]="bookmark">
 
                 </app-task-manager>
             </div>
