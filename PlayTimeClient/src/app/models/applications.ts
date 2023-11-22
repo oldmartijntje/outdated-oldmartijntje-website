@@ -7,6 +7,7 @@ export interface Shortcut {
     Location: {
         X: number;
         Y: number;
-    }
+    },
+    Id?: number;
     // Add other properties if needed
 }

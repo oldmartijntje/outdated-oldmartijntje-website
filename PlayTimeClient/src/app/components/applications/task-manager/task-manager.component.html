@@ -10,18 +10,35 @@
     <hr class="solid no-top-margin">
     <div style="display: flex; flex-direction: column;">
         <menu role="tablist" style="flex-wrap: wrap-reverse; display: flex;">
-            <button [attr.aria-selected]="isActiveTab(tab['Id'], bookmark) ? 'true' : 'false'" aria-controls="music"
-                *ngFor="let tab of bookmark['Tabs']"
-                (click)="setActiveTab(tab['Id'], bookmark)">{{tab['Title']}}</button>
+            <button [attr.aria-selected]="isActiveTab(tab['Id'], application) ? 'true' : 'false'" aria-controls="music"
+                *ngFor="let tab of application['Tabs']"
+                (click)="setActiveTab(tab['Id'], application)">{{tab['Title']}}</button>
         </menu>
-        <article role="tabpanel" *ngIf="bookmark['Tabs'].length > 0">
-            <div *ngIf="comparePathToActiveTab('Processes', getCurrentTab(bookmark))">
-                <p>Process</p>
+        <article role="tabpanel" *ngIf="application['Tabs'].length > 0">
+            <div *ngIf="comparePathToActiveTab('Processes', getCurrentTab(application))">
+                <div class="managerContainer" style="min-height: 10rem">
+                    <div class="managerHeader horizonFlex">
+                        <div style="width:70%">Tasks</div>
+                        <div style="width:20%">Children</div>
+                        <div style="width:10%">Status</div>
+                    </div>
+                    <div class="horizonFlex applicationBar" *ngFor="let process of dictionaryOfShurtcuts"
+                        (click)="selectProcess(process['Id'])"
+                        [ngStyle]="getStylingIfTrue(isThisProcessSelected(process['Id']))">
+                        <div style="width:70%">{{process['Name']}}</div>
+                        <div style="width:20%">{{process['Count']}}</div>
+                        <div style="width:10%">Running</div>
+                    </div>
+                </div>
+                <div style="margin-top: 0.5rem;">
+                    <button style="margin-right: 0.5rem;" (click)="refreshProcesses()">Refresh</button>
+                    <button (click)="deleteProcessesByParentId()" *ngIf="selectedProcessId != -1">Kill All</button>
+                </div>
             </div>
-            <div *ngIf="comparePathToActiveTab('Startup', getCurrentTab(bookmark))">
+            <div *ngIf="comparePathToActiveTab('Startup', getCurrentTab(application))" class="managerContainer">
                 <p>Startup</p>
             </div>
-            <div *ngIf="comparePathToActiveTab('dev', getCurrentTab(bookmark))">
+            <div *ngIf="comparePathToActiveTab('dev', getCurrentTab(application))" class="managerContainer">
                 <p>dev</p>
             </div>
 
@@ -30,10 +47,10 @@
 
     <footer>
         <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Done</p>
+            <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Piranha Plant</p>
             <div style="display: flex; flex-direction: row;">
-                <img src="../../../../assets/icons/Internet.ico" style="width: 18px; height: 18px; padding-top: 3px">
-                <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 5px;">Internet
+                <img src="../../../../assets/icons/oldma.png" style="width: 18px; height: 18px; padding-top: 3px">
+                <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 5px;">© OldMartijntje 2023
                 </p>
             </div>
         </div>

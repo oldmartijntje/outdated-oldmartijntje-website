@@ -1,28 +1,111 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { application, shortcuts } from 'src/app/data/applications';
 
 @Component({
     selector: 'app-task-manager',
     templateUrl: './task-manager.component.html',
     styleUrls: ['./task-manager.component.scss']
 })
-export class TaskManagerComponent {
-    @Input() bookmark: Record<string, any> = {};
+export class TaskManagerComponent implements OnInit {
+    @Input() application: Record<string, any> = {};
+    dictionaryOfShurtcuts: Record<string, any>[] = [];
+    selectedProcessId: number = -1;
 
-
-
-    isActiveTab(tabId: string, bookmark: any): boolean {
-        return bookmark['ActiveTabId'] == tabId;
+    ngOnInit(): any {
+        console.log(this.application);
+        this.refreshProcesses()
     }
 
-    setActiveTab(tabId: number, bookmark: Record<string, any>): void {
-        bookmark["ActiveTabId"] = tabId;
+    getStylingIfTrue(condition: boolean, style: Record<string, string> = { 'background-color': '#99c6fd' }): Record<string, string> {
+        if (condition) {
+            return style;
+        }
+        return {};
+    }
+
+    refreshProcesses() {
+        function getDictOfShurtcutIds(shortcuts: Record<string, any>[]): Record<string, any> {
+            let dict: Record<string, any> = {};
+            shortcuts.forEach(shortcut => {
+                dict[shortcut['Id']] = 0;
+            });
+            return dict;
+        }
+
+        function getNameById(id: number): string {
+            let shortcut = shortcuts.find(shortcut => shortcut['Id'] == id);
+            if (shortcut == undefined) {
+                return "Unknown";
+            }
+            return shortcut['Title'];
+        }
+        function getShortcutById(id: number): Record<string, any> {
+            let shortcut = shortcuts.find(shortcut => shortcut['Id'] == id);
+            if (shortcut == undefined) {
+                return {};
+            }
+            return shortcut;
+        }
+        var dictOfShurtcutIds = getDictOfShurtcutIds(shortcuts);
+        application.forEach((process: Record<string, any>) => {
+            if (process['ParentId'] != undefined) {
+                dictOfShurtcutIds[process['ParentId']]++;
+            }
+        });
+        for (const key in dictOfShurtcutIds) {
+            if (dictOfShurtcutIds.hasOwnProperty(key)) {
+                const element = dictOfShurtcutIds[key];
+                if (element == 0) {
+                    delete dictOfShurtcutIds[key];
+                }
+            }
+        }
+        var dictOfShurtcuts: Record<string, any>[] = [];
+        for (const key in dictOfShurtcutIds) {
+            if (dictOfShurtcutIds.hasOwnProperty(key)) {
+                const element = dictOfShurtcutIds[key];
+                dictOfShurtcuts.push({
+                    Id: parseInt(key),
+                    Name: getShortcutById(parseInt(key))['Title'],
+                    Count: element,
+                    Icon: getShortcutById(parseInt(key))['Icon']
+                })
+            }
+        }
+        this.dictionaryOfShurtcuts = dictOfShurtcuts;
+
+    }
+
+    selectProcess(processId: number): void {
+        this.selectedProcessId = processId;
+    }
+
+    deleteProcessesByParentId() {
+        let index: number;
+        while ((index = application.findIndex(process => process['ParentId'] === this.selectedProcessId)) !== -1) {
+            application.splice(index, 1);
+        }
+        this.selectedProcessId = -1;
+        this.refreshProcesses();
+    }
+
+    isThisProcessSelected(processId: number): boolean {
+        return this.selectedProcessId == processId;
+    }
+
+    isActiveTab(tabId: string, application: any): boolean {
+        return application['ActiveTabId'] == tabId;
+    }
+
+    setActiveTab(tabId: number, application: Record<string, any>): void {
+        application["ActiveTabId"] = tabId;
     }
 
     comparePathToActiveTab(path: string, tab: Record<string, any>): boolean {
         return tab["Mode"].toLocaleLowerCase() == path.toLocaleLowerCase();
     }
 
-    getCurrentTab(bookmark: Record<string, any>): Record<string, any> {
-        return bookmark['Tabs'][bookmark['ActiveTabId']]
+    getCurrentTab(application: Record<string, any>): Record<string, any> {
+        return application['Tabs'][application['ActiveTabId']]
     }
 }

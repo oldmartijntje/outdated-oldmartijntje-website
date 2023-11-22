@@ -45,17 +45,6 @@ export class ApplicationPageComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.applications = application;
-        for (let i = 0; i < application.length; i++) {
-            this.lastId += 1;
-            this.checkBookmarkForMissingData(this.applications[i]);
-        }
-        for (let i = 0; i < application.length; i++) {
-            const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
-            const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
-            const zIndex = this.setNewZIndex();
-            this.divs.push({ left, top, id: i, zIndex });
-        }
         for (let i = 0; i < shortcuts.length; i++) {
             try {
                 this.lastId += 1;
@@ -65,6 +54,16 @@ export class ApplicationPageComponent implements OnInit {
             }
 
         }
+        this.applications = application;
+        for (let i = 0; i < application.length; i++) {
+            this.lastId += 1;
+            this.checkBookmarkForMissingData(this.applications[i]);
+            const left = `${Math.random() * this.randomX}`; // Adjust the range as needed
+            const top = `${Math.random() * this.randomY}`; // Adjust the range as needed
+            const zIndex = this.setNewZIndex();
+            this.divs.push({ left, top, id: this.lastId, zIndex });
+        }
+
         this.router.events.subscribe(event => {
             const currentUrl = this.router.url; // Get the full URL
             const currentPathWithoutQueryParams = currentUrl.split('?')[0].substring(1); // Extract the path

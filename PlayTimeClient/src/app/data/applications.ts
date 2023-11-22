@@ -7,35 +7,10 @@ export const application: Record<string, any>[] = [
         ],
         "Title": "Page Explorer",
         "Type": "Router",
+        'ParentId': 9,
         "SinglePageId": "page-explorer",
         'Minimised': true
     },
-    {
-        "Popup": [
-
-        ],
-        "Title": "Task Manager",
-        "Size": { "Width": "450px", "Height": "350px" },
-        "Buttons": [
-
-        ],
-        "Tabs": [
-            {
-                "Title": "Processes",
-                "Mode": "Processes",
-
-            },
-            {
-                "Title": "Startup",
-                "Mode": "Startup",
-            },
-            {
-                "Title": "Developer Data",
-                "Mode": "Dev",
-            }
-        ],
-        "Type": "TaskManager"
-    }
 ]
 
 export const shortcuts: Shortcut[] = [
@@ -528,11 +503,26 @@ export const shortcuts: Shortcut[] = [
             ],
             "Title": "Task Manager",
             "Size": { "Width": "450px", "Height": "350px" },
+            'ParentId': 10,
             "Buttons": [
 
             ],
-            "Tabs": [],
-            "Type": "TaskManager",
+            "Tabs": [
+                {
+                    "Title": "Processes",
+                    "Mode": "Processes",
+
+                },
+                // {
+                //     "Title": "Startup",
+                //     "Mode": "Startup",
+                // },
+                {
+                    "Title": "Developer Data",
+                    "Mode": "Dev",
+                }
+            ],
+            "Type": "TaskManager"
         },
         "Location": {
             "X": 1,
@@ -556,6 +546,7 @@ export const taskBar: Shortcut[] = [
             "Type": "Router",
             "SinglePageId": "page-explorer",
         },
+        "Id": 9,
         "Location": {
             "X": 2,
             "Y": -5

@@ -10,3 +10,32 @@
     min-width: 0;
     cursor: pointer;
 }
+
+.headerButton:hover {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.managerContainer {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    background-color: #fff;
+    border: 1px solid #2946ed;
+}
+
+.horizonFlex {
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+}
+
+.managerHeader {
+    background-color: #ebe9d8;
+    padding: 0.5rem 0px 0.5rem 0px;
+}
+
+.applicationBar {
+    padding: 0.5rem 0px 0.5rem 0px;
+}

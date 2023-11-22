@@ -25,8 +25,8 @@
             <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
-                    <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
                     <button *ngIf="devMode" aria-label="Maximize" (click)="devInfo(bookmark)"></button>
+                    <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
@@ -78,15 +78,20 @@
             (cdkDragReleased)="onWindowDragReleased($event)"
             [ngStyle]="{ 'left': getDivById(bookmark['Id']).left + 'vw', 'top': getDivById(bookmark['Id']).top + 'vh', 'width': getWindowSize(bookmark, '400px'), 'z-index': getDivById(bookmark['Id']).zIndex }">
             <div class="title-bar" (mouseout)="isBlockDraggable=false" (mouseover)="isBlockDraggable=true">
-                <div class="title-bar-text">{{bookmark['Title']}}</div>
+                <div style="display: flex; flex-direction: row;">
+                    <img src="../../../../assets/icons/pc.ico" style="width: 18px; height: 18px; padding-top: 3px">
+                    <div class="title-bar-text" style="padding-top: 5px;">
+                        {{bookmark['Title']}}
+                    </div>
+                </div>
                 <div class="title-bar-controls">
-                    <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
                     <button *ngIf="devMode" aria-label="Maximize" (click)="devInfo(bookmark)"></button>
+                    <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
             <div *ngIf="!bookmark['Minimised']" class="window-body" style="margin: 0px 3px 0px 3px">
-                <app-task-manager style="margin: 0px" [bookmark]="bookmark">
+                <app-task-manager style="margin: 0px" [application]="bookmark">
 
                 </app-task-manager>
             </div>
@@ -125,6 +130,7 @@
                     </div>
                 </div>
                 <div class="title-bar-controls">
+                    <button *ngIf="devMode" aria-label="Maximize" (click)="devInfo(bookmark)"></button>
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
                     <button aria-label="Maximize" (click)="setMobileMode(true)"></button>
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
