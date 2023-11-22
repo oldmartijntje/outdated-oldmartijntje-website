@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-not-found-page',
@@ -7,11 +8,14 @@ import { BackendServiceService } from 'src/app/services/backend-service.service'
     styleUrls: ['./not-found-page.component.scss']
 })
 export class NotFoundPageComponent implements OnInit {
+    devMode = !environment.production;
 
     constructor(private backendServiceService: BackendServiceService) { }
 
     ngOnInit(): void {
-        this.getMessages();
+        if (this.devMode) {
+            this.getMessages();
+        }
     }
 
     click(): void {

@@ -1,2 +1,2 @@
 <p>not-found-page works!</p>
-<button (click)="click()">add</button>
+<button *ngIf="devMode" (click)="click()">add</button>
