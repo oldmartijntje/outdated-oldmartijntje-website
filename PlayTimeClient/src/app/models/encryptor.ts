@@ -25,54 +25,75 @@ export class Encryptor {
         return asciiList.map(asciiValue => asciiValue / divisor);
     }
 
+    addAsciiList(asciiList: number[], adder: number): number[] {
+        return asciiList.map(asciiValue => asciiValue + adder);
+    }
+
+    subtractAsciiList(asciiList: number[], subtractor: number): number[] {
+        return asciiList.map(asciiValue => asciiValue - subtractor);
+    }
+
     encryptString(inputString: string): string {
         const secret = this.getRandomNumber(0, 10000);
         const asciiList = this.multiplyAsciiList(this.stringToAsciiList(inputString), secret);
-        const encryptedList = asciiList.map(value => value * environment['encryptionKey']);
-        var temp = encryptedList.join(',');
-        temp += `,${secret * secret}${environment.encryptionModifier}`;
-        return temp;
+        // console.log(asciiList)
+        const encryptedList = this.multiplyAsciiList(asciiList, environment.encryptionKey[0]);
+        // console.log(secret)
+        // console.log(encryptedList)
+        encryptedList.push(parseInt(`${secret * secret}${environment.encryptionKey[1]}`));
+        var length = encryptedList.length;
+        // console.log(encryptedList)
+        var temp = this.multiplyAsciiList(encryptedList, length);
+        temp = this.addAsciiList(temp, environment.encryptionKey[2]);
+        // console.log(temp)
+        var tempString = temp.join(',');
+        return tempString;
     }
 
     getRandomNumber(min: number, max: number): number {
         if (min >= max) {
             return -1;
         }
-
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     removeSuffix(input: string): string {
-        // Check if the input has at least 4 characters before attempting to remove the suffix
-        if (input.length >= environment.encryptionModifier.toString().length) {
-            // Use substring to remove the last 4 characters
-            return input.substring(0, input.length - environment.encryptionModifier.toString().length);
+        if (input.length >= environment.encryptionKey[1].toString().length) {
+            return input.substring(0, input.length - environment.encryptionKey[1].toString().length);
         } else {
-            // Handle the case where the input has fewer than 4 characters (optional)
             return "Invalid input";
         }
     }
 
     decryptString(encryptedString: string): string {
-        var data = this.splitLastComma(encryptedString);
+        var encryptedList = encryptedString.split(',').map(value => parseInt(value, 10));
+        // console.log(encryptedList)
+        encryptedList = this.subtractAsciiList(encryptedList, environment.encryptionKey[2])
+        var length = encryptedList.length;
+        encryptedList = this.devideAsciiList(encryptedList, length);
+        // console.log(encryptedList)
+        var data = this.removeLastElement(encryptedList);
         data[1] = this.removeSuffix(data[1]);
+        // console.log(data[0])
         const root: number = Math.sqrt(parseInt(data[1]));
-        const encryptedList = data[0].split(',').map(value => parseInt(value, 10));
-        var devidedData = this.devideAsciiList(encryptedList, root);
-        const asciiList = devidedData.map(value => value / environment['encryptionKey']);
+        // console.log(root)
+        var devidedData = this.devideAsciiList(data[0], root);
+        // console.log(devidedData)
+        const asciiList = this.devideAsciiList(devidedData, environment.encryptionKey[0]);
         return this.asciiListToString(asciiList);
     }
 
-    splitLastComma(input: string): string[] {
-        const lastCommaIndex = input.lastIndexOf(',');
-
-        if (lastCommaIndex !== -1) {
-            const firstPart = input.substring(0, lastCommaIndex);
-            const secondPart = input.substring(lastCommaIndex + 1);
-            return [firstPart, secondPart];
+    removeLastElement(input: number[]): [number[], string] {
+        // Check if the array is not empty
+        if (input.length > 0) {
+            // Use slice to create a new array without the last element
+            const newArray = input.slice(0, input.length - 1);
+            // Get the last element
+            const removedElement = input[input.length - 1];
+            return [newArray, `${removedElement}`];
         } else {
-            // If there is no comma, return the whole string as the first part and an empty string as the second part
-            return [input, ''];
+            // If the array is empty, return an empty array for the new list and null for the removed element
+            return [[], ''];
         }
     }
 }
