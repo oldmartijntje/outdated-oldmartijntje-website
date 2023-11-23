@@ -9,7 +9,7 @@ try:
     from datetime import datetime
 
     JsonVersion = 3
-    BuilderVersion = 11
+    BuilderVersion = 12
 
     defaultData = {
         "BuildNumber": 0,
@@ -32,7 +32,7 @@ try:
     git_username = res.stdout.strip().decode()
 
     def create_or_read_builder_data():
-        filename = "scripts/BuilderData.json"
+        filename = "BuilderData.json"
 
         if os.path.isfile(filename):
             # If the file exists, read the JSON data from it
@@ -60,7 +60,7 @@ try:
             print("Error:", e)
             return None
 
-    def update_build_data_file(buildNumber, jsonVersion, buildedCorrectly = True, error = None):
+    def update_build_data_file(buildNumber, jsonVersion, builder_data, buildedCorrectly = True, error = None):
         # Define the content to be written to the TypeScript file
         if (error != None):
             errorMsg = f'\n    "errorMessage": "{error}",'
@@ -75,12 +75,12 @@ try:
         "Builder": "{git_username}",{errorMsg}
         "BuildDate": "{formatted_datetime}",
         "LastCommitId": "{get_last_commit_id()}",
-        "LastCommitURL": "{defaultData['GitRepo']}/commit/{get_last_commit_id()}"
+        "LastCommitURL": "{builder_data['GitRepo']}/commit/{get_last_commit_id()}"
     }};
         '''
 
         # Specify the path to the TypeScript file
-        file_path = f"{defaultData['AngularProjectFolder']}/{defaultData['BuildDataPath']}"
+        file_path = f"{builder_data['AngularProjectFolder']}/{builder_data['BuildDataPath']}"
 
         try:
             # Open the TypeScript file in write mode
@@ -89,7 +89,7 @@ try:
                 file.write(content)
 
         except Exception as e:
-            print(f'An error occurred while updating {defaultData["BuildDataPath"]}: {e}')
+            print(f'An error occurred while updating {builder_data["BuildDataPath"]}: {e}')
 
     def get_active_branch_name():
         try:
@@ -108,20 +108,20 @@ try:
 
     splitted = current_working_directory.split('\\')
 
+    builder_data = create_or_read_builder_data()
 
-    while os.path.isdir(defaultData['AngularProjectFolder']) == False and len(splitted) > 2:
+    while os.path.isdir(builder_data['AngularProjectFolder']) == False and len(splitted) > 2:
         os.chdir("..")
         current_working_directory = os.getcwd()
 
         splitted = current_working_directory.split('\\')
 
     if (len(splitted) == 2 and splitted[1] == ''):
-        print(f"ERROR: {defaultData['AngularProjectFolder']} folder not found")
+        print(f"ERROR: {builder_data['AngularProjectFolder']} folder not found")
         input(exitMessage)
         exit()
 
     branchName = get_active_branch_name()
-    builder_data = create_or_read_builder_data()
 
 
 
@@ -131,7 +131,7 @@ try:
 
         # Define the branch names
         new_branch_name = f"Build/BuildId_{builder_data['BuildNumber']}_DateTime_{current_datetime.strftime("D%d-%m-%YT%H-%M-%S")}"
-        dev_branch_name = defaultData['MainBranch']
+        dev_branch_name = builder_data['MainBranch']
 
         # Stage all changes
         subprocess.run(["git", "add", "."])
@@ -146,7 +146,7 @@ try:
         if builder_data['BuilderMakeBranch'] == True:
             subprocess.run(["git", "checkout", "-b", new_branch_name])
 
-        update_build_data_file(builder_data["BuildNumber"], builder_data["JSONVersion"])
+        update_build_data_file(builder_data["BuildNumber"], builder_data["JSONVersion"], builder_data)
 
         # Change the current working directory to the PlayTimeClient folder
         os.chdir(builder_data['AngularProjectFolder'])
@@ -188,7 +188,7 @@ try:
 
     except Exception as e:
         print(f'An error occurred while building the project: {e}')
-        update_build_data_file(builder_data["BuildNumber"], builder_data["JSONVersion"], False, e)
+        update_build_data_file(builder_data["BuildNumber"], builder_data["JSONVersion"], builder_data, False, e)
         input(exitMessage)
         exit()
     input(exitMessage)

@@ -3,7 +3,7 @@ import os
 import shutil
 import subprocess
 
-BuilderVersion = 11
+BuilderVersion = 12
 defaultData = {
     "BuildNumber": 0,
     "JSONVersion": 3,
