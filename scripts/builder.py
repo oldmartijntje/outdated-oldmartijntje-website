@@ -9,17 +9,18 @@ try:
     from datetime import datetime
 
     JsonVersion = 3
-    BuilderVersion = 9
+    BuilderVersion = 10
 
     defaultData = {
         "BuildNumber": 0,
         "JSONVersion": 3,
         "AngularProjectFolder": "PlayTimeClient",
-        "BuildDataPath": "/src/app/Models/buildData.ts",
+        "BuildDataPath": "src/app/Models/buildData.ts",
         "AngularDistName": "play-time",
         "HostToUrl": "https://oldmartijntje.nl",
         "BuilderMakeBranch": False,
-        "MainBranch": "main"
+        "MainBranch": "main",
+        "GitRepo": "https://github.com/oldmartijntje/playtime/"
     }
 
     current_datetime = datetime.now()
@@ -74,12 +75,12 @@ try:
         "Builder": "{git_username}",{errorMsg}
         "BuildDate": "{formatted_datetime}",
         "LastCommitId": "{get_last_commit_id()}",
-        "LastCommitURL": "https://github.com/oldmartijntje/playtime/commit/{get_last_commit_id()}"
+        "LastCommitURL": "{defaultData['GitRepo']}/commit/{get_last_commit_id()}"
     }};
         '''
 
         # Specify the path to the TypeScript file
-        file_path = 'PlayTimeClient/src/app/Models/buildData.ts'
+        file_path = f"{defaultData['AngularProjectFolder']}/{defaultData['BuildDataPath']}"
 
         try:
             # Open the TypeScript file in write mode
@@ -88,7 +89,7 @@ try:
                 file.write(content)
 
         except Exception as e:
-            print(f'An error occurred while updating buildData.ts: {e}')
+            print(f'An error occurred while updating {defaultData["BuildDataPath"]}: {e}')
 
     def get_active_branch_name():
         try:
@@ -108,14 +109,14 @@ try:
     splitted = current_working_directory.split('\\')
 
 
-    while os.path.isdir("PlayTimeClient") == False and len(splitted) > 2:
+    while os.path.isdir(defaultData['AngularProjectFolder']) == False and len(splitted) > 2:
         os.chdir("..")
         current_working_directory = os.getcwd()
 
         splitted = current_working_directory.split('\\')
 
     if (len(splitted) == 2 and splitted[1] == ''):
-        print("ERROR: PlayTimeClient folder not found")
+        print(f"ERROR: {defaultData['AngularProjectFolder']} folder not found")
         input(exitMessage)
         exit()
 
@@ -130,33 +131,7 @@ try:
 
         # Define the branch names
         new_branch_name = f"Build/BuildId_{builder_data['BuildNumber']}_DateTime_{current_datetime.strftime("D%d-%m-%YT%H-%M-%S")}"
-        dev_branch_name = "main"
-
-        # Create a new branch
-        subprocess.run(["git", "checkout", "-b", new_branch_name])
-
-        update_build_data_file(builder_data["BuildNumber"], builder_data["JSONVersion"])
-
-        # Change the current working directory to the PlayTimeClient folder
-        os.chdir('PlayTimeClient')
-
-        npm_build_command = 'npm install'
-        subprocess.run(npm_build_command, shell=True, check=True)
-
-        # Build the Angular project
-        ng_build_command = 'ng build --configuration "production" --base-href "https://oldmartijntje.nl"'
-        subprocess.run(ng_build_command, shell=True, check=True)
-
-        source_index_html = 'dist/play-time/index.html'
-        destination_404_html = 'dist/play-time/404.html'
-        shutil.copyfile(source_index_html, destination_404_html)
-
-        gh_pages_command = "npx angular-cli-ghpages --dir=dist/play-time"
-        subprocess.run(gh_pages_command, shell=True, check=True)
-
-        # Stage your changes (you can add your changes here)
-        # For example, you can use 'git add' to stage your changes:
-        # subprocess.run(["git", "add", "your_file_or_directory"])
+        dev_branch_name = defaultData['MainBranch']
 
         # Stage all changes
         subprocess.run(["git", "add", "."])
@@ -165,10 +140,46 @@ try:
         subprocess.run(["git", "commit", "-m", f"{formatted_datetime}. Build: {builder_data['BuildNumber']}"])
 
         # Push the new branch to the remote repository (replace "origin" with your remote name)
-        subprocess.run(["git", "push", "-u", "origin", new_branch_name])
+        subprocess.run(["git", "push", "-u", "origin", dev_branch_name])
 
-        # Switch back to the dev branch
-        subprocess.run(["git", "checkout", dev_branch_name])
+        # Create a new branch
+        if builder_data['BuilderMakeBranch'] == True:
+            subprocess.run(["git", "checkout", "-b", new_branch_name])
+
+        update_build_data_file(builder_data["BuildNumber"], builder_data["JSONVersion"])
+
+        # Change the current working directory to the PlayTimeClient folder
+        os.chdir(builder_data['AngularProjectFolder'])
+
+        npm_build_command = 'npm install'
+        subprocess.run(npm_build_command, shell=True, check=True)
+
+        # Build the Angular project
+        ng_build_command = f'''ng build --configuration "production" --base-href "{builder_data['AngularProjectFolder']}"'''
+        subprocess.run(ng_build_command, shell=True, check=True)
+
+        source_index_html = f'''dist/{builder_data['AngularDistName']}/index.html'''
+        destination_404_html = f'''dist/{builder_data['AngularDistName']}/404.html'''
+        shutil.copyfile(source_index_html, destination_404_html)
+
+        gh_pages_command = f"npx angular-cli-ghpages --dir=dist/{builder_data['AngularDistName']}"
+        subprocess.run(gh_pages_command, shell=True, check=True)
+
+        # Stage your changes (you can add your changes here)
+        # For example, you can use 'git add' to stage your changes:
+        # subprocess.run(["git", "add", "your_file_or_directory"])
+        if builder_data['BuilderMakeBranch'] == True:
+            # Stage all changes
+            subprocess.run(["git", "add", "."])
+            # Commit the staged changes
+            # Replace "Your commit message" with your actual commit message
+            subprocess.run(["git", "commit", "-m", f"{formatted_datetime}. Build: {builder_data['BuildNumber']}"])
+
+            # Push the new branch to the remote repository (replace "origin" with your remote name)
+            subprocess.run(["git", "push", "-u", "origin", new_branch_name])
+
+            # Switch back to the dev branch
+            subprocess.run(["git", "checkout", dev_branch_name])
 
     except Exception as e:
         print(f'An error occurred while building the project: {e}')

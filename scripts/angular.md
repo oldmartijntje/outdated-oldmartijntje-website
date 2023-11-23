@@ -16,6 +16,8 @@ Before running any script i made, commit your changes!! //should turn this into 
 
 - [Navigator](#navigator)
 
+This is accurate since builder Version 10
+
 place the scripts folder on the same level as the angular project,
 for example: 
 >`C:/henk/scripts` + `C:/henk/angularProjectFolder/scr/...`, where they are both directly in `C:/henk/`
@@ -92,7 +94,11 @@ don't touch `JSONVersion`, this is for me to debug builder script issues.
 
 6. `MainBranch`
 
-    after making a new branch for each build, it switches back to this branch. If `BuilderMakeBranch` is set to `false`, this won't be needed to be accurately set.
+    after making a new branch for each build, it switches back to this branch. If `BuilderMakeBranch` is set to `false`, this still needs to be set accurately.
+
+7. `GitRepo`
+
+    The path to your git repo, so that the last commit url will work
 
 ## testbuilder vs builder
 

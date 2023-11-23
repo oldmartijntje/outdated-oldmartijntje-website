@@ -3,15 +3,17 @@ import os
 import shutil
 import subprocess
 
+BuilderVersion = 10
 defaultData = {
     "BuildNumber": 0,
     "JSONVersion": 3,
     "AngularProjectFolder": "PlayTimeClient",
-    "BuildDataPath": "/src/app/Models/buildData.ts",
+    "BuildDataPath": "src/app/Models/buildData.ts",
     "AngularDistName": "play-time",
     "HostToUrl": "https://oldmartijntje.nl",
     "BuilderMakeBranch": False,
-    "MainBranch": "main"
+    "MainBranch": "main",
+    "GitRepo": "https://github.com/oldmartijntje/playtime/"
 }
 
 exitMessage = "Press Enter key to exit..."
