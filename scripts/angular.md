@@ -40,7 +40,7 @@ If `scripts/builderData.json` does not exist, run `builder.py`, this will give y
     "BuildDataPath": "/src/app/Models/buildData.ts",
     "AngularDistName": "play-time",
     "HostToUrl": "https://oldmartijntje.nl",
-    "BuilderMakeBranch": false,
+    "BuilderMakeBranch": true,
     "MainBranch": "main"
 }
 ```

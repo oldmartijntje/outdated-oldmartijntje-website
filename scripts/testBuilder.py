@@ -11,7 +11,7 @@ defaultData = {
     "BuildDataPath": "src/app/Models/buildData.ts",
     "AngularDistName": "play-time",
     "HostToUrl": "https://oldmartijntje.nl",
-    "BuilderMakeBranch": False,
+    "BuilderMakeBranch": True,
     "MainBranch": "main",
     "GitRepo": "https://github.com/oldmartijntje/playtime/"
 }
