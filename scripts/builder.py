@@ -9,7 +9,7 @@ try:
     from datetime import datetime
 
     JsonVersion = 3
-    BuilderVersion = 10
+    BuilderVersion = 11
 
     defaultData = {
         "BuildNumber": 0,
@@ -155,7 +155,7 @@ try:
         subprocess.run(npm_build_command, shell=True, check=True)
 
         # Build the Angular project
-        ng_build_command = f'''ng build --configuration "production" --base-href "{builder_data['AngularProjectFolder']}"'''
+        ng_build_command = f'''ng build --configuration "production" --base-href "{builder_data['HostToUrl']}"'''
         subprocess.run(ng_build_command, shell=True, check=True)
 
         source_index_html = f'''dist/{builder_data['AngularDistName']}/index.html'''
