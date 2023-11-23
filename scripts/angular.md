@@ -106,6 +106,18 @@ builder.py updates the buildId and data. It also makes a new branch (if enabled)
 
 If you run this, it removes the local branches from your pc, make sure you commit beforehand.
 
+# problems i solved with my builder
+
+- [Navigator](#navigator)
+
+1. manually having to run `npm install`, and the 2 build commands
+2. angular routing problem. Where going to a route will cause errors unless the page sends you there.
+3. manually having to set a build number.
+4. teamwork issues: 
+    - not knowing if it is up to date on the active build.
+    - Who builded the new version? It wasn't ready yet
+    - did you build from dev? or from a feature branch?
+
 # hosting with a different url
 
 - [Navigator](#navigator)
