@@ -8,12 +8,18 @@ try:
     from pathlib import Path
     from datetime import datetime
 
-    JsonVersion = 2
-    BuilderVersion = 8
+    JsonVersion = 3
+    BuilderVersion = 9
 
     defaultData = {
-        "BuildNumber":1,
-        "JSONVersion":JsonVersion
+        "BuildNumber": 0,
+        "JSONVersion": 3,
+        "AngularProjectFolder": "PlayTimeClient",
+        "BuildDataPath": "/src/app/Models/buildData.ts",
+        "AngularDistName": "play-time",
+        "HostToUrl": "https://oldmartijntje.nl",
+        "BuilderMakeBranch": False,
+        "MainBranch": "main"
     }
 
     current_datetime = datetime.now()
