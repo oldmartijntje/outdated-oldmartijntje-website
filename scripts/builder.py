@@ -168,18 +168,23 @@ try:
         # Stage your changes (you can add your changes here)
         # For example, you can use 'git add' to stage your changes:
         # subprocess.run(["git", "add", "your_file_or_directory"])
-        if builder_data['BuilderMakeBranch'] == True:
-            # Stage all changes
-            subprocess.run(["git", "add", "."])
-            # Commit the staged changes
-            # Replace "Your commit message" with your actual commit message
-            subprocess.run(["git", "commit", "-m", f"{formatted_datetime}. Build: {builder_data['BuildNumber']}"])
+        
+        # Stage all changes
+        subprocess.run(["git", "add", "."])
+        # Commit the staged changes
+        # Replace "Your commit message" with your actual commit message
+        subprocess.run(["git", "commit", "-m", f"{formatted_datetime}. Build: {builder_data['BuildNumber']}"])
 
+
+        if builder_data['BuilderMakeBranch'] == True:
             # Push the new branch to the remote repository (replace "origin" with your remote name)
             subprocess.run(["git", "push", "-u", "origin", new_branch_name])
 
             # Switch back to the dev branch
             subprocess.run(["git", "checkout", dev_branch_name])
+        else:
+            # Push the changes to the remote repository (replace "origin" with your remote name)
+            subprocess.run(["git", "push", "-u", "origin", dev_branch_name])
 
     except Exception as e:
         print(f'An error occurred while building the project: {e}')
