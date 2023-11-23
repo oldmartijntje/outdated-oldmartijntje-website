@@ -5,8 +5,8 @@ export const BuildData: any = {
         "BuilderVersion": 10,
         "JsonVersion": 3,
         "Builder": "Martijn",
-        "BuildDate": "23/11/2023: 13:10:02",
-        "LastCommitId": "41eede7aa9c2edda3eddef3c832d5c209e83155a",
-        "LastCommitURL": "https://github.com/oldmartijntje/playtime//commit/41eede7aa9c2edda3eddef3c832d5c209e83155a"
+        "BuildDate": "23/11/2023: 13:11:24",
+        "LastCommitId": "95267566492078aa42b8895b542bdc585bce23aa",
+        "LastCommitURL": "https://github.com/oldmartijntje/playtime//commit/95267566492078aa42b8895b542bdc585bce23aa"
     };
         
