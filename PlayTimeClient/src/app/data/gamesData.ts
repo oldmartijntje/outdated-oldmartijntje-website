@@ -180,29 +180,17 @@ export const MarioClickerMain: Record<string, any> = {
         },
     },
     "autoSave": 0,
-}
-
-export const MarioClickerExtra1: Record<string, any> = {
-    "currency": {
-
-    },
-    "discovery": {
-
-
-    },
-    "buys": {
-
-    },
-    "specialBuys": {
-
-    },
-    "perSecond": {
-
-    },
-    "autoSave": 0,
     "rebirthSettings": {
         "rebirth": {
-            "discount": 0.001
+            "discount": 0.001,
+            "reset": {
+                "currency": true,
+                "discovery": true,
+                "buys": true,
+                "perSecond": true,
+                "autoSave": true,
+                "ignoreDiscovery": ["click", "1up"]
+            }
         }
     }
 }

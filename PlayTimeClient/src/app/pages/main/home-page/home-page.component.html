@@ -52,8 +52,6 @@
                         *ngIf="clickerGame['buys'][shopItem]['gives']['mode'] == 'perSecond'">PS</span>
                 </button>
             </div>
-        </div>
-        <div class="flexBox">
             <div *ngFor="let shopItem of getObjectKeys(clickerGame['specialBuys'])"
                 class="growButton shrinkButton flexBox">
                 <button (click)="buyItem(shopItem)"
@@ -75,17 +73,17 @@
         </div>
 
         <div class="flexBox">
-            <button (click)="clickerDataHandler(0)" *ngIf="clickerGame['discovery']['click']"
+            <button (click)="clickerDataHandler(0)" *ngIf="clickerGame['discovery']['1up']"
                 class="marioText growButton">Save Game
                 <img src="../../../../assets/icons/save.ico" alt="coin" style="width:1rem"></button>
-            <button (click)="clickerDataHandler(1)" *ngIf="clickerGame['discovery']['click']"
+            <button (click)="clickerDataHandler(1)" *ngIf="clickerGame['discovery']['1up']"
                 class="marioText growButton">Load Game
                 <img src="../../../../assets/icons/load.ico" alt="coin" style="width:1rem"></button>
-            <button (click)="resetGame()" *ngIf="clickerGame['discovery']['click']" class="marioText growButton"><span
+            <button (click)="resetGame()" *ngIf="clickerGame['discovery']['1up']" class="marioText growButton"><span
                     *ngIf="deleteButton == 0">Reset Game</span><span *ngIf="deleteButton != 0">Confirm Reset</span>
                 <img src="../../../../assets/icons/trash.ico" alt="coin" style="width:1rem"></button>
         </div>
-        <p *ngIf="clickerGame['discovery']['click']">Auto saves in {{120 - clickerGame['autoSave']}} seconds.</p>
+        <p *ngIf="clickerGame['discovery']['1up']">Auto saves in {{120 - clickerGame['autoSave']}} seconds.</p>
         <div *ngIf="logButton" class="flexBox">
             <div *ngFor="let currency of getObjectKeys(clickerGame['currency'])" class="growButton">
                 <span>{{currency}}:</span><input [(ngModel)]="clickerGame['currency'][currency]['amount']"

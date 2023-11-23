@@ -120,5 +120,10 @@ export const smallAdList: smallAd[] = [
         "image": "https://roachette.neocities.org/rchettebutton.gif",
         "blank_": true
     },
+    {
+        "link": "",
+        "image": "../../../../assets/images/buttons/longus.gif",
+        "blank_": true
+    },
 ]
 
