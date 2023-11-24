@@ -1,4 +1,4 @@
-export const MarioClickerMain: Record<string, any> = {
+export const MarioClicker: Record<string, any> = {
     "autoSaveCooldwon": 120,
     "currency": {
         "coin": {
@@ -189,7 +189,12 @@ export const MarioClickerMain: Record<string, any> = {
                 "buys": true,
                 "perSecond": true,
                 "autoSave": true,
-                "ignoreDiscovery": ["click", "1up"]
+                "ignoreKeys": [
+                    "autoSave",
+                    "rebirth",
+                    "1up",
+                    "click"
+                ]
             }
         }
     }

@@ -24,6 +24,7 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { MobileApplicationPageComponent } from './pages/other/mobile-application-page/mobile-application-page.component';
 import { TaskManagerComponent } from './components/applications/task-manager/task-manager.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CoinClickerGameComponent } from './components/other/coin-clicker-game/coin-clicker-game.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
         HomePageComponent,
         ApplicationPageComponent,
         MobileApplicationPageComponent,
-        TaskManagerComponent
+        TaskManagerComponent,
+        CoinClickerGameComponent
     ],
     imports: [
         BrowserModule,
