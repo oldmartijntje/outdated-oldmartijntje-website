@@ -25,11 +25,11 @@
         <button (click)="buyItem(shopItem)" class="marioText growButton"
             *ngIf="clickerGame['discovery'][clickerGame['buys'][shopItem]['requires']]">Buy
             1 {{shopItem}},
-            costs {{roundDown(clickerGame['buys'][shopItem]['cost']['amount'])}} <img
+            costs {{roundDownWithDiscount(clickerGame['buys'][shopItem]['cost']['amount'])}} <img
                 src="{{getIcon(clickerGame['buys'][shopItem]['cost']['type'])}}"
                 *ngIf="getIcon(clickerGame['buys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['buys'][shopItem]['cost']['mode'] == 'perSecond'">PS</span>, get
-            {{roundDown(clickerGame['buys'][shopItem]['gives']['amount'])}} <img
+            {{roundDownWithDiscount(clickerGame['buys'][shopItem]['gives']['amount'])}} <img
                 src="{{getIcon(clickerGame['buys'][shopItem]['gives']['type'])}}"
                 *ngIf="getIcon(clickerGame['buys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['buys'][shopItem]['gives']['mode'] == 'perSecond'">PS</span>
@@ -40,15 +40,42 @@
             *ngIf="clickerGame['discovery'][clickerGame['specialBuys'][shopItem]['requires']]"
             class="marioText growButton">Buy
             1 {{shopItem}},
-            costs {{roundDown(clickerGame['specialBuys'][shopItem]['cost']['amount'])}} <img
+            costs {{roundDownWithDiscount(clickerGame['specialBuys'][shopItem]['cost']['amount'])}} <img
                 src="{{getIcon(clickerGame['specialBuys'][shopItem]['cost']['type'])}}"
                 *ngIf="getIcon(clickerGame['specialBuys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['specialBuys'][shopItem]['cost']['mode'] == 'perSecond'">PS</span>, get
-            {{roundDown(clickerGame['specialBuys'][shopItem]['gives']['amount'])}} <img
+            {{roundDownWithDiscount(clickerGame['specialBuys'][shopItem]['gives']['amount'])}} <img
                 src="{{getIcon(clickerGame['specialBuys'][shopItem]['gives']['type'])}}"
                 *ngIf="getIcon(clickerGame['specialBuys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['specialBuys'][shopItem]['gives']['mode'] == 'perSecond'">PS</span>
         </button>
+    </div>
+</div>
+<div class="flexBox">
+    <div *ngFor="let tooltip of getObjectKeys(clickerGame['toolTip'])">
+        <div *ngIf="clickerGame['discovery'][clickerGame['toolTip'][tooltip]['require']]">
+            <button (click)="clickerGame['toolTip'][tooltip]['click'] = !clickerGame['toolTip'][tooltip]['click']"
+                class="growButton">
+                <span class="marioText">
+                    {{clickerGame['toolTip'][tooltip]['title']}} tooltip</span>
+            </button>
+        </div>
+    </div>
+    <div *ngFor="let tooltip of getObjectKeys(clickerGame['toolTip'])">
+        <div *ngIf="clickerGame['discovery'][clickerGame['toolTip'][tooltip]['require']]">
+            <button (click)="clickerGame['toolTip'][tooltip]['click'] = !clickerGame['toolTip'][tooltip]['click']"
+                class="growButton">
+                <span class="marioText">
+                    {{clickerGame['toolTip'][tooltip]['title']}} tooltip</span>
+            </button>
+        </div>
+    </div>
+    <div *ngFor="let tooltip of getObjectKeys(clickerGame['toolTip'])">
+        <div *ngIf="clickerGame['discovery'][clickerGame['toolTip'][tooltip]['require']]">
+            <div *ngIf="clickerGame['toolTip'][tooltip]['click']">
+                <p>{{clickerGame['toolTip'][tooltip]['text']}}</p>
+            </div>
+        </div>
     </div>
 </div>
 

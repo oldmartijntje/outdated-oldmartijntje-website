@@ -1,4 +1,12 @@
 export const MarioClicker: Record<string, any> = {
+    "toolTip": [
+        {
+            "text": "Every rebirth gives you a discount on everything you buy.",
+            "require": "rebirth",
+            "click": true,
+            "title": "Rebirth"
+        }
+    ],
     "autoSaveCooldwon": 120,
     "currency": {
         "coin": {
@@ -21,7 +29,7 @@ export const MarioClicker: Record<string, any> = {
         },
         "rebirth": {
             "amount": 0,
-            "require": "",
+            "require": "rebirth",
         }
     },
     "discovery": {
@@ -154,7 +162,7 @@ export const MarioClicker: Record<string, any> = {
             "gives": {
                 "type": "rebirth",
                 "amount": 1,
-                "extra": 0.000001,
+                "extra": 0.01,
                 "mode": "once"
             },
             "requires": "hammer-Bro",
@@ -187,10 +195,10 @@ export const MarioClicker: Record<string, any> = {
                 "currency": true,
                 "discovery": true,
                 "buys": true,
+                "specialBuys": true,
                 "perSecond": true,
-                "autoSave": true,
+                "rebirthSettings": true,
                 "ignoreKeys": [
-                    "autoSave",
                     "rebirth",
                     "1up",
                     "click"

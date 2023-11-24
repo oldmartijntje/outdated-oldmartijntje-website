@@ -213,8 +213,8 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         if (dir != "") {
             var type = this.clickerGame[dir][item]['cost']['type'];
             var amount = this.clickerGame[dir][item]['cost']['amount'];
-            if (this.clickerGame[dir][item]['cost']['mode'] == "once" && this.clickerGame['currency'][type]['amount'] >= this.roundDown(amount)) {
-                this.clickerGame['currency'][type]['amount'] -= this.roundDown(amount);
+            if (this.clickerGame[dir][item]['cost']['mode'] == "once" && this.clickerGame['currency'][type]['amount'] >= this.roundDownWithDiscount(amount)) {
+                this.clickerGame['currency'][type]['amount'] -= this.roundDownWithDiscount(amount);
                 this.clickerGame[dir][item]['amount']++;
                 this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
                 var typeGain = this.clickerGame[dir][item]['gives']['type'];
@@ -226,8 +226,8 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
                 if (this.clickerGame['discovery'].hasOwnProperty(item)) {
                     this.clickerGame['discovery'][item] = true;
                 }
-            } else if (this.clickerGame[dir][item]['cost']['mode'] == "perSecond" && this.clickerGame['perSecond'][type]['amount'] >= this.roundDown(amount)) {
-                this.clickerGame['perSecond'][type]['amount'] -= this.roundDown(amount);
+            } else if (this.clickerGame[dir][item]['cost']['mode'] == "perSecond" && this.clickerGame['perSecond'][type]['amount'] >= this.roundDownWithDiscount(amount)) {
+                this.clickerGame['perSecond'][type]['amount'] -= this.roundDownWithDiscount(amount);
                 this.clickerGame[dir][item]['amount']++;
                 this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
                 var typeGain = this.clickerGame[dir][item]['gives']['type'];
@@ -248,12 +248,54 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
 
     runFunction(cmd: string) {
         if (cmd == "rebirth") {
-            this.rebirth();
+            this.rebirth("rebirth");
         }
     }
 
-    rebirth() {
-
+    rebirth(type: string = "rebirth") {
+        console.log(this.deepClone(this.clickerGame))
+        if (this.clickerGame['rebirthSettings'][type]['reset']['currency']) {
+            for (var i = 0; i < Object.keys(this.clickerGame['currency']).length; i++) {
+                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['currency'])[i])) {
+                    this.clickerGame['currency'][Object.keys(this.clickerGame['currency'])[i]] = this.deepClone(this.defaultClickerGame['currency'][Object.keys(this.clickerGame['currency'])[i]]);
+                }
+            }
+        }
+        if (this.clickerGame['rebirthSettings'][type]['reset']['discovery']) {
+            for (var i = 0; i < Object.keys(this.clickerGame['discovery']).length; i++) {
+                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['discovery'])[i])) {
+                    this.clickerGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]] = this.deepClone(this.defaultClickerGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]]);
+                }
+            }
+        }
+        if (this.clickerGame['rebirthSettings'][type]['reset']['buys']) {
+            for (var i = 0; i < Object.keys(this.clickerGame['buys']).length; i++) {
+                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['buys'])[i])) {
+                    this.clickerGame['buys'][Object.keys(this.clickerGame['buys'])[i]] = this.deepClone(this.defaultClickerGame['buys'][Object.keys(this.clickerGame['buys'])[i]]);
+                }
+            }
+        }
+        if (this.clickerGame['rebirthSettings'][type]['reset']['specialBuys']) {
+            for (var i = 0; i < Object.keys(this.clickerGame['specialBuys']).length; i++) {
+                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['specialBuys'])[i])) {
+                    this.clickerGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]] = this.deepClone(this.defaultClickerGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]]);
+                }
+            }
+        }
+        if (this.clickerGame['rebirthSettings'][type]['reset']['perSecond']) {
+            for (var i = 0; i < Object.keys(this.clickerGame['perSecond']).length; i++) {
+                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['perSecond'])[i])) {
+                    this.clickerGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]] = this.deepClone(this.defaultClickerGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]]);
+                }
+            }
+        }
+        if (this.clickerGame['rebirthSettings'][type]['reset']['rebirthSettings']) {
+            for (var i = 0; i < Object.keys(this.clickerGame['rebirthSettings']).length; i++) {
+                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['rebirthSettings'])[i])) {
+                    this.clickerGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]] = this.deepClone(this.defaultClickerGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]]);
+                }
+            }
+        }
     }
 
     checkTimer() {
@@ -263,6 +305,10 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     }
 
     roundDown(value: number): number {
+        return Math.floor(value);
+    }
+
+    roundDownWithDiscount(value: number): number {
         return Math.floor(value);
     }
 
