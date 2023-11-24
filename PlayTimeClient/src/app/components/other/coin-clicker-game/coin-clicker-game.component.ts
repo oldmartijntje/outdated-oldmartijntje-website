@@ -20,6 +20,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         "heart": "../../../../assets/icons/marioHeart.png",
         "powerHeart": "../../../../assets/icons/marioPowerHeart.png",
         "rebirth": "../../../../assets/icons/flag.png",
+        "better-rebirth": "../../../../assets/icons/flag2.png",
     }
     deleteButton = 0;
 
@@ -46,12 +47,16 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         this.checkTimer();
         this.clickerGame['discovery']['click'] = true;
         this.clickerGame['currency']['coin']['amount'] += amount;
-        if (this.clickerGame['currency']['coin']['amount'] >= this.clickerGame['currency']['coin']['max']) {
+        if (this.clickerGame['currency']['coin']['amount'] >= this.getMaximum("coin")) {
 
-            var overflow = Math.floor(this.clickerGame['currency']['coin']['amount'] / this.clickerGame['currency']['coin']['max']);
-            this.clickerGame['currency']['coin']['amount'] -= overflow * this.clickerGame['currency']['coin']['max'];
+            var overflow = Math.floor(this.clickerGame['currency']['coin']['amount'] / this.getMaximum("coin"));
+            this.clickerGame['currency']['coin']['amount'] -= overflow * this.getMaximum("coin");
             this.addLife(overflow, byClick)
         }
+    }
+
+    getMaximum(type: string = "coin") {
+        return this.clickerGame['upgrades']['maximum'][type] + this.clickerGame['currency'][type]['max'];
     }
 
     addLife(amount: number = 1, byClick: boolean = false) {
@@ -62,8 +67,8 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             this.playAudio("../../../../assets/audio/mario-1-up.mp3");
         }
         this.clickerGame['currency']['life']['amount'] += amount
-        if (this.clickerGame['currency']['life']['amount'] > this.clickerGame['currency']['life']['max']) {
-            this.clickerGame['currency']['life']['amount'] = this.clickerGame['currency']['life']['max'];
+        if (this.clickerGame['currency']['life']['amount'] > this.getMaximum("life")) {
+            this.clickerGame['currency']['life']['amount'] = this.getMaximum("life");
         }
     }
 
@@ -177,18 +182,18 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             this.deleteButton--;
         }
         if (this.clickerGame['perSecond']['coin']['amount'] > 0) {
-            if (this.clickerGame['perSecond']['coin']['amount'] >= this.clickerGame['currency']['coin']['max']) {
-                var overflow = Math.floor(this.clickerGame['perSecond']['coin']['amount'] / this.clickerGame['currency']['coin']['max']);
-                this.clickerGame['perSecond']['coin']['amount'] -= overflow * this.clickerGame['currency']['coin']['max'];
+            if (this.clickerGame['perSecond']['coin']['amount'] >= this.getMaximum("coin")) {
+                var overflow = Math.floor(this.clickerGame['perSecond']['coin']['amount'] / this.getMaximum("coin"));
+                this.clickerGame['perSecond']['coin']['amount'] -= overflow * this.getMaximum("coin");
                 this.clickerGame['discovery']['1up'] = true;
                 this.clickerGame['perSecond']['life']['amount'] += overflow;
-                if (this.clickerGame['perSecond']['life']['amount'] > this.clickerGame['perSecond']['life']['max']) {
-                    this.clickerGame['perSecond']['life']['amount'] = this.clickerGame['perSecond']['life']['max'];
-                }
             }
             this.addCoin(this.clickerGame['perSecond']['coin']['amount'])
         }
         if (this.clickerGame['perSecond']['life']['amount'] > 0) {
+            if (this.clickerGame['perSecond']['life']['amount'] > this.getMaximum("life")) {
+                this.clickerGame['perSecond']['life']['amount'] = this.getMaximum("life");
+            }
             this.addLife(this.clickerGame['perSecond']['life']['amount'])
         }
         if (this.clickerGame['perSecond']['heart']['amount'] > 0) {
@@ -211,91 +216,165 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             dir = "specialBuys";
         }
         if (dir != "") {
+            if (this.clickerGame[dir][item].hasOwnProperty('run') && this.clickerGame[dir][item]['run'] == "rebirth") {
+                this.clickerDataHandler(0);
+            }
             var type = this.clickerGame[dir][item]['cost']['type'];
             var amount = this.clickerGame[dir][item]['cost']['amount'];
             if (this.clickerGame[dir][item]['cost']['mode'] == "once" && this.clickerGame['currency'][type]['amount'] >= this.roundDownWithDiscount(amount)) {
                 this.clickerGame['currency'][type]['amount'] -= this.roundDownWithDiscount(amount);
                 this.clickerGame[dir][item]['amount']++;
                 this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
-                var typeGain = this.clickerGame[dir][item]['gives']['type'];
-                if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                    this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
-                } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                    this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                if (this.clickerGame[dir][item]['cost']['amount'] == 0) {
+                    this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['costMultiplier']
                 }
                 if (this.clickerGame['discovery'].hasOwnProperty(item)) {
                     this.clickerGame['discovery'][item] = true;
                 }
+                if (this.clickerGame[dir][item]['gives'] != undefined) {
+                    var typeGain = this.clickerGame[dir][item]['gives']['type'];
+                    if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
+                        this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                    } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
+                        this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                    }
+                    if (this.clickerGame[dir][item]['gives']["extra"] != undefined) {
+                        var amountExtra = 0;
+                        amountExtra = this.clickerGame[dir][item]['gives']["extra"] * this.clickerGame['currency'][type]['amount'];
+                        this.clickerGame['currency'][type]['amount'] = 0;
+                        if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
+                            this.clickerGame['perSecond'][typeGain]['amount'] += amountExtra;
+                        } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
+                            this.clickerGame['currency'][typeGain]['amount'] += amountExtra;
+                        }
+                    }
+                }
+                if (this.clickerGame[dir][item].hasOwnProperty('run')) {
+                    this.runFunction(this.clickerGame['specialBuys'][item]['run'])
+                }
+
             } else if (this.clickerGame[dir][item]['cost']['mode'] == "perSecond" && this.clickerGame['perSecond'][type]['amount'] >= this.roundDownWithDiscount(amount)) {
                 this.clickerGame['perSecond'][type]['amount'] -= this.roundDownWithDiscount(amount);
                 this.clickerGame[dir][item]['amount']++;
                 this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
-                var typeGain = this.clickerGame[dir][item]['gives']['type'];
-                if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                    this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
-                } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                    this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
-                }
                 if (this.clickerGame['discovery'].hasOwnProperty(item)) {
                     this.clickerGame['discovery'][item] = true;
                 }
+                if (this.clickerGame[dir][item]['gives'] != undefined) {
+                    var typeGain = this.clickerGame[dir][item]['gives']['type'];
+                    if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
+                        this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                    } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
+                        this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                    }
+                    if (this.clickerGame[dir][item]['gives']["extra"] != undefined) {
+                        var amountExtra = 0;
+                        amountExtra = this.clickerGame[dir][item]['gives']["extra"] * this.clickerGame['perSecond'][type]['amount'];
+                        this.clickerGame['perSecond'][type]['amount'] = 0;
+                        if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
+                            this.clickerGame['perSecond'][typeGain]['amount'] += amountExtra;
+                        } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
+                            this.clickerGame['currency'][typeGain]['amount'] += amountExtra;
+                        }
+                    }
+                }
+                if (this.clickerGame[dir][item].hasOwnProperty('run')) {
+                    this.runFunction(this.clickerGame['specialBuys'][item]['run'])
+                }
             }
-            if (dir == "specialBuys" && this.clickerGame['specialBuys'][item].hasOwnProperty('run')) {
-                this.runFunction(this.clickerGame['specialBuys'][item]['run'])
-            }
+
         }
     }
 
     runFunction(cmd: string) {
         if (cmd == "rebirth") {
             this.rebirth("rebirth");
+        } else if (cmd == "maximum+1000") {
+            this.maximum(1000, 'all');
+        } else if (cmd == "maximum-coin-100") {
+            this.maximum(-100, 'coin');
+        }
+    }
+
+    maximum(amount: number = 1000, type: string = "coin") {
+        if (type == "all") {
+            for (var i = 0; i < Object.keys(this.clickerGame['currency']).length; i++) {
+                if (this.clickerGame['currency'][Object.keys(this.clickerGame['currency'])[i]]['max'] != undefined) {
+                    this.clickerGame['upgrades']['maximum'][Object.keys(this.clickerGame['currency'])[i]] += amount;
+                }
+            }
+        } else {
+            this.clickerGame['upgrades']['maximum'][type] += amount;
         }
     }
 
     rebirth(type: string = "rebirth") {
+        var newGame = this.deepClone(this.defaultClickerGame);
         console.log(this.deepClone(this.clickerGame))
         if (this.clickerGame['rebirthSettings'][type]['reset']['currency']) {
             for (var i = 0; i < Object.keys(this.clickerGame['currency']).length; i++) {
-                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['currency'])[i])) {
-                    this.clickerGame['currency'][Object.keys(this.clickerGame['currency'])[i]] = this.deepClone(this.defaultClickerGame['currency'][Object.keys(this.clickerGame['currency'])[i]]);
+                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['currency'])[i])) {
+                    newGame['currency'][Object.keys(this.clickerGame['currency'])[i]] = this.deepClone(this.clickerGame['currency'][Object.keys(this.clickerGame['currency'])[i]]);
                 }
             }
+        } else {
+            newGame['currency'] = this.deepClone(this.clickerGame['currency']);
         }
         if (this.clickerGame['rebirthSettings'][type]['reset']['discovery']) {
             for (var i = 0; i < Object.keys(this.clickerGame['discovery']).length; i++) {
-                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['discovery'])[i])) {
-                    this.clickerGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]] = this.deepClone(this.defaultClickerGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]]);
+                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['discovery'])[i])) {
+                    newGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]] = this.deepClone(this.clickerGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]]);
                 }
             }
+        } else {
+            newGame['discovery'] = this.deepClone(this.clickerGame['discovery']);
         }
         if (this.clickerGame['rebirthSettings'][type]['reset']['buys']) {
             for (var i = 0; i < Object.keys(this.clickerGame['buys']).length; i++) {
-                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['buys'])[i])) {
-                    this.clickerGame['buys'][Object.keys(this.clickerGame['buys'])[i]] = this.deepClone(this.defaultClickerGame['buys'][Object.keys(this.clickerGame['buys'])[i]]);
+                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['buys'])[i])) {
+                    newGame['buys'][Object.keys(this.clickerGame['buys'])[i]] = this.deepClone(this.clickerGame['buys'][Object.keys(this.clickerGame['buys'])[i]]);
                 }
             }
+        } else {
+            newGame['buys'] = this.deepClone(this.clickerGame['buys']);
         }
         if (this.clickerGame['rebirthSettings'][type]['reset']['specialBuys']) {
             for (var i = 0; i < Object.keys(this.clickerGame['specialBuys']).length; i++) {
-                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['specialBuys'])[i])) {
-                    this.clickerGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]] = this.deepClone(this.defaultClickerGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]]);
+                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['specialBuys'])[i])) {
+                    newGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]] = this.deepClone(this.clickerGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]]);
                 }
             }
+        } else {
+            newGame['specialBuys'] = this.deepClone(this.clickerGame['specialBuys']);
         }
         if (this.clickerGame['rebirthSettings'][type]['reset']['perSecond']) {
             for (var i = 0; i < Object.keys(this.clickerGame['perSecond']).length; i++) {
-                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['perSecond'])[i])) {
-                    this.clickerGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]] = this.deepClone(this.defaultClickerGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]]);
+                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['perSecond'])[i])) {
+                    newGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]] = this.deepClone(this.clickerGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]]);
                 }
             }
+        } else {
+            newGame['perSecond'] = this.deepClone(this.clickerGame['perSecond']);
         }
         if (this.clickerGame['rebirthSettings'][type]['reset']['rebirthSettings']) {
             for (var i = 0; i < Object.keys(this.clickerGame['rebirthSettings']).length; i++) {
-                if (!this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['rebirthSettings'])[i])) {
-                    this.clickerGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]] = this.deepClone(this.defaultClickerGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]]);
+                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['rebirthSettings'])[i])) {
+                    newGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]] = this.deepClone(this.defaultClickerGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]]);
                 }
             }
+        } else {
+            newGame['rebirthSettings'] = this.deepClone(this.clickerGame['rebirthSettings']);
         }
+        if (this.clickerGame['rebirthSettings'][type]['reset']['upgrades']) {
+            for (var i = 0; i < Object.keys(this.clickerGame['upgrades']).length; i++) {
+                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['upgrades'])[i])) {
+                    newGame['upgrades'][Object.keys(this.clickerGame['upgrades'])[i]] = this.deepClone(this.clickerGame['upgrades'][Object.keys(this.clickerGame['upgrades'])[i]]);
+                }
+            }
+        } else {
+            newGame['upgrades'] = this.deepClone(this.clickerGame['upgrades']);
+        }
+        this.clickerGame = this.deepClone(newGame);
     }
 
     checkTimer() {
@@ -309,10 +388,47 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     }
 
     roundDownWithDiscount(value: number): number {
-        return Math.floor(value);
+        const baseCost: number = value;  // Replace with your actual base cost
+        let totalDiscountedCost: number = 0;
+
+        // Loop through each rebirth type
+        for (const type of Object.keys(this.clickerGame['rebirthSettings'])) {
+            const discount: number = this.clickerGame['rebirthSettings'][type]['discount'];
+            const rebirthCount: number = this.clickerGame['currency'][type]['amount'];
+
+            // Quadratic function parameters
+            const a: number = -0.001;  // Adjust this coefficient for the desired shape of the parabola
+            const b: number = discount;
+
+            // Calculate the discounted cost using the quadratic function for the current rebirth type
+            const discountedCostForType: number = a * rebirthCount ** 2 + b * rebirthCount;
+
+            // Add the discounted cost for the current rebirth type to the total
+            totalDiscountedCost += discountedCostForType;
+        }
+        totalDiscountedCost += baseCost;
+
+        // Ensure the total cost doesn't go below 0
+        // console.log(Math.max(totalDiscountedCost, 0), value)
+        return Math.max(Math.floor(totalDiscountedCost), 0);
     }
 
     getObjectKeys(obj: Record<string, any>): string[] {
         return Object.keys(obj);
+    }
+
+    areAllDiscoveriesMet(item: string[] | string): boolean {
+        if (typeof item == "string") {
+            item = [item];
+        }
+        for (var i = 0; i < item.length; i++) {
+            if (!this.clickerGame['discovery'].hasOwnProperty(item[i])) {
+                return false;
+            }
+            if (!this.clickerGame['discovery'][item[i]]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

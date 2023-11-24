@@ -1,10 +1,28 @@
 export const MarioClicker: Record<string, any> = {
     "toolTip": [
         {
-            "text": "Every rebirth gives you a discount on everything you buy.",
+            "text": "Every rebirth gives you a discount on everything you buy. It also auto saves your game.",
             "require": "rebirth",
             "click": true,
             "title": "Rebirth"
+        },
+        {
+            "text": "If you have more than the cost of a rebirth, you get a small bonus to your rebirth discount.",
+            "require": ["rebirth", "hammer-Bro"],
+            "click": true,
+            "title": "Rebirth Bonus"
+        },
+        {
+            "text": "Rebirths only reset values and upgrades unlocked before the rebirth button.",
+            "require": ["rebirth", "cosmic-clone"],
+            "click": true,
+            "title": "Rebirth Reset"
+        },
+        {
+            "text": "Better Rebirths have a higher discount than normal rebirths. But also reset normal rebirths.",
+            "require": ["rebirth", "cure-shroom"],
+            "click": true,
+            "title": "Better Rebirth"
         }
     ],
     "autoSaveCooldwon": 120,
@@ -30,6 +48,10 @@ export const MarioClicker: Record<string, any> = {
         "rebirth": {
             "amount": 0,
             "require": "rebirth",
+        },
+        "better-rebirth": {
+            "amount": 0,
+            "require": "better-rebirth",
         }
     },
     "discovery": {
@@ -42,7 +64,10 @@ export const MarioClicker: Record<string, any> = {
         "dry-bones": false,
         "para-dry-bones": false,
         "hammer-Bro": false,
-        "rebirth": false
+        "rebirth": false,
+        "cosmic-clone": false,
+        "cure-shroom": false,
+        "better-rebirth": false,
     },
     "buys": {
         "mini goomba": {
@@ -155,10 +180,10 @@ export const MarioClicker: Record<string, any> = {
         "rebirth": {
             "cost": {
                 "type": "heart",
-                "amount": 10,
+                "amount": 2,
                 "mode": "perSecond"
             },
-            "costMultiplier": 1,
+            "costMultiplier": 1.5,
             "gives": {
                 "type": "rebirth",
                 "amount": 1,
@@ -167,7 +192,45 @@ export const MarioClicker: Record<string, any> = {
             },
             "requires": "hammer-Bro",
             "run": "rebirth"
-        }
+        },
+        "cosmic-clone": {
+            "cost": {
+                "type": "life",
+                "amount": 1001,
+                "mode": "once"
+            },
+            "costMultiplier": 1.5,
+            "requires": ["rebirth", "hammer-Bro"],
+            "run": "maximum+1000",
+            "description": "increase the maximum of everything by 1000"
+        },
+        "cure-shroom": {
+            "cost": {
+                "type": "life",
+                "amount": 10,
+                "mode": "perSecond"
+            },
+            "costMultiplier": 1.15,
+            "requires": ["rebirth", "cosmic-clone"],
+            "run": "maximum-coin-100",
+            "description": "decrease the maximum of coins by 100"
+        },
+        "better-rebirth": {
+            "cost": {
+                "type": "life",
+                "amount": 9999,
+                "mode": "perSecond"
+            },
+            "costMultiplier": 1.5,
+            "gives": {
+                "type": "rebirth",
+                "amount": 1,
+                "extra": 0.001,
+                "mode": "once"
+            },
+            "requires": ["rebirth", "cure-shroom"],
+            "run": "rebirth"
+        },
     },
     "perSecond": {
         "coin": {
@@ -198,12 +261,38 @@ export const MarioClicker: Record<string, any> = {
                 "specialBuys": true,
                 "perSecond": true,
                 "rebirthSettings": true,
+                "upgrades": false,
                 "ignoreKeys": [
                     "rebirth",
                     "1up",
-                    "click"
+                    "click",
+                    "cosmic-clone",
+                    "cure-shroom"
                 ]
             }
+        },
+        "better-rebirth": {
+            "discount": 0.069,
+            "reset": {
+                "currency": true,
+                "discovery": true,
+                "buys": true,
+                "specialBuys": true,
+                "perSecond": true,
+                "rebirthSettings": true,
+                "upgrades": false,
+                "ignoreKeys": [
+                    "better-rebirth",
+                    "1up",
+                    "click",
+                ]
+            }
+        }
+    },
+    "upgrades": {
+        "maximum": {
+            "coin": 0,
+            "life": 0,
         }
     }
 }
