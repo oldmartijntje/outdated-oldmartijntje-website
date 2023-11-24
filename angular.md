@@ -1,4 +1,9 @@
-Before running any script i made, commit your changes!! //should turn this into caps
+BEFORE RUNNING ANY SCRIPT I MADE, COMMIT YOUR CHANGES!!
+
+Builder V10 and V11 are broken, update to V12
+
+[Find the newest version here.](https://github.com/oldmartijntje/Angular-Github-Pages-Scripts)
+
 
 ### Navigator
 
@@ -10,13 +15,14 @@ Before running any script i made, commit your changes!! //should turn this into 
 - [Hosting with a Different URL](#hosting-with-a-different-url)
 - [Angular build variables](#build-specific-variables)
 - [gitignore](#gitignore)
+- [credits](#credits)
 
 
 # My Scripts
 
 - [Navigator](#navigator)
 
-This is accurate since builder Version 10
+This is accurate since builder Version 10. (View version on running it.)
 
 place the scripts folder on the same level as the angular project,
 for example: 
@@ -198,3 +204,15 @@ i reccomend to put the following in a .gitignore file:
 BuilderData.json
 environment.prod.ts
 ```
+
+# credits
+
+- [Navigator](#navigator)
+
+Thanks for using my scripts.
+
+I wish you the best of luck in your programming adventures.
+
+-OldMartijntje
+
+[Find the newest version of this project here.](https://github.com/oldmartijntje/Angular-Github-Pages-Scripts)
