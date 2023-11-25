@@ -1,4 +1,3 @@
-<button *ngIf="logButton" (click)="logGame()">Log game</button>
 <div *ngIf="areAllDiscoveriesMet(['click'])" class="mario" role="tabpanel">
     <div *ngFor="let type of getObjectKeys(clickerGame['currency'])">
         <div *ngIf="areAllDiscoveriesMet(clickerGame['currency'][type]['require'])" style="font-size: 25px;">
@@ -115,8 +114,10 @@
     <button (click)="import(true)" *ngIf="areAllDiscoveriesMet(['1up']) && logButton"
         class="marioText growButton">Import Pure Save
         <img src="" alt="" style="width:1rem"></button>
+    <button *ngIf="logButton && areAllDiscoveriesMet(['1up'])" (click)="logGame()" class="marioText growButton">Log
+        game</button>
 </div>
-<div *ngIf="logButton" class="flexBox">
+<div *ngIf="logButton && areAllDiscoveriesMet(['1up'])" class="flexBox">
     <div *ngFor="let currency of getObjectKeys(clickerGame['currency'])" class="growButton">
         <span>{{currency}}:</span><input [(ngModel)]="clickerGame['currency'][currency]['amount']" type="number">
     </div>
