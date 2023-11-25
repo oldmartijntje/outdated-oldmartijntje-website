@@ -34,7 +34,7 @@
                 src="{{getIcon(clickerGame['buys'][shopItem]['cost']['type'])}}"
                 *ngIf="getIcon(clickerGame['buys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['buys'][shopItem]['cost']['mode'] == 'perSecond'">PS</span>, get
-            {{roundDown(clickerGame['buys'][shopItem]['gives']['amount'])}} <img
+            {{totalAmountOfCurrency(roundDown(clickerGame['buys'][shopItem]['gives']['amount']))}} <img
                 src="{{getIcon(clickerGame['buys'][shopItem]['gives']['type'])}}"
                 *ngIf="getIcon(clickerGame['buys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['buys'][shopItem]['gives']['mode'] == 'perSecond'">PS</span>
@@ -49,7 +49,7 @@
                 src="{{getIcon(clickerGame['specialBuys'][shopItem]['cost']['type'])}}"
                 *ngIf="getIcon(clickerGame['specialBuys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['specialBuys'][shopItem]['cost']['mode'] == 'perSecond'">PS</span>, get
-            {{roundDown(clickerGame['specialBuys'][shopItem]['gives']['amount'])}} <img
+            {{totalAmountOfCurrency(roundDown(clickerGame['specialBuys'][shopItem]['gives']['amount']))}} <img
                 src="{{getIcon(clickerGame['specialBuys'][shopItem]['gives']['type'])}}"
                 *ngIf="getIcon(clickerGame['specialBuys'][shopItem]['cost']['type'])" alt="" style="width:1rem"><span
                 *ngIf="clickerGame['specialBuys'][shopItem]['gives']['mode'] == 'perSecond'">PS</span>
@@ -88,19 +88,34 @@
 <div class="flexBox">
     <button (click)="clickerDataHandler(0)" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton">Save
         Game
-        <img src="../../../../assets/icons/save.ico" alt="coin" style="width:1rem"></button>
+        <img src="../../../../assets/icons/save.ico" alt="" style="width:1rem"></button>
     <button (click)="clickerDataHandler(1)" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton">Load
         Game
-        <img src="../../../../assets/icons/load.ico" alt="coin" style="width:1rem"></button>
+        <img src="../../../../assets/icons/load.ico" alt="" style="width:1rem"></button>
     <button (click)="resetGame()" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton"><span
             *ngIf="deleteButton == 0">Reset Game</span><span *ngIf="deleteButton != 0">Confirm Reset</span>
-        <img src="../../../../assets/icons/trash.ico" alt="coin" style="width:1rem"></button>
+        <img src="../../../../assets/icons/trash.ico" alt="" style="width:1rem"></button>
     <button (click)="clickerDataHandler(3)" *ngIf="areAllDiscoveriesMet(['1up']) && logButton"
         class="marioText growButton">Soft
         Delete
-        <img src="../../../../assets/icons/trash.ico" alt="coin" style="width:1rem"></button>
+        <img src="../../../../assets/icons/trash.ico" alt="" style="width:1rem"></button>
 </div>
 <p *ngIf="areAllDiscoveriesMet(['1up'])">Auto saves in {{120 - clickerGame['autoSave']}} seconds.</p>
+<div class="flexBox">
+    <button (click)="export()" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton">Export
+        Save
+        <img src="" alt="" style="width:1rem"></button>
+    <button (click)="export(true)" *ngIf="areAllDiscoveriesMet(['1up']) && logButton"
+        class="marioText growButton">Export Pure Save
+        <img src="" alt="" style="width:1rem"></button>
+    <input *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton" [(ngModel)]="exportTextbox" type="text">
+    <button (click)="import()" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton">Import
+        Save
+        <img src="" alt="" style="width:1rem"></button>
+    <button (click)="import(true)" *ngIf="areAllDiscoveriesMet(['1up']) && logButton"
+        class="marioText growButton">Import Pure Save
+        <img src="" alt="" style="width:1rem"></button>
+</div>
 <div *ngIf="logButton" class="flexBox">
     <div *ngFor="let currency of getObjectKeys(clickerGame['currency'])" class="growButton">
         <span>{{currency}}:</span><input [(ngModel)]="clickerGame['currency'][currency]['amount']" type="number">

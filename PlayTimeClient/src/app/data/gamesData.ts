@@ -68,6 +68,7 @@ export const MarioClicker: Record<string, any> = {
         "cosmic-clone": false,
         "cure-shroom": false,
         "better-rebirth": false,
+        "questionmark-block": false,
     },
     "buys": {
         "mini goomba": {
@@ -175,19 +176,34 @@ export const MarioClicker: Record<string, any> = {
             },
             "requires": "dry-bones"
         },
+        "1up": {
+            "cost": {
+                "amount": 1,
+                "type": "rebirth",
+                "mode": "once"
+            },
+            "amount": 0,
+            "costMultiplier": 1.25,
+            "gives": {
+                "amount": 1,
+                "type": "life",
+                "mode": "perSecond"
+            },
+            "requires": ["1up", "rebirth", "cosmic-clone"]
+        },
     },
     "specialBuys": {
         "rebirth": {
             "cost": {
                 "type": "heart",
-                "amount": 2,
+                "amount": 7.5,
                 "mode": "perSecond"
             },
             "costMultiplier": 1.5,
             "gives": {
                 "type": "rebirth",
                 "amount": 1,
-                "extra": 0.01,
+                "extra": 0.001,
                 "mode": "once"
             },
             "requires": "hammer-Bro",
@@ -215,6 +231,28 @@ export const MarioClicker: Record<string, any> = {
             "run": "maximum-coin-100",
             "description": "decrease the maximum of coins by 100"
         },
+        "questionmark-block": {
+            "cost": {
+                "type": "coin",
+                "amount": 420,
+                "mode": "once"
+            },
+            "costMultiplier": 1.25,
+            "requires": ["rebirth", "cosmic-clone"],
+            "run": "+1",
+            "description": "every time you buy a 'currency', you get +1"
+        },
+        "wide-questionmark-block": {
+            "cost": {
+                "type": "rebirth",
+                "amount": 10,
+                "mode": "once"
+            },
+            "costMultiplier": 1.75,
+            "requires": ["questionmark-block"],
+            "run": "+10",
+            "description": "every time you buy a 'currency', you get +10"
+        },
         "better-rebirth": {
             "cost": {
                 "type": "life",
@@ -223,7 +261,7 @@ export const MarioClicker: Record<string, any> = {
             },
             "costMultiplier": 1.5,
             "gives": {
-                "type": "rebirth",
+                "type": "better-rebirth",
                 "amount": 1,
                 "extra": 0.001,
                 "mode": "once"
@@ -267,7 +305,10 @@ export const MarioClicker: Record<string, any> = {
                     "1up",
                     "click",
                     "cosmic-clone",
-                    "cure-shroom"
+                    "better-rebirth",
+                    "cure-shroom",
+                    "questionmark-block",
+                    "wide-questionmark-block"
                 ]
             }
         },
@@ -280,7 +321,7 @@ export const MarioClicker: Record<string, any> = {
                 "specialBuys": true,
                 "perSecond": true,
                 "rebirthSettings": true,
-                "upgrades": false,
+                "upgrades": true,
                 "ignoreKeys": [
                     "better-rebirth",
                     "1up",
@@ -293,6 +334,7 @@ export const MarioClicker: Record<string, any> = {
         "maximum": {
             "coin": 0,
             "life": 0,
-        }
+        },
+        "extraPerBuy": 0
     }
 }

@@ -23,6 +23,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         "better-rebirth": "../../../../assets/icons/flag2.png",
     }
     deleteButton = 0;
+    exportTextbox: string = "";
 
     constructor(
         private audioPlayerService: AudioPlayerService,
@@ -52,6 +53,26 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             var overflow = Math.floor(this.clickerGame['currency']['coin']['amount'] / this.getMaximum("coin"));
             this.clickerGame['currency']['coin']['amount'] -= overflow * this.getMaximum("coin");
             this.addLife(overflow, byClick)
+        }
+    }
+
+    import(pure: boolean = false) {
+        var encr = new Encryptor();
+        if (pure) {
+            this.clickerGame = JSON.parse(this.exportTextbox);
+        } else {
+            this.clickerGame = JSON.parse(encr.decryptString(this.exportTextbox));
+        }
+        this.checkContent();
+        this.clickerGame['autoSave'] = 0;
+    }
+
+    export(pure: boolean = false) {
+        var encr = new Encryptor();
+        if (pure) {
+            this.exportTextbox = JSON.stringify(this.clickerGame);
+        } else {
+            this.exportTextbox = encr.encryptString(JSON.stringify(this.clickerGame));
         }
     }
 
@@ -92,6 +113,11 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)["buys"]).length; i++) {
             if (!this.clickerGame['buys'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i])) {
                 this.clickerGame['buys'][Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i]] = this.deepClone(this.defaultClickerGame)["buys"][Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i]];
+            }
+        }
+        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"]).length; i++) {
+            if (!this.clickerGame['specialBuys'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"])[i])) {
+                this.clickerGame['specialBuys'][Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"])[i]] = this.deepClone(this.defaultClickerGame)["specialBuys"][Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"])[i]];
             }
         }
         for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)).length; i++) {
@@ -234,9 +260,9 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
                 if (this.clickerGame[dir][item]['gives'] != undefined) {
                     var typeGain = this.clickerGame[dir][item]['gives']['type'];
                     if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                        this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                        this.clickerGame['perSecond'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
                     } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                        this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                        this.clickerGame['currency'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
                     }
                     if (this.clickerGame[dir][item]['gives']["extra"] != undefined) {
                         var amountExtra = 0;
@@ -263,9 +289,9 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
                 if (this.clickerGame[dir][item]['gives'] != undefined) {
                     var typeGain = this.clickerGame[dir][item]['gives']['type'];
                     if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                        this.clickerGame['perSecond'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                        this.clickerGame['perSecond'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
                     } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                        this.clickerGame['currency'][typeGain]['amount'] += this.clickerGame[dir][item]['gives']['amount'];
+                        this.clickerGame['currency'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
                     }
                     if (this.clickerGame[dir][item]['gives']["extra"] != undefined) {
                         var amountExtra = 0;
@@ -293,7 +319,20 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             this.maximum(1000, 'all');
         } else if (cmd == "maximum-coin-100") {
             this.maximum(-100, 'coin');
+        } else if (cmd == "+1") {
+            this.getExtra(1);
+        } else if (cmd == "+10") {
+            this.getExtra(10);
         }
+    }
+
+    getExtra(amount: number) {
+        this.clickerGame['upgrades']['extraPerBuy'] += amount;
+    }
+
+    totalAmountOfCurrency(amount: number = 0) {
+        amount += this.clickerGame['upgrades']['extraPerBuy'];
+        return amount;
     }
 
     maximum(amount: number = 1000, type: string = "coin") {
@@ -374,6 +413,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         } else {
             newGame['upgrades'] = this.deepClone(this.clickerGame['upgrades']);
         }
+        newGame["toolTip"] = this.deepClone(this.clickerGame["toolTip"]);
         this.clickerGame = this.deepClone(newGame);
     }
 
