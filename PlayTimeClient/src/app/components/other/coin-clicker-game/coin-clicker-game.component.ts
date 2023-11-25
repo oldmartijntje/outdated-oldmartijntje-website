@@ -57,6 +57,9 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     }
 
     import(pure: boolean = false) {
+        if (this.exportTextbox == "") {
+            return;
+        }
         var encr = new Encryptor();
         if (pure) {
             this.clickerGame = JSON.parse(this.exportTextbox);
@@ -65,6 +68,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         }
         this.checkContent();
         this.clickerGame['autoSave'] = 0;
+        this.exportTextbox = "";
     }
 
     export(pure: boolean = false) {
