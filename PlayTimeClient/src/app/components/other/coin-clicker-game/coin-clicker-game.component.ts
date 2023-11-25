@@ -125,6 +125,16 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
                 this.clickerGame[Object.keys(this.deepClone(this.defaultClickerGame))[i]] = this.deepClone(this.defaultClickerGame)[Object.keys(this.deepClone(this.defaultClickerGame))[i]];
             }
         }
+        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)['upgrades']).length; i++) {
+            if (!this.clickerGame['upgrades'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)['upgrades'])[i])) {
+                this.clickerGame['upgrades'][Object.keys(this.deepClone(this.defaultClickerGame)['upgrades'])[i]] = this.deepClone(this.defaultClickerGame)['upgrades'][Object.keys(this.deepClone(this.defaultClickerGame)['upgrades'])[i]];
+            }
+        }
+        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings']).length; i++) {
+            if (!this.clickerGame['rebirthSettings'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings'])[i])) {
+                this.clickerGame['rebirthSettings'][Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings'])[i]] = this.deepClone(this.defaultClickerGame)['rebirthSettings'][Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings'])[i]];
+            }
+        }
     }
 
     deepClone(obj: Record<string, any>): Record<string, any> {
