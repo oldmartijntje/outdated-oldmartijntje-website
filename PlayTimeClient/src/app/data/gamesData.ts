@@ -214,7 +214,7 @@ export const MarioClicker: Record<string, any> = {
                 "amount": 7.5,
                 "mode": "perSecond"
             },
-            "costMultiplier": 1.5,
+            "costMultiplier": 1.15,
             "gives": {
                 "type": "rebirth",
                 "amount": 1,
