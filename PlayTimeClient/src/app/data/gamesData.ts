@@ -229,7 +229,7 @@ export const MarioClicker: Record<string, any> = {
                 "amount": 7.5,
                 "mode": "perSecond"
             },
-            "costMultiplier": 1.15,
+            "costMultiplier": 1.06,
             "gives": {
                 "type": "rebirth",
                 "amount": 1,
@@ -242,7 +242,7 @@ export const MarioClicker: Record<string, any> = {
         "cosmic-clone": {
             "cost": {
                 "type": "life",
-                "amount": 1001,
+                "amount": 1000.5,
                 "mode": "once"
             },
             "costMultiplier": 1.5,
