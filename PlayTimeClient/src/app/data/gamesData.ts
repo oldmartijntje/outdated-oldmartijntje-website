@@ -176,7 +176,22 @@ export const MarioClicker: Record<string, any> = {
             },
             "requires": "dry-bones"
         },
-        "1up": {
+        "cheep-cheep": {
+            "cost": {
+                "amount": 1,
+                "type": "rebirth",
+                "mode": "once"
+            },
+            "amount": 0,
+            "costMultiplier": 1.25,
+            "gives": {
+                "amount": 100,
+                "type": "life",
+                "mode": "once"
+            },
+            "requires": ["1up", "rebirth"]
+        },
+        "cheep-chomp": {
             "cost": {
                 "amount": 1,
                 "type": "rebirth",
