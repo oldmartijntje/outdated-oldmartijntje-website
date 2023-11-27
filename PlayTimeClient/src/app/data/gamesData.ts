@@ -206,6 +206,21 @@ export const MarioClicker: Record<string, any> = {
             },
             "requires": ["1up", "rebirth", "cosmic-clone"]
         },
+        "unami": {
+            "cost": {
+                "amount": 1.1,
+                "type": "rebirth",
+                "mode": "once"
+            },
+            "amount": 0,
+            "costMultiplier": 1.25,
+            "gives": {
+                "amount": 2,
+                "type": "heart",
+                "mode": "perSecond"
+            },
+            "requires": ["1up", "rebirth"]
+        },
     },
     "specialBuys": {
         "rebirth": {
