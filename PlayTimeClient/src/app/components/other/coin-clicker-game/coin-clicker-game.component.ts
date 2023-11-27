@@ -363,7 +363,6 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
 
     rebirth(type: string = "rebirth") {
         var newGame = this.deepClone(this.defaultClickerGame);
-        console.log(this.deepClone(this.clickerGame))
         if (this.clickerGame['rebirthSettings'][type]['reset']['currency']) {
             for (var i = 0; i < Object.keys(this.clickerGame['currency']).length; i++) {
                 if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['currency'])[i])) {
