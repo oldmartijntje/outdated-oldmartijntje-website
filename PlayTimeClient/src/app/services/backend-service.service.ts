@@ -17,10 +17,10 @@ export class BackendServiceService {
             username: username,
         };
 
-        return this.http.post<any>(`${this.apiUrl}/messages/postMessage.php`, body);
+        return this.http.post<any>(`${this.apiUrl}/messages/message.php`, body);
     }
 
     getMessages(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/messages/getList.php`);
+        return this.http.get<any>(`${this.apiUrl}/messages/message.php`);
     }
 }
