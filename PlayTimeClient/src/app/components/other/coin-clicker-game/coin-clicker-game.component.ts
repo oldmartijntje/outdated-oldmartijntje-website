@@ -114,29 +114,19 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     }
 
     checkContent() {
-        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)["buys"]).length; i++) {
-            if (!this.clickerGame['buys'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i])) {
-                this.clickerGame['buys'][Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i]] = this.deepClone(this.defaultClickerGame)["buys"][Object.keys(this.deepClone(this.defaultClickerGame)["buys"])[i]];
-            }
-        }
-        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"]).length; i++) {
-            if (!this.clickerGame['specialBuys'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"])[i])) {
-                this.clickerGame['specialBuys'][Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"])[i]] = this.deepClone(this.defaultClickerGame)["specialBuys"][Object.keys(this.deepClone(this.defaultClickerGame)["specialBuys"])[i]];
+        const check = ["currency", "discovery", "buys", "specialBuys", "perSecond", "rebirthSettings", "upgrades"];
+        for (var i = 0; i < check.length; i++) {
+            if (!this.clickerGame.hasOwnProperty(check[i])) {
+                for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)[check[i]]).length; i++) {
+                    if (!this.clickerGame[check[i]].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)[check[i]])[i])) {
+                        this.clickerGame[check[i]][Object.keys(this.deepClone(this.defaultClickerGame)[check[i]])[i]] = this.deepClone(this.defaultClickerGame)[check[i]][Object.keys(this.deepClone(this.defaultClickerGame)[check[i]])[i]];
+                    }
+                }
             }
         }
         for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)).length; i++) {
             if (!this.clickerGame.hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame))[i])) {
                 this.clickerGame[Object.keys(this.deepClone(this.defaultClickerGame))[i]] = this.deepClone(this.defaultClickerGame)[Object.keys(this.deepClone(this.defaultClickerGame))[i]];
-            }
-        }
-        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)['upgrades']).length; i++) {
-            if (!this.clickerGame['upgrades'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)['upgrades'])[i])) {
-                this.clickerGame['upgrades'][Object.keys(this.deepClone(this.defaultClickerGame)['upgrades'])[i]] = this.deepClone(this.defaultClickerGame)['upgrades'][Object.keys(this.deepClone(this.defaultClickerGame)['upgrades'])[i]];
-            }
-        }
-        for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings']).length; i++) {
-            if (!this.clickerGame['rebirthSettings'].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings'])[i])) {
-                this.clickerGame['rebirthSettings'][Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings'])[i]] = this.deepClone(this.defaultClickerGame)['rebirthSettings'][Object.keys(this.deepClone(this.defaultClickerGame)['rebirthSettings'])[i]];
             }
         }
     }
@@ -261,67 +251,48 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             }
             var type = this.clickerGame[dir][item]['cost']['type'];
             var amount = this.clickerGame[dir][item]['cost']['amount'];
+            var buyType = "";
             if (this.clickerGame[dir][item]['cost']['mode'] == "once" && this.clickerGame['currency'][type]['amount'] >= this.roundDownWithDiscount(amount)) {
-                this.clickerGame['currency'][type]['amount'] -= this.roundDownWithDiscount(amount);
-                this.clickerGame[dir][item]['amount']++;
-                this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
-                if (this.clickerGame[dir][item]['cost']['amount'] == 0) {
-                    this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['costMultiplier']
-                }
-                if (this.clickerGame['discovery'].hasOwnProperty(item)) {
-                    this.clickerGame['discovery'][item] = true;
-                }
-                if (this.clickerGame[dir][item]['gives'] != undefined) {
-                    var typeGain = this.clickerGame[dir][item]['gives']['type'];
-                    if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                        this.clickerGame['perSecond'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
-                    } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                        this.clickerGame['currency'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
-                    }
-                    if (this.clickerGame[dir][item]['gives']["extra"] != undefined) {
-                        var amountExtra = 0;
-                        amountExtra = this.clickerGame[dir][item]['gives']["extra"] * this.clickerGame['currency'][type]['amount'];
-                        this.clickerGame['currency'][type]['amount'] = 0;
-                        if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                            this.clickerGame['perSecond'][typeGain]['amount'] += amountExtra;
-                        } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                            this.clickerGame['currency'][typeGain]['amount'] += amountExtra;
-                        }
-                    }
-                }
-                if (this.clickerGame[dir][item].hasOwnProperty('run')) {
-                    this.runFunction(this.clickerGame['specialBuys'][item]['run'])
-                }
-
+                buyType = "currency";
             } else if (this.clickerGame[dir][item]['cost']['mode'] == "perSecond" && this.clickerGame['perSecond'][type]['amount'] >= this.roundDownWithDiscount(amount)) {
-                this.clickerGame['perSecond'][type]['amount'] -= this.roundDownWithDiscount(amount);
-                this.clickerGame[dir][item]['amount']++;
-                this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
-                if (this.clickerGame['discovery'].hasOwnProperty(item)) {
-                    this.clickerGame['discovery'][item] = true;
+                buyType = "perSecond";
+            }
+            if (buyType == "") {
+                return;
+            }
+
+            this.clickerGame[buyType][type]['amount'] -= this.roundDownWithDiscount(amount);
+            this.clickerGame[dir][item]['amount']++;
+            this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
+            if (this.clickerGame[dir][item]['cost']['amount'] == 0) {
+                this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['costMultiplier']
+            }
+            if (this.clickerGame['discovery'].hasOwnProperty(item)) {
+                this.clickerGame['discovery'][item] = true;
+            }
+            if (this.clickerGame[dir][item]['gives'] != undefined) {
+                var typeGain = this.clickerGame[dir][item]['gives']['type'];
+                if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
+                    this.clickerGame['perSecond'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
+                } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
+                    this.clickerGame[buyType][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
                 }
-                if (this.clickerGame[dir][item]['gives'] != undefined) {
-                    var typeGain = this.clickerGame[dir][item]['gives']['type'];
+                if (this.clickerGame[dir][item]['gives']["extra"] != undefined) {
+                    var amountExtra = 0;
+                    amountExtra = this.clickerGame[dir][item]['gives']["extra"] * this.clickerGame[buyType][type]['amount'];
+                    this.clickerGame[buyType][type]['amount'] = 0;
                     if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                        this.clickerGame['perSecond'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
+                        this.clickerGame['perSecond'][typeGain]['amount'] += amountExtra;
                     } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                        this.clickerGame['currency'][typeGain]['amount'] += this.totalAmountOfCurrency(this.clickerGame[dir][item]['gives']['amount']);
+                        this.clickerGame['currency'][typeGain]['amount'] += amountExtra;
                     }
-                    if (this.clickerGame[dir][item]['gives']["extra"] != undefined) {
-                        var amountExtra = 0;
-                        amountExtra = this.clickerGame[dir][item]['gives']["extra"] * this.clickerGame['perSecond'][type]['amount'];
-                        this.clickerGame['perSecond'][type]['amount'] = 0;
-                        if (this.clickerGame[dir][item]['gives']['mode'] == "perSecond") {
-                            this.clickerGame['perSecond'][typeGain]['amount'] += amountExtra;
-                        } else if (this.clickerGame[dir][item]['gives']['mode'] == "once") {
-                            this.clickerGame['currency'][typeGain]['amount'] += amountExtra;
-                        }
-                    }
-                }
-                if (this.clickerGame[dir][item].hasOwnProperty('run')) {
-                    this.runFunction(this.clickerGame['specialBuys'][item]['run'])
                 }
             }
+            if (this.clickerGame[dir][item].hasOwnProperty('run')) {
+                this.runFunction(this.clickerGame['specialBuys'][item]['run'])
+            }
+
+
 
         }
     }
@@ -363,68 +334,17 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
 
     rebirth(type: string = "rebirth") {
         var newGame = this.deepClone(this.defaultClickerGame);
-        if (this.clickerGame['rebirthSettings'][type]['reset']['currency']) {
-            for (var i = 0; i < Object.keys(this.clickerGame['currency']).length; i++) {
-                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['currency'])[i])) {
-                    newGame['currency'][Object.keys(this.clickerGame['currency'])[i]] = this.deepClone(this.clickerGame['currency'][Object.keys(this.clickerGame['currency'])[i]]);
+        const check = ["currency", "discovery", "buys", "specialBuys", "perSecond", "rebirthSettings", "upgrades"];
+        for (var i = 0; i < check.length; i++) {
+            if (!this.clickerGame.hasOwnProperty(check[i])) {
+                for (var i = 0; i < Object.keys(this.deepClone(this.defaultClickerGame)[check[i]]).length; i++) {
+                    if (!this.clickerGame[check[i]].hasOwnProperty(Object.keys(this.deepClone(this.defaultClickerGame)[check[i]])[i])) {
+                        this.clickerGame[check[i]][Object.keys(this.deepClone(this.defaultClickerGame)[check[i]])[i]] = this.deepClone(this.defaultClickerGame)[check[i]][Object.keys(this.deepClone(this.defaultClickerGame)[check[i]])[i]];
+                    }
                 }
+            } else {
+                newGame[check[i]] = this.deepClone(this.clickerGame[check[i]]);
             }
-        } else {
-            newGame['currency'] = this.deepClone(this.clickerGame['currency']);
-        }
-        if (this.clickerGame['rebirthSettings'][type]['reset']['discovery']) {
-            for (var i = 0; i < Object.keys(this.clickerGame['discovery']).length; i++) {
-                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['discovery'])[i])) {
-                    newGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]] = this.deepClone(this.clickerGame['discovery'][Object.keys(this.clickerGame['discovery'])[i]]);
-                }
-            }
-        } else {
-            newGame['discovery'] = this.deepClone(this.clickerGame['discovery']);
-        }
-        if (this.clickerGame['rebirthSettings'][type]['reset']['buys']) {
-            for (var i = 0; i < Object.keys(this.clickerGame['buys']).length; i++) {
-                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['buys'])[i])) {
-                    newGame['buys'][Object.keys(this.clickerGame['buys'])[i]] = this.deepClone(this.clickerGame['buys'][Object.keys(this.clickerGame['buys'])[i]]);
-                }
-            }
-        } else {
-            newGame['buys'] = this.deepClone(this.clickerGame['buys']);
-        }
-        if (this.clickerGame['rebirthSettings'][type]['reset']['specialBuys']) {
-            for (var i = 0; i < Object.keys(this.clickerGame['specialBuys']).length; i++) {
-                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['specialBuys'])[i])) {
-                    newGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]] = this.deepClone(this.clickerGame['specialBuys'][Object.keys(this.clickerGame['specialBuys'])[i]]);
-                }
-            }
-        } else {
-            newGame['specialBuys'] = this.deepClone(this.clickerGame['specialBuys']);
-        }
-        if (this.clickerGame['rebirthSettings'][type]['reset']['perSecond']) {
-            for (var i = 0; i < Object.keys(this.clickerGame['perSecond']).length; i++) {
-                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['perSecond'])[i])) {
-                    newGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]] = this.deepClone(this.clickerGame['perSecond'][Object.keys(this.clickerGame['perSecond'])[i]]);
-                }
-            }
-        } else {
-            newGame['perSecond'] = this.deepClone(this.clickerGame['perSecond']);
-        }
-        if (this.clickerGame['rebirthSettings'][type]['reset']['rebirthSettings']) {
-            for (var i = 0; i < Object.keys(this.clickerGame['rebirthSettings']).length; i++) {
-                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['rebirthSettings'])[i])) {
-                    newGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]] = this.deepClone(this.defaultClickerGame['rebirthSettings'][Object.keys(this.clickerGame['rebirthSettings'])[i]]);
-                }
-            }
-        } else {
-            newGame['rebirthSettings'] = this.deepClone(this.clickerGame['rebirthSettings']);
-        }
-        if (this.clickerGame['rebirthSettings'][type]['reset']['upgrades']) {
-            for (var i = 0; i < Object.keys(this.clickerGame['upgrades']).length; i++) {
-                if (this.clickerGame['rebirthSettings'][type]['reset']['ignoreKeys'].includes(Object.keys(this.clickerGame['upgrades'])[i])) {
-                    newGame['upgrades'][Object.keys(this.clickerGame['upgrades'])[i]] = this.deepClone(this.clickerGame['upgrades'][Object.keys(this.clickerGame['upgrades'])[i]]);
-                }
-            }
-        } else {
-            newGame['upgrades'] = this.deepClone(this.clickerGame['upgrades']);
         }
         newGame["toolTip"] = this.deepClone(this.clickerGame["toolTip"]);
         this.clickerGame = this.deepClone(newGame);
