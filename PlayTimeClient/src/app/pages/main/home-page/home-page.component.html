@@ -1,11 +1,10 @@
 <div>
-    <img src="../../../../assets/images/navigator.png" alt="Click in the adress bar to switch pages."
-        style="width: 90%; max-height: 3rem;">
+    <p style="width: 90%; max-height: 3rem; font-size: 2rem;">Go in the adress bar to change pages ↑</p>
 </div>
 <div class="content">
     <div id="aboutMii">
         <img src="../../../../assets/images/mii.png" style="width: 140px; height: 140px;" alt="My Mii">
-        <div style="width: fit-content;" role="tabpanel">
+        <div style="width: fit-content; height: fit-content;" role="tabpanel">
             <p class="textInTabpanel">Name: Martijn</p>
             <p class="textInTabpanel">Country: Netherlands</p>
             <p class="textInTabpanel">Interests: Programming, gaming, being social
@@ -13,11 +12,45 @@
         </div>
     </div>
 
-    <div class="mario">
+    <div style="max-width: 20rem; margin: 2rem; height: fit-content;" role="tabpanel">
+        <p class="textInTabpanel">I got inspired to make this website by Dimden.dev</p>
+        <p class="textInTabpanel">I didn't really have much to show for myself yet. I had a website with the worst
+            design ever.</p>
+        <p class="textInTabpanel">Now I am working on this website. With a Love/Hate relationship for CSS</p>
+    </div>
+
+    <div style="max-width: 20rem; margin: 2rem; height: fit-content;" role="tabpanel">
+        <p class="textInTabpanel" style="margin-bottom: 0.5rem;">Here is an image I generated using AI.</p>
+        <img src="../../../../assets/images/myAI.jpeg" alt="" style="height:10rem">
+    </div>
+
+    <div class="mario" style="height: fit-content;">
         <app-coin-clicker-game></app-coin-clicker-game>
     </div>
+    <div class="navbar" role="tabpanel">
+        <p class="textInTabpanel">Notable Pages:</p>
+        <a [routerLink]="['/Adfly']" [queryParams]="{nav: 'test'}">Ads Museum</a>
+        <a [routerLink]="['/Gallery']">Random Gallery of content</a>
+        <a [routerLink]="['/Projects']">My Projects</a>
+        <a [routerLink]="['/TimeMachine']">Time Machine</a>
+        <a [routerLink]="['/Info']">Info</a>
+        <a [routerLink]="['/Journy']">Journy</a>
+    </div>
+
+    <div class="container">
+        <div class="image-container">
+            <img src="../../../../assets/images/mii full.png" alt="Mii Image">
+        </div>
+        <div class="text-container" role="tabpanel" style="padding-left: 32px;">
+            <p class="textInTabpanel">Can you find the hidden programming languages?</p>
+            <p class="textInTabpanel">I lost them somewhere on this website.</p>
+            <p class="textInTabpanel">I should probably be more carefull with my stuff.</p>
+        </div>
+    </div>
+
+
 </div>
-<div class="navbar">
+<!-- <div class="navbar">
     <a [routerLink]="['/404']">404</a>
     <a [routerLink]="['/404']" [queryParams]="{Editor: 'true'}">404E</a>
     <a [routerLink]="['/Editor']">Editor</a>
@@ -25,5 +58,5 @@
     <a [routerLink]="['/Railroad']">Railroad</a>
     <a [routerLink]="['/Railroad']" [queryParams]="{Editor: 'true'}">RailroadE</a>
     <a [routerLink]="['/Pages']">Pages</a>
-</div>
+</div> -->
 <p (click)="logBuildData()">{{versionWord}}: <span>{{versionNumber}}</span></p>

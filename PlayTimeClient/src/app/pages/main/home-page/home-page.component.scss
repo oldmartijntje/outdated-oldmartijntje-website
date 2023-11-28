@@ -2,17 +2,25 @@
 @import url('https://fonts.cdnfonts.com/css/new-super-mario-font-u');
 
 
-a:visited {
-    color: $primary-color;
-    /* Set the visited color to orange */
+// a:visited {
+//     // color: $primary-color;
+//     /* Set the visited color to orange */
+// }
+
+a {
+    // color: $primary-color;
+    /* Set the default color for links */
+    margin: 0.5rem;
 }
 
 .navbar {
     display: flex;
-    // flex-direction: column;
+    flex-direction: column;
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top: 2rem;
+    font-size: 1rem;
+    margin: 2rem;
 }
 
 #aboutMii {
@@ -20,15 +28,16 @@ a:visited {
     display: flex;
     border-radius: 4px;
     padding: 10px;
-    margin: 1rem;
+    margin: 2rem;
     column-gap: 1rem;
-    max-height: 140px;
+    height: fit-content;
 }
 
 .content {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    // justify-content: space-around;
 }
 
 .mario {
@@ -43,4 +52,37 @@ a:visited {
 
 .textInTabpanel {
     margin: 0.5rem 0px 0.5rem 0px;
+}
+
+.container {
+    display: flex;
+    max-width: 20rem;
+}
+
+.image-container {
+    position: relative;
+    left: 6.8rem;
+    z-index: 3;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px 0 0 8px;
+    /* Optional: Adds rounded corners to the left side */
+}
+
+.text-container {
+    max-width: 20rem;
+    height: fit-content;
+    background-color: #ffffff;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0 8px 8px 0;
+    /* Optional: Adds rounded corners to the right side */
+}
+
+.textInTabpanel {
+    margin: 0;
 }
