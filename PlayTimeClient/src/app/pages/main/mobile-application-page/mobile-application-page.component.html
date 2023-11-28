@@ -13,8 +13,7 @@
                 </div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
-                    <button aria-label="Maximize" *ngIf="!mobileMode['MobileUser']"
-                        (click)="setMobileMode(false)"></button>
+                    <button aria-label="Maximize"></button>
                     <button aria-label="Close"></button>
                 </div>
             </div>
@@ -42,6 +41,9 @@
                         <button class="headerButton"
                             (click)="goToWebPage('https://hotlinewebring.club/oldma/next')"><img
                                 src="../../../../assets/icons/greenArrow.png" alt="Next"></button>
+                        <button class="headerButton" *ngIf="!mobileMode['MobileUser']"
+                            (click)="setMobileMode(false)"><img src="../../../../assets/icons/pc.ico"
+                                alt="PC mode"></button>
                     </div>
                     <div class="smallAdBox scrollingBar">
                         <div class="text-scrollBox">

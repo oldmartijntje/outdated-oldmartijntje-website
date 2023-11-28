@@ -529,6 +529,18 @@ export const shortcuts: Shortcut[] = [
             "Y": -3
         }
     },
+    {
+        "Title": "Mobile Mode",
+        "Icon": "assets/icons/phone.ico",
+        "Command": "mobileMode",
+        "Link": "",
+        "Payload": {
+        },
+        "Location": {
+            "X": 2,
+            "Y": -11
+        }
+    },
 
 ]
 

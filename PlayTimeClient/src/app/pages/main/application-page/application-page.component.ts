@@ -215,6 +215,8 @@ export class ApplicationPageComponent implements OnInit {
             } else {
                 this.toggleHiddenById(button['Payload']['SinglePageId']);
             }
+        } else if (button['Command'].toLocaleLowerCase() == "mobilemode") {
+            this.setMobileMode(true);
         }
     }
 
