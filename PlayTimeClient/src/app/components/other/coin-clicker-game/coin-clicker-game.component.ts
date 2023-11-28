@@ -441,29 +441,34 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     }
 
     roundDownWithDiscount(value: number): number {
-        const baseCost: number = value;  // Replace with your actual base cost
-        let totalDiscountedCost: number = 0;
+        try {
+            const baseCost: number = value;  // Replace with your actual base cost
+            let totalDiscountedCost: number = 0;
 
-        // Loop through each rebirth type
-        for (const type of Object.keys(this.clickerGame['rebirthSettings'])) {
-            const discount: number = this.clickerGame['rebirthSettings'][type]['discount'];
-            const rebirthCount: number = this.clickerGame['currency'][type]['amount'];
+            // Loop through each rebirth type
+            for (const type of Object.keys(this.clickerGame['rebirthSettings'])) {
+                const discount: number = this.clickerGame['rebirthSettings'][type]['discount'];
+                const rebirthCount: number = this.clickerGame['currency'][type]['amount'];
 
-            // Quadratic function parameters
-            const a: number = -0.001;  // Adjust this coefficient for the desired shape of the parabola
-            const b: number = discount;
+                // Quadratic function parameters
+                const a: number = -0.001;  // Adjust this coefficient for the desired shape of the parabola
+                const b: number = discount;
 
-            // Calculate the discounted cost using the quadratic function for the current rebirth type
-            const discountedCostForType: number = a * rebirthCount ** 2 + b * rebirthCount;
+                // Calculate the discounted cost using the quadratic function for the current rebirth type
+                const discountedCostForType: number = a * rebirthCount ** 2 + b * rebirthCount;
 
-            // Add the discounted cost for the current rebirth type to the total
-            totalDiscountedCost += discountedCostForType;
+                // Add the discounted cost for the current rebirth type to the total
+                totalDiscountedCost += discountedCostForType;
+            }
+            totalDiscountedCost += baseCost;
+
+            // Ensure the total cost doesn't go below 0
+            // console.log(Math.max(totalDiscountedCost, 0), value)
+            return Math.max(Math.floor(totalDiscountedCost), 0);
+        } catch (error) {
+            return value;
         }
-        totalDiscountedCost += baseCost;
 
-        // Ensure the total cost doesn't go below 0
-        // console.log(Math.max(totalDiscountedCost, 0), value)
-        return Math.max(Math.floor(totalDiscountedCost), 0);
     }
 
     getObjectKeys(obj: Record<string, any>): string[] {

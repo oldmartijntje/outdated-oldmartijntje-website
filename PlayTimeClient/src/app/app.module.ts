@@ -25,6 +25,7 @@ import { MobileApplicationPageComponent } from './pages/main/mobile-application-
 import { TaskManagerComponent } from './components/applications/task-manager/task-manager.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoinClickerGameComponent } from './components/other/coin-clicker-game/coin-clicker-game.component';
+import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { CoinClickerGameComponent } from './components/other/coin-clicker-game/c
         ApplicationPageComponent,
         MobileApplicationPageComponent,
         TaskManagerComponent,
-        CoinClickerGameComponent
+        CoinClickerGameComponent,
+        AdflyPageComponent
     ],
     imports: [
         BrowserModule,

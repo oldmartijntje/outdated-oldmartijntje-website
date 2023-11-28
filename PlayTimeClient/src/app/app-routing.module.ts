@@ -5,12 +5,14 @@ import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroa
 import { NotFoundPageComponent } from './pages/main/not-found-page/not-found-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
 import { ApplicationPageComponent } from './pages/main/application-page/application-page.component';
+import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
     { path: 'Home', component: HomePageComponent },
     { path: 'Editor', component: EditorPageComponent },
     { path: 'Railroad', component: RailroadinkPageComponent },
+    { path: 'Adfly', component: AdflyPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 

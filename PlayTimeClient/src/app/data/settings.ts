@@ -11,7 +11,7 @@ export const EditorSettings: any = {
 
 export const Settings: any = {
     "inWindowsRouter": [
-        "404", "Railroad", "Home"
+        "404", "Railroad", "Home", "Adfly"
     ]
 }
 
