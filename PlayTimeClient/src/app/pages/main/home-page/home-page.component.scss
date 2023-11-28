@@ -56,17 +56,22 @@ a {
 
 .container {
     display: flex;
-    max-width: 20rem;
+    max-width: 30rem;
 }
 
 .image-container {
     position: relative;
-    left: 6.8rem;
+    left: 11.8rem;
+    top: -1rem;
     z-index: 3;
 }
 
+p {
+    font-size: 14px;
+}
+
 .image-container img {
-    width: 100%;
+    width: 75%;
     height: auto;
     display: block;
     border-radius: 8px 0 0 8px;
@@ -74,7 +79,7 @@ a {
 }
 
 .text-container {
-    max-width: 20rem;
+    max-width: 30rem;
     height: fit-content;
     background-color: #ffffff;
     padding: 16px;
@@ -85,4 +90,13 @@ a {
 
 .textInTabpanel {
     margin: 0;
+}
+
+.textBox {
+    max-width: 20rem;
+    height: fit-content;
+}
+
+.textBox p {
+    margin-bottom: 0.5rem;
 }
