@@ -4,7 +4,7 @@ import { EditorPageComponent } from './pages/main/editor-page/editor-page.compon
 import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/not-found-page/not-found-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
-import { ApplicationPageComponent } from './pages/other/application-page/application-page.component';
+import { ApplicationPageComponent } from './pages/main/application-page/application-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
