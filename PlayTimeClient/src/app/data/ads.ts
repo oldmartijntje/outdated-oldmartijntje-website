@@ -16,6 +16,11 @@ export const smallAdList: smallAd[] = [
         "blank_": true
     },
     {
+        "link": "./Chat",
+        "image": "../../../../assets/images/buttons/single.gif",
+        "blank_": true
+    },
+    {
         "link": "",
         "image": "https://boxy.neocities.org/images/steam.gif",
         "blank_": true
