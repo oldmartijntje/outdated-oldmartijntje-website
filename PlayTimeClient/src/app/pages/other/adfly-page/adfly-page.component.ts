@@ -13,7 +13,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class AdflyPageComponent implements OnInit {
     createMode: boolean = false;
     navigation: string = "";
-    textToFormat: string = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    textToFormat: string = "";
     madeUrl: string = "";
     error = false;
     static startUrl = "https://oldmartijntje.nl/AdBee?nav=";
