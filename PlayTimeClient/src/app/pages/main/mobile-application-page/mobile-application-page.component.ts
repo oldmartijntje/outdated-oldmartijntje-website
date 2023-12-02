@@ -35,11 +35,12 @@ export class MobileApplicationPageComponent implements OnInit {
             const currentUrl = this.router.url; // Get the full URL
             const currentPathWithoutQueryParams = currentUrl.split('?')[0].substring(1); // Extract the path
             this.activePage = currentPathWithoutQueryParams;
-            if (Settings["inWindowsRouter"].includes(currentPathWithoutQueryParams)) {
-                this.showRouter = true;
-            } else {
-                this.showRouter = false;
-            }
+            this.showRouter = true;
+            // if (Settings["inWindowsRouter"].includes(currentPathWithoutQueryParams)) {
+            //     this.showRouter = true;
+            // } else {
+            //     this.showRouter = false;
+            // }
         });
         this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {
             this.mobileMode = value;
