@@ -67,6 +67,11 @@ export const smallAdList: smallAd[] = [
     },
     {
         "link": "",
+        "image": "../../../../assets/images/buttons/robuzx.png",
+        "blank_": true
+    },
+    {
+        "link": "",
         "image": "https://plasticdino.neocities.org/buttons/bestvieweddesktop.gif",
         "blank_": true
     },

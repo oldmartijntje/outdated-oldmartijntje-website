@@ -83,6 +83,24 @@ export class Encryptor {
         return this.asciiListToString(asciiList);
     }
 
+    simpleToAscii(inputString: string): string {
+        const asciiList = this.stringToAsciiList(inputString);
+        return asciiList.join(',');
+    }
+
+    asciiToSimple(inputString: string): string {
+        const asciiList = inputString
+            .split(',')
+            .map(value => parseInt(value, 10))
+            .filter(value => !isNaN(value) && value >= 0 && value <= 127); // Check if valid ASCII
+
+        if (asciiList.length === 0) {
+            return ''; // Return empty string for invalid ASCII
+        }
+
+        return this.asciiListToString(asciiList);
+    }
+
     removeLastElement(input: number[]): [number[], string] {
         // Check if the array is not empty
         if (input.length > 0) {

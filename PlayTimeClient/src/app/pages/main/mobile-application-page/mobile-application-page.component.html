@@ -69,14 +69,12 @@
                         <button (click)="switchPage(activePage)">Go</button>
                     </div>
                     <div class="webContent">
-                        <hr class="solid no-top-margin">
                         <div *ngIf="showRouter">
                             <ng-content></ng-content>
                         </div>
                         <div *ngIf="!showRouter">
                             <app-home-page></app-home-page>
                         </div>
-                        <hr class="solid no-top-margin">
                         <div>
                             <iframe width="180" height="180" style="border:none; margin-top: 0.5rem;"
                                 src="https://dimden.neocities.org/navlink/" name="neolink"></iframe>

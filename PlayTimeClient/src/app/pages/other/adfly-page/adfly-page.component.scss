@@ -1,0 +1,131 @@
+.logo {
+    display: flex;
+}
+
+.logo h1,
+img {
+    margin: 0px;
+    height: 5rem;
+}
+
+.container {
+    background-color: #0a2f57;
+}
+
+.whiteText {
+    color: white;
+}
+
+.yellowText {
+    color: #f9d71c;
+}
+
+.SmallAds,
+.subHeaderContent {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.subHeaderContent {
+    justify-content: space-between;
+}
+
+.subHeader {
+    background-color: #3182fa;
+    font-size: 0.75rem;
+}
+
+.textButton {
+    color: #0a2f57;
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    background: none;
+    background-color: #f9d71c;
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-radius: 1rem;
+
+    &-small {
+        color: #0a2f57;
+        background: none;
+        background-color: #f9d71c;
+        padding: 0.25rem;
+        margin: 0.25rem;
+        border-radius: 1rem;
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.skipButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bigInput {
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.arial {
+    font-family: Arial !important;
+}
+
+.blue {
+    background-color: #5a85ac;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.displayBox {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.center {
+    justify-content: center;
+}
+
+.rowMode {
+    flex-direction: row;
+}
+
+.yellow {
+    background-color: #f9d71c;
+}
+
+.white {
+    background-color: white;
+}
+
+.border {
+    border: 1px solid black;
+}

@@ -2,7 +2,11 @@
     <h1>{{ErrorNumber}}</h1>
     <h1>{{ErrorTitle}}</h1>
 </div>
-<div>
+<div *ngIf="mousePointer">
     <p *ngFor="let line of errorMessageLines" style="width:fit-content; cursor: pointer;" (click)="emitCustomEvent()">{{
+        line }}</p>
+</div>
+<div *ngIf="!mousePointer">
+    <p *ngFor="let line of errorMessageLines" style="width:fit-content;" (click)="emitCustomEvent()">{{
         line }}</p>
 </div>

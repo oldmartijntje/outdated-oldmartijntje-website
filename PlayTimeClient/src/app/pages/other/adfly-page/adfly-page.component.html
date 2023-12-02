@@ -1,1 +1,62 @@
-<p>adfly-page works!</p>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <h1><span class="yellowText">Ad</span><span class="whiteText">Bee</span></h1>
+                <img src="../../../../assets/images/bee.gif" alt="bee">
+            </div>
+            <div class="skipButton" *ngIf="!createMode">
+                <button class="textButton" (click)="navigateToLink()">
+                    <span>Skip Ad</span>
+                    <div style="text-align: center;"><mat-icon>navigate_next</mat-icon></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="subHeader" *ngIf="!createMode">
+    <div class="row">
+        <div class="subHeaderContent">
+            <p>AdBee is a clone of Adfly. But AdBee only has fake ads, I don't make
+                money with this. It's just 'Ads' that I like to show. And it's also kinda a meme.</p>
+            <button (click)="removeQueryParamAndReload()" class="textButton-small">Create Link</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="createMode">
+    <div class="flexbox blue space-around" style="min-height: 25rem; padding: 3rem;">
+        <div class="input-group">
+            <input type="text" class="bigInput arial" placeholder="Link to redirect to" [(ngModel)]="textToFormat">
+            <div class="input-group-append">
+                <button class="textButton-small arial" type="button" (click)="createURL()">Create
+                    Redirect</button>
+            </div>
+        </div>
+        <div class="flexbox center rowMode" style="margin-top: 4rem;" *ngIf="madeUrl">
+            <div class="displayBox">
+                <div class="yellow" style="padding:1rem 1rem 0 1rem; border-radius: 1rem 1rem 0 0">
+                    <h2 style="margin: 0px;">Your link:</h2>
+                </div>
+                <div class="white" style="padding:1rem">
+                    <div style="overflow-x: scroll;" class="border">
+                        <p>{{madeUrl}}</p>
+                    </div>
+                    <button (click)="copyURL()">Copy to clipboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!createMode" style="min-height: 10rem;" class="blue">
+    <div *ngIf="error">
+        <app-error-page [ErrorTitle]="'Redirect does not exist'"
+            [ErrorMessage]="'Something went wrong when trying to redirect. Maybe it\'s an invalid redirect.'"
+            [ErrorNumber]="400"></app-error-page>
+    </div>
+    <div class="SmallAds">
+        <div *ngFor="let ad of getListOfSmallAds()">
+            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" style="height: 31px; width: 88px;"
+                [ngStyle]="hasNonEmptyLink(ad)">
+        </div>
+    </div>
+</div>

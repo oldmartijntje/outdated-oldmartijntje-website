@@ -12,7 +12,7 @@ const routes: Routes = [
     { path: 'Home', component: HomePageComponent },
     { path: 'Editor', component: EditorPageComponent },
     { path: 'Railroad', component: RailroadinkPageComponent },
-    { path: 'Adfly', component: AdflyPageComponent },
+    { path: 'AdBee', component: AdflyPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 
