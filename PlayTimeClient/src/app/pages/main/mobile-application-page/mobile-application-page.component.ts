@@ -16,7 +16,7 @@ export class MobileApplicationPageComponent implements OnInit {
     lastId: number = 0;
     randomX = 50;
     randomY = 50;
-    showRouter: boolean = false;
+    showRouter: boolean = true;
     activePage = "";
     isBlockDraggable = false;
     pageInfo: Record<string, any>[] = [];
