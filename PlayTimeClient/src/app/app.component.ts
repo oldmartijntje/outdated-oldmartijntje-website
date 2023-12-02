@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
         "MobileMode": false
     };
     mobileModePopup: boolean = true;
+    ignoreDisclaimer: boolean = false;
 
     constructor(
         private toastQueueService: ToastQueueService,
@@ -46,6 +47,11 @@ export class AppComponent implements OnInit {
                 this.showWindows = true;
             } else {
                 this.showWindows = false;
+            }
+            if (Settings["ignoreDisclaimer"].includes(currentPathWithoutQueryParams)) {
+                this.ignoreDisclaimer = true;
+            } else {
+                this.ignoreDisclaimer = false;
             }
         });
         this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {

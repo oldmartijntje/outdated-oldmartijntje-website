@@ -6,9 +6,9 @@
 </app-application-page>
 <div *ngIf="!showEditor && showWindows && mobileMode['MobileMode']"
     style="background-image: url('https://i.imgur.com/yOpoaJH.jpg'); height:100%">
-    <img *ngIf="mobileMode['MobileUser'] && mobileModePopup" src="../assets/images/mobileUser.png" alt=""
-        (click)="mobileModePopup = false" style="width:100%;">
-    <app-mobile-application-page *ngIf="!mobileMode['MobileUser'] || !mobileModePopup">
+    <img *ngIf="mobileMode['MobileUser'] && mobileModePopup && !ignoreDisclaimer" src="../assets/images/mobileUser.png"
+        alt="" (click)="mobileModePopup = false" style="width:100%;">
+    <app-mobile-application-page *ngIf="!mobileMode['MobileUser'] || !mobileModePopup || ignoreDisclaimer">
         <router-outlet></router-outlet>
     </app-mobile-application-page>
 </div>
