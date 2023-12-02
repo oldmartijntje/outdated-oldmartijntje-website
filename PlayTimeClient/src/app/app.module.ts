@@ -9,7 +9,8 @@ import { EditorPageComponent } from './pages/main/editor-page/editor-page.compon
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MONACO_PATH, MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
-import { NotFoundPageComponent } from './pages/main/not-found-page/not-found-page.component';
+import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
+import { ErrorPageComponent } from './pages/main/error-pages/error-page/error-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -39,7 +40,8 @@ import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.componen
         MobileApplicationPageComponent,
         TaskManagerComponent,
         CoinClickerGameComponent,
-        AdflyPageComponent
+        AdflyPageComponent,
+        ErrorPageComponent
     ],
     imports: [
         BrowserModule,

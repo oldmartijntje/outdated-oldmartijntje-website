@@ -1,0 +1,8 @@
+<app-error-page [ErrorNumber]="404" [ErrorTitle]="'Page not found'"
+    [ErrorMessage]="'Either this page never existed and you should recheck the Webadress, or this page has only temporarily existed. \nYou know what is not temporarily though?\n Doom, because Doom is eternal.'"
+    (customEvent)="handleCustomEvent($event)"></app-error-page>
+
+<iframe *ngIf="doomed" width="680" height="400" frameborder="0"
+    src="https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fdoom.jsdos?anonymous=1"
+    allowfullscreen>
+</iframe>

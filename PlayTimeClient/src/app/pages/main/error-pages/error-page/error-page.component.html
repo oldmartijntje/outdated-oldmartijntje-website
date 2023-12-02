@@ -1,0 +1,8 @@
+<div>
+    <h1>{{ErrorNumber}}</h1>
+    <h1>{{ErrorTitle}}</h1>
+</div>
+<div>
+    <p *ngFor="let line of errorMessageLines" style="width:fit-content; cursor: pointer;" (click)="emitCustomEvent()">{{
+        line }}</p>
+</div>
