@@ -4,6 +4,12 @@ export interface smallAd {
     blank_?: boolean;
 }
 
+export interface bigAd {
+    link: string;
+    image: string;
+    blank_?: boolean;
+}
+
 export const smallAdList: smallAd[] = [
     {
         "link": "",
@@ -137,3 +143,10 @@ export const smallAdList: smallAd[] = [
     },
 ]
 
+export const bigAdList: bigAd[] = [
+    {
+        "link": "",
+        "image": "../../../../assets/images/buttons/carcassonne.gif",
+        "blank_": true
+    }
+]
