@@ -1,16 +1,10 @@
-export interface smallAd {
+export interface displayAd {
     link: string;
     image: string;
     blank_?: boolean;
 }
 
-export interface bigAd {
-    link: string;
-    image: string;
-    blank_?: boolean;
-}
-
-export const smallAdList: smallAd[] = [
+export const smallAdList: displayAd[] = [
     {
         "link": "",
         "image": "../../../../assets/images/buttons/nicelyCSSed.gif",
@@ -141,12 +135,30 @@ export const smallAdList: smallAd[] = [
         "image": "../../../../assets/images/buttons/longus.gif",
         "blank_": true
     },
+    {
+        "link": "",
+        "image": "../../../../assets/images/buttons/marioScared.png",
+        "blank_": true
+    },
 ]
 
-export const bigAdList: bigAd[] = [
+export const mediumAdList: displayAd[] = [
+]
+
+export const bigAdList: displayAd[] = [
     {
         "link": "",
         "image": "../../../../assets/images/buttons/carcassonne.gif",
+        "blank_": true
+    },
+    {
+        "link": "",
+        "image": "../../../../assets/images/buttons/scratch.gif",
+        "blank_": true
+    },
+    {
+        "link": "",
+        "image": "../../../../assets/images/buttons/partnerzInTiem.gif",
         "blank_": true
     }
 ]

@@ -45,11 +45,11 @@
                             (click)="setMobileMode(false)"><img src="../../../../assets/icons/pc.ico" alt="PC mode"
                                 style="height: 23px; width: 23px;"></button>
                     </div>
-                    <div class="smallAdBox scrollingBar">
+                    <div class="displayAdBox scrollingBar">
                         <div class="text-scrollBox">
                             <div class="text-scrollBox__content" [ngStyle]="{'width': calculateWidth() + 'px'}">
                                 <ul class="list-inline" *ngFor="let i of ngForScroll()">
-                                    <li *ngFor="let ad of getListOfSmallAds()">
+                                    <li *ngFor="let ad of getListOfdisplayAds()">
                                         <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement"
                                             style="max-height: 31px; max-width: 88px;" [ngStyle]="hasNonEmptyLink(ad)">
                                     </li>

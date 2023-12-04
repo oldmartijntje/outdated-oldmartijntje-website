@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { smallAd } from 'src/app/data/ads';
+import { displayAd } from 'src/app/data/ads';
 import { AdHandler } from 'src/app/models/adHandler';
 import { Encryptor } from 'src/app/models/encryptor';
 import { Clipboard } from '@angular/cdk/clipboard';
@@ -49,17 +49,26 @@ export class AdflyPageComponent implements OnInit {
         this.madeUrl = AdflyPageComponent.startUrl + this.formatTextToParams(this.textToFormat);
     }
 
-    getListOfSmallAds(): smallAd[] {
+    getListOfdisplayAds(size: number = 0): displayAd[] {
         var adHandler = new AdHandler();
-        return adHandler.getSmallAdList();
+        switch (size) {
+            case 0:
+                return adHandler.getSmallAdList();
+            case 1:
+                return adHandler.getMediumAdList();
+            case 2:
+                return adHandler.getBigAdList();
+            default:
+                return adHandler.getSmallAdList();
+        }
     }
 
-    sendToLink(ad: smallAd): void {
+    sendToLink(ad: displayAd): void {
         var adHandler = new AdHandler();
         adHandler.sendToLink(ad);
     }
 
-    hasNonEmptyLink(ad: smallAd): any {
+    hasNonEmptyLink(ad: displayAd): any {
         var adHandler = new AdHandler();
         if (adHandler.hasNonEmptyLink(ad)) {
             return { 'cursor': 'pointer' }

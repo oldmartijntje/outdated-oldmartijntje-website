@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { smallAd } from 'src/app/data/ads';
+import { displayAd } from 'src/app/data/ads';
 import { Settings, PageInfo } from 'src/app/data/settings';
 import { AdHandler } from 'src/app/models/adHandler';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
@@ -75,12 +75,12 @@ export class MobileApplicationPageComponent implements OnInit {
         localStorage.clear();
     }
 
-    getListOfSmallAds(): smallAd[] {
+    getListOfdisplayAds(): displayAd[] {
         var adHandler = new AdHandler();
         return adHandler.getSmallAdList();
     }
 
-    sendToLink(ad: smallAd): void {
+    sendToLink(ad: displayAd): void {
         var adHandler = new AdHandler();
         adHandler.sendToLink(ad);
     }
@@ -91,11 +91,11 @@ export class MobileApplicationPageComponent implements OnInit {
     }
 
     calculateWidth(): string {
-        var width = `${this.getListOfSmallAds().length * 88 * 3}`
+        var width = `${this.getListOfdisplayAds().length * 88 * 3}`
         return width
     }
 
-    hasNonEmptyLink(ad: smallAd): any {
+    hasNonEmptyLink(ad: displayAd): any {
         var adHandler = new AdHandler();
         if (adHandler.hasNonEmptyLink(ad)) {
             return { 'cursor': 'pointer' }

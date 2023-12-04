@@ -53,9 +53,21 @@
             [ErrorMessage]="'Something went wrong when trying to redirect. Maybe it\'s an invalid redirect.'"
             [ErrorNumber]="400"></app-error-page>
     </div>
-    <div class="SmallAds">
-        <div *ngFor="let ad of getListOfSmallAds()">
+    <div class="displayAds">
+        <div *ngFor="let ad of getListOfdisplayAds()">
             <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" style="height: 31px; width: 88px;"
+                [ngStyle]="hasNonEmptyLink(ad)">
+        </div>
+    </div>
+    <div class="displayAds">
+        <div *ngFor="let ad of getListOfdisplayAds(1)">
+            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" style="height: 62px; width: 264px;"
+                [ngStyle]="hasNonEmptyLink(ad)">
+        </div>
+    </div>
+    <div class="displayAds">
+        <div *ngFor="let ad of getListOfdisplayAds(2)">
+            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" style="height: 93px; width: 264px;"
                 [ngStyle]="hasNonEmptyLink(ad)">
         </div>
     </div>

@@ -1,20 +1,32 @@
-import { smallAd, smallAdList } from "../data/ads";
+import { displayAd, smallAdList, mediumAdList, bigAdList } from "../data/ads";
 
 export class AdHandler {
     constructor() {
         this.smallAdList = smallAdList;
+        this.bigAdList = bigAdList;
+        this.mediumAdList = mediumAdList;
     }
-    smallAdList: smallAd[];
+    smallAdList: displayAd[];
+    bigAdList: displayAd[];
+    mediumAdList: displayAd[];
 
-    getSmallAdList(): smallAd[] {
+    getSmallAdList(): displayAd[] {
         return this.smallAdList;
     }
 
-    hasNonEmptyLink(ad: smallAd): boolean {
+    getMediumAdList(): displayAd[] {
+        return this.mediumAdList;
+    }
+
+    getBigAdList(): displayAd[] {
+        return this.bigAdList;
+    }
+
+    hasNonEmptyLink(ad: displayAd): boolean {
         return ad.link.trim() !== '';
     }
 
-    sendToLink(ad: smallAd): void {
+    sendToLink(ad: displayAd): void {
         if (this.hasNonEmptyLink(ad)) {
             if (ad.blank_) {
                 window.open(ad.link, '_blank');
