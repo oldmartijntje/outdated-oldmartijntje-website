@@ -4,7 +4,7 @@ export interface displayAd {
     blank_?: boolean;
 }
 
-export const smallAdList: displayAd[] = [
+const smallAdList: displayAd[] = [
     {
         "link": "",
         "image": "../../../../assets/images/buttons/nicelyCSSed.gif",
@@ -142,10 +142,10 @@ export const smallAdList: displayAd[] = [
     },
 ]
 
-export const mediumAdList: displayAd[] = [
+const mediumAdList: displayAd[] = [
 ]
 
-export const bigAdList: displayAd[] = [
+const bigAdList: displayAd[] = [
     {
         "link": "",
         "image": "../../../../assets/images/buttons/carcassonne.gif",
@@ -162,3 +162,19 @@ export const bigAdList: displayAd[] = [
         "blank_": true
     }
 ]
+
+function shuffleArray(array: displayAd[]): displayAd[] {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Shuffle the bigAdList array
+shuffleArray(smallAdList);
+shuffleArray(mediumAdList);
+shuffleArray(bigAdList);
+
+// Export the shuffled array
+export { smallAdList, mediumAdList, bigAdList };

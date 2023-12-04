@@ -17,12 +17,20 @@ export class AdflyPageComponent implements OnInit {
     madeUrl: string = "";
     error = false;
     static startUrl = "https://oldmartijntje.nl/AdBee?nav=";
+    adSizeOrder = this.shuffleListOrder([0, 1, 2]);
+    adSizeStyling = [{ 'width': '88px', 'height': '31px' }, { 'width': '264px', 'height': '62px' }, { 'width': '264px', 'height': '93px' }]
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private clipboard: Clipboard
     ) { }
+
+    getRightStyling(index: number): any {
+        console.log(this.adSizeStyling[index])
+        console.log(index)
+        return this.adSizeStyling[index];
+    }
 
     navigateToLink(): void {
         if (this.navigation == "") {
@@ -45,6 +53,23 @@ export class AdflyPageComponent implements OnInit {
             }
             console.log(this.createMode, this.navigation, navQueryParam, this.error)
         });
+    }
+
+    shuffleListOrder(list: any[]): any[] {
+        var currentIndex = list.length, temporaryValue, randomIndex;
+        var returnList = list.slice();
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex--);
+
+            // And swap it with the current element
+            temporaryValue = returnList[currentIndex];
+            returnList[currentIndex] = returnList[randomIndex];
+            returnList[randomIndex] = temporaryValue;
+        }
+
+        return returnList;
     }
 
     createURL(): void {
@@ -75,6 +100,13 @@ export class AdflyPageComponent implements OnInit {
         if (adHandler.hasNonEmptyLink(ad)) {
             return { 'cursor': 'pointer' }
         }
+    }
+
+    getStyling(ad: displayAd, adType: number): any {
+        var dict1 = this.getRightStyling(adType);
+        var dict2 = this.hasNonEmptyLink(ad);
+        return { ...dict1, ...dict2 };
+
     }
 
     formatTextToParams(inputText: string): string {

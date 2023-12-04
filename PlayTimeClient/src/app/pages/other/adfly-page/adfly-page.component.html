@@ -53,22 +53,9 @@
         [ErrorNumber]="400"></app-error-page>
 </div>
 <div *ngIf="!error && !createMode" style="min-height: 10rem;" class="blue">
-    <div class="displayAdsBox" style="display: flex !important;">
-        <div *ngFor="let ad of getListOfdisplayAds()">
-            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" style="height: 31px; width: 88px;"
-                [ngStyle]="hasNonEmptyLink(ad)">
-        </div>
-    </div>
-    <div class="displayAdsBox" style="display: flex !important;">
-        <div *ngFor="let ad of getListOfdisplayAds(1)">
-            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" style="height: 62px; width: 264px;"
-                [ngStyle]="hasNonEmptyLink(ad)">
-        </div>
-    </div>
-    <div class="displayAdsBox" style="display: flex !important;">
-        <div *ngFor="let ad of getListOfdisplayAds(2)">
-            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" style="height: 93px; width: 264px;"
-                [ngStyle]="hasNonEmptyLink(ad)">
+    <div class="displayAdsBox" style="display: flex !important;" *ngFor="let adType of adSizeOrder">
+        <div *ngFor="let ad of getListOfdisplayAds(adType)">
+            <img (click)="sendToLink(ad)" src="{{ad.image}}" alt="Advertisement" [ngStyle]="getStyling(ad, adType)">
         </div>
     </div>
 </div>

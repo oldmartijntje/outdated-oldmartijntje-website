@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Settings } from './data/settings';
 import { RuntimeServiceService } from './services/runtime-service.service';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
+import { smallAdList, mediumAdList, bigAdList } from './data/ads';
 
 @Component({
     selector: 'app-root',
@@ -73,5 +74,6 @@ export class AppComponent implements OnInit {
         const userAgent = this.document.defaultView?.navigator?.userAgent || '';
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
     }
+
 
 }

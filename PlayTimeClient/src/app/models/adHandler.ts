@@ -39,4 +39,21 @@ export class AdHandler {
     ngForScroll(): any[] {
         return [0, 0, 0]
     }
+
+    shuffleListOrder(list: any[]): any[] {
+        var currentIndex = list.length, temporaryValue, randomIndex;
+        var returnList = list.slice();
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex--);
+
+            // And swap it with the current element
+            temporaryValue = returnList[currentIndex];
+            returnList[currentIndex] = returnList[randomIndex];
+            returnList[randomIndex] = temporaryValue;
+        }
+
+        return returnList;
+    }
 }
