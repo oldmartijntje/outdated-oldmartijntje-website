@@ -28,6 +28,7 @@ export class AdflyPageComponent implements OnInit {
         if (this.navigation == "") {
             this.error = true;
         } else {
+            this.error = false;
             window.location.href = this.navigation;
         }
     }
@@ -42,6 +43,7 @@ export class AdflyPageComponent implements OnInit {
                 this.createMode = false;
                 this.navigation = this.formatTextFromParams(navQueryParam)
             }
+            console.log(this.createMode, this.navigation, navQueryParam, this.error)
         });
     }
 
