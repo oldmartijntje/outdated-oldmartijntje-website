@@ -27,8 +27,6 @@ export class AdflyPageComponent implements OnInit {
     ) { }
 
     getRightStyling(index: number): any {
-        console.log(this.adSizeStyling[index])
-        console.log(index)
         return this.adSizeStyling[index];
     }
 
@@ -51,7 +49,6 @@ export class AdflyPageComponent implements OnInit {
                 this.createMode = false;
                 this.navigation = this.formatTextFromParams(navQueryParam)
             }
-            console.log(this.createMode, this.navigation, navQueryParam, this.error)
         });
     }
 
@@ -118,7 +115,6 @@ export class AdflyPageComponent implements OnInit {
     formatTextFromParams(inputText: string): string {
         var encr = new Encryptor();
         var formattedText = encr.asciiToSimple(inputText);
-        console.log(formattedText);
         return formattedText;
     }
 

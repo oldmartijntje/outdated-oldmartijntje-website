@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { displayAd } from 'src/app/data/ads';
 import { Settings, PageInfo } from 'src/app/data/settings';
 import { AdHandler } from 'src/app/models/adHandler';
+import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 @Component({
@@ -24,10 +25,12 @@ export class MobileApplicationPageComponent implements OnInit {
         "MobileUser": false,
         "MobileMode": false
     };
+    databaseConnection: boolean = false;
 
     constructor(
         private router: Router,
-        private runtimeServiceService: RuntimeServiceService
+        private runtimeServiceService: RuntimeServiceService,
+        private backendMiddlemanService: BackendMiddlemanService
     ) { }
 
     ngOnInit(): void {

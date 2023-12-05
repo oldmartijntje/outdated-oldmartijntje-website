@@ -86,7 +86,13 @@
 
                     <footer>
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <p style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Done</p>
+                            <p *ngIf="!databaseConnection"
+                                style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Database
+                                Connection
+                                Failed</p>
+                            <p *ngIf="databaseConnection"
+                                style="margin: 0; padding: 8px; padding-top: 5px; padding-bottom: 4px;">Connected to
+                                Database</p>
                             <div style="display: flex; flex-direction: row;">
                                 <img src="../../../../assets/icons/Internet.ico"
                                     style="width: 18px; height: 18px; padding-top: 3px">

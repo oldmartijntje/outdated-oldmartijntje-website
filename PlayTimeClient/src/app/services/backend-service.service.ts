@@ -9,7 +9,17 @@ import { environment } from 'src/environments/environment';
 export class BackendServiceService {
     apiUrl = environment.apiUrl;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+        this.ping().subscribe(
+            (res) => {
+                console.log(res);
+            },
+            (err) => {
+                console.log(err);
+            }
+        )
+        console.log("BackendServiceService constructed");
+    }
 
     addMessage(content: string, username: string): Observable<any> {
         // const body = {
@@ -27,5 +37,9 @@ export class BackendServiceService {
 
     getMessages(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/messages/message.php`);
+    }
+
+    ping(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/ping/ping.php`);
     }
 }

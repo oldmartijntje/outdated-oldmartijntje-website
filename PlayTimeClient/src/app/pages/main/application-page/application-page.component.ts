@@ -9,6 +9,7 @@ import { Shortcut } from 'src/app/models/applications';
 import { displayAd } from 'src/app/data/ads';
 import { AdHandler } from 'src/app/models/adHandler';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
+import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 
 @Component({
     selector: 'app-application-page',
@@ -36,12 +37,14 @@ export class ApplicationPageComponent implements OnInit {
     private clickStartTime!: number;
     lastGrabbedId: number = 9;
     navBar: Shortcut[] = [];
+    databaseConnection: boolean = false;
 
 
     constructor(
         private router: Router,
         private runtimeServiceService: RuntimeServiceService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private backendMiddlemanService: BackendMiddlemanService
     ) { }
 
     ngOnInit(): void {
