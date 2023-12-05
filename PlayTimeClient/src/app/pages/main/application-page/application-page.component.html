@@ -27,7 +27,7 @@
                 <div class="title-bar-controls">
                     <button *ngIf="devMode" aria-label="Maximize" (click)="devInfo(bookmark)"></button>
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
-                    <button aria-label="Maximize"></button>
+                    <!-- <button aria-label="Maximize"></button> -->
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                 <div class="title-bar-controls">
                     <button *ngIf="devMode" aria-label="Maximize" (click)="devInfo(bookmark)"></button>
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
-                    <button aria-label="Maximize"></button>
+                    <!-- <button aria-label="Maximize"></button> -->
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                 <div class="title-bar-text">{{bookmark['Title']}}</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
-                    <button aria-label="Maximize"></button>
+                    <!-- <button aria-label="Maximize"></button> -->
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                 <div class="title-bar-controls">
                     <button *ngIf="devMode" aria-label="Maximize" (click)="devInfo(bookmark)"></button>
                     <button aria-label="Minimize" (click)="toggleMinimisedWindow(bookmark)"></button>
-                    <button aria-label="Maximize"></button>
+                    <button aria-label="Maximize" (click)="setMobileMode(true)"></button>
                     <button aria-label="Close" (click)="executeCommand(bookmark['CloseButton'], bookmark)"></button>
                 </div>
             </div>
