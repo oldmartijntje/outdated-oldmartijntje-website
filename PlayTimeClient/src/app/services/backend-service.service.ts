@@ -10,15 +10,6 @@ export class BackendServiceService {
     apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) {
-        this.ping().subscribe(
-            (res) => {
-                console.log(res);
-            },
-            (err) => {
-                console.log(err);
-            }
-        )
-        console.log("BackendServiceService constructed");
     }
 
     addMessage(content: string, username: string): Observable<any> {

@@ -47,7 +47,19 @@ export class ApplicationPageComponent implements OnInit {
         private backendMiddlemanService: BackendMiddlemanService
     ) { }
 
+    gatAPI(): void {
+        this.backendMiddlemanService.getPingCall().then((value) => {
+            this.databaseConnection = value;
+        });
+    }
+
     ngOnInit(): void {
+        this.gatAPI();
+
+        // Set up an interval to call gatAPI() every minute (60,000 milliseconds)
+        setInterval(() => {
+            this.gatAPI();
+        }, 60000);
         for (let i = 0; i < shortcuts.length; i++) {
             try {
                 this.lastId += 1;
