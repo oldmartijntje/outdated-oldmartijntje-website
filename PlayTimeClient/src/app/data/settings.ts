@@ -15,6 +15,13 @@ export const Settings: any = {
     ],
     "ignoreDisclaimer": [
         "AdBee"
+    ],
+    "usernameMaxLength": 16,
+    "messageMaxLength": 256,
+    'messageMinLength': 2,
+    'usernameMinLength': 4,
+    "blackListedUsernames": [
+        "SYSTEM"
     ]
 }
 
@@ -29,12 +36,52 @@ export const DefaultUserNames: string[] = [
 ]
 var date = new Date();
 export const DefaultMessages: any[] = [
-    {
-        datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
-        username: 'SYSTEM',
-        content: 'Welcome to chat. Use /nick to set a nick.',
-        type: 'system'
-    }
+    [
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'Welcome to chat. Use /nick to set a nick.',
+            type: 'system'
+        }
+    ],
+    [
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'Username is too long. ' + Settings['usernameMaxLength'] + ' is the limit.',
+            type: 'system'
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'Message is too long. ' + Settings['messageMaxLength'] + ' is the limit.',
+            type: 'system'
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'Sucessfully changed username to ||USERNAME||',
+            type: 'system'
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'Changing your name into ||USERNAME|| is not allowed.',
+            type: 'system'
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'Username is too short. ' + Settings['usernameMinLength'] + ' is the minimum.',
+            type: 'system'
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'Message is too short. ' + Settings['messageMinLength'] + ' is the minimum.',
+            type: 'system'
+        }
+    ]
 ]
 
 export const PageInfo: any = [
