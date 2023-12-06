@@ -3,14 +3,17 @@
         <h2>Chat Room</h2>
     </div>
     <div class="chat-messages">
-        <div *ngFor="let message of sentMessages" class="message">
+        <div *ngFor="let message of reverseOrderOfList(sentMessages)" class="message">
             <div>
-                <strong>{{ message.username }}</strong> ({{ message.timeSent }}): {{ message.text }}
+                <strong>
+                    <{{ message.username }}>
+                </strong> ({{ message.datetime }}): {{ message.content }}
             </div>
         </div>
     </div>
     <div class="chat-input">
-        <input type="text" placeholder="Type your message..." />
+        <input type="text" placeholder="Type your message..." [(ngModel)]="messageBoxInput" (input)="onChange()"
+            (keydown.enter)="onEnterPress()" />
         <button (click)="sendMessage()">Send</button>
     </div>
 </div>

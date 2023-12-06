@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UUID } from '../models/uuid';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,11 @@ export class BackendServiceService {
     apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) {
+        var sessionToken = localStorage.getItem('sessionToken');
+        if (sessionToken == null) {
+            var uuid = UUID.generate();
+            localStorage.setItem('sessionToken', uuid);
+        }
     }
 
     addMessage(content: string, username: string): Observable<any> {
@@ -24,6 +30,13 @@ export class BackendServiceService {
         body = body.set('content', content);
         body = body.set('username', username);
         return this.http.post(`${this.apiUrl}/messages/message.php`, body, { headers })
+    }
+
+    getMessagesSinceLastCall(id: number): Observable<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        let body = new HttpParams();
+        body = body.set('id', id);
+        return this.http.post(`${this.apiUrl}/messages/getNewMessages.php`, body, { headers });
     }
 
     getMessages(): Observable<any> {

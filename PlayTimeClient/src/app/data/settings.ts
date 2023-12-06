@@ -18,6 +18,25 @@ export const Settings: any = {
     ]
 }
 
+export const DefaultUserNames: string[] = [
+    "Anonymous",
+    "anotherGuy",
+    "user",
+    "noName",
+    "nicknameless",
+    "Player",
+    "User"
+]
+var date = new Date();
+export const DefaultMessages: any[] = [
+    {
+        datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+        username: 'SYSTEM',
+        content: 'Welcome to chat. Use /nick to set a nick.',
+        type: 'system'
+    }
+]
+
 export const PageInfo: any = [
     {
         "Navigate": {

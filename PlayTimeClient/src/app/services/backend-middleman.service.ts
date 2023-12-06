@@ -9,6 +9,14 @@ export class BackendMiddlemanService {
         "value": undefined,
         "date": undefined
     };
+    messagesCall: { [key: string]: any } = {
+        "value": undefined,
+        "date": undefined
+    };
+    messagesSinceCall: { [key: string]: any } = {
+        "value": undefined,
+        "date": undefined
+    };
 
     constructor(
         private backendServiceService: BackendServiceService
@@ -28,17 +36,61 @@ export class BackendMiddlemanService {
                 });
         };
 
-        if (this.pingCall["value"] === undefined || this.isPingOlderThan5Minutes()) {
+        if (this.pingCall["value"] === undefined || this.isPingOlderThanXMinutes(5, this.pingCall)) {
             return performPing().then(() => Promise.resolve(this.pingCall["value"]));
         } else {
             return Promise.resolve(this.pingCall["value"]);
         }
     }
 
-    isPingOlderThan5Minutes(): boolean {
+    isPingOlderThanXMinutes(minutes: number, variable: { [key: string]: any }): boolean {
         const fiveMinutesAgo = new Date();
-        fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
-        return new Date(this.pingCall["date"]) < fiveMinutesAgo;
+        fiveMinutesAgo.setSeconds(fiveMinutesAgo.getSeconds() - (60 * minutes));
+        return new Date(variable["date"]) < fiveMinutesAgo;
+    }
+
+    getMessagesSinceLastCall(force: boolean = false, id: number): Promise<any> {
+        const performGetMessages = () => {
+            try {
+                const messages = this.backendServiceService.getMessagesSinceLastCall(id).toPromise();
+                this.messagesSinceCall['value'] = messages; // Assuming messagesSinceCall is a property in your class to store the messages.
+                return messages;
+            } catch (error) {
+                // Handle error if needed
+                console.error("Error fetching messages:", error);
+                throw error;
+            } finally {
+                this.messagesSinceCall['date'] = new Date();
+            }
+        };
+
+        if (this.messagesSinceCall['value'] === undefined || this.isPingOlderThanXMinutes(0.1, this.messagesSinceCall) || force) {
+            return performGetMessages().then(() => Promise.resolve(this.messagesSinceCall["value"]))
+        } else {
+            return this.messagesSinceCall['value'];
+        }
+    }
+
+    getMessages(): Promise<any> {
+        const performGetMessages = () => {
+            try {
+                const messages = this.backendServiceService.getMessages().toPromise();
+                this.messagesCall['value'] = messages; // Assuming messagesCall is a property in your class to store the messages.
+                return messages;
+            } catch (error) {
+                // Handle error if needed
+                console.error("Error fetching messages:", error);
+                throw error;
+            } finally {
+                this.messagesCall['date'] = new Date();
+            }
+        };
+
+        if (this.messagesCall['value'] === undefined || this.isPingOlderThanXMinutes(1, this.messagesCall)) {
+            return performGetMessages().then(() => Promise.resolve(this.messagesCall["value"]))
+        } else {
+            return this.messagesCall['value'];
+        }
     }
 
 
