@@ -26,6 +26,26 @@
             border-radius: 5px;
             background-color: #1d1b1b;
         }
+
+        .background-error {
+            background-color: #4e3534;
+        }
+
+        .background-system {
+            background-color: #3e3e3e;
+        }
+
+        .background-warning {
+            background-color: #413a2a;
+        }
+
+        .background-yours {
+            background-color: #002a44;
+        }
+
+        .background-oldmartijntje {
+            background-color: #8156c3;
+        }
     }
 
     .chat-input {
@@ -54,12 +74,24 @@
 
 .nameColor-oldmartijntje {
     color: #ccc200;
+    background-color: #1f1f1f;
+    border-radius: 5px;
+    padding: 2px 0px 2px 2px;
+    margin-right: 2px;
 }
 
 .nameColor-system {
-    color: #454545;
+    color: #0e0c1d;
 }
 
 .nameColor-yours {
-    color: #c26c36;
+    color: #0087dc;
+}
+
+.nameColor-error {
+    color: #ff8080;
+}
+
+.nameColor-warning {
+    color: #f2a028;
 }

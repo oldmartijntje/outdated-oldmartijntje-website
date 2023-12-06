@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 import { DefaultUserNames, DefaultMessages, Settings } from 'src/app/data/settings';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-message-page',
@@ -20,7 +21,8 @@ export class MessagePageComponent implements OnInit {
 
     constructor(
         private backendMiddlemanService: BackendMiddlemanService,
-        private backendServiceService: BackendServiceService
+        private backendServiceService: BackendServiceService,
+        private sanitizer: DomSanitizer
     ) { }
 
     gatAPI(): void {
@@ -36,6 +38,7 @@ export class MessagePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.warn('This is a warning message!');
 
         // Set up an interval to call gatAPI() every minute (30,000 milliseconds)
         setInterval(() => {
@@ -44,7 +47,9 @@ export class MessagePageComponent implements OnInit {
 
         this.backendMiddlemanService.getMessages().then((data) => {
             this.sentMessages = data['data'];
-            this.lastId = data['data'][data['data'].length - 1]['id'];
+            if (data['data'].length > 0) {
+                this.lastId = data['data'][data['data'].length - 1]['id'];
+            }
             this.sentMessages = this.sentMessages.concat(DefaultMessages[0])
         });
         var nickname = localStorage.getItem('nickname');
@@ -79,6 +84,11 @@ export class MessagePageComponent implements OnInit {
         return [...anyList].reverse();
     }
 
+    sanitizeHtml(html: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+
+
     sendMessage() {
         if (this.messageBoxInput.startsWith('/nick ')) {
             var nickname = this.messageBoxInput.substring(6);
@@ -107,6 +117,9 @@ export class MessagePageComponent implements OnInit {
                 this.generateMessage(nickname, DefaultMessages[1][2])
             );
             return;
+        } else if (this.messageBoxInput == '/nick') {
+            //error message for no rename
+            this.sentMessages = this.sentMessages.concat(DefaultMessages[1][8]);
         } else if (this.messageBoxInput !== '') {
             if (this.messageBoxInput.length > Settings['messageMaxLength']) {
                 //error message for too long message
@@ -119,7 +132,19 @@ export class MessagePageComponent implements OnInit {
             }
             this.backendServiceService.addMessage(this.messageBoxInput, this.nickname).subscribe((data) => {
                 this.onChange(true);
-            });
+            },
+                (error) => {
+                    console.error(error);
+                    if (error.status == 422) {
+                        if (error.error['payload'] != undefined) {
+                            if (error.error['payload']['content'] == '') {
+                                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][6]);
+                            } else {
+                                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][7]);
+                            }
+                        }
+                    }
+                });
             this.messageBoxInput = '';
         }
     }

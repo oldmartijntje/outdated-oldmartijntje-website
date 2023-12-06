@@ -3,14 +3,14 @@
         <h2>Chat Room</h2>
     </div>
     <div class="chat-messages">
-        <div *ngFor="let message of reverseOrderOfList(sentMessages)" class="message">
+        <div *ngFor="let message of reverseOrderOfList(sentMessages)" class="message background-{{message.type}}">
             <div style="word-wrap: break-word;">
                 <strong class="nameColor-{{message.type}}" *ngIf="message.type != 'oldmartijntje'">
                     <{{ message.username }}>
                 </strong>
                 <strong class="nameColor-{{message.type}}" *ngIf="message.type == 'oldmartijntje'">
                     👑{{ message.username }}
-                </strong> ({{ message.datetime }}): {{ message.content }}
+                </strong> ({{ message.datetime }}): <div [innerHTML]="sanitizeHtml(message.content)"></div>
             </div>
         </div>
     </div>

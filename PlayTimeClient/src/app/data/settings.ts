@@ -49,37 +49,64 @@ export const DefaultMessages: any[] = [
             datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
             username: 'SYSTEM',
             content: 'Username is too long. ' + Settings['usernameMaxLength'] + ' is the limit.',
-            type: 'system'
+            type: 'warning',
+            SysId: 0
         },
         {
             datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
             username: 'SYSTEM',
             content: 'Message is too long. ' + Settings['messageMaxLength'] + ' is the limit.',
-            type: 'system'
+            type: 'warning',
+            SysId: 1
         },
         {
             datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
             username: 'SYSTEM',
             content: 'Sucessfully changed username to ||USERNAME||',
-            type: 'system'
+            type: 'system',
+            SysId: 2
         },
         {
             datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
             username: 'SYSTEM',
             content: 'Changing your name into ||USERNAME|| is not allowed.',
-            type: 'system'
+            type: 'warning',
+            SysId: 3
         },
         {
             datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
             username: 'SYSTEM',
             content: 'Username is too short. ' + Settings['usernameMinLength'] + ' is the minimum.',
-            type: 'system'
+            type: 'warning',
+            SysId: 4
         },
         {
             datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
             username: 'SYSTEM',
             content: 'Message is too short. ' + Settings['messageMinLength'] + ' is the minimum.',
-            type: 'system'
+            type: 'warning',
+            SysId: 5
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SERVER',
+            content: 'The server received your message, but it was empty. This means your message only had illegal characters.',
+            type: 'error',
+            SysId: 6
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SERVER',
+            content: 'The server received your message, but your username was empty. This means your username only had illegal characters. The only characters allowed are letters, numbers, semicolons, and underscores. (a-z, A-Z, 0-9, :, ;, _)',
+            type: 'error',
+            SysId: 7
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SYSTEM',
+            content: 'You need to type something to rename yourself as, for example: "/nick CoolUsername"',
+            type: 'warning',
+            SysId: 8
         }
     ]
 ]
