@@ -105,7 +105,7 @@ export class MessagePageComponent implements OnInit {
             if (Settings['blackListedUsernames'].includes(nickname)) {
                 //error message for too long nickname
                 this.sentMessages = this.sentMessages.concat(
-                    this.generateMessage(nickname, DefaultMessages[1][3])
+                    this.generateMessage(nickname, DefaultMessages[1][3], '||USERNAME||')
                 );
                 return;
             }
@@ -114,7 +114,7 @@ export class MessagePageComponent implements OnInit {
             this.nickname = nickname;
             // message for succesfully changing username
             this.sentMessages = this.sentMessages.concat(
-                this.generateMessage(nickname, DefaultMessages[1][2])
+                this.generateMessage(nickname, DefaultMessages[1][2], '||USERNAME||')
             );
             return;
         } else if (this.messageBoxInput == '/nick') {
@@ -143,6 +143,10 @@ export class MessagePageComponent implements OnInit {
                                 this.sentMessages = this.sentMessages.concat(DefaultMessages[1][7]);
                             }
                         }
+                    } else {
+                        this.sentMessages = this.sentMessages.concat(
+                            this.generateMessage(error.error['error'], DefaultMessages[1][9], '||ERROR||')
+                        );
                     }
                 });
             this.messageBoxInput = '';
@@ -159,9 +163,9 @@ export class MessagePageComponent implements OnInit {
         });
     }
 
-    generateMessage(username: string, message: any) {
+    generateMessage(username: string, message: any, replaceString: string = '||USERNAME||') {
         var newMessage = { ...message };
-        newMessage.content = newMessage.content.replace('||USERNAME||', username);
+        newMessage.content = newMessage.content.replace(replaceString, username);
         return newMessage;
     }
 }

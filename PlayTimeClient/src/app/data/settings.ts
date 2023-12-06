@@ -107,6 +107,13 @@ export const DefaultMessages: any[] = [
             content: 'You need to type something to rename yourself as, for example: "/nick CoolUsername"',
             type: 'warning',
             SysId: 8
+        },
+        {
+            datetime: date.toLocaleDateString() + ' ' + date.toLocaleTimeString(),
+            username: 'SERVER',
+            content: '||ERROR||',
+            type: 'error',
+            SysId: 9
         }
     ]
 ]
