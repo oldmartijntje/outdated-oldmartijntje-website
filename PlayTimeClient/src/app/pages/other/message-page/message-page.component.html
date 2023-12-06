@@ -1,0 +1,16 @@
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Chat Room</h2>
+    </div>
+    <div class="chat-messages">
+        <div *ngFor="let message of sentMessages" class="message">
+            <div>
+                <strong>{{ message.username }}</strong> ({{ message.timeSent }}): {{ message.text }}
+            </div>
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" placeholder="Type your message..." />
+        <button (click)="sendMessage()">Send</button>
+    </div>
+</div>

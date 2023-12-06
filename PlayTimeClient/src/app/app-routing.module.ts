@@ -6,6 +6,7 @@ import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/n
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
 import { ApplicationPageComponent } from './pages/main/application-page/application-page.component';
 import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.component';
+import { MessagePageComponent } from './pages/other/message-page/message-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: 'Editor', component: EditorPageComponent },
     { path: 'Railroad', component: RailroadinkPageComponent },
     { path: 'AdBee', component: AdflyPageComponent },
+    { path: 'Chat', component: MessagePageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 

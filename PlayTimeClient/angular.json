@@ -7,7 +7,8 @@
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
-                    "style": "scss"
+                    "style": "scss",
+                    "standalone": false
                 }
             },
             "root": "",
@@ -73,10 +74,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                          "buildTarget": "PlayTime:build:production"
+                            "buildTarget": "PlayTime:build:production"
                         },
                         "development": {
-                          "buildTarget": "PlayTime:build:development"
+                            "buildTarget": "PlayTime:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -84,7 +85,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                      "buildTarget": "PlayTime:build"
+                        "buildTarget": "PlayTime:build"
                     }
                 },
                 "test": {
