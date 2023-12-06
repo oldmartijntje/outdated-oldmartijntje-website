@@ -18,7 +18,7 @@ const smallAdList: displayAd[] = [
     {
         "link": "./Chat",
         "image": "../../../../assets/images/buttons/single.gif",
-        "blank_": true
+        "blank_": false
     },
     {
         "link": "",

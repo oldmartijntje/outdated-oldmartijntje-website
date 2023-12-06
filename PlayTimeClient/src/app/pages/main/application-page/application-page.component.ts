@@ -60,6 +60,7 @@ export class ApplicationPageComponent implements OnInit {
         setInterval(() => {
             this.gatAPI();
         }, 60000);
+
         for (let i = 0; i < shortcuts.length; i++) {
             try {
                 this.lastId += 1;
