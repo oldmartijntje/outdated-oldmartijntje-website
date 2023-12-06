@@ -1,12 +1,12 @@
 export const BuildData: any = {
-        "BuildNumber": 51,
+        "BuildNumber": 52,
         "Branch": "main",
         "BuildedCorrectly": true,
         "BuilderVersion": 12,
         "JsonVersion": 3,
         "Builder": "Martijn",
-        "BuildDate": "06/12/2023: 10:32:35",
-        "LastCommitId": "26efd482fa96e783032fe27007c0cdf3da16ff3c",
-        "LastCommitURL": "https://github.com/oldmartijntje/playtime//commit/26efd482fa96e783032fe27007c0cdf3da16ff3c"
+        "BuildDate": "06/12/2023: 10:39:41",
+        "LastCommitId": "246e5478a5982defb40b5fbf7b6dc6bfc9b57da0",
+        "LastCommitURL": "https://github.com/oldmartijntje/playtime//commit/246e5478a5982defb40b5fbf7b6dc6bfc9b57da0"
     };
         
