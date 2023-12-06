@@ -16,6 +16,7 @@ export class MessagePageComponent implements OnInit {
     nickname: string = '';
     lastId: number = 0;
     entered: boolean = false;
+    maxMessageLength: number = Settings['messageMaxLength'];
 
     constructor(
         private backendMiddlemanService: BackendMiddlemanService,

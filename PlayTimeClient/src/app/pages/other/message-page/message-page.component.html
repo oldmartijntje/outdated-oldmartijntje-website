@@ -4,7 +4,7 @@
     </div>
     <div class="chat-messages">
         <div *ngFor="let message of reverseOrderOfList(sentMessages)" class="message">
-            <div>
+            <div style="word-wrap: break-word;">
                 <strong>
                     <{{ message.username }}>
                 </strong> ({{ message.datetime }}): {{ message.content }}
@@ -13,7 +13,7 @@
     </div>
     <div class="chat-input">
         <input type="text" placeholder="Type your message..." [(ngModel)]="messageBoxInput" (input)="onChange()"
-            (keydown.enter)="onEnterPress()" />
+            (keydown.enter)="onEnterPress()" [maxlength]="maxMessageLength" />
         <button (click)="sendMessage()">Send</button>
     </div>
 </div>
