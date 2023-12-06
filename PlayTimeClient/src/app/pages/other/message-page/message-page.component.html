@@ -5,7 +5,7 @@
     <div class="chat-messages">
         <div *ngFor="let message of reverseOrderOfList(sentMessages)" class="message">
             <div style="word-wrap: break-word;">
-                <strong>
+                <strong class="nameColor-{{message.type}}">
                     <{{ message.username }}>
                 </strong> ({{ message.datetime }}): {{ message.content }}
             </div>

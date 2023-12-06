@@ -9,12 +9,16 @@ import { UUID } from '../models/uuid';
 })
 export class BackendServiceService {
     apiUrl = environment.apiUrl;
+    sessionToken: string = '';
 
     constructor(private http: HttpClient) {
         var sessionToken = localStorage.getItem('sessionToken');
         if (sessionToken == null) {
             var uuid = UUID.generate();
             localStorage.setItem('sessionToken', uuid);
+            this.sessionToken = uuid;
+        } else {
+            this.sessionToken = sessionToken;
         }
     }
 
@@ -29,6 +33,7 @@ export class BackendServiceService {
         let body = new HttpParams();
         body = body.set('content', content);
         body = body.set('username', username);
+        body = body.set('sessionToken', this.sessionToken);
         return this.http.post(`${this.apiUrl}/messages/message.php`, body, { headers })
     }
 
@@ -36,11 +41,15 @@ export class BackendServiceService {
         const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         let body = new HttpParams();
         body = body.set('id', id);
+        body = body.set('sessionToken', this.sessionToken);
         return this.http.post(`${this.apiUrl}/messages/getNewMessages.php`, body, { headers });
     }
 
     getMessages(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/messages/message.php`);
+        // Convert sessionToken to a URL-safe format if needed
+        const safeSessionToken = encodeURIComponent(this.sessionToken);
+
+        return this.http.get<any>(`${this.apiUrl}/messages/message.php?sessionToken=${safeSessionToken}`);
     }
 
     ping(): Observable<any> {
