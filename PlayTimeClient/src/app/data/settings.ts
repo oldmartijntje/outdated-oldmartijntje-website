@@ -118,6 +118,14 @@ export const DefaultMessages: any[] = [
     ]
 ]
 
+export const userTypeEmoji: any = {
+    "oldmartijntje": "👑",
+    "system": "🤖",
+    "warning": "⚠️",
+    "error": "❌",
+    "mogus": "ඞ"
+}
+
 export const PageInfo: any = [
     {
         "Navigate": {

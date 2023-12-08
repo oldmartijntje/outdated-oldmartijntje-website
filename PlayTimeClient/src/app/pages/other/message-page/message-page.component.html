@@ -7,13 +7,13 @@
             class="message background-{{message.type}} {{getYourMessageClass(message, 'background')}}">
             <div style="word-wrap: break-word;">
                 <strong class="nameColor-{{message.type}} {{getYourMessageClass(message, 'nameColor')}}"
-                    *ngIf="message.type != 'oldmartijntje'">
-                    {{ message.username }}<span
-                        *ngIf="!message.yours && message.username != 'SYSTEM' && message.username != 'SERVER'">#{{message.uid}}</span>
+                    *ngIf="message.type == ''">
+                    {{ message.username }}<span *ngIf="showNumber(message)">#{{message.uid}}</span>
                 </strong>
                 <strong class="nameColor-{{message.type}} {{getYourMessageClass(message, 'nameColor')}}"
-                    *ngIf="message.type == 'oldmartijntje'">
-                    👑{{ message.username }}<span *ngIf="!message.yours">#{{message.uid}}</span>
+                    *ngIf="message.type != ''">
+                    <span>{{getEmojiByMessage(message)}}</span>{{ message.username }}<span
+                        *ngIf="showNumber(message)">#{{message.uid}}</span>
                 </strong> ({{ message.datetime }}): <div [innerHTML]="sanitizeHtml(message.content)"></div>
             </div>
         </div>

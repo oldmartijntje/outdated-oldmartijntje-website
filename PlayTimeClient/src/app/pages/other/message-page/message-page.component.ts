@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
-import { DefaultUserNames, DefaultMessages, Settings } from 'src/app/data/settings';
+import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji } from 'src/app/data/settings';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -45,8 +45,6 @@ export class MessagePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.warn('This is a warning message!');
-
         // Set up an interval to call gatAPI() every minute (30,000 milliseconds)
         setInterval(() => {
             this.gatAPI();
@@ -74,6 +72,11 @@ export class MessagePageComponent implements OnInit {
 
     }
 
+    getEmojiByMessage(message: any): string {
+        const messageType = message['type'];
+        return userTypeEmoji[messageType] || '';
+    }
+
     generateRandomName(): string {
         var nickname = DefaultUserNames[this.getRandomNumber(0, DefaultUserNames.length - 1)];
         return nickname;
@@ -92,6 +95,19 @@ export class MessagePageComponent implements OnInit {
 
     sanitizeHtml(html: string): SafeHtml {
         return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+
+    showNumber(message: any) {
+        if (message['yours'] == true) {
+            return false;
+        } else if (message['type'] == "error") {
+            return false;
+        } else if (message['type'] == "warning") {
+            return false;
+        } else if (message['type'] == "system") {
+            return false;
+        }
+        return true;
     }
 
 
