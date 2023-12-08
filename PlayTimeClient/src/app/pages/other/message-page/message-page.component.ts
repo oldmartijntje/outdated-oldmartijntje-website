@@ -29,6 +29,13 @@ export class MessagePageComponent implements OnInit {
         this.onChange();
     }
 
+    getYourMessageClass(message: any, type: string): string {
+        if (message['yours'] == true) {
+            return `${type}-yours`;
+        }
+        return '';
+    }
+
     onEnterPress() {
         if (this.entered) {
             return;
@@ -69,7 +76,6 @@ export class MessagePageComponent implements OnInit {
 
     generateRandomName(): string {
         var nickname = DefaultUserNames[this.getRandomNumber(0, DefaultUserNames.length - 1)];
-        nickname = nickname + this.getRandomNumber(100000, 999999);
         return nickname;
     }
 
