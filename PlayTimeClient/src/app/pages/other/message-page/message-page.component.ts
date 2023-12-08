@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
-import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji } from 'src/app/data/settings';
+import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdentifierTypes } from 'src/app/data/settings';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -45,6 +45,7 @@ export class MessagePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.sanitizeInput("/ban", false, true))
         // Set up an interval to call gatAPI() every minute (30,000 milliseconds)
         setInterval(() => {
             this.gatAPI();
@@ -98,22 +99,24 @@ export class MessagePageComponent implements OnInit {
     }
 
     showNumber(message: any) {
-        if (message['yours'] == true) {
+        if (message['yours'] === true) {
             return false;
-        } else if (message['type'] == "error") {
-            return false;
-        } else if (message['type'] == "warning") {
-            return false;
-        } else if (message['type'] == "system") {
+        } else if (hiddenIdentifierTypes.includes(message['type'])) {
             return false;
         }
         return true;
     }
 
+    getCorrectTime(message: any): string {
+        return message.datetime;
+    }
+
+
 
     sendMessage() {
         if (this.messageBoxInput.startsWith('/nick ')) {
             var nickname = this.messageBoxInput.substring(6);
+            nickname = this.sanitizeInput(nickname, true);
             if (nickname.length > Settings['usernameMaxLength']) {
                 //error message for too long nickname
                 this.sentMessages = this.sentMessages.concat(DefaultMessages[1][0]);
@@ -139,40 +142,86 @@ export class MessagePageComponent implements OnInit {
                 this.generateMessage(nickname, DefaultMessages[1][2], '||USERNAME||')
             );
             return;
-        } else if (this.messageBoxInput == '/nick') {
-            //error message for no rename
-            this.sentMessages = this.sentMessages.concat(DefaultMessages[1][8]);
-        } else if (this.messageBoxInput !== '') {
-            if (this.messageBoxInput.length > Settings['messageMaxLength']) {
-                //error message for too long message
-                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][1]);
-                return;
-            } else if (this.messageBoxInput.length < Settings['messageMinLength']) {
-                //error message for too short message
-                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][5]);
-                return;
+        } else if (this.messageBoxInput.startsWith('/')) {
+            if (this.messageBoxInput == '/nick') {
+                //error message for no rename
+                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][8]);
+            } else if (this.messageBoxInput.startsWith('/help')) {
+                this.messageBoxInput = '';
+                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][10]);
+            } else if (this.messageBoxInput.startsWith('/emoji')) {
+
+
+            } else {
+                this.sendMessageToServer()
             }
-            this.backendServiceService.addMessage(this.messageBoxInput, this.nickname).subscribe((data) => {
-                this.onChange(true);
-            },
-                (error) => {
-                    console.error(error);
-                    if (error.status == 422) {
-                        if (error.error['payload'] != undefined) {
-                            if (error.error['payload']['content'] == '') {
-                                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][6]);
-                            } else {
-                                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][7]);
-                            }
-                        }
-                    } else {
-                        this.sentMessages = this.sentMessages.concat(
-                            this.generateMessage(error.error['error'], DefaultMessages[1][9], '||ERROR||')
-                        );
-                    }
-                });
-            this.messageBoxInput = '';
+        } else if (this.messageBoxInput !== '') {
+            this.sendMessageToServer()
         }
+    }
+
+    sanitizeInput(input: string, stricter: boolean, ignoreSlash: boolean = false): string {
+        if (stricter) {
+            input = input.trim().replace(/['"`]/g, '');
+        } else {
+            input = input.replace(/[<>"&'`]/g, (match) => {
+                return {
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    '&': '&amp;',
+                    "'": '&#x27;',
+                    '`': '&#x60;'
+                }[match] || match;
+            });
+        }
+
+        // Remove emojis
+        input = input.replace(/[\u{1F600}-\u{1F64F}]/gu, '');
+
+        // Trim all special characters except numbers and underscores if stricter is true
+        if (stricter) {
+            input = ignoreSlash ? input.replace(/[^\p{L}\p{N}_:;/]/gu, '') : input.replace(/[^\p{L}\p{N}_:;]/gu, '');
+        } else {
+            // Keep specific characters and remove others not suitable for SQL
+            input = ignoreSlash ? input.replace(/[^\p{L}\p{N}_#/$%^&(){\}[\]!@:;"".,<>? ]/gu, '') :
+                input.replace(/[^\p{L}\p{N}_#$%^&(){\}[\]!@:;"".,<>? ]/gu, '');
+        }
+
+        return input;
+    }
+
+    sendMessageToServer() {
+        this.messageBoxInput = this.sanitizeInput(this.messageBoxInput, false);
+        if (this.messageBoxInput.length > Settings['messageMaxLength']) {
+            //error message for too long message
+            this.sentMessages = this.sentMessages.concat(DefaultMessages[1][1]);
+            return;
+        } else if (this.messageBoxInput.length < Settings['messageMinLength']) {
+            //error message for too short message
+            this.sentMessages = this.sentMessages.concat(DefaultMessages[1][5]);
+            return;
+        }
+        this.backendServiceService.addMessage(this.messageBoxInput, this.nickname).subscribe((data) => {
+            this.onChange(true);
+        },
+            (error) => {
+                console.error(error);
+                if (error.status == 422) {
+                    if (error.error['payload'] != undefined) {
+                        if (error.error['payload']['content'] == '') {
+                            this.sentMessages = this.sentMessages.concat(DefaultMessages[1][6]);
+                        } else {
+                            this.sentMessages = this.sentMessages.concat(DefaultMessages[1][7]);
+                        }
+                    }
+                } else {
+                    this.sentMessages = this.sentMessages.concat(
+                        this.generateMessage(error.error['error'], DefaultMessages[1][9], '||ERROR||')
+                    );
+                }
+            });
+        this.messageBoxInput = '';
     }
 
     onChange(force: boolean = false) {

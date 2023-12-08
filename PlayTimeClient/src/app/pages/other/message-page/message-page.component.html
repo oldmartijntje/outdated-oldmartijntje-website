@@ -14,7 +14,7 @@
                     *ngIf="message.type != ''">
                     <span>{{getEmojiByMessage(message)}}</span>{{ message.username }}<span
                         *ngIf="showNumber(message)">#{{message.uid}}</span>
-                </strong> ({{ message.datetime }}): <div [innerHTML]="sanitizeHtml(message.content)"></div>
+                </strong> ({{ getCorrectTime(message) }}): <div [innerHTML]="sanitizeHtml(message.content)"></div>
             </div>
         </div>
     </div>

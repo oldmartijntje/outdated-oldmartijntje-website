@@ -88,7 +88,19 @@ export class MobileApplicationPageComponent implements OnInit {
     }
 
     deleteLocalStorage() {
-        localStorage.clear();
+        const sessionToken = localStorage.getItem("sessionToken");
+
+        // Clear all keys except "sessionToken"
+        for (let key in localStorage) {
+            if (key !== "sessionToken") {
+                localStorage.removeItem(key);
+            }
+        }
+
+        // Restore the "sessionToken"
+        if (sessionToken) {
+            localStorage.setItem("sessionToken", sessionToken);
+        }
     }
 
     getListOfdisplayAds(): displayAd[] {
