@@ -152,11 +152,13 @@ export class MessagePageComponent implements OnInit {
             } else if (this.messageBoxInput.startsWith('/emoji')) {
 
 
+            } else if (this.messageBoxInput.startsWith('/ban')) {
+                this.sendMessageToServer(false);
             } else {
-                this.sendMessageToServer()
+                this.sendMessageToServer();
             }
         } else if (this.messageBoxInput !== '') {
-            this.sendMessageToServer()
+            this.sendMessageToServer();
         }
     }
 
@@ -191,8 +193,8 @@ export class MessagePageComponent implements OnInit {
         return input;
     }
 
-    sendMessageToServer() {
-        this.messageBoxInput = this.sanitizeInput(this.messageBoxInput, false);
+    sendMessageToServer(trimSlash: boolean = true) {
+        this.messageBoxInput = this.sanitizeInput(this.messageBoxInput, false, !trimSlash);
         if (this.messageBoxInput.length > Settings['messageMaxLength']) {
             //error message for too long message
             this.sentMessages = this.sentMessages.concat(DefaultMessages[1][1]);
