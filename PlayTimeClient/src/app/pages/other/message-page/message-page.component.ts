@@ -45,7 +45,6 @@ export class MessagePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.sanitizeInput("/ban", false, true))
         // Set up an interval to call gatAPI() every minute (30,000 milliseconds)
         setInterval(() => {
             this.gatAPI();
@@ -153,6 +152,8 @@ export class MessagePageComponent implements OnInit {
 
 
             } else if (this.messageBoxInput.startsWith('/ban')) {
+                this.sendMessageToServer(false);
+            } else if (this.messageBoxInput.startsWith('/unban')) {
                 this.sendMessageToServer(false);
             } else {
                 this.sendMessageToServer();
