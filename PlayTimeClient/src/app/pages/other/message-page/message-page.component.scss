@@ -95,3 +95,45 @@
 .nameColor-warning {
     color: #f2a028;
 }
+
+.chatButton {
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.emojiContainer {
+    user-select: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+    overflow-y: scroll;
+    max-height: 600px;
+
+    .emoji {
+        max-width: 200px;
+        word-wrap: break-word;
+        margin: 5px;
+        cursor: pointer;
+        background-color: grey;
+        border-radius: 5px;
+        padding: 2px;
+        max-height: 40px;
+        min-width: 3rem;
+
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+.flex {
+    display: flex;
+}

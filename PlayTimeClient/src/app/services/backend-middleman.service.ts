@@ -13,6 +13,10 @@ export class BackendMiddlemanService {
         "value": undefined,
         "date": undefined
     };
+    emojiCall: { [key: string]: any } = {
+        "value": undefined,
+        "date": undefined
+    };
     messagesSinceCall: { [key: string]: any } = {
         "value": undefined,
         "date": undefined
@@ -90,6 +94,26 @@ export class BackendMiddlemanService {
             return performGetMessages().then(() => Promise.resolve(this.messagesCall["value"]))
         } else {
             return this.messagesCall['value'];
+        }
+    }
+
+    getEmoji(): Promise<any> {
+        const performGetEmoji = () => {
+            try {
+                const emoji = this.backendServiceService.getEmoji().toPromise();
+                this.emojiCall['value'] = emoji;
+                return emoji;
+            } catch (error) {
+                // Handle error if needed
+                console.error("Error fetching emoji:", error);
+                throw error;
+            }
+        };
+
+        if (this.emojiCall['value'] === undefined || this.isPingOlderThanXMinutes(60, this.emojiCall)) {
+            return performGetEmoji().then(() => Promise.resolve(this.emojiCall["value"]))
+        } else {
+            return this.emojiCall['value'];
         }
     }
 

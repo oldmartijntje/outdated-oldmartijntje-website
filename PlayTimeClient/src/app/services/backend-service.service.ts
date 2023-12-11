@@ -45,6 +45,13 @@ export class BackendServiceService {
         return this.http.post(`${this.apiUrl}/messages/getNewMessages.php`, body, { headers });
     }
 
+    getEmoji(): Observable<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        let body = new HttpParams();
+        body = body.set('sessionToken', this.sessionToken);
+        return this.http.post(`${this.apiUrl}/messages/emojis.php`, body, { headers });
+    }
+
     getMessages(): Observable<any> {
         // Convert sessionToken to a URL-safe format if needed
         const safeSessionToken = encodeURIComponent(this.sessionToken);

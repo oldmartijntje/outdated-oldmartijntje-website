@@ -18,6 +18,8 @@ export class MessagePageComponent implements OnInit {
     lastId: number = 0;
     entered: boolean = false;
     maxMessageLength: number = Settings['messageMaxLength'];
+    emojiPanel: boolean = false;
+    emojiList: any[] = [];
 
     constructor(
         private backendMiddlemanService: BackendMiddlemanService,
@@ -42,6 +44,17 @@ export class MessagePageComponent implements OnInit {
         }
         this.entered = true;
         this.sendMessage();
+    }
+
+    addEmojiToInput(emoji: string) {
+        this.messageBoxInput += emoji;
+        if (this.messageBoxInput.length > Settings['messageMaxLength']) {
+            this.messageBoxInput = this.messageBoxInput.substring(0, Settings['messageMaxLength']);
+        }
+    }
+
+    showEmojiPanel() {
+        this.emojiPanel = !this.emojiPanel;
     }
 
     ngOnInit(): void {
@@ -69,6 +82,20 @@ export class MessagePageComponent implements OnInit {
             }
             this.nickname = nickname;
         }
+
+        this.backendServiceService.getEmoji().subscribe((data) => {
+            // Assuming data['data'] is the dictionary you want to iterate over
+            this.emojiList = Object.entries(data['data']).map(([key, value]) => ({ code: key, emoji: value }));
+            for (let i = 0; i < this.emojiList.length; i++) {
+                let emoji = this.emojiList[i];
+                if (!emoji['code'].startsWith(':')) {
+                    // Remove the emoji if the code doesn't start with a colon
+                    this.emojiList.splice(i, 1);
+                    i--; // Adjust the loop counter after removing an element
+                }
+            }
+            console.log(this.emojiList);
+        });
 
     }
 

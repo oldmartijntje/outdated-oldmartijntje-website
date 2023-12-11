@@ -127,7 +127,7 @@ export const DefaultMessages: any[] = [
         {
             datetime: londonDatetime,
             username: 'SYSTEM',
-            content: 'Use /nick to change your nickname, /emoji to get all emoji codes',
+            content: 'Use /nick to change your nickname. Use /help for other commands.',
             type: 'system',
             SysId: 10
         }

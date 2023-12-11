@@ -21,6 +21,14 @@
     <div class="chat-input">
         <input type="text" placeholder="Type your message..." [(ngModel)]="messageBoxInput" (input)="onChange()"
             (keydown.enter)="onEnterPress()" [maxlength]="maxMessageLength" />
-        <button (click)="sendMessage()">Send</button>
+        <button (click)="showEmojiPanel()" class="chatButton"
+            style="background-color: gray; padding: 2px 16px; margin-right: 10px;"><mat-icon>emoji_emotions</mat-icon></button>
+        <button (click)="sendMessage()" class="chatButton">Send</button>
+    </div>
+    <div class="emojiContainer flex" *ngIf="emojiPanel">
+        <div *ngFor="let emoji of emojiList" (click)="addEmojiToInput(emoji.code)" class="emoji flex"
+            title="{{emoji.code}}">
+            <p>{{emoji.emoji}}</p>
+        </div>
     </div>
 </div>
