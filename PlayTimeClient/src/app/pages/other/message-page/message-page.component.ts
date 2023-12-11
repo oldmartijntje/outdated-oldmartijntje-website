@@ -92,6 +92,10 @@ export class MessagePageComponent implements OnInit {
                     // Remove the emoji if the code doesn't start with a colon
                     this.emojiList.splice(i, 1);
                     i--; // Adjust the loop counter after removing an element
+                } else if (emoji['emoji'].startsWith('https://')) {
+                    // Remove the emoji if the code doesn't start with a colon
+                    this.emojiList.splice(i, 1);
+                    i--; // Adjust the loop counter after removing an element
                 }
             }
             console.log(this.emojiList);

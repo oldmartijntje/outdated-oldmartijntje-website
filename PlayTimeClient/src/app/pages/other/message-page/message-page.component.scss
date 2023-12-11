@@ -3,7 +3,12 @@
     margin: auto;
     border: 1px solid #ccc;
     border-radius: 8px;
-    overflow: hidden;
+    // overflow: hidden;
+    max-height: 600px;
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 
     .chat-header {
         background-color: #3498db;
@@ -13,6 +18,7 @@
     }
 
     .chat-messages {
+        flex: 2;
         height: 300px;
         padding: 10px;
         overflow: auto;
@@ -105,12 +111,13 @@
 }
 
 .emojiContainer {
+    flex: 1;
     user-select: none;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 10px;
-    overflow-y: scroll;
-    max-height: 600px;
+    overflow: auto;
+    flex-direction: row;
 
     .emoji {
         max-width: 200px;
@@ -136,4 +143,10 @@
 
 .flex {
     display: flex;
+}
+
+.body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
 }
