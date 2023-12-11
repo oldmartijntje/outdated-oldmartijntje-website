@@ -8,7 +8,7 @@ import { EditorSettings } from 'src/app/data/settings';
 })
 export class RuntimeServiceService {
     private outputSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
-    private mobileModeSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({});
+    private mobileModeSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({ "MobileUser": false, "MobileMode": false });
     private consoleSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private problemsSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private pageVariablesSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({});

@@ -4,6 +4,7 @@ import { BackendMiddlemanService } from 'src/app/services/backend-middleman.serv
 import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdentifierTypes } from 'src/app/data/settings';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 @Component({
     selector: 'app-message-page',
@@ -20,11 +21,13 @@ export class MessagePageComponent implements OnInit {
     maxMessageLength: number = Settings['messageMaxLength'];
     emojiPanel: boolean = false;
     emojiList: any[] = [];
+    mobileMode: boolean = true;
 
     constructor(
         private backendMiddlemanService: BackendMiddlemanService,
         private backendServiceService: BackendServiceService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private runtimeServiceService: RuntimeServiceService
     ) { }
 
     gatAPI(): void {
@@ -98,7 +101,10 @@ export class MessagePageComponent implements OnInit {
                     i--; // Adjust the loop counter after removing an element
                 }
             }
-            console.log(this.emojiList);
+        });
+
+        this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {
+            this.mobileMode = value['MobileMode'];
         });
 
     }

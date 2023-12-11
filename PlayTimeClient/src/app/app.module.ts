@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoinClickerGameComponent } from './components/other/coin-clicker-game/coin-clicker-game.component';
 import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.component';
 import { MessagePageComponent } from './pages/other/message-page/message-page.component';
+import { UiElementComponent } from './components/other/ui-element/ui-element.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { MessagePageComponent } from './pages/other/message-page/message-page.co
         CoinClickerGameComponent,
         AdflyPageComponent,
         ErrorPageComponent,
-        MessagePageComponent
+        MessagePageComponent,
+        UiElementComponent
     ],
     imports: [
         BrowserModule,

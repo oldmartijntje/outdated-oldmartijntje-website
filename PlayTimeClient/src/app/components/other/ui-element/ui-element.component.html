@@ -1,0 +1,19 @@
+<div class="pageContainer flex">
+    <header *ngIf="!disabled">
+        page header
+    </header>
+    <div class="container flex">
+        <div class="sidePanel" *ngIf="!disabled">
+            <p>sidebar</p>
+        </div>
+        <div>
+            <ng-content></ng-content>
+        </div>
+        <div class="sidePanel" *ngIf="!disabled">
+            sidebar
+        </div>
+    </div>
+    <footer *ngIf="!disabled">
+        footer
+    </footer>
+</div>
