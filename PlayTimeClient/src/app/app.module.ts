@@ -29,6 +29,7 @@ import { CoinClickerGameComponent } from './components/other/coin-clicker-game/c
 import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.component';
 import { MessagePageComponent } from './pages/other/message-page/message-page.component';
 import { UiElementComponent } from './components/other/ui-element/ui-element.component';
+import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/project-gallery-page.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { UiElementComponent } from './components/other/ui-element/ui-element.com
         AdflyPageComponent,
         ErrorPageComponent,
         MessagePageComponent,
-        UiElementComponent
+        UiElementComponent,
+        ProjectGalleryPageComponent
     ],
     imports: [
         BrowserModule,
