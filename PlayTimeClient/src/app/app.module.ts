@@ -30,6 +30,8 @@ import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.componen
 import { MessagePageComponent } from './pages/other/message-page/message-page.component';
 import { UiElementComponent } from './components/other/ui-element/ui-element.component';
 import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/project-gallery-page.component';
+import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
+import { VisualNovelComponent } from './components/other/visual-novel/visual-novel.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +49,9 @@ import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/
         ErrorPageComponent,
         MessagePageComponent,
         UiElementComponent,
-        ProjectGalleryPageComponent
+        ProjectGalleryPageComponent,
+        ContentPlayerPageComponent,
+        VisualNovelComponent
     ],
     imports: [
         BrowserModule,

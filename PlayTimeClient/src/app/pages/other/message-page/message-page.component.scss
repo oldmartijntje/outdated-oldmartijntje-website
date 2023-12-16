@@ -1,6 +1,5 @@
 .chat-container {
     flex: 1;
-    max-width: 600px;
     margin: auto;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -150,4 +149,5 @@
     height: 100%;
     margin: 0;
     overflow: hidden;
+    width: 100%;
 }

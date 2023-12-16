@@ -1,19 +1,19 @@
 <div class="pageContainer flex">
-    <header *ngIf="!disabled">
+    <header *ngIf="isWideScreen">
         page header
     </header>
     <div class="container flex">
-        <div class="sidePanel" *ngIf="!disabled">
+        <div class="sidePanel" *ngIf="isWideScreen">
             <p>sidebar</p>
         </div>
-        <div>
+        <div [ngStyle]="{'min-width':widthOfContent, 'max-width': maxWidthOfContent}">
             <ng-content></ng-content>
         </div>
-        <div class="sidePanel" *ngIf="!disabled">
+        <div class="sidePanel" *ngIf="isWideScreen">
             sidebar
         </div>
     </div>
-    <footer *ngIf="!disabled">
+    <footer *ngIf="isWideScreen">
         footer
     </footer>
 </div>

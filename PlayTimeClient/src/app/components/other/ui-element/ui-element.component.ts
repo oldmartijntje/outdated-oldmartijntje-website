@@ -6,5 +6,15 @@ import { Component, Input } from '@angular/core';
     styleUrl: './ui-element.component.scss'
 })
 export class UiElementComponent {
-    @Input() disabled: boolean = true;
+    @Input() widthOfContent: string = '800px';
+    @Input() maxWidthOfContent: string = 'none';
+
+    isWideScreen: boolean = window.innerWidth >= 1024;
+
+    constructor() {
+        // Listen to window resize events to update the flag
+        window.addEventListener('resize', () => {
+            this.isWideScreen = window.innerWidth >= 1024;
+        });
+    }
 }

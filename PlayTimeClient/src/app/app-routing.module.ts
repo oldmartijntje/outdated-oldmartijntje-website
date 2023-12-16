@@ -8,6 +8,7 @@ import { ApplicationPageComponent } from './pages/main/application-page/applicat
 import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.component';
 import { MessagePageComponent } from './pages/other/message-page/message-page.component';
 import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/project-gallery-page.component';
+import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'AdBee', component: AdflyPageComponent },
     { path: 'Chat', component: MessagePageComponent },
     { path: 'Projects', component: ProjectGalleryPageComponent },
+    { path: 'Player', component: ContentPlayerPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 
