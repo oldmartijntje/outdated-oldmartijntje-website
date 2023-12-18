@@ -9,12 +9,12 @@ export class UiElementComponent {
     @Input() widthOfContent: string = '800px';
     @Input() maxWidthOfContent: string = 'none';
 
-    isWideScreen: boolean = window.innerWidth >= 1024;
+    isWideScreen: boolean = window.innerWidth >= 900;
 
     constructor() {
         // Listen to window resize events to update the flag
         window.addEventListener('resize', () => {
-            this.isWideScreen = window.innerWidth >= 1024;
+            this.isWideScreen = window.innerWidth >= 900;
         });
     }
 }
