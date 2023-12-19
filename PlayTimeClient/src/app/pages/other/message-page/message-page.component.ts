@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
-import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdentifierTypes } from 'src/app/data/settings';
+import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdentifierTypes, serverSideCommands } from 'src/app/data/settings';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
@@ -99,6 +99,10 @@ export class MessagePageComponent implements OnInit {
                     // Remove the emoji if the code doesn't start with a colon
                     this.emojiList.splice(i, 1);
                     i--; // Adjust the loop counter after removing an element
+                } else if (emoji['emoji'] == "\n") {
+                    emoji['emoji'] = '[ENTER]';
+                } else {
+                    //console.log(emoji);
                 }
             }
         });
@@ -185,15 +189,15 @@ export class MessagePageComponent implements OnInit {
             } else if (this.messageBoxInput.startsWith('/help')) {
                 this.messageBoxInput = '';
                 this.sentMessages = this.sentMessages.concat(DefaultMessages[1][10]);
-            } else if (this.messageBoxInput.startsWith('/emoji')) {
-
-
-            } else if (this.messageBoxInput.startsWith('/ban')) {
-                this.sendMessageToServer(false);
-            } else if (this.messageBoxInput.startsWith('/unban')) {
-                this.sendMessageToServer(false);
+            } else if (this.messageBoxInput.startsWith('/admin')) {
+                this.messageBoxInput = '';
+                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][11]);
             } else {
-                this.sendMessageToServer();
+                if (serverSideCommands.some(commands => this.messageBoxInput.startsWith(commands))) {
+                    this.sendMessageToServer(false);
+                } else {
+                    this.sendMessageToServer();
+                }
             }
         } else if (this.messageBoxInput !== '') {
             this.sendMessageToServer();
@@ -243,6 +247,16 @@ export class MessagePageComponent implements OnInit {
             return;
         }
         this.backendServiceService.addMessage(this.messageBoxInput, this.nickname).subscribe((data) => {
+            if (data['command'] == '/checkuser') {
+                var newMessage = this.generateMessage(data['data']['userId'], DefaultMessages[1][13], '||USERNAME||');
+                newMessage = this.generateMessage(data['data']['sameIp'], newMessage, '||USERNAMES||');
+                newMessage = this.generateMessage(data['data']['isBanned'], newMessage, '||BANNED||');
+                this.sentMessages = this.sentMessages.concat(newMessage);
+            } else if (data['data'] != undefined) {
+                this.sentMessages = this.sentMessages.concat(
+                    this.generateMessage(data['message'], this.generateMessage(data['command'], this.generateMessage(data['data'], DefaultMessages[1][12], '||DATA||'), '||COMMAND||'), '||MESSAGE||')
+                );
+            }
             this.onChange(true);
         },
             (error) => {
