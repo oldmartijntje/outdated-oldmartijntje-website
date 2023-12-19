@@ -206,12 +206,12 @@ export class MessagePageComponent implements OnInit {
         } else {
             input = input.replace(/[<>"&'`]/g, (match) => {
                 return {
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    '&': '&amp;',
-                    "'": '&#x27;',
-                    '`': '&#x60;'
+                    '<': ':smallerThan:',
+                    '>': ':biggerThan:',
+                    '"': ':doubleQuote:',
+                    '&': ':and:',
+                    "'": ':singleQuote:',
+                    '`': ':backtick:'
                 }[match] || match;
             });
         }
