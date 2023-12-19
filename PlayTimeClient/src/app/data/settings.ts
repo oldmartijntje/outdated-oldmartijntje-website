@@ -141,6 +141,8 @@ export const userTypeEmoji: any = {
     "error": "❌",
     "mogus": "ඞ",
     "butterfly": "🦋",
+    "japaneseSymbolForBeginner": "🔰",
+    "pregnart": "🫃"
 }
 
 export const hiddenIdentifierTypes: any = [
