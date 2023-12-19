@@ -127,9 +127,16 @@ export const DefaultMessages: any[] = [
         {
             datetime: londonDatetime,
             username: 'SYSTEM',
-            content: 'Use /nick to change your nickname. Use /help for other commands.',
+            content: 'Use /nick to change your nickname. \nUse /help for other commands. \nUse /admin to get admin commands.',
             type: 'system',
             SysId: 10
+        },
+        {
+            datetime: londonDatetime,
+            username: 'SYSTEM',
+            content: 'Use /ban {userId} to ban a user.\nUse /unban {userId} to unban a user.\nUse /ipban {userId} to ban an IP.\nUse /ipunban {userId} to unban an IP.\nUse /getipbans to get all banned IPs (encrypted).\nUse /getidbybans {ipBanId} to get all users that use a banned IP.\nUse /checkuser {userId} to check if a user is banned and which other users have the same IP.',
+            type: 'system',
+            SysId: 11
         }
     ]
 ]

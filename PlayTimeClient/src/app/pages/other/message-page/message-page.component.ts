@@ -99,6 +99,10 @@ export class MessagePageComponent implements OnInit {
                     // Remove the emoji if the code doesn't start with a colon
                     this.emojiList.splice(i, 1);
                     i--; // Adjust the loop counter after removing an element
+                } else if (emoji['emoji'] == "\n") {
+                    emoji['emoji'] = '[ENTER]';
+                } else {
+                    //console.log(emoji);
                 }
             }
         });
@@ -185,9 +189,9 @@ export class MessagePageComponent implements OnInit {
             } else if (this.messageBoxInput.startsWith('/help')) {
                 this.messageBoxInput = '';
                 this.sentMessages = this.sentMessages.concat(DefaultMessages[1][10]);
-            } else if (this.messageBoxInput.startsWith('/emoji')) {
-
-
+            } else if (this.messageBoxInput.startsWith('/admin')) {
+                this.messageBoxInput = '';
+                this.sentMessages = this.sentMessages.concat(DefaultMessages[1][11]);
             } else {
                 if (serverSideCommands.some(commands => this.messageBoxInput.startsWith(commands))) {
                     this.sendMessageToServer(false);

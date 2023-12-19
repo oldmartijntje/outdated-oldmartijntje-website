@@ -7,7 +7,7 @@
             <div class="chat-messages">
                 <div *ngFor="let message of reverseOrderOfList(sentMessages)"
                     class="message background-{{message.type}} {{getYourMessageClass(message, 'background')}}">
-                    <div style="word-wrap: break-word;">
+                    <div style="word-wrap: break-word; white-space: pre-line;">
                         <strong class="nameColor-{{message.type}} {{getYourMessageClass(message, 'nameColor')}}"
                             *ngIf="message.type == ''">
                             {{ message.username }}<span *ngIf="showNumber(message)">#{{message.uid}}</span>
