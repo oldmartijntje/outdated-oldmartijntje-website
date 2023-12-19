@@ -247,6 +247,16 @@ export class MessagePageComponent implements OnInit {
             return;
         }
         this.backendServiceService.addMessage(this.messageBoxInput, this.nickname).subscribe((data) => {
+            if (data['command'] == '/checkuser') {
+                var newMessage = this.generateMessage(data['data']['userId'], DefaultMessages[1][13], '||USERNAME||');
+                newMessage = this.generateMessage(data['data']['sameIp'], newMessage, '||USERNAMES||');
+                newMessage = this.generateMessage(data['data']['isBanned'], newMessage, '||BANNED||');
+                this.sentMessages = this.sentMessages.concat(newMessage);
+            } else if (data['data'] != undefined) {
+                this.sentMessages = this.sentMessages.concat(
+                    this.generateMessage(data['message'], this.generateMessage(data['command'], this.generateMessage(data['data'], DefaultMessages[1][12], '||DATA||'), '||COMMAND||'), '||MESSAGE||')
+                );
+            }
             this.onChange(true);
         },
             (error) => {

@@ -137,6 +137,20 @@ export const DefaultMessages: any[] = [
             content: 'Use /ban {userId} to ban a user.\nUse /unban {userId} to unban a user.\nUse /ipban {userId} to ban an IP.\nUse /ipunban {userId} to unban an IP.\nUse /getipbans to get all banned IPs (encrypted).\nUse /getidbybans {ipBanId} to get all users that use a banned IP.\nUse /checkuser {userId} to check if a user is banned and which other users have the same IP.',
             type: 'system',
             SysId: 11
+        },
+        {
+            datetime: londonDatetime,
+            username: 'SYSTEM',
+            content: 'Command: \'||COMMAND||\'.\nData: \'||DATA||\'.\nMessage: \'||MESSAGE||\'.',
+            type: 'system',
+            SysId: 12
+        },
+        {
+            datetime: londonDatetime,
+            username: 'SYSTEM',
+            content: 'These are all accounts on the same IP as ||USERNAME||: ||USERNAMES||\nBanned: ||BANNED||',
+            type: 'system',
+            SysId: 13
         }
     ]
 ]
