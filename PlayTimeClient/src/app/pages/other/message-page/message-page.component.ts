@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
-import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdentifierTypes } from 'src/app/data/settings';
+import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdentifierTypes, serverSideCommands } from 'src/app/data/settings';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
@@ -188,12 +188,12 @@ export class MessagePageComponent implements OnInit {
             } else if (this.messageBoxInput.startsWith('/emoji')) {
 
 
-            } else if (this.messageBoxInput.startsWith('/ban')) {
-                this.sendMessageToServer(false);
-            } else if (this.messageBoxInput.startsWith('/unban')) {
-                this.sendMessageToServer(false);
             } else {
-                this.sendMessageToServer();
+                if (serverSideCommands.some(commands => this.messageBoxInput.startsWith(commands))) {
+                    this.sendMessageToServer(false);
+                } else {
+                    this.sendMessageToServer();
+                }
             }
         } else if (this.messageBoxInput !== '') {
             this.sendMessageToServer();

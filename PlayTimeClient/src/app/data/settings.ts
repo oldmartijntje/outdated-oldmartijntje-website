@@ -145,6 +145,16 @@ export const userTypeEmoji: any = {
     "pregnart": "🫃"
 }
 
+export const serverSideCommands = [
+    '/ban',
+    '/unban',
+    '/ipban',
+    '/ipunban',
+    '/getipbans',
+    '/getidbybans',
+    '/checkuser',
+];
+
 export const hiddenIdentifierTypes: any = [
     "hidden",
     "system",
