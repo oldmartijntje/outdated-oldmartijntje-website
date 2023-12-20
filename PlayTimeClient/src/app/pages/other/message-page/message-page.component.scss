@@ -1,10 +1,13 @@
+@import '../../../../styles.scss';
+
 .chat-container {
     flex: 1;
     margin: auto;
     border: 1px solid #ccc;
     border-radius: 8px;
-    // overflow: hidden;
+    overflow: hidden;
     max-height: 800px;
+    background-color: $background-color;
 
     display: flex;
     flex-direction: column;
