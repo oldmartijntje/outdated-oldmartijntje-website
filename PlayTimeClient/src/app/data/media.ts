@@ -4,6 +4,7 @@ export const DefaultStory = {
         "cheese": 2,
     },
     "startScene": "1",
+    "defaultNextSlideText": "Next Slide...",
     "slides": {
         "1": {
             "type": "prompt",
@@ -19,18 +20,19 @@ export const DefaultStory = {
             "choises": [
                 {
                     "text": "die",
-                    "next": "3"
+                    "next": "5",
+                    "style": "1"
                 },
                 {
                     "text": "cry about it",
                     "next": "4"
                 },
                 {
-                    "text": "cry about it",
+                    "text": "eat a tsar bomba",
                     "next": "1",
                     "if": {
                         "variable": "henk",
-                        "value": 0,
+                        "value": 4,
                         "typeOfCheck": ">",
                         "onlyOption": false,
                         "showAsDisabled": true
@@ -52,6 +54,14 @@ export const DefaultStory = {
             "next": "1",
             "sound": "assets/sounds/1.mp3"
         },
+        "5": {
+            "type": "prompt",
+            "text": "cool, ur ded now",
+            "next": "1",
+            "scene": "1",
+            "nextSlideText": "Restart",
+            "style": "1"
+        },
     }
 }
 
@@ -64,11 +74,17 @@ export const DefaultScenes = {
 
 export const Styling = {
     "default": {
-        "color": "blue"
+        "choices": "2",
+        "nextSlide": "2",
     },
-    "extra": {
+    "styles": {
         "1": {
             "color": "red"
+        },
+        "2": {
+            "color": "black",
+            'cursor': 'pointer',
+            'user-select': 'none'
         }
     }
 }

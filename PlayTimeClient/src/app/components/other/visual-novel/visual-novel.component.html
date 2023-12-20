@@ -9,12 +9,13 @@
         </div>
     </div>
     <div class="optionBar" *ngIf="showChoices()">
-        <div class="option" *ngFor="let option of getAllChoices()" (click)="clickChoice(option.next)">
-            <p>option1</p>
+        <div class="option" *ngFor="let option of getAllChoices()" (click)="clickChoice(option.next)"
+            [ngStyle]="getStyling(option)">
+            <p>{{option.text}}</p>
         </div>
     </div>
     <div class="optionBar" *ngIf="!showChoices()">
-        <div class="option" (click)="clickChoice()">
+        <div class="option" (click)="clickChoice()" [ngStyle]="getStyling()">
             <p>Next Slide..</p>
         </div>
     </div>

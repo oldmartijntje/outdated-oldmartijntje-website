@@ -50,4 +50,24 @@ export class VisualNovelComponent implements OnInit {
         }
         this.slide = this.story.slides[this.currentScene];
     }
+
+    getStyling(option: any = "next"): { [key: string]: string | number } {
+        if (option == "next") {
+            if (this.slide["style"] != undefined) {
+                return this.styling["styles"][this.slide["style"]];
+            } else {
+                return this.styling["styles"][this.styling["default"]["nextSlide"]];
+            }
+        } else {
+            if (option["style"] != undefined) {
+                return this.styling["styles"][option["style"]];
+            } else {
+                return this.styling["styles"][this.styling["default"]["choices"]];
+            }
+        }
+
+
+
+        return {}
+    }
 }

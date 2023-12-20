@@ -24,7 +24,8 @@ export const DefaultStory = {
             "choises": [
                 {
                     "text": "die",
-                    "next": "3"
+                    "next": "5",
+                    "style": "1"
                 },
                 {
                     "text": "cry about it",
@@ -57,6 +58,14 @@ export const DefaultStory = {
             "next": "5",
             "sound": "assets/sounds/1.mp3"
         },
+        "5": {
+            "type": "prompt",
+            "text": "cool, ur ded now",
+            "next": "1",
+            "scene": "1",
+            "nextSlideText": "Restart",
+            "style": "1"
+        },
     }
 }
 
@@ -69,11 +78,17 @@ export const DefaultScenes = {
 
 export const Styling = {
     "default": {
-        "color": "blue"
+        "choices": "2",
+        "nextSlide": "2",
     },
-    "extra": {
+    "styles": {
         "1": {
             "color": "red"
+        },
+        "2": {
+            "color": "blue",
+            'cursor': 'pointer',
+            'user-select': 'none'
         }
     }
 }
