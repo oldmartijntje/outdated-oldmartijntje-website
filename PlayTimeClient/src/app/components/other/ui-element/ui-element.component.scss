@@ -1,3 +1,12 @@
+.fullPage {
+    height: 100%;
+    width: 100%;
+    background-image: url("../../../../assets/images/Background.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 @media only screen and (min-width: 900px) {
     .pageContainer {
         height: 100vh;
@@ -35,4 +44,6 @@
         height: 10%;
         width: 100%;
     }
+
+
 }
