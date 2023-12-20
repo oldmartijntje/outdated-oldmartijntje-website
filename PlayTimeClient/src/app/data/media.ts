@@ -61,3 +61,14 @@ export const DefaultScenes = {
         "music": "assets/music/1.mp3"
     }
 }
+
+export const Styling = {
+    "default": {
+        "color": "blue"
+    },
+    "extra": {
+        "1": {
+            "color": "red"
+        }
+    }
+}
