@@ -23,7 +23,7 @@ export const DefaultStory = {
                 {
                     "text": "die",
                     "next": "5",
-                    "style": "1"
+                    "style": "redText"
                 },
                 {
                     "text": "cry about it",
@@ -65,8 +65,7 @@ export const DefaultStory = {
             "text": "cool, ur ded now",
             "next": "1",
             "scene": "1",
-            "nextSlideText": "Restart",
-            "style": "1"
+            "nextSlideText": "Restart"
         },
         "6": {
             "type": "variable",
@@ -117,18 +116,19 @@ export const DefaultScenes = {
 
 export const Styling = {
     "default": {
-        "choices": "2",
-        "nextSlide": "2",
-        "textBox": "2"
+        "choices": "1",
+        "nextSlide": "1",
+        "textBox": "1"
     },
     "styles": {
         "1": {
-            "color": "red",
+            "background-color": "#313338",
             'cursor': 'pointer',
-            'user-select': 'none'
+            'user-select': 'none',
+            'color': 'white'
         },
-        "2": {
-            "color": "black",
+        "redText": {
+            "color": "red",
             'cursor': 'pointer',
             'user-select': 'none'
         }
