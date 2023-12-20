@@ -21,7 +21,8 @@ header {
 }
 
 .textbox {
-    background-color: saddlebrown;
+    background-color: #313338;
+    border: 1px solid #ffffff;
     margin: 1rem;
     padding: 1rem;
     border-radius: 1rem;
@@ -33,7 +34,8 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: rgb(12, 87, 87);
+    background-color: #313338;
+    border: 1px solid #ffffff;
     margin: 1rem;
     padding: 1rem;
     border-radius: 1rem;
@@ -48,7 +50,6 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: rgb(100, 11, 112);
     margin: 0 1rem 0 1rem;
     border-radius: 1rem;
 }

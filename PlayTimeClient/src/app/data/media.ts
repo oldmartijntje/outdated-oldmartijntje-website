@@ -1,94 +1,142 @@
 export const DefaultStory = {
     "variables": {
-        "henk": 0,
-        "cheese": 2,
+        "coins": 0,
+        "mushrooms": 0
     },
-    "startScene": "1",
+    "startSlide": "1",
     "showSaveButton": true,
     "defaultNextSlideText": "Next Slide...",
     "slides": {
         "1": {
             "type": "prompt",
-            "text": "you bump into a wall",
+            "text": "Welcome to the Mushroom Kingdom!",
             "next": "2",
             "scene": "1"
         },
         "2": {
+            "type": "prompt",
+            "text": "Mario is on a quest to rescue Princess Peach from Bowser's castle.",
+            "next": "3",
+            "scene": "2"
+        },
+        "3": {
             "type": "choice",
-            "text": "what do you do?",
-            "scene": "1",
+            "text": "What should Mario do?",
+            "scene": "3",
             "autoSelectrandom": false,
             "shuffleOrder": false,
-            "choises": [
+            "choices": [
                 {
-                    "text": "die",
-                    "next": "5",
+                    "text": "Jump on Goomba",
+                    "next": "4",
                     "style": "1"
                 },
                 {
-                    "text": "cry about it",
-                    "next": "4"
+                    "text": "Collect coins",
+                    "next": "5"
                 },
                 {
-                    "text": "eat a tsar bomba",
-                    "next": "1",
+                    "text": "Enter warp pipe",
+                    "next": "6",
                     "if": {
-                        "variable": "henk",
-                        "value": 4,
+                        "variable": "mushrooms",
+                        "value": 1,
                         "typeOfCheck": ">",
                         "onlyOption": false,
-                        "showAsDisabled": true
-                    }
+                        "showAsDisabled": false,
+                        "autoClick": false,
+                    },
+                    "disabledStyle": "redText"
                 }
             ]
         },
-        "3": {
+        "4": {
+            "type": "prompt",
+            "text": "Mario defeated the Goomba!",
+            "next": "3",
+            "scene": "2"
+        },
+        "5": {
             "type": "variable",
-            "next": "4",
+            "next": "7",
             "variable": {
-                "name": "henk",
+                "name": "coins",
                 "value": 1,
                 "type": "+"
             },
         },
-        "4": {
-            "type": "playSound",
-            "next": "1",
-            "sound": "assets/sounds/1.mp3"
-        },
-        "5": {
+        "6": {
             "type": "prompt",
-            "text": "cool, ur ded now",
-            "next": "1",
-            "scene": "1",
-            "nextSlideText": "Restart",
-            "style": "1"
+            "text": "The warp pipe takes Mario to a secret level!",
+            "next": "8",
+            "scene": "2"
+        },
+        "7": {
+            "type": "variable",
+            "next": "9",
+            "variable": {
+                "name": "mushrooms",
+                "value": 1,
+                "type": "+"
+            },
+        },
+        "8": {
+            "type": "prompt",
+            "text": "Mario found the hidden treasure!",
+            "next": "3",
+            "scene": "2"
+        },
+        "9": {
+            "type": "prompt",
+            "text": "Mario found a coin!",
+            "next": "3",
+            "scene": "2",
+            "style": "yellowText",
+            "promptStyling": "yellowText",
         },
     }
 }
 
 export const DefaultScenes = {
     "1": {
-        "background": "assets/images/backgrounds/1.jpg",
-        "music": "assets/music/1.mp3"
+        "styling": {
+            "background": "url(\"../assets/images/background.gif\")"
+        }
+    },
+    "2": {
+        "styling": {
+            "background": "#87CEEB"
+        }
+    },
+    "3": {
+        "styling": {
+            "background": "#F0F8FF"
+        }
     }
 }
 
 export const Styling = {
     "default": {
-        "choices": "2",
-        "nextSlide": "2",
+        "choices": "1",
+        "nextSlide": "1",
+        "textBox": "1"
     },
     "styles": {
         "1": {
-            "color": "red",
+            "background-color": "#313338",
             'cursor': 'pointer',
-            'user-select': 'none'
+            'user-select': 'none',
+            'color': 'white'
         },
-        "2": {
+        "redText": {
             "color": "black",
             'cursor': 'pointer',
             'user-select': 'none'
-        }
+        },
+        "yellowText": {
+            "color": "yellow",
+            'cursor': 'pointer',
+            'user-select': 'none'
+        },
     }
 }

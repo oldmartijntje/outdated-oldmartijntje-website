@@ -7,7 +7,8 @@
             <div class="sidePanel" *ngIf="isWideScreen">
                 <p>sidebar</p>
             </div>
-            <div [ngStyle]="{'min-width':widthOfContent, 'max-width': maxWidthOfContent}" style="height: 100%;">
+            <div [ngStyle]="{'min-width':widthOfContent, 'max-width': maxWidthOfContent}" style="height: 100%;"
+                class="background">
                 <ng-content style="height: 100%;"></ng-content>
             </div>
             <div class="sidePanel" *ngIf="isWideScreen">
