@@ -15,15 +15,21 @@ export class VisualNovelComponent implements OnInit {
     @Input() variables: any = { ...DefaultStory["variables"] };
 
     @Output() savingEvent = new EventEmitter<any>();
+    @Output() exitEvent = new EventEmitter<any>();
 
     intro = true;
     slide: any;
     scene: any;
     showSaveIcon: boolean = this.story["showSaveButton"];
+    showExitButton: boolean = this.story["showExitButton"];
     defaultNumberForExceptions: string = "1";
 
     emitSavingEvent() {
         this.savingEvent.emit({ "variables": this.variables, "currentScene": this.currentSlide });
+    }
+
+    emitExitEvent() {
+        this.exitEvent.emit({ "variables": this.variables, "currentScene": this.currentSlide });
     }
 
     constructor(

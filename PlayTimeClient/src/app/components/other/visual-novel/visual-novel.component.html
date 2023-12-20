@@ -3,9 +3,12 @@
         <p>optional</p>
     </header>
     <div class="screen" [ngStyle]="scene.styling">
-        <div class="save icon" style="display: flex; flex-direction: row; justify-content: end;">
+        <div class="save icon" style="display: flex; flex-direction: row-reverse; justify-content: space-between; ">
             <img src="../../../../assets/icons/save.ico" alt="Save Button" style="cursor: pointer; user-select:none;"
                 title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon">
+            <img src="../../../../assets/icons/turnOff.ico" alt="Close Button"
+                style="cursor: pointer; user-select:none;" title="Exit Button" (click)="emitSavingEvent()"
+                *ngIf="showExitButton">
         </div>
         <div class="textbox" [ngStyle]="getStyling('prompt')">
             {{getText()}}
