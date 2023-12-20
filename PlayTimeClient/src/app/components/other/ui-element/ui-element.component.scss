@@ -1,3 +1,5 @@
+@import '../../../../styles.scss';
+
 .fullPage {
     height: 100%;
     width: 100%;
@@ -5,6 +7,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.background {
+    background-color: $background-color;
 }
 
 .container,
