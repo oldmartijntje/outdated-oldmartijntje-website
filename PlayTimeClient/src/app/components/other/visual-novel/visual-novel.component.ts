@@ -35,15 +35,19 @@ export class VisualNovelComponent implements OnInit {
             if (this.currentSlide == "-1") {
                 // if startscene is not defined
                 this.currentSlide = this.defaultNumberForExceptions;
-                this.slide = this.story.slides[this.currentSlide];
+                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
             } else {
-                this.slide = this.story.slides[this.currentSlide];
+                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
             }
         } else {
             this.slide = this.story.slides[this.currentSlide];
         }
         console.log(this.slide);
         this.runNextSlide();
+    }
+
+    deepClone(obj: Record<string, any>): Record<string, any> {
+        return JSON.parse(JSON.stringify(obj));
     }
 
     showChoices() {
@@ -54,17 +58,65 @@ export class VisualNovelComponent implements OnInit {
         return this.slide.text;
     }
 
-    getAllChoices() {
-        return this.slide.choises;
+    getAllChoices(): any {
+        var choices = [...this.slide.choises]
+        var allowedChoices = [];
+        for (let index = 0; index < Object.keys(choices).length; index++) {
+            var allowed = true;
+            const element = choices[index];
+            if (element["if"] != undefined) {
+                allowed = false;
+                if (element["if"]["typeOfCheck"] == "==" && this.variables[element["if"]["variable"]] == element["if"]["value"]) {
+                    allowed = true;
+                } else if (element["if"]["typeOfCheck"] == ">" && this.variables[element["if"]["variable"]] > element["if"]["value"]) {
+                    allowed = true;
+                } else if (element["if"]["typeOfCheck"] == "<" && this.variables[element["if"]["variable"]] < element["if"]["value"]) {
+                    allowed = true;
+                } else if (element["if"]["typeOfCheck"] == ">=" && this.variables[element["if"]["variable"]] >= element["if"]["value"]) {
+                    allowed = true;
+                } else if (element["if"]["typeOfCheck"] == "<=" && this.variables[element["if"]["variable"]] <= element["if"]["value"]) {
+                    allowed = true;
+                } else if (element["if"]["typeOfCheck"] == "!=" && this.variables[element["if"]["variable"]] != element["if"]["value"]) {
+                    allowed = true;
+                }
+            }
+            if (allowed) {
+                element["enabled"] = true;
+                allowedChoices.push(element);
+            } else if (element["if"]["showAsDisabled"]) {
+                element["enabled"] = false;
+                allowedChoices.push(element);
+            }
+
+        }
+        console.log(allowedChoices);
+        for (let index = 0; index < Object.keys(allowedChoices).length; index++) {
+            try {
+                if (allowedChoices[allowedChoices.length - index - 1]["if"]["autoClick"]) {
+                    this.clickChoice(allowedChoices[allowedChoices.length - index - 1]);
+                    break;
+                }
+                if (allowedChoices[allowedChoices.length - index - 1]["if"]["onlyOption"]) {
+                    if (allowedChoices[allowedChoices.length - index - 1]["enabled"]) {
+                        return [allowedChoices[allowedChoices.length - index - 1]];
+                    }
+                }
+            } catch (error) {
+            }
+        }
+        return allowedChoices;
     }
 
-    clickChoice(next: string = "-1") {
-        if (next == "-1") {
+    clickChoice(option: any = { "next": "-1" }) {
+        if (option.enabled == false) {
+            return;
+        }
+        if (option.next == "-1") {
             this.currentSlide = this.slide.next;
         } else {
-            this.currentSlide = next;
+            this.currentSlide = option.next;
         }
-        this.slide = this.story.slides[this.currentSlide];
+        this.slide = this.deepClone(this.story.slides[this.currentSlide]);
         this.runNextSlide();
     }
 
@@ -92,6 +144,8 @@ export class VisualNovelComponent implements OnInit {
             this.setVolume(this.slide.volume);
             this.playAudio(this.slide.sound);
             this.clickChoice();
+        } else if (this.slide.type == "choice") {
+            this.getAllChoices();
         }
     }
 
@@ -109,11 +163,16 @@ export class VisualNovelComponent implements OnInit {
                 return this.styling["styles"][this.styling["default"]["textBox"]];
             }
         } else {
+            var style: { [key: string]: string | number } = {};
             if (option["style"] != undefined) {
-                return this.styling["styles"][option["style"]];
+                style = this.styling["styles"][option["style"]];
             } else {
-                return this.styling["styles"][this.styling["default"]["choices"]];
+                style = this.styling["styles"][this.styling["default"]["choices"]];
             }
+            if (option["enabled"] != undefined && !option["enabled"]) {
+                style = { ...style, ...this.styling["styles"][option["disabledStyle"]] };
+            }
+            return style;
         }
     }
 

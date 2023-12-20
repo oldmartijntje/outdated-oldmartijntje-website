@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="optionBar" *ngIf="showChoices()">
-        <div class="option" *ngFor="let option of getAllChoices()" (click)="clickChoice(option.next)"
+        <div class="option" *ngFor="let option of getAllChoices()" (click)="clickChoice(option)"
             [ngStyle]="getStyling(option)">
             <p>{{option.text}}</p>
         </div>

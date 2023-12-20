@@ -41,9 +41,9 @@ export const DefaultStory = {
                     "if": {
                         "variable": "henk",
                         "value": 0,
-                        "typeOfCheck": ">|<|=|!=",
+                        "typeOfCheck": ">|<|==|!=|>=|<=",
                         "onlyOption": false,
-                        "showAsDisabled": true
+                        "showAsDisabled": false
                     }
                 }
             ]

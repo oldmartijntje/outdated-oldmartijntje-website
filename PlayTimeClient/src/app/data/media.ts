@@ -34,11 +34,13 @@ export const DefaultStory = {
                     "next": "1",
                     "if": {
                         "variable": "henk",
-                        "value": 4,
+                        "value": 2,
                         "typeOfCheck": ">",
                         "onlyOption": false,
-                        "showAsDisabled": true
-                    }
+                        "showAsDisabled": false,
+                        "autoClick": false,
+                    },
+                    "disabledStyle": "1"
                 }
             ]
         },
