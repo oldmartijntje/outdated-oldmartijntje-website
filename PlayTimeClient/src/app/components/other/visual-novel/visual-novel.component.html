@@ -2,12 +2,12 @@
     <header *ngIf="false">
         <p>optional</p>
     </header>
-    <div class="screen">
+    <div class="screen" [ngStyle]="scene.styling">
         <div class="save icon" style="display: flex; flex-direction: row; justify-content: end;">
             <img src="../../../../assets/icons/save.ico" alt="Save Button" style="cursor: pointer; user-select:none;"
                 title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon">
         </div>
-        <div class="textbox">
+        <div class="textbox" [ngStyle]="getStyling('prompt')">
             {{getText()}}
         </div>
     </div>
@@ -19,7 +19,7 @@
     </div>
     <div class="optionBar" *ngIf="!showChoices()">
         <div class="option" (click)="clickChoice()" [ngStyle]="getStyling()">
-            <p>Next Slide..</p>
+            <p>{{getTextForTextBox()}}</p>
         </div>
     </div>
 </div>

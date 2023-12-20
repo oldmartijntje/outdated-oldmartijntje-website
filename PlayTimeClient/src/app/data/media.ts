@@ -1,9 +1,9 @@
+// sound related things in the scenes are not implemented
 export const DefaultStory = {
     "variables": {
-        "henk": 0,
-        "cheese": 2,
+
     },
-    "startScene": "1",
+    "startSlide": "1",
     "showSaveButton": true,
     "defaultNextSlideText": "Next Slide...",
     "slides": {
@@ -16,7 +16,7 @@ export const DefaultStory = {
         "2": {
             "type": "choice",
             "text": "what do you do?",
-            "scene": "1",
+            "scene": "2",
             "autoSelectrandom": false,
             "shuffleOrder": false,
             "choises": [
@@ -27,7 +27,7 @@ export const DefaultStory = {
                 },
                 {
                     "text": "cry about it",
-                    "next": "4"
+                    "next": "3"
                 },
                 {
                     "text": "eat a tsar bomba",
@@ -44,7 +44,7 @@ export const DefaultStory = {
         },
         "3": {
             "type": "variable",
-            "next": "4",
+            "next": "6",
             "variable": {
                 "name": "henk",
                 "value": 1,
@@ -54,9 +54,11 @@ export const DefaultStory = {
         "4": {
             "type": "playSound",
             "next": "1",
-            "sound": "assets/sounds/1.mp3"
+            "sound": "../assets/audio/mario-1-up.mp3",
+            "volume": 0.1,
         },
         "5": {
+            "promptStyling": "1",
             "type": "prompt",
             "text": "cool, ur ded now",
             "next": "1",
@@ -64,13 +66,50 @@ export const DefaultStory = {
             "nextSlideText": "Restart",
             "style": "1"
         },
+        "6": {
+            "type": "variable",
+            "next": "7",
+            "variable": {
+                "name": "henk",
+                "value": 1,
+                "type": "="
+            },
+        },
+        "7": {
+            "type": "variable",
+            "next": "8",
+            "variable": {
+                "name": "henk",
+                "value": 1,
+                "type": "-"
+            },
+        },
+        "8": {
+            "type": "variable",
+            "next": "4",
+            "variable": {
+                "name": "henk",
+                "value": 3,
+                "type": "+"
+            },
+        },
     }
 }
 
 export const DefaultScenes = {
     "1": {
-        "background": "assets/images/backgrounds/1.jpg",
-        "music": "assets/music/1.mp3"
+        "styling": {
+            "background": "url(\"../assets/images/background.gif\")"
+        },
+        "music": "assets/music/1.mp3",
+        "volume": 0.5
+    },
+    "2": {
+        "styling": {
+            "background": "#111"
+        },
+        "music": "assets/music/1.mp3",
+        "volume": 0.5
     }
 }
 
@@ -78,6 +117,7 @@ export const Styling = {
     "default": {
         "choices": "2",
         "nextSlide": "2",
+        "textBox": "2"
     },
     "styles": {
         "1": {

@@ -3,13 +3,15 @@
 
 
 ```ts
+// sound related things in the scenes are not implemented
 export const DefaultStory = {
     "variables": {
         "henk": 0,
         "cheese": 2,
     },
-    "startScene": "1",
+    "startSlide": "1",
     "showSaveButton": true,
+    "defaultNextSlideText": "Next Slide...",
     "slides": {
         "1": {
             "type": "prompt",
@@ -19,8 +21,8 @@ export const DefaultStory = {
         },
         "2": {
             "type": "choice",
-            "text": "you bump into a wall",
-            "scene": "1",
+            "text": "what do you do?",
+            "scene": "2",
             "autoSelectrandom": false,
             "shuffleOrder": false,
             "choises": [
@@ -34,8 +36,8 @@ export const DefaultStory = {
                     "next": "4"
                 },
                 {
-                    "text": "cry about it",
-                    "next": "5",
+                    "text": "eat a tsar bomba",
+                    "next": "1",
                     "if": {
                         "variable": "henk",
                         "value": 0,
@@ -57,10 +59,12 @@ export const DefaultStory = {
         },
         "4": {
             "type": "playSound",
-            "next": "5",
-            "sound": "assets/sounds/1.mp3"
+            "next": "1",
+            "sound": "../assets/audio/mario-1-up.mp3",
+            "volume": 0.1,
         },
         "5": {
+            "promptStyling": "1",
             "type": "prompt",
             "text": "cool, ur ded now",
             "next": "1",
@@ -73,8 +77,18 @@ export const DefaultStory = {
 
 export const DefaultScenes = {
     "1": {
-        "background": "assets/images/backgrounds/1.jpg",
-        "music": "assets/music/1.mp3"
+        "styling": {
+            "background": "url(\"../assets/images/background.gif\")"
+        },
+        "music": "assets/music/1.mp3",
+        "volume": 0.5
+    },
+    "2": {
+        "styling": {
+            "background": "#111"
+        },
+        "music": "assets/music/1.mp3",
+        "volume": 0.5
     }
 }
 
@@ -82,13 +96,16 @@ export const Styling = {
     "default": {
         "choices": "2",
         "nextSlide": "2",
+        "textBox": "2"
     },
     "styles": {
         "1": {
-            "color": "red"
+            "color": "red",
+            'cursor': 'pointer',
+            'user-select': 'none'
         },
         "2": {
-            "color": "blue",
+            "color": "black",
             'cursor': 'pointer',
             'user-select': 'none'
         }
