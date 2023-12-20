@@ -16,6 +16,7 @@ export class VisualNovelComponent implements OnInit {
 
     @Output() savingEvent = new EventEmitter<any>();
 
+    intro = true;
     slide: any;
     scene: any;
     showSaveIcon: boolean = this.story["showSaveButton"];
@@ -29,7 +30,14 @@ export class VisualNovelComponent implements OnInit {
         private audioPlayerService: AudioPlayerService
     ) { }
 
+    removeIntro() {
+        this.intro = false;
+    }
+
     ngOnInit(): void {
+        setTimeout(() => {
+            this.removeIntro();
+        }, 2000);
         if (this.currentSlide == "-1") {
             this.currentSlide = this.story.startSlide;
             if (this.currentSlide == "-1") {

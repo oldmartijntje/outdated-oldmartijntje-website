@@ -1,4 +1,4 @@
-<div class="body">
+<div class="body" *ngIf="intro == false">
     <header *ngIf="false">
         <p>optional</p>
     </header>
@@ -22,4 +22,15 @@
             <p>{{getTextForTextBox()}}</p>
         </div>
     </div>
+</div>
+<div *ngIf="intro" class="body">
+    <app-glitch-text [text]="'Powered by'" [locationStyling]="{'margin-top': '40%'}"
+        [href]="'https://github.com/oldmartijntje/Angular-components'"
+        [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"></app-glitch-text>
+    <app-glitch-text [text]="'OldMartijntje'" [locationStyling]="{'margin-top': '7%'}"
+        [textStyling]="{'cursor': 'pointer'}"
+        [href]="'https://github.com/oldmartijntje/Angular-components'"></app-glitch-text>
+    <app-glitch-text [text]="'You can use this for free.'" [locationStyling]="{'margin-top': '10%'}"
+        [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"
+        [href]="'https://github.com/oldmartijntje/Angular-components'"></app-glitch-text>
 </div>

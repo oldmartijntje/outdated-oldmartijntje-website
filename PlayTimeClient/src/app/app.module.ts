@@ -32,6 +32,7 @@ import { UiElementComponent } from './components/other/ui-element/ui-element.com
 import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/project-gallery-page.component';
 import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
 import { VisualNovelComponent } from './components/other/visual-novel/visual-novel.component';
+import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.component';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import { VisualNovelComponent } from './components/other/visual-novel/visual-nov
         UiElementComponent,
         ProjectGalleryPageComponent,
         ContentPlayerPageComponent,
-        VisualNovelComponent
+        VisualNovelComponent,
+        GlitchTextComponent
     ],
     imports: [
         BrowserModule,
