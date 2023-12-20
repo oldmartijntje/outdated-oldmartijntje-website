@@ -10,4 +10,12 @@ export class ContentPlayerPageComponent {
     styling = Styling;
     scenes = DefaultScenes;
     story = DefaultStory;
+    variables = { ...this.story['variables'] }
+
+    messageFromChild: any;
+
+    handleSavingEvent(message: any) {
+        this.messageFromChild = message;
+        console.log(this.messageFromChild);
+    }
 }

@@ -1,4 +1,5 @@
 <app-ui-element [widthOfContent]="'800px'" [maxWidthOfContent]="'800px'">
-    <app-visual-novel>
+    <app-visual-novel [scenes]="scenes" [story]="story" [styling]="styling" [currentScene]="'1'" [variables]="variables"
+        (savingEvent)="handleSavingEvent($event)">
     </app-visual-novel>
 </app-ui-element>

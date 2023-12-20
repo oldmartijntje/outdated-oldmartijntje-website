@@ -3,7 +3,10 @@
         <p>optional</p>
     </header>
     <div class="screen">
-        screen
+        <div class="save icon" style="display: flex; flex-direction: row; justify-content: end;">
+            <img src="../../../../assets/icons/save.ico" alt="Save Button" style="cursor: pointer; user-select:none;"
+                title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon">
+        </div>
         <div class="textbox">
             {{getText()}}
         </div>

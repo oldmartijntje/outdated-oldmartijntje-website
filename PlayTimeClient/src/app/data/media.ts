@@ -4,6 +4,7 @@ export const DefaultStory = {
         "cheese": 2,
     },
     "startScene": "1",
+    "showSaveButton": true,
     "defaultNextSlideText": "Next Slide...",
     "slides": {
         "1": {
@@ -16,7 +17,8 @@ export const DefaultStory = {
             "type": "choice",
             "text": "what do you do?",
             "scene": "1",
-            "random": false,
+            "autoSelectrandom": false,
+            "shuffleOrder": false,
             "choises": [
                 {
                     "text": "die",
@@ -79,7 +81,9 @@ export const Styling = {
     },
     "styles": {
         "1": {
-            "color": "red"
+            "color": "red",
+            'cursor': 'pointer',
+            'user-select': 'none'
         },
         "2": {
             "color": "black",

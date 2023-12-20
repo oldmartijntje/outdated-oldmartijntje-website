@@ -9,6 +9,7 @@ export const DefaultStory = {
         "cheese": 2,
     },
     "startScene": "1",
+    "showSaveButton": true,
     "slides": {
         "1": {
             "type": "prompt",
@@ -20,7 +21,8 @@ export const DefaultStory = {
             "type": "choice",
             "text": "you bump into a wall",
             "scene": "1",
-            "random": false,
+            "autoSelectrandom": false,
+            "shuffleOrder": false,
             "choises": [
                 {
                     "text": "die",

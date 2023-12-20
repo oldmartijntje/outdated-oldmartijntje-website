@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Styling, DefaultScenes, DefaultStory } from '../../../data/media'
 
 @Component({
@@ -11,7 +11,16 @@ export class VisualNovelComponent implements OnInit {
     @Input() story: any = DefaultStory;
     @Input() styling: any = Styling;
     @Input() currentScene: string = "-1";
+    @Input() variables: any = { ...DefaultStory["variables"] };
+
+    @Output() savingEvent = new EventEmitter<any>();
+
     slide: any;
+    showSaveIcon: boolean = this.story["showSaveButton"];
+
+    emitSavingEvent() {
+        this.savingEvent.emit({ "variables": this.variables, "currentScene": this.currentScene });
+    }
 
     constructor() { }
 
@@ -19,6 +28,7 @@ export class VisualNovelComponent implements OnInit {
         if (this.currentScene == "-1") {
             this.currentScene = this.story.startScene;
             if (this.currentScene == "-1") {
+                // if startscene is not defined
                 this.currentScene = "1";
                 this.slide = this.story.slides[this.currentScene];
             } else {
@@ -49,6 +59,10 @@ export class VisualNovelComponent implements OnInit {
             this.currentScene = next;
         }
         this.slide = this.story.slides[this.currentScene];
+    }
+
+    runNextSlide() {
+
     }
 
     getStyling(option: any = "next"): { [key: string]: string | number } {
