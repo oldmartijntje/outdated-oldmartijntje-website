@@ -54,6 +54,7 @@ export class MessagePageComponent implements OnInit {
         if (this.messageBoxInput.length > Settings['messageMaxLength']) {
             this.messageBoxInput = this.messageBoxInput.substring(0, Settings['messageMaxLength']);
         }
+        this.onChange()
     }
 
     showEmojiPanel() {

@@ -6,8 +6,7 @@
 // sound related things in the scenes are not implemented
 export const DefaultStory = {
     "variables": {
-        "henk": 0,
-        "cheese": 2,
+
     },
     "startSlide": "1",
     "showSaveButton": true,
@@ -33,7 +32,7 @@ export const DefaultStory = {
                 },
                 {
                     "text": "cry about it",
-                    "next": "4"
+                    "next": "3"
                 },
                 {
                     "text": "eat a tsar bomba",
@@ -43,18 +42,20 @@ export const DefaultStory = {
                         "value": 0,
                         "typeOfCheck": ">|<|==|!=|>=|<=",
                         "onlyOption": false,
-                        "showAsDisabled": false
-                    }
+                        "showAsDisabled": false,
+                        "autoClick": false,
+                    },
+                    "disabledStyle": "1"
                 }
             ]
         },
         "3": {
             "type": "variable",
-            "next": "4",
+            "next": "6",
             "variable": {
                 "name": "henk",
                 "value": 1,
-                "type": "+|=|-"
+                "type": "+"
             },
         },
         "4": {
@@ -71,6 +72,33 @@ export const DefaultStory = {
             "scene": "1",
             "nextSlideText": "Restart",
             "style": "1"
+        },
+        "6": {
+            "type": "variable",
+            "next": "7",
+            "variable": {
+                "name": "henk",
+                "value": 1,
+                "type": "="
+            },
+        },
+        "7": {
+            "type": "variable",
+            "next": "8",
+            "variable": {
+                "name": "henk",
+                "value": 1,
+                "type": "-"
+            },
+        },
+        "8": {
+            "type": "variable",
+            "next": "4",
+            "variable": {
+                "name": "henk",
+                "value": 3,
+                "type": "+"
+            },
         },
     }
 }
