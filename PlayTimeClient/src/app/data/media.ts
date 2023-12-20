@@ -1,7 +1,7 @@
-// sound related things in the scenes are not implemented
 export const DefaultStory = {
     "variables": {
-
+        "coins": 0,
+        "mushrooms": 0
     },
     "startSlide": "1",
     "showSaveButton": true,
@@ -9,90 +9,90 @@ export const DefaultStory = {
     "slides": {
         "1": {
             "type": "prompt",
-            "text": "you bump into a wall",
+            "text": "Welcome to the Mushroom Kingdom!",
             "next": "2",
             "scene": "1"
         },
         "2": {
+            "type": "prompt",
+            "text": "Mario is on a quest to rescue Princess Peach from Bowser's castle.",
+            "next": "3",
+            "scene": "2"
+        },
+        "3": {
             "type": "choice",
-            "text": "what do you do?",
-            "scene": "2",
+            "text": "What should Mario do?",
+            "scene": "3",
             "autoSelectrandom": false,
             "shuffleOrder": false,
-            "choises": [
+            "choices": [
                 {
-                    "text": "die",
-                    "next": "5",
-                    "style": "redText"
+                    "text": "Jump on Goomba",
+                    "next": "4",
+                    "style": "1"
                 },
                 {
-                    "text": "cry about it",
-                    "next": "3"
+                    "text": "Collect coins",
+                    "next": "5"
                 },
                 {
-                    "text": "eat a tsar bomba",
-                    "next": "1",
+                    "text": "Enter warp pipe",
+                    "next": "6",
                     "if": {
-                        "variable": "henk",
-                        "value": 2,
+                        "variable": "mushrooms",
+                        "value": 1,
                         "typeOfCheck": ">",
                         "onlyOption": false,
                         "showAsDisabled": false,
                         "autoClick": false,
                     },
-                    "disabledStyle": "1"
+                    "disabledStyle": "redText"
                 }
             ]
         },
-        "3": {
-            "type": "variable",
-            "next": "6",
-            "variable": {
-                "name": "henk",
-                "value": 1,
-                "type": "+"
-            },
-        },
         "4": {
-            "type": "playSound",
-            "next": "1",
-            "sound": "../assets/audio/mario-1-up.mp3",
-            "volume": 0.1,
+            "type": "prompt",
+            "text": "Mario defeated the Goomba!",
+            "next": "3",
+            "scene": "2"
         },
         "5": {
-            "promptStyling": "1",
-            "type": "prompt",
-            "text": "cool, ur ded now",
-            "next": "1",
-            "scene": "1",
-            "nextSlideText": "Restart"
-        },
-        "6": {
             "type": "variable",
             "next": "7",
             "variable": {
-                "name": "henk",
+                "name": "coins",
                 "value": 1,
-                "type": "="
+                "type": "+"
             },
+        },
+        "6": {
+            "type": "prompt",
+            "text": "The warp pipe takes Mario to a secret level!",
+            "next": "8",
+            "scene": "2"
         },
         "7": {
             "type": "variable",
-            "next": "8",
+            "next": "9",
             "variable": {
-                "name": "henk",
+                "name": "mushrooms",
                 "value": 1,
-                "type": "-"
+                "type": "+"
             },
         },
         "8": {
-            "type": "variable",
-            "next": "4",
-            "variable": {
-                "name": "henk",
-                "value": 3,
-                "type": "+"
-            },
+            "type": "prompt",
+            "text": "Mario found the hidden treasure!",
+            "next": "3",
+            "scene": "2"
+        },
+        "9": {
+            "type": "prompt",
+            "text": "Mario found a coin!",
+            "next": "3",
+            "scene": "2",
+            "style": "yellowText",
+            "promptStyling": "yellowText",
         },
     }
 }
@@ -101,16 +101,17 @@ export const DefaultScenes = {
     "1": {
         "styling": {
             "background": "url(\"../assets/images/background.gif\")"
-        },
-        "music": "assets/music/1.mp3",
-        "volume": 0.5
+        }
     },
     "2": {
         "styling": {
-            "background": "#111"
-        },
-        "music": "assets/music/1.mp3",
-        "volume": 0.5
+            "background": "#87CEEB"
+        }
+    },
+    "3": {
+        "styling": {
+            "background": "#F0F8FF"
+        }
     }
 }
 
@@ -128,9 +129,14 @@ export const Styling = {
             'color': 'white'
         },
         "redText": {
-            "color": "red",
+            "color": "black",
             'cursor': 'pointer',
             'user-select': 'none'
-        }
+        },
+        "yellowText": {
+            "color": "yellow",
+            'cursor': 'pointer',
+            'user-select': 'none'
+        },
     }
 }

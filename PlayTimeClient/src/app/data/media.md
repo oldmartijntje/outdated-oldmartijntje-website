@@ -24,7 +24,7 @@ export const DefaultStory = {
             "scene": "2",
             "autoSelectrandom": false,
             "shuffleOrder": false,
-            "choises": [
+            "choices": [
                 {
                     "text": "die",
                     "next": "5",

@@ -59,7 +59,7 @@ export class VisualNovelComponent implements OnInit {
     }
 
     getAllChoices(): any {
-        var choices = [...this.slide.choises]
+        var choices = [...this.slide.choices]
         var allowedChoices = [];
         for (let index = 0; index < Object.keys(choices).length; index++) {
             var allowed = true;
@@ -89,7 +89,6 @@ export class VisualNovelComponent implements OnInit {
             }
 
         }
-        console.log(allowedChoices);
         for (let index = 0; index < Object.keys(allowedChoices).length; index++) {
             try {
                 if (allowedChoices[allowedChoices.length - index - 1]["if"]["autoClick"]) {
@@ -138,7 +137,6 @@ export class VisualNovelComponent implements OnInit {
             } else if (this.slide.variable.type == "=") {
                 this.variables[this.slide.variable.name] = this.slide.variable.value;
             }
-            console.log(this.variables, this.slide.variable.type, this.slide.variable.value);
             this.clickChoice();
         } else if (this.slide.type == "playSound") {
             this.setVolume(this.slide.volume);
