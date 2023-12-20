@@ -1,1 +1,25 @@
-<p>visual-novel works!</p>
+<div class="body">
+    <header *ngIf="false">
+        <p>optional</p>
+    </header>
+    <div class="screen">
+        <div class="save icon" style="display: flex; flex-direction: row; justify-content: end;">
+            <img src="../../../../assets/icons/save.ico" alt="Save Button" style="cursor: pointer; user-select:none;"
+                title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon">
+        </div>
+        <div class="textbox">
+            {{getText()}}
+        </div>
+    </div>
+    <div class="optionBar" *ngIf="showChoices()">
+        <div class="option" *ngFor="let option of getAllChoices()" (click)="clickChoice(option.next)"
+            [ngStyle]="getStyling(option)">
+            <p>{{option.text}}</p>
+        </div>
+    </div>
+    <div class="optionBar" *ngIf="!showChoices()">
+        <div class="option" (click)="clickChoice()" [ngStyle]="getStyling()">
+            <p>Next Slide..</p>
+        </div>
+    </div>
+</div>
