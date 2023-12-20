@@ -1,19 +1,21 @@
 <div class="body">
-    <header>
+    <header *ngIf="false">
         <p>optional</p>
     </header>
     <div class="screen">
         screen
         <div class="textbox">
-            textbox
+            {{getText()}}
         </div>
     </div>
-    <div class="optionBar">
-        <div class="option">
+    <div class="optionBar" *ngIf="showChoices()">
+        <div class="option" *ngFor="let option of getAllChoices()" (click)="clickChoice(option.next)">
             <p>option1</p>
         </div>
-        <div class="option">
-            <p>option2</p>
+    </div>
+    <div class="optionBar" *ngIf="!showChoices()">
+        <div class="option" (click)="clickChoice()">
+            <p>Next Slide..</p>
         </div>
     </div>
 </div>

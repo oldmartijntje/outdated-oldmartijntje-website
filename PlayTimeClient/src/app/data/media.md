@@ -1,3 +1,8 @@
+- don't ever call a slide or scene or styling `"-1"`, cause then it won't work.
+
+
+
+```ts
 export const DefaultStory = {
     "variables": {
         "henk": 0,
@@ -13,7 +18,7 @@ export const DefaultStory = {
         },
         "2": {
             "type": "choice",
-            "text": "what do you do?",
+            "text": "you bump into a wall",
             "scene": "1",
             "random": false,
             "choises": [
@@ -27,11 +32,11 @@ export const DefaultStory = {
                 },
                 {
                     "text": "cry about it",
-                    "next": "1",
+                    "next": "5",
                     "if": {
                         "variable": "henk",
                         "value": 0,
-                        "typeOfCheck": ">",
+                        "typeOfCheck": ">|<|=|!=",
                         "onlyOption": false,
                         "showAsDisabled": true
                     }
@@ -44,12 +49,12 @@ export const DefaultStory = {
             "variable": {
                 "name": "henk",
                 "value": 1,
-                "type": "+"
+                "type": "+|=|-"
             },
         },
         "4": {
             "type": "playSound",
-            "next": "1",
+            "next": "5",
             "sound": "assets/sounds/1.mp3"
         },
     }
@@ -72,3 +77,4 @@ export const Styling = {
         }
     }
 }
+```
