@@ -1,4 +1,4 @@
-import { DefaultStory, DefaultScenes, Styling, DefaultStory2, DefaultScenes2 } from '../data/media';
+import { DefaultStory, DefaultScenes, Styling, stylusStory, stylusScenes } from '../data/media';
 
 export interface DiscType {
     styling: { [key: string]: any };
@@ -43,8 +43,8 @@ export const Discs: DiscType[] = [
         "description": "This is a short example of a visual novel."
     },
     {
-        "story": DefaultStory2,
-        "scenes": DefaultScenes2,
+        "story": stylusStory,
+        "scenes": stylusScenes,
         "styling": Styling,
         "name": "Stylus",
         "image": "assets/icons/console icons/console_25.png",

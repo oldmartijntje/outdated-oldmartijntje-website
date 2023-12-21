@@ -47,6 +47,7 @@ export class VisualNovelComponent implements OnInit {
         } else {
             setTimeout(() => {
                 this.removeIntro();
+                this.runNextSlide();
             }, 2000);
             if (this.currentSlide == "-1") {
                 this.currentSlide = this.story.startSlide;
@@ -61,7 +62,6 @@ export class VisualNovelComponent implements OnInit {
                 this.slide = this.story.slides[this.currentSlide];
             }
             console.log(this.slide);
-            this.runNextSlide();
         }
 
     }

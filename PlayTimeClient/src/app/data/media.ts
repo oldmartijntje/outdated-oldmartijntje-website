@@ -98,7 +98,7 @@ export const DefaultStory: { [key: string]: any } = {
     }
 }
 
-export const DefaultStory2: { [key: string]: any } = {
+export const stylusStory: { [key: string]: any } = {
     "variables": {
         "coins": 0,
         "mushrooms": 0
@@ -119,9 +119,15 @@ export const DefaultStory2: { [key: string]: any } = {
             "text": "There is nothing else here...",
             "next": "1"
         },
+        "4": {
+            "type": "prompt",
+            "text": "Hello little stylus!",
+            "next": "2",
+            "nextSlideText": "Hello Mario!"
+        },
         "1": {
             "type": "playSound",
-            "next": "2",
+            "next": "4",
             "sound": "../assets/audio/stylus.mp3",
             "volume": 0.1,
         }
@@ -146,7 +152,7 @@ export const DefaultScenes: { [key: string]: any } = {
     }
 }
 
-export const DefaultScenes2: { [key: string]: any } = {
+export const stylusScenes: { [key: string]: any } = {
     "1": {
         "styling": {
             "background": "url(\"../assets/videos/stylus.mp4\")"
@@ -163,12 +169,17 @@ export const Styling: { [key: string]: any } = {
     "default": {
         "choices": "1",
         "nextSlide": "1",
-        "textBox": "1"
+        "textBox": "1-pointerless"
     },
     "styles": {
         "1": {
             "background-color": "#313338",
             'cursor': 'pointer',
+            'user-select': 'none',
+            'color': 'white'
+        },
+        "1-pointerless": {
+            "background-color": "#313338",
             'user-select': 'none',
             'color': 'white'
         },
