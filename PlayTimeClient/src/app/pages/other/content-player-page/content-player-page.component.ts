@@ -62,6 +62,10 @@ export class ContentPlayerPageComponent {
 
     selectDisc(disc: number) {
         this.selectedADisc = disc;
+        this.styling = this.getSelectedData().styling;
+        this.scenes = this.getSelectedData().scenes;
+        this.story = this.getSelectedData().story;
+        this.variables = { ...this.story['variables'] };
     }
 
     selectOtherDisc(disc: number) {

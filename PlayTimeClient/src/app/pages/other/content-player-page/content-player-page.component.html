@@ -11,7 +11,7 @@
             <div>
                 <button (click)="selectOtherDisc(-1)">left</button>
             </div>
-            <div class="disc" *ngFor="let disc of getDiscs(); let i = index" (click)="selectDisc(i)">
+            <div class="disc" *ngFor="let disc of getDiscs(); let i = index">
                 <img src="{{disc.image}}" alt="Disc" title="Disc" class="image selected"
                     *ngIf="firstDiscShowedId + i == currentDiscDisplay">
                 <img src="{{disc.image}}" alt="Disc" title="Disc" class="image"
@@ -25,7 +25,7 @@
         <div>
             <h1>{{getSelectedData().name}}</h1>
             <p>{{getSelectedData().description}}</p>
-            <button>select</button>
+            <button (click)="selectDisc(currentDiscDisplay)">select</button>
         </div>
     </div>
 </app-ui-element>

@@ -1,4 +1,4 @@
-import { DefaultStory, DefaultScenes, Styling } from '../data/media';
+import { DefaultStory, DefaultScenes, Styling, DefaultStory2 } from '../data/media';
 
 export interface DiscType {
     styling: { [key: string]: any };
@@ -35,7 +35,7 @@ export const Discs: DiscType[] = [
         "description": "This is a short example of a visual novel."
     },
     {
-        "story": DefaultStory,
+        "story": DefaultStory2,
         "scenes": DefaultScenes,
         "styling": Styling,
         "name": "Short Mario Example4",

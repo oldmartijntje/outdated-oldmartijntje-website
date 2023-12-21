@@ -98,6 +98,25 @@ export const DefaultStory: { [key: string]: any } = {
     }
 }
 
+export const DefaultStory2: { [key: string]: any } = {
+    "variables": {
+        "coins": 0,
+        "mushrooms": 0
+    },
+    "startSlide": "1",
+    "showSaveButton": true,
+    "showExitButton": true,
+    "defaultNextSlideText": "Next Slide...",
+    "slides": {
+        "1": {
+            "type": "prompt",
+            "text": "Welcome to the Mushroom Kingdom! OwO",
+            "next": "1",
+            "scene": "1"
+        }
+    }
+}
+
 export const DefaultScenes: { [key: string]: any } = {
     "1": {
         "styling": {
