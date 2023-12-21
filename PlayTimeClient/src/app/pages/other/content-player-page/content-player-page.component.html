@@ -9,17 +9,21 @@
             [textStyling]="{'font-size': '2rem', 'user-select': 'none'}"></app-glitch-text>
         <div class="container disc-container">
             <div>
-                <button (click)="selectOtherDisc(-1)">left</button>
+                <button (click)="selectOtherDisc(-1)" class="left-button-{{animateButtons[0]}}"></button>
             </div>
             <div class="disc" *ngFor="let disc of getDiscs(); let i = index">
-                <img src="{{disc.image}}" alt="Disc" title="Disc" class="image selected"
-                    *ngIf="firstDiscShowedId + i == currentDiscDisplay">
-                <img src="{{disc.image}}" alt="Disc" title="Disc" class="image"
-                    *ngIf="firstDiscShowedId + i != currentDiscDisplay">
+                <div *ngIf="firstDiscShowedId + i == currentDiscDisplay" class="image-container">
+                    <img src="../../../../assets/icons/portal1.png" alt="Selected" class="background-image">
+                    <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
+                </div>
+                <div *ngIf="firstDiscShowedId + i != currentDiscDisplay" class="image-container">
+                    <img src="../../../../assets/icons/portal2.png" alt="Unselected" class="background-image">
+                    <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
+                </div>
                 <p>{{firstDiscShowedId + i}}</p>
             </div>
             <div>
-                <button (click)="selectOtherDisc(1)">right</button>
+                <button (click)="selectOtherDisc(1)" class="right-button-{{animateButtons[1]}}"></button>
             </div>
         </div>
         <div>

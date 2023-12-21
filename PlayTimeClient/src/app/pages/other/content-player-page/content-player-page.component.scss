@@ -4,7 +4,7 @@
 }
 
 .disc-container {
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 .disc {
@@ -25,6 +25,131 @@
     object-fit: contain;
 }
 
-.selected {
-    background-color: yellow;
+.background-image {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+
+    /* Set the initial rotation to 0 degrees */
+    transform: rotate(0deg);
+    /* Apply the rotation animation with a duration of 10 seconds and set it to repeat infinitely */
+    animation: rotateAndScale 3s linear infinite;
+    /* Add any other styling properties for your background image */
+    /* Set the width and height of your background image */
+    /* You can adjust these dimensions as needed */
+}
+
+.image-container {
+    position: relative;
+    width: 3rem;
+    /* Set your desired width */
+    height: 3rem;
+    /* Set your desired height */
+}
+
+@keyframes rotateAndScale {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.2);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.image-container .background-image {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+}
+
+.image-container .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@keyframes RightButtonAnimation {
+    0% {
+        background-image: url('../../../../assets/icons/animation/switchButtonR1.png');
+    }
+
+    25% {
+        background-image: url('../../../../assets/icons/animation/switchButtonR2.png');
+    }
+
+    50% {
+        background-image: url('../../../../assets/icons/animation/switchButtonR3.png');
+    }
+
+    75% {
+        background-image: url('../../../../assets/icons/animation/switchButtonR2.png');
+    }
+
+    100% {
+        background-image: url('../../../../assets/icons/animation/switchButtonR1.png');
+    }
+}
+
+.right-button-false,
+.right-button-true {
+    background-image: url('../../../../assets/icons/animation/switchButtonR1.png');
+}
+
+
+.right-button-true {
+    animation: RightButtonAnimation 0.3s ease-in-out;
+    /* Adjust the animation duration as needed */
+}
+
+@keyframes LeftButtonAnimation {
+    0% {
+        background-image: url('../../../../assets/icons/animation/switchButtonL1.png');
+    }
+
+    25% {
+        background-image: url('../../../../assets/icons/animation/switchButtonL2.png');
+    }
+
+    50% {
+        background-image: url('../../../../assets/icons/animation/switchButtonL3.png');
+    }
+
+    75% {
+        background-image: url('../../../../assets/icons/animation/switchButtonL2.png');
+    }
+
+    100% {
+        background-image: url('../../../../assets/icons/animation/switchButtonL1.png');
+    }
+}
+
+.left-button-false,
+.left-button-true {
+    background-image: url('../../../../assets/icons/animation/switchButtonL1.png');
+}
+
+.left-button-false,
+.left-button-true,
+.right-button-false,
+.right-button-true {
+    width: 56px;
+    /* Adjust the width and height according to your sprite size */
+    height: 64px;
+    border: none;
+    background-color: transparent;
+    /* Initial sprite */
+    background-size: cover;
+    cursor: pointer;
+    image-rendering: pixelated;
+}
+
+
+.left-button-true {
+    animation: LeftButtonAnimation 0.3s ease-in-out;
+    /* Adjust the animation duration as needed */
 }
