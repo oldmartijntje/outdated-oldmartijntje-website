@@ -1,7 +1,31 @@
 <app-ui-element [widthOfContent]="'800px'" [maxWidthOfContent]="'800px'">
-    <div class="container">
-        <app-visual-novel [scenes]="scenes" [story]="story" [styling]="styling" [currentSlide]="'1'"
-            [variables]="variables" (savingEvent)="handleSavingEvent($event)" (exitEvent)="handleSavingEvent($event)">
+    <div class="fullContainer" *ngIf="selectedADisc != -1">
+        <app-visual-novel [scenes]="scenes" [story]="story" [styling]="styling" [currentSlide]="'1'" [editing]="false"
+            [variables]="variables" (savingEvent)="handleSavingEvent($event)" (exitEvent)="handleExitEvent($event)">
         </app-visual-novel>
+    </div>
+    <div *ngIf="selectedADisc == -1" class="container">
+        <app-glitch-text [text]="'Select your Disc'" [locationStyling]="{'margin-top': '10%'}" [href]="''"
+            [textStyling]="{'font-size': '2rem', 'user-select': 'none'}"></app-glitch-text>
+        <div class="container disc-container">
+            <div>
+                <button (click)="selectOtherDisc(-1)">left</button>
+            </div>
+            <div class="disc" *ngFor="let disc of getDiscs(); let i = index" (click)="selectDisc(i)">
+                <img src="{{disc.image}}" alt="Disc" title="Disc" class="image selected"
+                    *ngIf="firstDiscShowedId + i == currentDiscDisplay">
+                <img src="{{disc.image}}" alt="Disc" title="Disc" class="image"
+                    *ngIf="firstDiscShowedId + i != currentDiscDisplay">
+                <p>{{firstDiscShowedId + i}}</p>
+            </div>
+            <div>
+                <button (click)="selectOtherDisc(1)">right</button>
+            </div>
+        </div>
+        <div>
+            <h1>{{getSelectedData().name}}</h1>
+            <p>{{getSelectedData().description}}</p>
+            <button>select</button>
+        </div>
     </div>
 </app-ui-element>

@@ -12,6 +12,7 @@ export class VisualNovelComponent implements OnInit {
     @Input() story: any = DefaultStory;
     @Input() styling: any = Styling;
     @Input() currentSlide: string = "-1";
+    @Input() editing: boolean = false;
     @Input() variables: any = { ...DefaultStory["variables"] };
 
     @Output() savingEvent = new EventEmitter<any>();
@@ -41,23 +42,28 @@ export class VisualNovelComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        setTimeout(() => {
+        if (this.editing) {
             this.removeIntro();
-        }, 2000);
-        if (this.currentSlide == "-1") {
-            this.currentSlide = this.story.startSlide;
-            if (this.currentSlide == "-1") {
-                // if startscene is not defined
-                this.currentSlide = this.defaultNumberForExceptions;
-                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
-            } else {
-                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
-            }
         } else {
-            this.slide = this.story.slides[this.currentSlide];
+            setTimeout(() => {
+                this.removeIntro();
+            }, 2000);
+            if (this.currentSlide == "-1") {
+                this.currentSlide = this.story.startSlide;
+                if (this.currentSlide == "-1") {
+                    // if startscene is not defined
+                    this.currentSlide = this.defaultNumberForExceptions;
+                    this.slide = this.deepClone(this.story.slides[this.currentSlide]);
+                } else {
+                    this.slide = this.deepClone(this.story.slides[this.currentSlide]);
+                }
+            } else {
+                this.slide = this.story.slides[this.currentSlide];
+            }
+            console.log(this.slide);
+            this.runNextSlide();
         }
-        console.log(this.slide);
-        this.runNextSlide();
+
     }
 
     deepClone(obj: Record<string, any>): Record<string, any> {

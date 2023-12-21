@@ -1,4 +1,4 @@
-export const DefaultStory = {
+export const DefaultStory: { [key: string]: any } = {
     "variables": {
         "coins": 0,
         "mushrooms": 0
@@ -98,7 +98,7 @@ export const DefaultStory = {
     }
 }
 
-export const DefaultScenes = {
+export const DefaultScenes: { [key: string]: any } = {
     "1": {
         "styling": {
             "background": "url(\"../assets/images/background.gif\")"
@@ -116,7 +116,7 @@ export const DefaultScenes = {
     }
 }
 
-export const Styling = {
+export const Styling: { [key: string]: any } = {
     "default": {
         "choices": "1",
         "nextSlide": "1",

@@ -1,4 +1,4 @@
-<div class="body" *ngIf="intro == false">
+<div class="body" *ngIf="!intro && !editing">
     <header *ngIf="false">
         <p>optional</p>
     </header>
@@ -7,7 +7,7 @@
             <img src="../../../../assets/icons/save.ico" alt="Save Button" style="cursor: pointer; user-select:none;"
                 title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon">
             <img src="../../../../assets/icons/turnOff.ico" alt="Close Button"
-                style="cursor: pointer; user-select:none;" title="Exit Button" (click)="emitSavingEvent()"
+                style="cursor: pointer; user-select:none;" title="Exit Button" (click)="emitExitEvent()"
                 *ngIf="showExitButton">
         </div>
         <div class="textbox" [ngStyle]="getStyling('prompt')">
@@ -26,8 +26,8 @@
         </div>
     </div>
 </div>
-<div *ngIf="intro" class="body">
-    <app-glitch-text [text]="'Powered by'" [locationStyling]="{'margin-top': '40%'}"
+<div *ngIf="intro && !editing" class="body">
+    <app-glitch-text [text]="'Powered by'" [locationStyling]="{'margin-top': '20%'}"
         [href]="'https://github.com/oldmartijntje/Angular-components'"
         [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"></app-glitch-text>
     <app-glitch-text [text]="'OldMartijntje'" [locationStyling]="{'margin-top': '7%'}"
@@ -36,4 +36,7 @@
     <app-glitch-text [text]="'You can use this for free.'" [locationStyling]="{'margin-top': '10%'}"
         [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"
         [href]="'https://github.com/oldmartijntje/Angular-components'"></app-glitch-text>
+</div>
+<div *ngIf="editing">
+
 </div>
