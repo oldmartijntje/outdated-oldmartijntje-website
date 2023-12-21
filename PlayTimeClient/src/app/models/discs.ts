@@ -1,4 +1,4 @@
-import { DefaultStory, DefaultScenes, Styling, DefaultStory2 } from '../data/media';
+import { DefaultStory, DefaultScenes, Styling, DefaultStory2, DefaultScenes2 } from '../data/media';
 
 export interface DiscType {
     styling: { [key: string]: any };
@@ -23,7 +23,7 @@ export const Discs: DiscType[] = [
         "scenes": DefaultScenes,
         "styling": Styling,
         "name": "Short Mario Example2",
-        "image": "assets/icons/disc1.png",
+        "image": "assets/icons/console icons/console_1.png",
         "description": "This is a short example of a visual novel."
     },
     {
@@ -31,16 +31,24 @@ export const Discs: DiscType[] = [
         "scenes": DefaultScenes,
         "styling": Styling,
         "name": "Short Mario Example3",
-        "image": "assets/icons/disc1.png",
+        "image": "assets/icons/console icons/console_18.png",
+        "description": "This is a short example of a visual novel."
+    },
+    {
+        "story": DefaultStory,
+        "scenes": DefaultScenes,
+        "styling": Styling,
+        "name": "Short Mario Example4",
+        "image": "assets/icons/console icons/console_11.png",
         "description": "This is a short example of a visual novel."
     },
     {
         "story": DefaultStory2,
-        "scenes": DefaultScenes,
+        "scenes": DefaultScenes2,
         "styling": Styling,
-        "name": "Short Mario Example4",
-        "image": "assets/icons/disc1.png",
-        "description": "This is a short example of a visual novel."
+        "name": "Stylus",
+        "image": "assets/icons/console icons/console_25.png",
+        "description": "It's a stylus."
     }
 
 

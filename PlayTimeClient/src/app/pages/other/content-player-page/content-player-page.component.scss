@@ -145,11 +145,18 @@
     /* Initial sprite */
     background-size: cover;
     cursor: pointer;
-    image-rendering: pixelated;
 }
-
 
 .left-button-true {
     animation: LeftButtonAnimation 0.3s ease-in-out;
     /* Adjust the animation duration as needed */
+}
+
+.left-button-false,
+.left-button-true,
+.right-button-false,
+.right-button-true,
+.image-container .image,
+.image-container .background-image {
+    image-rendering: pixelated;
 }

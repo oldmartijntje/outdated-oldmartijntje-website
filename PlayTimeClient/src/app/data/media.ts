@@ -108,11 +108,22 @@ export const DefaultStory2: { [key: string]: any } = {
     "showExitButton": true,
     "defaultNextSlideText": "Next Slide...",
     "slides": {
-        "1": {
+        "2": {
             "type": "prompt",
-            "text": "Welcome to the Mushroom Kingdom! OwO",
-            "next": "1",
-            "scene": "1"
+            "text": "I don't know why you expected anything different to be here...",
+            "next": "3",
+            "scene": "2"
+        },
+        "3": {
+            "type": "prompt",
+            "text": "There is nothing else here...",
+            "next": "1"
+        },
+        "1": {
+            "type": "playSound",
+            "next": "2",
+            "sound": "../assets/audio/stylus.mp3",
+            "volume": 0.1,
         }
     }
 }
@@ -133,6 +144,19 @@ export const DefaultScenes: { [key: string]: any } = {
             "background": "#F0F8FF"
         }
     }
+}
+
+export const DefaultScenes2: { [key: string]: any } = {
+    "1": {
+        "styling": {
+            "background": "url(\"../assets/videos/stylus.mp4\")"
+        }
+    },
+    "2": {
+        "styling": {
+            "background": "#87CEEB"
+        }
+    },
 }
 
 export const Styling: { [key: string]: any } = {
