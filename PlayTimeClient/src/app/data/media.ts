@@ -111,8 +111,7 @@ export const stylusStory: { [key: string]: any } = {
         "2": {
             "type": "prompt",
             "text": "I don't know why you expected anything different to be here...",
-            "next": "3",
-            "scene": "2"
+            "next": "3"
         },
         "3": {
             "type": "prompt",
@@ -123,7 +122,8 @@ export const stylusStory: { [key: string]: any } = {
             "type": "prompt",
             "text": "Hello little stylus!",
             "next": "2",
-            "nextSlideText": "Hello Mario!"
+            "nextSlideText": "Hello Mario!",
+            "scene": "2"
         },
         "1": {
             "type": "playSound",
