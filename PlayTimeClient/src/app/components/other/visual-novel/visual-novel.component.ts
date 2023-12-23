@@ -12,6 +12,7 @@ export class VisualNovelComponent implements OnInit {
     @Input() story: any = DefaultStory;
     @Input() styling: any = Styling;
     @Input() currentSlide: string = "-1";
+    @Input() currentScene: string = "-1";
     @Input() editing: boolean = false;
     @Input() variables: any = { ...DefaultStory["variables"] };
 
@@ -26,11 +27,11 @@ export class VisualNovelComponent implements OnInit {
     defaultNumberForExceptions: string = "1";
 
     emitSavingEvent() {
-        this.savingEvent.emit({ "variables": this.variables, "currentScene": this.currentSlide });
+        this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
     }
 
     emitExitEvent() {
-        this.exitEvent.emit({ "variables": this.variables, "currentScene": this.currentSlide });
+        this.exitEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
     }
 
     constructor(
@@ -61,7 +62,12 @@ export class VisualNovelComponent implements OnInit {
             } else {
                 this.slide = this.story.slides[this.currentSlide];
             }
-            console.log(this.slide);
+            if (this.currentScene == "-1" || this.currentScene == undefined) {
+                this.currentScene = "-1";
+            } else {
+                console.log(this.currentScene);
+                this.scene = this.scenes[this.currentScene];
+            }
         }
 
     }
@@ -142,8 +148,10 @@ export class VisualNovelComponent implements OnInit {
     runNextSlide() {
         if (this.slide.scene != undefined) {
             this.scene = this.scenes[this.slide.scene];
+            this.scene["sceneId"] = this.slide.scene;
         } else if (this.scene == undefined) {
             this.scene = this.scenes[this.defaultNumberForExceptions];
+            this.scene["sceneId"] = this.defaultNumberForExceptions;
         }
 
         if (this.slide.type == "variable") {

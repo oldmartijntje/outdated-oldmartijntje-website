@@ -33,7 +33,12 @@ export class Encryptor {
         return asciiList.map(asciiValue => asciiValue - subtractor);
     }
 
-    encryptString(inputString: string): string {
+    encryptString(inputString: string, mode: number = 0): string {
+        if (mode == 1) {
+            const asciiList = this.addAsciiList(this.stringToAsciiList(inputString), environment.encryptionKey[0]);
+            var tempString = asciiList.join(',');
+            return tempString;
+        }
         const secret = this.getRandomNumber(0, 10000);
         const asciiList = this.multiplyAsciiList(this.stringToAsciiList(inputString), secret);
         // console.log(asciiList)
@@ -65,7 +70,12 @@ export class Encryptor {
         }
     }
 
-    decryptString(encryptedString: string): string {
+    decryptString(encryptedString: string, mode: number = 0): string {
+        if (mode == 1) {
+            var encryptedList = encryptedString.split(',').map(value => parseInt(value, 10));
+            const asciiList = this.subtractAsciiList(encryptedList, environment.encryptionKey[0]);
+            return this.asciiListToString(asciiList);
+        }
         var encryptedList = encryptedString.split(',').map(value => parseInt(value, 10));
         // console.log(encryptedList)
         encryptedList = this.subtractAsciiList(encryptedList, environment.encryptionKey[2])

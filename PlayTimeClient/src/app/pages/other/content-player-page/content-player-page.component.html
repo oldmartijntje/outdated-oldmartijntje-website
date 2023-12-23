@@ -1,35 +1,51 @@
 <app-ui-element [widthOfContent]="'800px'" [maxWidthOfContent]="'800px'">
     <div class="fullContainer" *ngIf="selectedADisc != -1">
-        <app-visual-novel [scenes]="scenes" [story]="story" [styling]="styling" [currentSlide]="'1'" [editing]="false"
-            [variables]="variables" (savingEvent)="handleSavingEvent($event)" (exitEvent)="handleExitEvent($event)">
+        <app-visual-novel [scenes]="scenes" [story]="story" [styling]="styling" [currentSlide]="currentSlide"
+            [editing]="false" [variables]="variables" (savingEvent)="handleSavingEvent($event)"
+            [currentScene]="currentScene" (exitEvent)="handleExitEvent($event)">
         </app-visual-novel>
     </div>
     <div *ngIf="selectedADisc == -1" class="container">
-        <app-glitch-text [text]="'Select your Story'" [locationStyling]="{'margin-top': '10%'}" [href]="''"
+        <app-glitch-text [text]="'Select your Disc'" [locationStyling]="{'margin-top': '10%'}" [href]="''"
             [textStyling]="{'font-size': '2rem', 'user-select': 'none'}"></app-glitch-text>
         <div class="container disc-container">
             <div>
                 <button (click)="selectOtherDisc(-1)" class="left-button-{{animateButtons[0]}}"></button>
             </div>
             <div class="disc" *ngFor="let disc of getDiscs(); let i = index">
-                <div *ngIf="firstDiscShowedId + i == currentDiscDisplay" class="image-container">
+                <div *ngIf="firstDiscShowedId + i == currentDiscDisplay" class="image-container"
+                    (click)="selectOtherDisc(firstDiscShowedId + i)">
                     <img src="../../../../assets/icons/portal1.png" alt="Selected" class="background-image">
                     <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
                 </div>
-                <div *ngIf="firstDiscShowedId + i != currentDiscDisplay" class="image-container">
+                <div *ngIf="firstDiscShowedId + i != currentDiscDisplay" class="image-container"
+                    (click)="selectOtherDisc(firstDiscShowedId + i)">
                     <img src="../../../../assets/icons/portal2.png" alt="Unselected" class="background-image">
                     <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
                 </div>
                 <!-- <p>{{firstDiscShowedId + i}}</p> -->
             </div>
             <div>
-                <button (click)="selectOtherDisc(1)" class="right-button-{{animateButtons[1]}}"></button>
+                <button (click)="selectOtherDisc(-2)" class="right-button-{{animateButtons[1]}}"></button>
             </div>
         </div>
-        <div>
-            <h1>{{getSelectedData().name}}</h1>
-            <p>{{getSelectedData().description}}</p>
-            <button (click)="selectDisc(currentDiscDisplay)">select</button>
+        <div class="outer Box">
+            <div class="inner Box">
+                <p class="title">{{getSelectedData().name}}</p>
+                <p class="text">{{getSelectedData().description}}</p>
+                <p class="text" *ngIf="currentSlide != '-1'">Current slide:</p>
+                <p class="curseOfBinding" *ngIf="currentSlide != '-1'">{{getTextOfSlide(getSlides())}}</p>
+                <div class="clickableBox">
+                    <p class="clickable" *ngIf="currentSlide == '-1'" (click)="selectDisc(currentDiscDisplay, false)">
+                        select</p>
+                    <p class="clickable" *ngIf="currentSlide != '-1'" (click)="selectDisc(currentDiscDisplay, false)">
+                        restart</p>
+                    <p class="clickable" *ngIf="currentSlide != '-1'" (click)="selectDisc(currentDiscDisplay, true)">
+                        load-savefile</p>
+                    <p class="clickable" *ngIf="currentSlide != '-1'" (click)="deleteSaveFile()">
+                        delete-savefile</p>
+                </div>
+            </div>
         </div>
     </div>
 </app-ui-element>

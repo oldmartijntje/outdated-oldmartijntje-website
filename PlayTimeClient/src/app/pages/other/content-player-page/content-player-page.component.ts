@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Styling, DefaultScenes, DefaultStory } from '../../../data/media'
 import { Discs, DiscType } from '../../../models/discs'
+import { Encryptor } from 'src/app/models/encryptor';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-content-player-page',
     templateUrl: './content-player-page.component.html',
     styleUrl: './content-player-page.component.scss'
 })
-export class ContentPlayerPageComponent {
+export class ContentPlayerPageComponent implements OnInit {
     styling = Styling;
     scenes = DefaultScenes;
     story = DefaultStory;
@@ -18,12 +20,64 @@ export class ContentPlayerPageComponent {
     animateButtons = [
         false, false
     ]
+    currentSlide: string = "-1";
+    currentScene: string = "-1";
 
-    messageFromChild: any;
+    constructor(
+        private toastQueue: ToastQueueService,
+    ) { }
+
+    ngOnInit(): void {
+        var selected = localStorage.getItem('selected-disc');
+        if (selected != null) {
+            console.log(selected)
+            this.selectOtherDisc(parseInt(selected));
+        } else {
+            this.selectOtherDisc(0)
+        }
+    }
+
+    getTextOfSlide(slide: any) {
+        if (slide[this.currentSlide] == undefined || this.currentSlide == "-1") {
+            return undefined;
+        } else {
+            return slide[this.currentSlide]['text']
+        }
+
+    }
 
     handleSavingEvent(message: any) {
-        this.messageFromChild = message;
-        console.log(this.messageFromChild);
+        console.log(message);
+        var data = this.getLocalstorageDict('content-player');
+        console.log(data);
+        data[this.getSelectedData().name] = {
+            "name": this.getSelectedData().name,
+            "slide": message['currentSlide'],
+            "scene": message['currentScene']["sceneId"],
+            "variables": message['variables']
+        };
+        var encr = new Encryptor();
+        var encrData = encr.encryptString(JSON.stringify(data), 1);
+        localStorage.setItem('content-player', encrData);
+        this.toastQueue.enqueueToast('Your progress has been saved', 'Info');
+    }
+
+    getLocalstorageDict(key: string): { [key: string]: any } {
+        var data = localStorage.getItem(key);
+        if (data == null) {
+            return {};
+        } else {
+            try {
+                var encr = new Encryptor();
+                var decr = encr.decryptString(data, 1);
+                return JSON.parse(decr);
+            } catch (e) {
+                console.error(e);
+                return {};
+            }
+
+        }
+
     }
 
     getSelectedData() {
@@ -32,6 +86,7 @@ export class ContentPlayerPageComponent {
 
     handleExitEvent(message: any) {
         this.selectedADisc = -1;
+        this.updateSelectedData();
     }
 
     getSelectedAssets() {
@@ -76,12 +131,40 @@ export class ContentPlayerPageComponent {
         return displayedDiscs;
     }
 
-    selectDisc(disc: number) {
+    selectDisc(disc: number, saveFileBoolean: boolean) {
         this.selectedADisc = disc;
         this.styling = this.getSelectedData().styling;
         this.scenes = this.getSelectedData().scenes;
         this.story = this.getSelectedData().story;
         this.variables = { ...this.story['variables'] };
+
+        if (saveFileBoolean) {
+            var data = this.getLocalstorageDict('content-player');
+            if (data[this.getSelectedData().name] != undefined) {
+                this.currentSlide = data[this.getSelectedData().name]['slide'];
+                this.currentScene = data[this.getSelectedData().name]["scene"];
+            } else {
+                this.currentSlide = "-1";
+                this.currentScene = "-1";
+            }
+        } else {
+            this.currentSlide = "-1";
+            this.currentScene = "-1";
+        }
+    }
+
+    deleteSaveFile() {
+        var data = this.getLocalstorageDict('content-player');
+        delete data[this.getSelectedData().name];
+        var encr = new Encryptor();
+        var encrData = encr.encryptString(JSON.stringify(data), 1);
+        localStorage.setItem('content-player', encrData);
+        this.toastQueue.enqueueToast('Your progress has been deleted', 'Info');
+        this.updateSelectedData();
+    }
+
+    getSlides() {
+        return this.story["slides"]
     }
 
     selectOtherDisc(disc: number) {
@@ -90,17 +173,36 @@ export class ContentPlayerPageComponent {
             setTimeout(() => {
                 this.setAnimation(0);
             }, 300)
-        } else if (disc == 1) {
+            this.currentDiscDisplay = this.currentDiscDisplay - 1;
+        } else if (disc == -2) {
             this.setAnimation(1);
             setTimeout(() => {
                 this.setAnimation(1);
             }, 300)
+            this.currentDiscDisplay = this.currentDiscDisplay + 1;
+        } else {
+            this.currentDiscDisplay = disc;
         }
-        this.currentDiscDisplay = this.currentDiscDisplay + disc;
+
         if (this.currentDiscDisplay > Discs.length - 1) {
             this.currentDiscDisplay = Discs.length - 1;
         } else if (this.currentDiscDisplay < 0) {
             this.currentDiscDisplay = 0;
         }
+        this.updateSelectedData();
+
+    }
+
+    updateSelectedData() {
+        this.story = this.getSelectedData().story;
+        var data = this.getLocalstorageDict('content-player');
+        if (data[this.getSelectedData().name] != undefined) {
+            this.currentSlide = data[this.getSelectedData().name]['slide'];
+            this.currentScene = data["scene"];
+        } else {
+            this.currentSlide = "-1";
+            this.currentScene = "-1";
+        }
+        localStorage.setItem('selected-disc', this.currentDiscDisplay.toString());
     }
 }
