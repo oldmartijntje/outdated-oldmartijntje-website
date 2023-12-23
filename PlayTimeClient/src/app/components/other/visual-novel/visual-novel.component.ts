@@ -43,6 +43,7 @@ export class VisualNovelComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.scenes, this.story, this.styling, this.currentSlide, this.currentScene, this.editing, this.variables);
         if (this.editing) {
             this.removeIntro();
         } else {

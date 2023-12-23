@@ -22,6 +22,7 @@ export class ContentPlayerPageComponent implements OnInit {
     ]
     currentSlide: string = "-1";
     currentScene: string = "-1";
+    editing: boolean = false;
 
     constructor(
         private toastQueue: ToastQueueService,
@@ -131,7 +132,7 @@ export class ContentPlayerPageComponent implements OnInit {
         return displayedDiscs;
     }
 
-    selectDisc(disc: number, saveFileBoolean: boolean) {
+    selectDisc(disc: number, saveFileBoolean: boolean, editing: boolean = false) {
         this.selectedADisc = disc;
         this.styling = this.getSelectedData().styling;
         this.scenes = this.getSelectedData().scenes;
@@ -151,6 +152,7 @@ export class ContentPlayerPageComponent implements OnInit {
             this.currentSlide = "-1";
             this.currentScene = "-1";
         }
+        this.editing = editing;
     }
 
     deleteSaveFile() {

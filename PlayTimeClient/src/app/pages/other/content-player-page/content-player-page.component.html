@@ -1,7 +1,7 @@
 <app-ui-element [widthOfContent]="'800px'" [maxWidthOfContent]="'800px'">
     <div class="fullContainer" *ngIf="selectedADisc != -1">
         <app-visual-novel [scenes]="scenes" [story]="story" [styling]="styling" [currentSlide]="currentSlide"
-            [editing]="false" [variables]="variables" (savingEvent)="handleSavingEvent($event)"
+            [editing]="editing" [variables]="variables" (savingEvent)="handleSavingEvent($event)"
             [currentScene]="currentScene" (exitEvent)="handleExitEvent($event)">
         </app-visual-novel>
     </div>
@@ -35,15 +35,22 @@
                 <p class="text">{{getSelectedData().description}}</p>
                 <p class="text" *ngIf="currentSlide != '-1'">Current slide:</p>
                 <p class="curseOfBinding" *ngIf="currentSlide != '-1'">{{getTextOfSlide(getSlides())}}</p>
-                <div class="clickableBox">
-                    <p class="clickable" *ngIf="currentSlide == '-1'" (click)="selectDisc(currentDiscDisplay, false)">
+                <div class="clickableBox" style="margin-top: 1rem">
+                    <p class="clickable blueText" *ngIf="currentSlide == '-1'"
+                        (click)="selectDisc(currentDiscDisplay, false)">
                         select</p>
-                    <p class="clickable" *ngIf="currentSlide != '-1'" (click)="selectDisc(currentDiscDisplay, false)">
+                    <p class="clickable blueText" *ngIf="currentSlide != '-1'"
+                        (click)="selectDisc(currentDiscDisplay, false)">
                         restart</p>
-                    <p class="clickable" *ngIf="currentSlide != '-1'" (click)="selectDisc(currentDiscDisplay, true)">
+                    <p class="clickable blueText" *ngIf="currentSlide != '-1'"
+                        (click)="selectDisc(currentDiscDisplay, true)">
                         load-savefile</p>
-                    <p class="clickable" *ngIf="currentSlide != '-1'" (click)="deleteSaveFile()">
+                    <p class="clickable blueText" *ngIf="currentSlide != '-1'" (click)="deleteSaveFile()">
                         delete-savefile</p>
+                </div>
+                <div class="clickableBox">
+                    <p class="nbtText clickable" (click)="selectDisc(currentDiscDisplay, false, true)">
+                        edit-story</p>
                 </div>
             </div>
         </div>
