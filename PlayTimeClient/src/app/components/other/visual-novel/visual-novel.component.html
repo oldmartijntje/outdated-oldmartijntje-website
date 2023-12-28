@@ -38,6 +38,61 @@
         [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"
         [href]="'https://github.com/oldmartijntje/Angular-components'"></app-glitch-text>
 </div>
-<div *ngIf="editing">
-
+<div class="body" *ngIf="editing">
+    <div class="save icon" style="display: flex; flex-direction: row-reverse; justify-content: space-between; ">
+        <img src="../../../../assets/icons/saveButton.png" alt="Save Button" style="cursor: pointer; user-select:none;"
+            title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon" class="image">
+        <img src="../../../../assets/icons/exitButton.png" alt="Close Button" style="cursor: pointer; user-select:none;"
+            title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
+    </div>
+    <div>
+        <h1>Slide '{{currentSlide}}'</h1>
+        <div>
+            <p>Scene</p>
+            <input type="text"> <!-- combobox -->
+        </div>
+        <div>
+            <p>Textbox</p>
+            <input type="text">
+        </div>
+        <div>
+            <p>Mode</p>
+            <input type="text">
+        </div>
+        <div>
+            <!-- choice -->
+            <div>
+                <p>Text</p>
+                <input type="text">
+                <p>To Slide</p>
+                <input type="text">
+                <!-- advanced -->
+            </div>
+        </div>
+        <div>
+            <!-- prompt -->
+            <p>Text</p>
+            <input type="text">
+            <p>To Slide</p>
+            <input type="text">
+        </div>
+        <div>
+            <!-- variable -->
+            <p>Variable</p>
+            <input type="text">
+            <p>Modifier</p>
+            <input type="text"> <!-- combobox -->
+            <p>To Slide</p>
+            <input type="text">
+        </div>
+        <div>
+            <!-- variable -->
+            <p>Sound</p>
+            <input type="text">
+            <p>Volume</p>
+            <input type="text">
+            <p>To Slide</p>
+            <input type="text">
+        </div>
+    </div>
 </div>

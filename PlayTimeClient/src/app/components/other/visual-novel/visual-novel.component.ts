@@ -27,11 +27,19 @@ export class VisualNovelComponent implements OnInit {
     defaultNumberForExceptions: string = "1";
 
     emitSavingEvent() {
-        this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
+        if (this.editing) {
+            this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes }, "currentSlide": this.currentSlide, "currentScene": this.scene })
+        } else {
+            this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
+        }
     }
 
     emitExitEvent() {
-        this.exitEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
+        if (this.editing) {
+            this.exitEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes }, "currentSlide": this.currentSlide, "currentScene": this.scene })
+        } else {
+            this.exitEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
+        }
     }
 
     constructor(
@@ -44,31 +52,34 @@ export class VisualNovelComponent implements OnInit {
 
     ngOnInit(): void {
         console.log(this.scenes, this.story, this.styling, this.currentSlide, this.currentScene, this.editing, this.variables);
-        if (this.editing) {
-            this.removeIntro();
-        } else {
+
+        if (!this.editing) {
             setTimeout(() => {
                 this.removeIntro();
                 this.runNextSlide();
             }, 1000);
+        }
+        if (this.currentSlide == "-1") {
+            this.currentSlide = this.story.startSlide;
             if (this.currentSlide == "-1") {
-                this.currentSlide = this.story.startSlide;
-                if (this.currentSlide == "-1") {
-                    // if startscene is not defined
-                    this.currentSlide = this.defaultNumberForExceptions;
-                    this.slide = this.deepClone(this.story.slides[this.currentSlide]);
-                } else {
-                    this.slide = this.deepClone(this.story.slides[this.currentSlide]);
-                }
+                // if startscene is not defined
+                this.currentSlide = this.defaultNumberForExceptions;
+                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
             } else {
-                this.slide = this.story.slides[this.currentSlide];
+                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
             }
-            if (this.currentScene == "-1" || this.currentScene == undefined) {
-                this.currentScene = "-1";
-            } else {
-                console.log(this.currentScene);
-                this.scene = this.scenes[this.currentScene];
-            }
+        } else {
+            this.slide = this.story.slides[this.currentSlide];
+        }
+        if (this.currentScene == "-1" || this.currentScene == undefined) {
+            this.currentScene = "-1";
+        } else {
+            console.log(this.currentScene);
+            this.scene = this.scenes[this.currentScene];
+        }
+        if (this.editing) {
+            this.removeIntro();
+            this.runNextSlide();
         }
 
     }
@@ -174,6 +185,10 @@ export class VisualNovelComponent implements OnInit {
         } else if (this.slide.type == "choice") {
             this.getAllChoices();
         }
+    }
+
+    stringifyObject(obj: any) {
+        return JSON.stringify(obj);
     }
 
     getStyling(option: any = "next"): { [key: string]: string | number } {
