@@ -60,13 +60,15 @@
         <div>
             <mat-form-field>
                 <mat-label>Slide Mode</mat-label>
-                <mat-select [(ngModel)]="slide['type']">
+                <mat-select [(ngModel)]="slide['type']" (ngModelChange)="slideTypeChange()">
                     @for (mode of editorValues['slideModes']; track mode) {
                     <mat-option [value]="mode.value">{{mode.viewValue}}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>
         </div>
+        <h2 *ngIf="slide['next'] == '-1' && slide['type'] != 'choice'" style="color: red;">'-1' is not a valid slide
+        </h2>
         <div *ngIf="slide['type'] == 'choice'">
             <!-- choice -->
             <h2 *ngIf="slide['choices'] == undefined || slide['choices'].length == 0" style="color: red;">This is a dead
@@ -76,7 +78,7 @@
                 <input type="text" [(ngModel)]="choice['text']">
                 <p>Goes to Slide</p>
                 <input type="text" [(ngModel)]="choice['next']">
-                <h2 *ngIf="slide['next'] == '-1'" style="color: red;">'-1' is not a valid slide</h2>
+                <h2 *ngIf="choice['next'] == '-1'" style="color: red;">'-1' is not a valid slide</h2>
                 <button (click)="deleteOption(i)">delete</button>
                 <!-- advanced -->
             </div>
@@ -86,27 +88,36 @@
             <!-- prompt -->
             <p>Text</p>
             <input type="text" [(ngModel)]="slide['nextSlideText']">
-            <p>To Slide</p>
+            <p>Next Slide</p>
             <input type="text" [(ngModel)]="slide['next']">
-            <h2 *ngIf="slide['next'] == '-1'" style="color: red;">'-1' is not a valid slide</h2>
         </div>
         <div *ngIf="slide['type'] == 'variable'">
             <!-- variable -->
             <p>Variable</p>
-            <input type="text">
-            <p>Modifier</p>
-            <input type="text"> <!-- combobox -->
-            <p>To Slide</p>
-            <input type="text">
+            <input type="text" [(ngModel)]="slide['variable']['name']">
+            <mat-form-field>
+                <mat-label>Modifier</mat-label>
+                <mat-select [(ngModel)]="slide['variable']['type']">
+                    @for (modifier of editorValues['variableModifier']; track modifier) {
+                    <mat-option [value]="modifier.value">{{modifier.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <p>Value</p>
+            <input type="text" [(ngModel)]="slide['variable']['value']">
+            <p>Next Slide</p>
+            <input type="text" [(ngModel)]="slide['next']">
         </div>
         <div *ngIf="slide['type'] == 'playSound'">
             <!-- playSound -->
             <p>Sound</p>
-            <input type="text">
+            <input type="text" [(ngModel)]="slide['sound']">
             <p>Volume</p>
-            <input type="text">
-            <p>To Slide</p>
-            <input type="text">
+            <input type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01">
+            <button (click)="tryToPlayAudio()">Test Audio</button>
+            <h2 style="color: red;">{{editorError}}</h2>
+            <p>Next Slide</p>
+            <input type="text" [(ngModel)]="slide['next']">
         </div>
     </div>
 </div>

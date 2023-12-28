@@ -30,6 +30,9 @@ export class VisualNovelComponent implements OnInit {
     showSaveIcon: boolean = this.story["showSaveButton"];
     showExitButton: boolean = this.story["showExitButton"];
     defaultNumberForExceptions: string = "1";
+
+    // editor variables
+    editorError = '';
     editorValues: { [key: string]: ComboboxOption[] } = {
         "slideModes": [
             { value: "prompt", viewValue: "Prompt" },
@@ -37,9 +40,14 @@ export class VisualNovelComponent implements OnInit {
             { value: "playSound", viewValue: "Play Sound" },
             { value: "variable", viewValue: "Variable" },
         ],
+        "variableModifier": [
+            { value: "+", viewValue: "Add" },
+            { value: "-", viewValue: "Subtract" },
+            { value: "=", viewValue: "Set to" }
+        ],
     }
 
-    emitSavingEvent() {
+    emitSavingEvent(): void {
         if (this.editing) {
             this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes, "styling": this.styling } })
         } else {
@@ -47,7 +55,7 @@ export class VisualNovelComponent implements OnInit {
         }
     }
 
-    emitExitEvent() {
+    emitExitEvent(): void {
         if (this.editing) {
             this.exitEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes }, "currentSlide": this.currentSlide, "currentScene": this.scene })
         } else {
@@ -59,23 +67,23 @@ export class VisualNovelComponent implements OnInit {
         private audioPlayerService: AudioPlayerService
     ) { }
 
-    removeIntro() {
+    removeIntro(): void {
         this.intro = false;
     }
 
-    saveEditing(mode: string) {
+    saveEditing(mode: string): void {
         function saveSlide(this: VisualNovelComponent) {
-            this.story.slides[this.currentSlide] = this.slide;
+            this.story.slides[this.currentSlide] = this.deepClone(this.slide);
             console.log(this.story.slides[this.currentSlide])
         }
 
         function saveScene(this: VisualNovelComponent) {
-            this.scenes[this.currentScene] = this.scene;
+            this.scenes[this.currentScene] = this.deepClone(this.scene);
             console.log(this.scenes[this.currentScene])
         }
 
         function saveStyle(this: VisualNovelComponent) {
-            this.styling = this.styling;
+            this.styling = this.deepClone(this.styling);
             console.log(this.styling)
         }
 
@@ -86,10 +94,23 @@ export class VisualNovelComponent implements OnInit {
         } else if (mode == "style") {
             saveStyle.call(this);
         }
-
     }
 
-    addOption() {
+    slideTypeChange(): void {
+        if (this.slide['type'] == "variable" && this.slide['variable'] == undefined) {
+            this.slide['variable'] = { "name": "defaultVariableName", "type": "+", "value": 1 };
+        } else if (this.slide['type'] == "playSound") {
+            if (this.slide['sound'] == undefined) {
+                this.slide['volume'] = 0.5;
+            }
+            if (this.slide['sound'] == undefined) {
+                this.slide['sound'] = 'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-55112/zapsplat_aminal_wild_could_be_bear_growl_snarl_001_60537.mp3';
+            }
+
+        }
+    }
+
+    addOption(): void {
         if (this.slide.choices == undefined) {
             this.slide.choices = [];
         }
@@ -100,7 +121,7 @@ export class VisualNovelComponent implements OnInit {
         this.slide.choices.splice(index, 1);
     }
 
-    removeUnusedParamaters() {
+    removeUnusedParamaters(): void {
         if (this.slide.type == "prompt") {
             delete this.slide["choices"];
             delete this.slide["sound"];
@@ -328,5 +349,10 @@ export class VisualNovelComponent implements OnInit {
 
     getVolume(): number {
         return this.audioPlayerService.getVolume();
+    }
+
+    tryToPlayAudio(): void {
+        this.setVolume(this.slide.volume);
+        this.playAudio(this.slide.sound);
     }
 }
