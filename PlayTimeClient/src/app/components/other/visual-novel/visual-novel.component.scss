@@ -60,3 +60,14 @@ header {
     object-fit: contain;
     image-rendering: pixelated;
 }
+
+.previewScene {
+    height: 4rem;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: 100%;
+}

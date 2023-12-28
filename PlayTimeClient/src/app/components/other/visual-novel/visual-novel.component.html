@@ -38,7 +38,7 @@
         [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"
         [href]="'https://github.com/oldmartijntje/Angular-components'"></app-glitch-text>
 </div>
-<div class="body" *ngIf="editing">
+<div class="body scroll" *ngIf="editing">
     <div class="save icon" style="display: flex; flex-direction: row-reverse; justify-content: space-between; ">
         <img src="../../../../assets/icons/saveButton.png" alt="Save Button" style="cursor: pointer; user-select:none;"
             title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon" class="image">
@@ -50,8 +50,20 @@
         <h1>Slide '{{currentSlide}}'</h1>
         <button (click)="saveEditing('slide')">Save Slide</button>
         <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
-            <p>Scene</p>
-            <input type="text"> <!-- combobox -->
+            <mat-form-field>
+                <mat-label>Scene</mat-label>
+                <mat-select [(ngModel)]="slide['scene']" (ngModelChange)="slideSceneChange()">
+                    @for (scene of editorValues['scenes']; track scene) {
+                    <mat-option [value]="scene.value">{{scene.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <hr>
+            <p>scene preview:</p>
+            <div [ngStyle]="scene.styling" class="previewScene">
+                <button (click)="tryToPlayAudio('scene')" *ngIf="scene['music'] != undefined">Test Audio</button>
+            </div>
+            <hr>
         </div>
         <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <p>Textbox</p>
@@ -114,7 +126,7 @@
             <input type="text" [(ngModel)]="slide['sound']">
             <p>Volume</p>
             <input type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01">
-            <button (click)="tryToPlayAudio()">Test Audio</button>
+            <button (click)="tryToPlayAudio('slide')">Test Audio</button>
             <h2 style="color: red;">{{editorError}}</h2>
             <p>Next Slide</p>
             <input type="text" [(ngModel)]="slide['next']">
