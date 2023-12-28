@@ -44,39 +44,53 @@
             title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon" class="image">
         <img src="../../../../assets/icons/exitButton.png" alt="Close Button" style="cursor: pointer; user-select:none;"
             title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
+        <button (click)="removeUnusedParamaters()">remove Useless data</button>
     </div>
-    <div>
+    <div id="slideEditor">
         <h1>Slide '{{currentSlide}}'</h1>
-        <div>
+        <button (click)="saveEditing('slide')">Save Slide</button>
+        <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <p>Scene</p>
             <input type="text"> <!-- combobox -->
         </div>
-        <div>
+        <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <p>Textbox</p>
-            <input type="text">
+            <textarea name="" id="" cols="40" rows="1" [(ngModel)]="slide['text']"></textarea>
         </div>
         <div>
-            <p>Mode</p>
-            <input type="text">
+            <mat-form-field>
+                <mat-label>Slide Mode</mat-label>
+                <mat-select [(ngModel)]="slide['type']">
+                    @for (mode of editorValues['slideModes']; track mode) {
+                    <mat-option [value]="mode.value">{{mode.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
         </div>
-        <div>
+        <div *ngIf="slide['type'] == 'choice'">
             <!-- choice -->
-            <div>
-                <p>Text</p>
-                <input type="text">
-                <p>To Slide</p>
-                <input type="text">
+            <h2 *ngIf="slide['choices'] == undefined || slide['choices'].length == 0" style="color: red;">This is a dead
+                end!</h2>
+            <div *ngFor="let choice of slide['choices']; let i = index">
+                <p>Text of option</p>
+                <input type="text" [(ngModel)]="choice['text']">
+                <p>Goes to Slide</p>
+                <input type="text" [(ngModel)]="choice['next']">
+                <h2 *ngIf="slide['next'] == '-1'" style="color: red;">'-1' is not a valid slide</h2>
+                <button (click)="deleteOption(i)">delete</button>
                 <!-- advanced -->
             </div>
+            <button (click)="addOption()">add option</button>
         </div>
-        <div>
+        <div *ngIf="slide['type'] == 'prompt'">
             <!-- prompt -->
             <p>Text</p>
-            <input type="text">
+            <input type="text" [(ngModel)]="slide['nextSlideText']">
             <p>To Slide</p>
-            <input type="text">
+            <input type="text" [(ngModel)]="slide['next']">
+            <h2 *ngIf="slide['next'] == '-1'" style="color: red;">'-1' is not a valid slide</h2>
         </div>
-        <div>
+        <div *ngIf="slide['type'] == 'variable'">
             <!-- variable -->
             <p>Variable</p>
             <input type="text">
@@ -85,8 +99,8 @@
             <p>To Slide</p>
             <input type="text">
         </div>
-        <div>
-            <!-- variable -->
+        <div *ngIf="slide['type'] == 'playSound'">
+            <!-- playSound -->
             <p>Sound</p>
             <input type="text">
             <p>Volume</p>

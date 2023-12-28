@@ -14,7 +14,7 @@ export class ContentPlayerPageComponent implements OnInit {
     scenes = DefaultScenes;
     story = DefaultStory;
     variables = { ...this.story['variables'] }
-    selectedADisc = -1;
+    selectedADisc = 1; //set to -1 when done making the editor
     currentDiscDisplay = 1;
     firstDiscShowedId = 0;
     animateButtons = [
@@ -22,7 +22,7 @@ export class ContentPlayerPageComponent implements OnInit {
     ]
     currentSlide: string = "-1";
     currentScene: string = "-1";
-    editing: boolean = false;
+    editing: boolean = true; //set to false when done making the editor
 
     constructor(
         private toastQueue: ToastQueueService,
@@ -31,7 +31,6 @@ export class ContentPlayerPageComponent implements OnInit {
     ngOnInit(): void {
         var selected = localStorage.getItem('selected-disc');
         if (selected != null) {
-            console.log(selected)
             this.selectOtherDisc(parseInt(selected));
         } else {
             this.selectOtherDisc(0)
@@ -48,19 +47,23 @@ export class ContentPlayerPageComponent implements OnInit {
     }
 
     handleSavingEvent(message: any) {
-        console.log(message);
-        var data = this.getLocalstorageDict('content-player');
-        console.log(data);
-        data[this.getSelectedData().name] = {
-            "name": this.getSelectedData().name,
-            "slide": message['currentSlide'],
-            "scene": message['currentScene']["sceneId"],
-            "variables": message['variables']
-        };
-        var encr = new Encryptor();
-        var encrData = encr.encryptString(JSON.stringify(data), 1);
-        localStorage.setItem('content-player', encrData);
-        this.toastQueue.enqueueToast('Your progress has been saved', 'Info');
+        if (this.editing) {
+            console.log(message['FullStoryDict']);
+        } else {
+            console.log(message);
+            var data = this.getLocalstorageDict('content-player');
+            console.log(data);
+            data[this.getSelectedData().name] = {
+                "name": this.getSelectedData().name,
+                "slide": message['currentSlide'],
+                "scene": message['currentScene']["sceneId"],
+                "variables": message['variables']
+            };
+            var encr = new Encryptor();
+            var encrData = encr.encryptString(JSON.stringify(data), 1);
+            localStorage.setItem('content-player', encrData);
+            this.toastQueue.enqueueToast('Your progress has been saved', 'Info');
+        }
     }
 
     getLocalstorageDict(key: string): { [key: string]: any } {

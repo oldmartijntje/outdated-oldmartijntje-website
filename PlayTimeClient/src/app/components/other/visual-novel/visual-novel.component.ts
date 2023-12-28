@@ -2,6 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Styling, DefaultScenes, DefaultStory } from '../../../data/media'
 import { AudioPlayerService } from 'src/app/services/audio-player.service';
 
+interface ComboboxOption {
+    value: string;
+    viewValue: string;
+}
+
 @Component({
     selector: 'app-visual-novel',
     templateUrl: './visual-novel.component.html',
@@ -25,10 +30,18 @@ export class VisualNovelComponent implements OnInit {
     showSaveIcon: boolean = this.story["showSaveButton"];
     showExitButton: boolean = this.story["showExitButton"];
     defaultNumberForExceptions: string = "1";
+    editorValues: { [key: string]: ComboboxOption[] } = {
+        "slideModes": [
+            { value: "prompt", viewValue: "Prompt" },
+            { value: "choice", viewValue: "Choices" },
+            { value: "playSound", viewValue: "Play Sound" },
+            { value: "variable", viewValue: "Variable" },
+        ],
+    }
 
     emitSavingEvent() {
         if (this.editing) {
-            this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes }, "currentSlide": this.currentSlide, "currentScene": this.scene })
+            this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes, "styling": this.styling } })
         } else {
             this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
         }
@@ -50,9 +63,78 @@ export class VisualNovelComponent implements OnInit {
         this.intro = false;
     }
 
+    saveEditing(mode: string) {
+        function saveSlide(this: VisualNovelComponent) {
+            this.story.slides[this.currentSlide] = this.slide;
+            console.log(this.story.slides[this.currentSlide])
+        }
+
+        function saveScene(this: VisualNovelComponent) {
+            this.scenes[this.currentScene] = this.scene;
+            console.log(this.scenes[this.currentScene])
+        }
+
+        function saveStyle(this: VisualNovelComponent) {
+            this.styling = this.styling;
+            console.log(this.styling)
+        }
+
+        if (mode == "slide") {
+            saveSlide.call(this);
+        } else if (mode == "scene") {
+            saveScene.call(this);
+        } else if (mode == "style") {
+            saveStyle.call(this);
+        }
+
+    }
+
+    addOption() {
+        if (this.slide.choices == undefined) {
+            this.slide.choices = [];
+        }
+        this.slide.choices.push({ "text": "New Option", "next": this.currentSlide });
+    }
+
+    deleteOption(index: number) {
+        this.slide.choices.splice(index, 1);
+    }
+
+    removeUnusedParamaters() {
+        if (this.slide.type == "prompt") {
+            delete this.slide["choices"];
+            delete this.slide["sound"];
+            delete this.slide["variable"];
+            delete this.slide["volume"];
+        } else if (this.slide.type == "choice") {
+            delete this.slide["text"];
+            delete this.slide["sound"];
+            delete this.slide["volume"];
+            delete this.slide["variable"];
+            delete this.slide["next"];
+            delete this.slide["nextSlideText"];
+        } else if (this.slide.type == "playSound") {
+            delete this.slide["choices"];
+            delete this.slide["text"];
+            delete this.slide["nextSlideText"];
+            delete this.slide["promptStyling"];
+            delete this.slide["variable"];
+        } else if (this.slide.type == "variable") {
+            delete this.slide["choices"];
+            delete this.slide["text"];
+            delete this.slide["scene"];
+            delete this.slide["sound"];
+            delete this.slide["volume"];
+            delete this.slide["nextSlideText"];
+            delete this.slide["promptStyling"];
+        }
+    }
+
     ngOnInit(): void {
         console.log(this.scenes, this.story, this.styling, this.currentSlide, this.currentScene, this.editing, this.variables);
-
+        this.story = this.deepClone(this.story);
+        this.scenes = this.deepClone(this.scenes);
+        this.styling = this.deepClone(this.styling);
         if (!this.editing) {
             setTimeout(() => {
                 this.removeIntro();
@@ -185,6 +267,12 @@ export class VisualNovelComponent implements OnInit {
         } else if (this.slide.type == "choice") {
             this.getAllChoices();
         }
+        if (this.editing) {
+            if (this.slide['nextSlideText'] == undefined) {
+                this.slide['nextSlideText'] = this.story['defaultNextSlideText'];
+            }
+        }
+        console.log(this.variables, this.currentSlide, this.currentScene, this.slide, this.scene)
     }
 
     stringifyObject(obj: any) {
