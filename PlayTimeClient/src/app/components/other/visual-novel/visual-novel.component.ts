@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Styling, DefaultScenes, DefaultStory } from '../../../data/media'
+import { Styling, DefaultScenes, DefaultStory, DefaultIdentifierForExceptions } from '../../../data/media'
 import { AudioPlayerService } from 'src/app/services/audio-player.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 interface ComboboxOption {
     value: string;
@@ -29,7 +32,6 @@ export class VisualNovelComponent implements OnInit {
     scene: any;
     showSaveIcon: boolean = this.story["showSaveButton"];
     showExitButton: boolean = this.story["showExitButton"];
-    defaultNumberForExceptions: string = "1";
 
     // editor variables
     editorError = '';
@@ -46,6 +48,11 @@ export class VisualNovelComponent implements OnInit {
             { value: "=", viewValue: "Set to" }
         ],
     }
+    createNewSlideButton: boolean = false;
+    currentAutocompleteValue: string = "";
+    // Autocomplete variables
+    searchControl = new FormControl();
+    filteredData: { id: string; type: any; }[] = [];
 
     emitSavingEvent(): void {
         if (this.editing) {
@@ -76,6 +83,7 @@ export class VisualNovelComponent implements OnInit {
         for (let index = 0; index < Object.keys(this.scenes).length; index++) {
             scenes.push({ "value": Object.keys(this.scenes)[index], "viewValue": Object.keys(this.scenes)[index] })
         }
+        scenes.push({ "value": "-1", "viewValue": "NONE" })
         this.editorValues["scenes"] = scenes;
     }
 
@@ -158,7 +166,10 @@ export class VisualNovelComponent implements OnInit {
                 delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
                 delete this.story.slides[Object.keys(this.story.slides)[index]]["promptStyling"];
             } else {
-                console.log("Unknown slide type: " + this.story.slides[index].type);
+                console.warn("Unknown slide type: " + this.story.slides[index].type);
+            }
+            if (this.story.slides[Object.keys(this.story.slides)[index]].scene == "-1") {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
             }
         }
     }
@@ -171,14 +182,14 @@ export class VisualNovelComponent implements OnInit {
         if (!this.editing) {
             setTimeout(() => {
                 this.removeIntro();
-                this.runNextSlide();
+                this.loadSelectedSlide();
             }, 1000);
         }
         if (this.currentSlide == "-1") {
             this.currentSlide = this.story.startSlide;
             if (this.currentSlide == "-1") {
                 // if startscene is not defined
-                this.currentSlide = this.defaultNumberForExceptions;
+                this.currentSlide = DefaultIdentifierForExceptions;
                 this.slide = this.deepClone(this.story.slides[this.currentSlide]);
             } else {
                 this.slide = this.deepClone(this.story.slides[this.currentSlide]);
@@ -189,14 +200,58 @@ export class VisualNovelComponent implements OnInit {
         if (this.currentScene == "-1" || this.currentScene == undefined) {
             this.currentScene = "-1";
         } else {
-            console.log(this.currentScene);
-            this.scene = this.scenes[this.currentScene];
+            if (this.scenes[this.currentScene] == undefined || this.currentScene == "-1") {
+                this.scene = this.scenes[DefaultIdentifierForExceptions];
+            } else {
+                this.scene = this.scenes[this.currentScene];
+            }
         }
+        // Initialize the filteredData observable
+        this.searchControl.valueChanges.subscribe(selectedValue => {
+            this.currentAutocompleteValue = selectedValue;
+            // Manually update the filteredData based on the selectedValue
+            this.updateFilteredData(selectedValue);
+        });
+        this.searchControl.valueChanges.subscribe(selectedValue => {
+            this.currentAutocompleteValue = selectedValue;
+            if (selectedValue != undefined
+                && selectedValue != "" && selectedValue != null
+                && Object.keys(this.story.slides).includes(selectedValue.split(":")[0])
+                && this.story.slides[selectedValue.split(":")[0]].type == selectedValue.split(": ")[1]
+            ) {
+                this.createNewSlideButton = false;
+                this.currentSlide = selectedValue.split(":")[0];
+                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
+                this.loadSelectedSlide();
+            } else if (selectedValue != undefined
+                && selectedValue != "" && selectedValue != null
+                && !Object.keys(this.story.slides).includes(selectedValue)
+                && !Object.keys(this.story.slides).includes(selectedValue.split(":")[0])
+            ) {
+                this.createNewSlideButton = true;
+            }
+        });
         if (this.editing) {
             this.removeIntro();
-            this.runNextSlide();
+            this.setValueOfAutocomplete(`${this.currentSlide}: ${this.story.slides[this.currentSlide].type}`);
         }
 
+    }
+
+    setValueOfAutocomplete(value: string) {
+        this.searchControl.setValue(value);
+        this.searchControl.markAsDirty(); // Optionally mark the control as dirty
+        this.searchControl.updateValueAndValidity(); // Optionally update value and validity
+        // Manually update the filteredData based on the selected value
+        this.updateFilteredData(value);
+    }
+
+    // Function to manually update filteredData based on the selected value
+    private updateFilteredData(value: string) {
+        const filterValue = value.toLowerCase();
+        this.filteredData = Object.keys(this.story["slides"])
+            .filter(key => key.toLowerCase().includes(filterValue))
+            .map(key => ({ id: key, type: this.story["slides"][key].type }));
     }
 
     deepClone(obj: Record<string, any>): Record<string, any> {
@@ -269,19 +324,25 @@ export class VisualNovelComponent implements OnInit {
             this.currentSlide = option.next;
         }
         this.slide = this.deepClone(this.story.slides[this.currentSlide]);
-        this.runNextSlide();
+        this.loadSelectedSlide();
     }
 
-    runNextSlide() {
-        if (this.slide.scene != undefined) {
+    loadSelectedSlide() {
+        if (this.slide.scene != undefined && this.slide.scene != "-1") {
             this.scene = this.scenes[this.slide.scene];
             this.scene["sceneId"] = this.slide.scene;
         } else if (this.scene == undefined) {
-            this.scene = this.scenes[this.defaultNumberForExceptions];
-            this.scene["sceneId"] = this.defaultNumberForExceptions;
+            this.scene = this.scenes[DefaultIdentifierForExceptions];
+            this.scene["sceneId"] = DefaultIdentifierForExceptions;
+
+        } else if (this.editing
+            && (this.slide.scene == "-1" || this.slide.scene == undefined)
+        ) {
+            this.slide.scene = "-1";
         }
 
-        if (this.slide.type == "variable") {
+
+        if (this.slide.type == "variable" && !this.editing) {
             if (this.variables[this.slide.variable.name] == undefined) {
                 this.variables[this.slide.variable.name] = 0;
             }
@@ -293,7 +354,7 @@ export class VisualNovelComponent implements OnInit {
                 this.variables[this.slide.variable.name] = this.slide.variable.value;
             }
             this.clickChoice();
-        } else if (this.slide.type == "playSound") {
+        } else if (this.slide.type == "playSound" && !this.editing) {
             this.setVolume(this.slide.volume);
             this.playAudio(this.slide.sound);
             this.clickChoice();
@@ -306,11 +367,16 @@ export class VisualNovelComponent implements OnInit {
             }
             this.getEditorScenesDict();
         }
-        console.log(this.variables, this.currentSlide, this.currentScene, this.slide, this.scene)
     }
 
     stringifyObject(obj: any) {
         return JSON.stringify(obj);
+    }
+
+    createSlide() {
+        this.story.slides[this.currentAutocompleteValue] = { "type": "prompt", "text": "New Slide", "next": "-1", "scene": "-1" };
+        this.setValueOfAutocomplete(`${this.currentAutocompleteValue}: ${this.story.slides[this.currentAutocompleteValue].type}`);
+        this.createNewSlideButton = false;
     }
 
     getStyling(option: any = "next"): { [key: string]: string | number } {
@@ -379,6 +445,11 @@ export class VisualNovelComponent implements OnInit {
     }
 
     slideSceneChange(): void {
+        if (this.scenes[this.slide.scene] == undefined || this.slide.scene == "-1") {
+            this.scene = this.scenes[DefaultIdentifierForExceptions];
+            this.slide.scene = "-1";
+            return;
+        }
         this.scene = this.deepClone(this.scenes[this.slide.scene]);
     }
 }

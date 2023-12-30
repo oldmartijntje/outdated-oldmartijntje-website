@@ -47,7 +47,21 @@
         <button (click)="removeUnusedParamaters()">remove Useless data</button>
     </div>
     <div id="slideEditor">
-        <h1>Slide '{{currentSlide}}'</h1>
+        <h1>current slide: '{{currentSlide}}'</h1>
+        <button *ngIf="createNewSlideButton" (click)="createSlide()">Create '{{currentAutocompleteValue}}'
+            slide</button>
+        <form>
+            <mat-form-field>
+                <mat-label>Slide</mat-label>
+                <input type="text" placeholder="Pick one" aria-label="Slide" matInput [formControl]="searchControl"
+                    placeholder="Select an slide" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredData" [value]="option.id + ': ' + option.type">
+                        {{option.id}}: {{option.type}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
         <button (click)="saveEditing('slide')">Save Slide</button>
         <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <mat-form-field>
@@ -58,12 +72,16 @@
                     }
                 </mat-select>
             </mat-form-field>
-            <hr>
-            <p>scene preview:</p>
-            <div [ngStyle]="scene.styling" class="previewScene">
-                <button (click)="tryToPlayAudio('scene')" *ngIf="scene['music'] != undefined">Test Audio</button>
+            <div *ngIf="slide['scene'] != '-1'">
+                <hr>
+                <p>scene preview:</p>
+                <div [ngStyle]="scene.styling" class="previewScene">
+                    <button (click)="tryToPlayAudio('scene')" *ngIf="scene['music'] != undefined">Test Audio</button>
+                </div>
+                <hr>
             </div>
-            <hr>
+            <p *ngIf="slide['scene'] == '-1'">With scene set to NONE, it'll use the scene it has loaded from a
+                previous slide.</p>
         </div>
         <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <p>Textbox</p>

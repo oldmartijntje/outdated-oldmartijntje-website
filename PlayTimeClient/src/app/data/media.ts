@@ -1,3 +1,5 @@
+export const DefaultIdentifierForExceptions = "1";
+
 export const DefaultStory: { [key: string]: any } = {
     "variables": {
         "coins": 0,

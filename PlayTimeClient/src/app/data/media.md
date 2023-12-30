@@ -1,8 +1,10 @@
 - don't ever call a slide or scene or styling `"-1"`, cause then it won't work.
-
+- `DefaultIdentifierForExceptions` should be an Id that is defined in story, styling and scenes. cause if something goes wrong, it uses this by default.
 
 
 ```ts
+export const DefaultIdentifierForExceptions = "1";
+
 // sound related things in the scenes are not implemented
 export const DefaultStory = {
     "variables": {
