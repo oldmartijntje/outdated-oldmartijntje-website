@@ -68,8 +68,8 @@
             <mat-form-field>
                 <mat-label>Slide</mat-label>
                 <input type="text" placeholder="Pick one" aria-label="Slide" matInput [formControl]="searchControl"
-                    placeholder="Select an slide" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
+                    placeholder="Select an slide" [matAutocomplete]="selectSlideAutocomplete">
+                <mat-autocomplete #selectSlideAutocomplete="matAutocomplete">
                     <mat-option *ngFor="let option of filteredData" [value]="option.id + ': ' + option.type">
                         {{option.id}}: {{option.type}}
                     </mat-option>

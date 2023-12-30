@@ -67,6 +67,7 @@ export class VisualNovelComponent implements OnInit {
             this.saveEditing('slide')
             this.saveEditing('scene')
             this.saveEditing('style')
+            this.updateFilteredData(this.currentAutocompleteValue)
             this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes, "styling": this.styling } })
         } else {
             this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
@@ -276,7 +277,10 @@ export class VisualNovelComponent implements OnInit {
     private updateFilteredData(value: string) {
         const filterValue = value.toLowerCase();
         this.filteredData = Object.keys(this.story["slides"])
-            .filter(key => key.toLowerCase().includes(filterValue))
+            .filter(key =>
+                key.toLowerCase().includes(filterValue) ||
+                this.story["slides"][key].type.toLowerCase().includes(filterValue) ||
+                `${key}: ${this.story["slides"][key].type}`.toLowerCase().includes(filterValue))
             .map(key => ({ id: key, type: this.story["slides"][key].type }));
     }
 
