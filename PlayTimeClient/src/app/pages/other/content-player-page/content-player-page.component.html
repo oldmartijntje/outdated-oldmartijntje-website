@@ -10,23 +10,23 @@
             [textStyling]="{'font-size': '2rem', 'user-select': 'none'}"></app-glitch-text>
         <div class="container disc-container">
             <div>
-                <button (click)="selectOtherDisc(-1)" class="left-button-{{animateButtons[0]}}"></button>
+                <button (click)="highlightDisc(-1)" class="left-button-{{animateButtons[0]}}"></button>
             </div>
             <div class="disc" *ngFor="let disc of getDiscs(); let i = index">
                 <div *ngIf="firstDiscShowedId + i == currentDiscDisplay" class="image-container"
-                    (click)="selectOtherDisc(firstDiscShowedId + i)">
+                    (click)="highlightDisc(firstDiscShowedId + i)">
                     <img src="../../../../assets/icons/portal1.png" alt="Selected" class="background-image">
                     <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
                 </div>
                 <div *ngIf="firstDiscShowedId + i != currentDiscDisplay" class="image-container"
-                    (click)="selectOtherDisc(firstDiscShowedId + i)">
+                    (click)="highlightDisc(firstDiscShowedId + i)">
                     <img src="../../../../assets/icons/portal2.png" alt="Unselected" class="background-image">
                     <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
                 </div>
                 <!-- <p>{{firstDiscShowedId + i}}</p> -->
             </div>
             <div>
-                <button (click)="selectOtherDisc(-2)" class="right-button-{{animateButtons[1]}}"></button>
+                <button (click)="highlightDisc(-2)" class="right-button-{{animateButtons[1]}}"></button>
             </div>
         </div>
         <div class="outer Box">
@@ -34,25 +34,75 @@
                 <p class="title">{{getSelectedData().name}}</p>
                 <p class="text">{{getSelectedData().description}}</p>
                 <p class="text" *ngIf="currentSlide != '-1'">Current slide:</p>
-                <p class="curseOfBinding" *ngIf="currentSlide != '-1'">{{getTextOfSlide(getSlides())}}</p>
+                <p class="curseOfBinding" *ngIf="currentSlide != '-1'">{{getTextOfSlide(getSlides(false), false)}}</p>
                 <div class="clickableBox" style="margin-top: 1rem">
                     <p class="clickable blueText" *ngIf="currentSlide == '-1'"
-                        (click)="selectDisc(currentDiscDisplay, false)">
+                        (click)="selectDisc(currentDiscDisplay, false, false, false)">
                         select</p>
                     <p class="clickable blueText" *ngIf="currentSlide != '-1'"
-                        (click)="selectDisc(currentDiscDisplay, false)">
+                        (click)="selectDisc(currentDiscDisplay, false, false, false)">
                         restart</p>
                     <p class="clickable blueText" *ngIf="currentSlide != '-1'"
-                        (click)="selectDisc(currentDiscDisplay, true)">
+                        (click)="selectDisc(currentDiscDisplay, true, false, false)">
                         load-savefile</p>
                     <p class="clickable blueText" *ngIf="currentSlide != '-1'" (click)="deleteSaveFile()">
                         delete-savefile</p>
                 </div>
                 <div class="clickableBox" style="margin-top: 1rem">
-                    <p class="nbtText clickable" (click)="selectDisc(currentDiscDisplay, false, true)">
+                    <p class="nbtText clickable" (click)="selectDisc(currentDiscDisplay, false, true, false)">
                         edit-story</p>
                 </div>
             </div>
+        </div>
+        <div>
+            <div class="outer Box" style="width:fit-content" *ngIf="!clickedImport">
+                <div class="inner Box clickableBox">
+                    <p class="clickable blueText" (click)="clickedImport = !clickedImport">Import Story</p>
+                </div>
+            </div>
+            <div class="outer Box" *ngIf="clickedImport">
+                <div class="inner Box">
+                    <div class="clickableBox" style="margin-bottom: 1rem">
+                        <p class="clickable blueText" (click)="clickedImport = !clickedImport">Import Story</p>
+                    </div>
+                    <input type="file" (change)="onFileChange($event)" />
+                    <p class="title" *ngIf="hasImportedStory()">Story Identifier:
+                        '{{importedStory["story"]["customStoryId"]}}'</p>
+                    <div *ngIf="hasImportedStory()">
+                        <p class="text" *ngIf="importedStoryHasSaveFile">Current slide:</p>
+                        <p class="curseOfBinding" *ngIf="importedStoryHasSaveFile">
+                            {{getTextOfSlide(getSlides(true), true)}}
+                        </p>
+                        <div class="clickableBox" style="margin-top: 1rem">
+                            <p class="clickable blueText" *ngIf="!importedStoryHasSaveFile"
+                                (click)="selectDisc(-2, false, false, true)">
+                                Select
+                            </p>
+                            <p class="clickable blueText" *ngIf="importedStoryHasSaveFile"
+                                (click)="selectDisc(-2, false, false, true)">
+                                Restart
+                            </p>
+                            <p class="clickable blueText" *ngIf="importedStoryHasSaveFile"
+                                (click)="selectDisc(-2, true, false, true)">
+                                load-savefile
+                            </p>
+                            <p class="clickable blueText" *ngIf="importedStoryHasSaveFile"
+                                (click)="deleteSaveFile(true)">
+                                delete-savefile
+                            </p>
+                        </div>
+                        <div class="clickableBox" style="margin-top: 1rem">
+                            <p class="nbtText clickable" (click)="selectDisc(-2, false, true, true)">
+                                edit-story
+                            </p>
+                            <p class="nbtText clickable" (click)="downloadFile('Exported-Story', importedStory)">
+                                export-story
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button (click)="debug()">debug</button>
         </div>
     </div>
 </app-ui-element>

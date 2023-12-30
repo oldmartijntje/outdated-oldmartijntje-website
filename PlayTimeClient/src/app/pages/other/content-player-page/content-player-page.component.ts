@@ -3,6 +3,7 @@ import { Styling, DefaultScenes, DefaultStory } from '../../../data/media'
 import { Discs, DiscType } from '../../../models/discs'
 import { Encryptor } from 'src/app/models/encryptor';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
+import { UUID } from 'src/app/models/uuid';
 
 @Component({
     selector: 'app-content-player-page',
@@ -14,7 +15,7 @@ export class ContentPlayerPageComponent implements OnInit {
     scenes = DefaultScenes;
     story = DefaultStory;
     variables = { ...this.story['variables'] }
-    selectedADisc = 1; //set to -1 when done making the editor
+    selectedADisc = -1; //set to -1 when done making the editor
     currentDiscDisplay = 1;
     firstDiscShowedId = 0;
     animateButtons = [
@@ -23,6 +24,11 @@ export class ContentPlayerPageComponent implements OnInit {
     currentSlide: string = "-1";
     currentScene: string = "-1";
     editing: boolean = true; //set to false when done making the editor
+    importedStory: { [key: string]: any } = {};
+    playingImportedStory: boolean = false;
+    importedStoryHasSaveFile: boolean = false;
+    currentImportedSlide: string = "-1";
+    clickedImport: boolean = false;
 
     constructor(
         private toastQueue: ToastQueueService,
@@ -31,30 +37,52 @@ export class ContentPlayerPageComponent implements OnInit {
     ngOnInit(): void {
         var selected = localStorage.getItem('selected-disc');
         if (selected != null) {
-            this.selectOtherDisc(parseInt(selected));
+            this.highlightDisc(parseInt(selected));
         } else {
-            this.selectOtherDisc(0)
+            this.highlightDisc(0)
         }
     }
 
-    getTextOfSlide(slide: any) {
-        if (slide[this.currentSlide] == undefined || this.currentSlide == "-1") {
-            return undefined;
+    hasImportedStory(): boolean {
+        return JSON.stringify(this.importedStory) != JSON.stringify({});
+    }
+
+    getTextOfSlide(slide: any, importedStory: boolean = false) {
+        if (importedStory && this.hasImportedStory()) {
+            if (slide[this.currentImportedSlide] == undefined || this.currentImportedSlide == "-1") {
+                return undefined;
+            } else {
+                return slide[this.currentImportedSlide]['text']
+            }
         } else {
-            return slide[this.currentSlide]['text']
+            if (slide[this.currentSlide] == undefined || this.currentSlide == "-1") {
+                return undefined;
+            } else {
+                return slide[this.currentSlide]['text']
+            }
         }
+
 
     }
 
     handleSavingEvent(message: any) {
         if (this.editing) {
             console.log(message['FullStoryDict']);
+            if (message['FullStoryDict']["story"]["customStoryId"] == undefined) {
+                message['FullStoryDict']["story"]["customStoryId"] = UUID.generate();
+            }
+            this.importedStory = message['FullStoryDict'];
+            this.clickedImport = true;
         } else {
-            console.log(message);
+            var discName = this.getSelectedData().name;
+            if (this.playingImportedStory) {
+                discName = this.importedStory["story"]["customStoryId"];
+            }
+            console.log(message, discName);
             var data = this.getLocalstorageDict('content-player');
             console.log(data);
-            data[this.getSelectedData().name] = {
-                "name": this.getSelectedData().name,
+            data[discName] = {
+                "name": discName,
                 "slide": message['currentSlide'],
                 "scene": message['currentScene']["sceneId"],
                 "variables": message['variables']
@@ -79,6 +107,45 @@ export class ContentPlayerPageComponent implements OnInit {
         }
     }
 
+    downloadFile(title: string, data: { [key: string]: any }) {
+        const jsonContent = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonContent], { type: 'application/json' });
+
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = title + '.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    onFileChange(event: any) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const content = e.target?.result as string;
+                    var importedStory = JSON.parse(content);
+                    if (importedStory["story"] != undefined && importedStory["scenes"] != undefined && importedStory["styling"] != undefined) {
+                        console.log('File imported successfully:', importedStory);
+                        this.importedStory = importedStory;
+                        this.toastQueue.enqueueToast('File imported successfully', 'info');
+                        this.checkForImportedSaveFile()
+                    } else {
+                        this.importedStory = {};
+                        console.error('File imported unsuccessfully:', importedStory);
+                        this.toastQueue.enqueueToast('File imported unsuccessfully', 'error', 5);
+                        return;
+                    }
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
+    }
+
     getLocalstorageDict(key: string): { [key: string]: any } {
         var data = localStorage.getItem(key);
         if (data == null) {
@@ -98,16 +165,31 @@ export class ContentPlayerPageComponent implements OnInit {
     }
 
     getSelectedData() {
+        if (this.playingImportedStory) {
+            return this.importedStory;
+        }
         return Discs[this.currentDiscDisplay];
     }
 
     handleExitEvent(message: any) {
+        this.playingImportedStory = false;
         this.selectedADisc = -1;
         this.updateSelectedData();
+        this.checkForImportedSaveFile();
+
     }
 
-    getSelectedAssets() {
-
+    checkForImportedSaveFile() {
+        if (this.hasImportedStory()) {
+            var data = this.getLocalstorageDict('content-player');
+            var discName = this.importedStory["story"]["customStoryId"];
+            if (data[discName] != undefined) {
+                this.importedStoryHasSaveFile = true;
+                this.currentImportedSlide = data[discName]['slide'];
+            } else {
+                this.importedStoryHasSaveFile = false;
+            }
+        }
     }
 
     setAnimation(index: number) {
@@ -148,7 +230,8 @@ export class ContentPlayerPageComponent implements OnInit {
         return displayedDiscs;
     }
 
-    selectDisc(disc: number, saveFileBoolean: boolean, editing: boolean = false) {
+    selectDisc(disc: number, saveFileBoolean: boolean, editing: boolean = false, importedStory: boolean = false) {
+        this.playingImportedStory = importedStory;
         this.selectedADisc = disc;
         this.styling = this.getSelectedData().styling;
         this.scenes = this.getSelectedData().scenes;
@@ -157,13 +240,18 @@ export class ContentPlayerPageComponent implements OnInit {
 
         if (saveFileBoolean) {
             var data = this.getLocalstorageDict('content-player');
-            if (data[this.getSelectedData().name] != undefined) {
-                this.currentSlide = data[this.getSelectedData().name]['slide'];
-                this.currentScene = data[this.getSelectedData().name]["scene"];
+            var discName = this.getSelectedData().name;
+            if (importedStory) {
+                discName = this.importedStory["story"]["customStoryId"];
+            }
+            if (data[discName] != undefined) {
+                this.currentSlide = data[discName]['slide'];
+                this.currentScene = data[discName]["scene"];
             } else {
                 this.currentSlide = "-1";
                 this.currentScene = "-1";
             }
+            console.log(this.currentSlide, this.currentScene, data, discName);
         } else {
             this.currentSlide = "-1";
             this.currentScene = "-1";
@@ -171,21 +259,29 @@ export class ContentPlayerPageComponent implements OnInit {
         this.editing = editing;
     }
 
-    deleteSaveFile() {
+    deleteSaveFile(importedStory: boolean = false) {
         var data = this.getLocalstorageDict('content-player');
-        delete data[this.getSelectedData().name];
+        var discName = this.getSelectedData().name;
+        if (importedStory) {
+            discName = this.importedStory["story"]["customStoryId"];
+        }
+        delete data[discName];
         var encr = new Encryptor();
         var encrData = encr.encryptString(JSON.stringify(data), 1);
         localStorage.setItem('content-player', encrData);
-        this.toastQueue.enqueueToast('Your progress has been deleted', 'Info');
+        this.toastQueue.enqueueToast('Your progress has been deleted', 'info');
         this.updateSelectedData();
+        this.checkForImportedSaveFile();
     }
 
-    getSlides() {
+    getSlides(importedStory: boolean = false) {
+        if (importedStory && this.hasImportedStory()) {
+            return this.importedStory["story"]["slides"];
+        }
         return this.story["slides"]
     }
 
-    selectOtherDisc(disc: number) {
+    highlightDisc(disc: number) {
         if (disc == -1) {
             this.setAnimation(0);
             setTimeout(() => {
@@ -214,13 +310,22 @@ export class ContentPlayerPageComponent implements OnInit {
     updateSelectedData() {
         this.story = this.getSelectedData().story;
         var data = this.getLocalstorageDict('content-player');
-        if (data[this.getSelectedData().name] != undefined) {
-            this.currentSlide = data[this.getSelectedData().name]['slide'];
+        var discName = this.getSelectedData().name;
+        // if (this.playingImportedStory) {
+        //     discName = this.importedStory["story"]["customStoryId"];
+        // }
+        if (data[discName] != undefined) {
+            this.currentSlide = data[discName]['slide'];
             this.currentScene = data["scene"];
         } else {
             this.currentSlide = "-1";
             this.currentScene = "-1";
         }
         localStorage.setItem('selected-disc', this.currentDiscDisplay.toString());
+    }
+
+    debug() {
+        var data = this.getLocalstorageDict('content-player');
+        console.log(data);
     }
 }

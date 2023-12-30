@@ -57,6 +57,9 @@ export class VisualNovelComponent implements OnInit {
 
     emitSavingEvent(): void {
         if (this.editing) {
+            this.saveEditing('slide')
+            this.saveEditing('scene')
+            this.saveEditing('style')
             this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes, "styling": this.styling } })
         } else {
             this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
