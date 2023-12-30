@@ -26,6 +26,7 @@ export class VisualNovelComponent implements OnInit {
 
     @Output() savingEvent = new EventEmitter<any>();
     @Output() exitEvent = new EventEmitter<any>();
+    @Output() errorEvent = new EventEmitter<any>();
 
     intro = true;
     slide: any;
@@ -34,7 +35,6 @@ export class VisualNovelComponent implements OnInit {
     showExitButton: boolean = this.story["showExitButton"];
 
     // editor variables
-    editorError = '';
     editorValues: { [key: string]: ComboboxOption[] } = {
         "slideModes": [
             { value: "prompt", viewValue: "Prompt" },
@@ -53,6 +53,7 @@ export class VisualNovelComponent implements OnInit {
     // Autocomplete variables
     searchControl = new FormControl();
     filteredData: { id: string; type: any; }[] = [];
+    changesMade: boolean = false;
 
     emitSavingEvent(): void {
         if (this.editing) {
@@ -68,6 +69,10 @@ export class VisualNovelComponent implements OnInit {
         } else {
             this.exitEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
         }
+    }
+
+    emitErrorEvent(text: string, errorCode: string | undefined, severity: string = "ERROR"): void {
+        this.errorEvent.emit({ "text": text, "errorCode": errorCode, "severity": severity });
     }
 
     constructor(
@@ -110,9 +115,11 @@ export class VisualNovelComponent implements OnInit {
         } else if (mode == "style") {
             saveStyle.call(this);
         }
+        this.setEditedValue(false);
     }
 
     slideTypeChange(): void {
+        this.setEditedValue(true)
         if (this.slide['type'] == "variable" && this.slide['variable'] == undefined) {
             this.slide['variable'] = { "name": "defaultVariableName", "type": "+", "value": 1 };
         } else if (this.slide['type'] == "playSound") {
@@ -203,7 +210,12 @@ export class VisualNovelComponent implements OnInit {
             if (this.scenes[this.currentScene] == undefined || this.currentScene == "-1") {
                 this.scene = this.scenes[DefaultIdentifierForExceptions];
             } else {
-                this.scene = this.scenes[this.currentScene];
+                if (this.doesThisSceneExist(this.currentScene)) {
+                    this.scene = this.scenes[this.currentScene];
+                } else {
+                    this.createErrorMessage("The scene that should be here does not exist.\nCheck console for details.");
+                    this.scene = this.scenes[DefaultIdentifierForExceptions];
+                }
             }
         }
         // Initialize the filteredData observable
@@ -323,14 +335,23 @@ export class VisualNovelComponent implements OnInit {
         } else {
             this.currentSlide = option.next;
         }
-        this.slide = this.deepClone(this.story.slides[this.currentSlide]);
-        this.loadSelectedSlide();
+        if (this.doesThisSlideExist(this.currentSlide)) {
+            this.slide = this.deepClone(this.story.slides[this.currentSlide]);
+            this.loadSelectedSlide();
+        } else {
+            this.createErrorMessage("Unable to redirect user to a slide that does not exist.\nCheck console for details.");
+        }
     }
 
     loadSelectedSlide() {
         if (this.slide.scene != undefined && this.slide.scene != "-1") {
-            this.scene = this.scenes[this.slide.scene];
-            this.scene["sceneId"] = this.slide.scene;
+            if (this.doesThisSceneExist(this.slide.scene)) {
+                this.scene = this.scenes[this.slide.scene];
+                this.scene["sceneId"] = this.slide.scene;
+            } else {
+                this.createErrorMessage("The scene that should be here does not exist.\nCheck console for details.");
+                this.scene = this.scenes[DefaultIdentifierForExceptions];
+            }
         } else if (this.scene == undefined) {
             this.scene = this.scenes[DefaultIdentifierForExceptions];
             this.scene["sceneId"] = DefaultIdentifierForExceptions;
@@ -444,12 +465,88 @@ export class VisualNovelComponent implements OnInit {
         }
     }
 
+    setEditedValue(value: boolean): void {
+        this.changesMade = value;
+    }
+
     slideSceneChange(): void {
+        this.setEditedValue(true);
         if (this.scenes[this.slide.scene] == undefined || this.slide.scene == "-1") {
             this.scene = this.scenes[DefaultIdentifierForExceptions];
             this.slide.scene = "-1";
             return;
         }
-        this.scene = this.deepClone(this.scenes[this.slide.scene]);
+        if (this.doesThisSceneExist(this.slide.scene)) {
+            this.scene = this.deepClone(this.scenes[this.slide.scene]);
+        } else {
+            this.createErrorMessage("The scene that should be here does not exist.\nCheck console for details.");
+            this.scene = this.scenes[DefaultIdentifierForExceptions];
+        }
+    }
+
+    doesThisSlideExist(id: string): boolean {
+        return this.story.slides[id] != undefined;
+    }
+
+    doesThisSceneExist(id: string): boolean {
+        return this.scenes[id] != undefined;
+    }
+
+    createErrorMessage(message: string, data: { [key: string]: any } = {}): void {
+        var errorMessage = "";
+        var errorCode = "";
+        var severity = "";
+        var errorObject: { [key: string]: any } = {}
+        if (message == "The scene that should be here does not exist.\nCheck console for details.") {
+            errorMessage = message;
+            errorCode = "404";
+            severity = "WARNING";
+            errorObject = {
+                "debug": {
+                    "sceneTryingToLoad": this.slide.scene,
+                    "currentSlideData": { ...this.slide }
+                }
+            }
+        } else if (message == "Unable to redirect user to a slide that does not exist.\nCheck console for details.") {
+            errorMessage = message;
+            errorCode = "404";
+            severity = "ERROR";
+            errorObject = {
+                "debug": {
+                    "slideToNavigateTo": this.currentSlide,
+                    "currentSlideData": { ...this.slide }
+                }
+            }
+        } else if (JSON.stringify(data) != JSON.stringify({})) {
+            errorMessage = message;
+            errorCode = data["errorCode"];
+            severity = data["severity"];;
+            errorObject = {
+                "debug": data["debug"]
+            }
+        } else {
+            errorMessage = message;
+            errorCode = "000";
+            severity = "ERROR";
+            errorObject = {
+                "debug": {
+                    "currentSlideData": { ...this.slide }
+                }
+            }
+        }
+        errorObject["error"] = {
+            "message": errorMessage,
+            "code": errorCode,
+            "severity": severity,
+        }
+        this.emitErrorEvent(errorMessage, errorCode, severity);
+        if (severity == "ERROR") {
+            console.error("error:", errorObject);
+        } else if (severity == "WARNING") {
+            console.warn("warning:", errorObject);
+        } else {
+            console.log("info:", errorObject);
+        }
     }
 }
+

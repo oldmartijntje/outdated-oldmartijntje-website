@@ -38,3 +38,13 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.error {
+    color: $toast-error-text-color;
+    background-color: $toast-error-background-color;
+}
+
+.warning {
+    color: $toast-warning-text-color;
+    background-color: $toast-warning-background-color;
+}

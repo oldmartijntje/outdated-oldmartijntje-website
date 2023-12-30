@@ -2,7 +2,7 @@
     <div class="fullContainer" *ngIf="selectedADisc != -1">
         <app-visual-novel [scenes]="scenes" [story]="story" [styling]="styling" [currentSlide]="currentSlide"
             [editing]="editing" [variables]="variables" (savingEvent)="handleSavingEvent($event)"
-            [currentScene]="currentScene" (exitEvent)="handleExitEvent($event)">
+            [currentScene]="currentScene" (exitEvent)="handleExitEvent($event)" (errorEvent)="handleErrorEvent($event)">
         </app-visual-novel>
     </div>
     <div *ngIf="selectedADisc == -1" class="container">
@@ -48,7 +48,7 @@
                     <p class="clickable blueText" *ngIf="currentSlide != '-1'" (click)="deleteSaveFile()">
                         delete-savefile</p>
                 </div>
-                <div class="clickableBox">
+                <div class="clickableBox" style="margin-top: 1rem">
                     <p class="nbtText clickable" (click)="selectDisc(currentDiscDisplay, false, true)">
                         edit-story</p>
                 </div>

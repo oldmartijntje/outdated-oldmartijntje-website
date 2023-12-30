@@ -62,7 +62,20 @@ export class ContentPlayerPageComponent implements OnInit {
             var encr = new Encryptor();
             var encrData = encr.encryptString(JSON.stringify(data), 1);
             localStorage.setItem('content-player', encrData);
-            this.toastQueue.enqueueToast('Your progress has been saved', 'Info');
+            this.toastQueue.enqueueToast('Your progress has been saved', 'info');
+        }
+    }
+
+    handleErrorEvent(message: any) {
+        if (message['errorCode'] != undefined) {
+            message['text'] = message['errorCode'] + ": " + message['text'];
+        }
+        if (message.severity == "ERROR") {
+            this.toastQueue.enqueueToast(message['text'], 'error');
+        } else if (message.severity == "WARNING") {
+            this.toastQueue.enqueueToast(message['text'], 'warning');
+        } else if (message.severity == "INFO") {
+            this.toastQueue.enqueueToast(message['text'], 'info');
         }
     }
 

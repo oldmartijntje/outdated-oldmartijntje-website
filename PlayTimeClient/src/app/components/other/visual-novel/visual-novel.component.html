@@ -48,6 +48,7 @@
     </div>
     <div id="slideEditor">
         <h1>current slide: '{{currentSlide}}'</h1>
+        <h2 *ngIf="changesMade" class="warning">Current changes to this slide aren't saved!</h2>
         <button *ngIf="createNewSlideButton" (click)="createSlide()">Create '{{currentAutocompleteValue}}'
             slide</button>
         <form>
@@ -72,7 +73,7 @@
                     }
                 </mat-select>
             </mat-form-field>
-            <div *ngIf="slide['scene'] != '-1'">
+            <div *ngIf="slide['scene'] != '-1' && doesThisSceneExist(slide['scene'])">
                 <hr>
                 <p>scene preview:</p>
                 <div [ngStyle]="scene.styling" class="previewScene">
@@ -82,10 +83,13 @@
             </div>
             <p *ngIf="slide['scene'] == '-1'">With scene set to NONE, it'll use the scene it has loaded from a
                 previous slide.</p>
+            <p *ngIf="slide['scene'] != '-1' && !doesThisSceneExist(slide['scene'])" class="warning">The selected Scene
+                does not exist. The app will take the default Scene instead.</p>
         </div>
         <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <p>Textbox</p>
-            <textarea name="" id="" cols="40" rows="1" [(ngModel)]="slide['text']"></textarea>
+            <textarea name="" id="" cols="40" rows="1" [(ngModel)]="slide['text']"
+                (ngModelChange)="setEditedValue(true)"></textarea>
         </div>
         <div>
             <mat-form-field>
@@ -97,18 +101,22 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <h2 *ngIf="slide['next'] == '-1' && slide['type'] != 'choice'" style="color: red;">'-1' is not a valid slide
-        </h2>
+        <h2 *ngIf="slide['next'] == '-1' && slide['type'] != 'choice'" class="error">'-1' is not a valid slide</h2>
+        <h2 *ngIf="slide['next'] != '-1' && !doesThisSlideExist(slide['next']) && slide['type'] != 'choice'"
+            class="warning">This Slide '{{slide['next']}}' does not
+            exist, add it.</h2>
         <div *ngIf="slide['type'] == 'choice'">
             <!-- choice -->
-            <h2 *ngIf="slide['choices'] == undefined || slide['choices'].length == 0" style="color: red;">This is a dead
-                end!</h2>
+            <h2 *ngIf="slide['choices'] == undefined || slide['choices'].length == 0" class="error">This is a dead
+                end, add some choices!</h2>
             <div *ngFor="let choice of slide['choices']; let i = index">
                 <p>Text of option</p>
-                <input type="text" [(ngModel)]="choice['text']">
+                <input type="text" [(ngModel)]="choice['text']" (ngModelChange)="setEditedValue(true)">
                 <p>Goes to Slide</p>
-                <input type="text" [(ngModel)]="choice['next']">
-                <h2 *ngIf="choice['next'] == '-1'" style="color: red;">'-1' is not a valid slide</h2>
+                <input type="text" [(ngModel)]="choice['next']" (ngModelChange)="setEditedValue(true)">
+                <h2 *ngIf="choice['next'] == '-1'" class="error">'-1' is not a valid slide</h2>
+                <h2 *ngIf="choice['next'] != '-1' && !doesThisSlideExist(choice['next'])" class="warning">This Slide
+                    '{{choice['next']}}' does not exist, add it.</h2>
                 <button (click)="deleteOption(i)">delete</button>
                 <!-- advanced -->
             </div>
@@ -117,37 +125,37 @@
         <div *ngIf="slide['type'] == 'prompt'">
             <!-- prompt -->
             <p>Text</p>
-            <input type="text" [(ngModel)]="slide['nextSlideText']">
+            <input type="text" [(ngModel)]="slide['nextSlideText']" (ngModelChange)="setEditedValue(true)">
             <p>Next Slide</p>
-            <input type="text" [(ngModel)]="slide['next']">
+            <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
         </div>
         <div *ngIf="slide['type'] == 'variable'">
             <!-- variable -->
             <p>Variable</p>
-            <input type="text" [(ngModel)]="slide['variable']['name']">
+            <input type="text" [(ngModel)]="slide['variable']['name']" (ngModelChange)="setEditedValue(true)">
             <mat-form-field>
                 <mat-label>Modifier</mat-label>
-                <mat-select [(ngModel)]="slide['variable']['type']">
+                <mat-select [(ngModel)]="slide['variable']['type']" (ngModelChange)="setEditedValue(true)">
                     @for (modifier of editorValues['variableModifier']; track modifier) {
                     <mat-option [value]="modifier.value">{{modifier.viewValue}}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>
             <p>Value</p>
-            <input type="text" [(ngModel)]="slide['variable']['value']">
+            <input type="text" [(ngModel)]="slide['variable']['value']" (ngModelChange)="setEditedValue(true)">
             <p>Next Slide</p>
-            <input type="text" [(ngModel)]="slide['next']">
+            <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
         </div>
         <div *ngIf="slide['type'] == 'playSound'">
             <!-- playSound -->
             <p>Sound</p>
-            <input type="text" [(ngModel)]="slide['sound']">
+            <input type="text" [(ngModel)]="slide['sound']" (ngModelChange)="setEditedValue(true)">
             <p>Volume</p>
-            <input type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01">
+            <input type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01"
+                (ngModelChange)="setEditedValue(true)">
             <button (click)="tryToPlayAudio('slide')">Test Audio</button>
-            <h2 style="color: red;">{{editorError}}</h2>
             <p>Next Slide</p>
-            <input type="text" [(ngModel)]="slide['next']">
+            <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
         </div>
     </div>
 </div>
