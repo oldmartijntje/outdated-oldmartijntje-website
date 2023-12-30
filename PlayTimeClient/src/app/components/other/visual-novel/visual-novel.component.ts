@@ -98,17 +98,14 @@ export class VisualNovelComponent implements OnInit {
     saveEditing(mode: string): void {
         function saveSlide(this: VisualNovelComponent) {
             this.story.slides[this.currentSlide] = this.deepClone(this.slide);
-            console.log(this.story.slides[this.currentSlide])
         }
 
         function saveScene(this: VisualNovelComponent) {
             this.scenes[this.currentScene] = this.deepClone(this.scene);
-            console.log(this.scenes[this.currentScene])
         }
 
         function saveStyle(this: VisualNovelComponent) {
             this.styling = this.deepClone(this.styling);
-            console.log(this.styling)
         }
 
         if (mode == "slide") {

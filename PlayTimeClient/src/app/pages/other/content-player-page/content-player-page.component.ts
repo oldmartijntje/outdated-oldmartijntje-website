@@ -67,7 +67,6 @@ export class ContentPlayerPageComponent implements OnInit {
 
     handleSavingEvent(message: any) {
         if (this.editing) {
-            console.log(message['FullStoryDict']);
             if (message['FullStoryDict']["story"]["customStoryId"] == undefined) {
                 message['FullStoryDict']["story"]["customStoryId"] = UUID.generate();
             }
