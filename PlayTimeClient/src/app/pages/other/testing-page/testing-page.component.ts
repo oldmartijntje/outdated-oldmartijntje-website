@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, map, startWith } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { debounceTime, map, startWith } from 'rxjs/operators';
     templateUrl: './testing-page.component.html',
     styleUrls: ['./testing-page.component.scss']
 })
-export class TestingPageComponent {
+export class TestingPageComponent implements OnInit {
     // Your data in the specified format
     data: { [key: string]: { type: string } } = {
         "id1": { "type": "prompt" },
@@ -20,9 +20,11 @@ export class TestingPageComponent {
 
     // Autocomplete variables
     searchControl = new FormControl();
-    filteredData: Observable<any[]>;
+    filteredData: Observable<any[]> = new Observable();
 
-    constructor() {
+    constructor() { }
+
+    ngOnInit() {
         // Initialize the filteredData observable
         this.filteredData = this.searchControl.valueChanges.pipe(
             startWith(''),
