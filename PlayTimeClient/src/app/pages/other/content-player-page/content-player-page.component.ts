@@ -72,6 +72,7 @@ export class ContentPlayerPageComponent implements OnInit {
             }
             this.importedStory = message['FullStoryDict'];
             this.clickedImport = true;
+            this.toastQueue.enqueueToast('Your Edits have been saved.', 'info');
         } else {
             var discName = this.getSelectedData().name;
             if (this.playingImportedStory) {
