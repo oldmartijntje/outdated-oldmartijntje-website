@@ -1,12 +1,12 @@
 <form class="example-form">
     <mat-form-field class="example-full-width">
-        <mat-label>Number</mat-label>
-        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
-            [matAutocomplete]="auto">
+        <mat-label>Slide</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Slide" matInput [formControl]="searchControl"
+            placeholder="Select an slide" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
-            @for (option of filteredOptions | async; track option) {
-            <mat-option [value]="option">{{option}}</mat-option>
-            }
+            <mat-option *ngFor="let option of filteredData | async" [value]="option.id + ': ' + option.type">
+                {{option.id}}: {{option.type}}
+            </mat-option>
         </mat-autocomplete>
     </mat-form-field>
 </form>
