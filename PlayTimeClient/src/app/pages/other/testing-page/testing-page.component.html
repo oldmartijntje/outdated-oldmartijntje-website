@@ -1,1 +1,9 @@
-<p>testing-page works!</p>
+<mat-form-field>
+    <input matInput [formControl]="searchControl" placeholder="Search">
+    <mat-autocomplete>
+        @for (option of test; track option) {
+        <mat-option [value]="option">{{option.type}}</mat-option>
+        }
+    </mat-autocomplete>
+</mat-form-field>
+<button mat-button (click)="logFilteredData()">Log Filtered Data</button>

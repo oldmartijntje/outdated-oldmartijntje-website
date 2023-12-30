@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
 import { AngularSplitModule } from 'angular-split';
 import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MONACO_PATH, MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
@@ -34,6 +36,8 @@ import { ContentPlayerPageComponent } from './pages/other/content-player-page/co
 import { VisualNovelComponent } from './components/other/visual-novel/visual-novel.component';
 import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.component';
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
+import { MatOptionModule } from '@angular/material/core';
+import { AsyncPipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -58,7 +62,12 @@ import { TestingPageComponent } from './pages/other/testing-page/testing-page.co
         TestingPageComponent
     ],
     imports: [
+        AsyncPipe,
+        MatOptionModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
         BrowserModule,
+        MatInputModule,
         AngularSplitModule,
         AppRoutingModule,
         FormsModule,
