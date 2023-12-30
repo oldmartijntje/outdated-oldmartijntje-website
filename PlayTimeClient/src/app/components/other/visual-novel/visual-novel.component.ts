@@ -47,13 +47,20 @@ export class VisualNovelComponent implements OnInit {
             { value: "-", viewValue: "Subtract" },
             { value: "=", viewValue: "Set to" }
         ],
+        "editorPage": [
+            { value: "slide", viewValue: "Edit Slides" },
+            { value: "scene", viewValue: "Edit Scenes" },
+            { value: "style", viewValue: "Edit styling" },
+            { value: "default", viewValue: "Edit Default data" }
+        ],
     }
     createNewSlideButton: boolean = false;
     currentAutocompleteValue: string = "";
+    changesMade: boolean = false;
+    currentEditorPage: string = "slide";
     // Autocomplete variables
     searchControl = new FormControl();
     filteredData: { id: string; type: any; }[] = [];
-    changesMade: boolean = false;
 
     emitSavingEvent(): void {
         if (this.editing) {
@@ -64,6 +71,10 @@ export class VisualNovelComponent implements OnInit {
         } else {
             this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
         }
+    }
+
+    editorTabChange() {
+        this.setEditedValue(false)
     }
 
     emitExitEvent(): void {
@@ -177,6 +188,9 @@ export class VisualNovelComponent implements OnInit {
             }
             if (this.story.slides[Object.keys(this.story.slides)[index]].scene == "-1") {
                 delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
+            }
+            if (this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'] == this.story["defaultNextSlideText"]) {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'];
             }
         }
     }

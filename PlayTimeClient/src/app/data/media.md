@@ -12,6 +12,7 @@ export const DefaultStory = {
     },
     "startSlide": "1",
     "showSaveButton": true,
+    "showExitButton": true,
     "defaultNextSlideText": "Next Slide...",
     "slides": {
         "1": {

@@ -46,7 +46,19 @@
             title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
         <button (click)="removeUnusedParamaters()">remove Useless data</button>
     </div>
-    <div id="slideEditor">
+    <div>
+        <mat-form-field>
+            <mat-label>Editor Page</mat-label>
+            <mat-select [(ngModel)]="currentEditorPage" (ngModelChange)="editorTabChange()">
+                @for (page of editorValues['editorPage']; track page) {
+                <mat-option [value]="page.value">{{page.viewValue}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div id="slideEditor" *ngIf="currentEditorPage == 'slide'">
+        <!-- name of style, scene, slide in an input box, and a button to rename it. -->
+        <!-- delete slide button -->
         <h1>current slide: '{{currentSlide}}'</h1>
         <h2 *ngIf="changesMade" class="warning">Current changes to this slide aren't saved!</h2>
         <button *ngIf="createNewSlideButton" (click)="createSlide()">Create '{{currentAutocompleteValue}}'
@@ -157,5 +169,37 @@
             <p>Next Slide</p>
             <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
         </div>
+    </div>
+    <div id="defaultDataEditor" *ngIf="currentEditorPage == 'default'">
+        <h2 *ngIf="changesMade" class="warning">Current changes to these settings aren't saved!</h2>
+        <!-- default choice styling -->
+        <!-- default textbox styling -->
+        <!-- default nextSlide styling -->
+        <!-- default NextSlideText -->
+        <!-- start slide -->
+        <!-- show exit button -->
+        <!-- show save button -->
+    </div>
+    <div id="sceneEditor" *ngIf="currentEditorPage == 'scene'">
+        <h2 *ngIf="changesMade" class="warning">Current changes to this scene aren't saved!</h2>
+        <!-- selector of which scene -->
+        <!-- name of style, scene, slide in an input box, and a button to rename it. -->
+        <!-- delete scene button -->
+        <!-- music -->
+        <!-- volume + tester -->
+        <!-- ngfor
+                styling key input - value input - delete styling row button
+        -->
+        <!-- add styling row button -->
+    </div>
+    <div id="styleEditor" *ngIf="currentEditorPage == 'style'">
+        <h2 *ngIf="changesMade" class="warning">Current changes to this styling aren't saved!</h2>
+        <!-- selector of which style -->
+        <!-- name of style, scene, slide in an input box, and a button to rename it. -->
+        <!-- delete style button -->
+        <!-- ngfor
+                styling key input - value input - delete styling row button
+        -->
+        <!-- add styling row button -->
     </div>
 </div>
