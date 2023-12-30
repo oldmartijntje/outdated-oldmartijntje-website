@@ -9,6 +9,7 @@ import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.componen
 import { MessagePageComponent } from './pages/other/message-page/message-page.component';
 import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/project-gallery-page.component';
 import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
+import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'Chat', component: MessagePageComponent },
     { path: 'Projects', component: ProjectGalleryPageComponent },
     { path: 'Player', component: ContentPlayerPageComponent },
+    { path: 'Test', component: TestingPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 

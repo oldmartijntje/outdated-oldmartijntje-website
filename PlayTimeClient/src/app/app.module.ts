@@ -33,6 +33,7 @@ import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/
 import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
 import { VisualNovelComponent } from './components/other/visual-novel/visual-novel.component';
 import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.component';
+import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.
         ProjectGalleryPageComponent,
         ContentPlayerPageComponent,
         VisualNovelComponent,
-        GlitchTextComponent
+        GlitchTextComponent,
+        TestingPageComponent
     ],
     imports: [
         BrowserModule,
