@@ -1,9 +1,12 @@
-<mat-form-field>
-    <input matInput [formControl]="searchControl" placeholder="Search">
-    <mat-autocomplete>
-        @for (option of test; track option) {
-        <mat-option [value]="option">{{option.type}}</mat-option>
-        }
-    </mat-autocomplete>
-</mat-form-field>
-<button mat-button (click)="logFilteredData()">Log Filtered Data</button>
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Number</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+            [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+            }
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
