@@ -58,8 +58,10 @@
         </mat-form-field>
     </div>
     <div id="slideEditor" *ngIf="currentEditorPage == 'slide'">
-        <!-- name of style, scene, slide in an input box, and a button to rename it. -->
+        <!-- name of slide in an input box, and a button to rename it. -->
         <!-- delete slide button -->
+        <!-- select styling by slide -->
+        <!-- button to clear autcomplete input -->
         <h1>current slide: '{{currentSlide}}'</h1>
         <h2 *ngIf="changesMade" class="warning">Current changes to this slide aren't saved!</h2>
         <button *ngIf="createNewSlideButton" (click)="createSlide()">Create '{{currentAutocompleteValue}}'
@@ -184,7 +186,8 @@
     <div id="sceneEditor" *ngIf="currentEditorPage == 'scene'">
         <h2 *ngIf="changesMade" class="warning">Current changes to this scene aren't saved!</h2>
         <!-- selector of which scene -->
-        <!-- name of style, scene, slide in an input box, and a button to rename it. -->
+        <!-- button to clear autcomplete input -->
+        <!-- name of scene in an input box, and a button to rename it. -->
         <!-- delete scene button -->
         <!-- music -->
         <!-- volume + tester -->
@@ -196,7 +199,8 @@
     <div id="styleEditor" *ngIf="currentEditorPage == 'style'">
         <h2 *ngIf="changesMade" class="warning">Current changes to this styling aren't saved!</h2>
         <!-- selector of which style -->
-        <!-- name of style, scene, slide in an input box, and a button to rename it. -->
+        <!-- button to clear autcomplete input -->
+        <!-- name of style in an input box, and a button to rename it. -->
         <!-- delete style button -->
         <!-- ngfor
                 styling key input - value input - delete styling row button
