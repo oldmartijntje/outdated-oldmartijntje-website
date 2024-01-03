@@ -283,6 +283,17 @@ export class VisualNovelComponent implements OnInit {
         for (let index = 0; index < Object.keys(choices).length; index++) {
             var allowed = true;
             const element = choices[index];
+            if (["==", ">", "<", ">=", "<=", "!="].includes(element["if"]["typeOfCheck"]) == false) {
+                element["if"]["typeOfCheck"] = "==";
+            }
+            if (!["==", "!="].includes(element["if"]["typeOfCheck"]) && isNaN(element["if"]["value"])) {
+                // string to ascii
+                if (element["if"]["value"].length > 1) {
+                    element["if"]["value"] = element["if"]["value"].charCodeAt(0);
+                } else {
+                    element["if"]["value"] = 0;
+                }
+            }
             if (element["if"] != undefined) {
                 allowed = false;
                 if (element["if"]["typeOfCheck"] == "==" && this.variables[element["if"]["variable"]] == element["if"]["value"]) {
@@ -379,6 +390,9 @@ export class VisualNovelComponent implements OnInit {
             }
             this.clickChoice();
         } else if (this.slide.type == "playSound" && !this.editing) {
+            if (isNaN(this.slide.volume)) {
+                this.slide.volume = 0.5;
+            }
             this.setVolume(this.slide.volume);
             this.playAudio(this.slide.sound);
             this.clickChoice();
