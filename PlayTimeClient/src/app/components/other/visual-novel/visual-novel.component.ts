@@ -61,6 +61,8 @@ export class VisualNovelComponent implements OnInit {
     searchControl = new FormControl();
     filteredData: { id: string; type: any; }[] = [];
     confirmDelete: boolean = false;
+    currentWarnings: { [key: string]: string | number }[] = [];
+    hiddenWarnings: boolean = true;
 
     emitSavingEvent(): void {
         if (this.editing) {
@@ -177,6 +179,7 @@ export class VisualNovelComponent implements OnInit {
         if (this.editing) {
             this.removeIntro();
             this.setValueOfAutocomplete(`${this.currentSlide}: ${this.story.slides[this.currentSlide].type}`);
+            this.currentWarnings = this.checkForWarnings();
         }
     }
 
@@ -278,23 +281,26 @@ export class VisualNovelComponent implements OnInit {
     }
 
     getAllChoices(): any {
+        if (this.slide.choices == undefined) {
+            this.slide.choices = [];
+        }
         var choices = [...this.slide.choices]
         var allowedChoices = [];
         for (let index = 0; index < Object.keys(choices).length; index++) {
             var allowed = true;
             const element = choices[index];
-            if (["==", ">", "<", ">=", "<=", "!="].includes(element["if"]["typeOfCheck"]) == false) {
-                element["if"]["typeOfCheck"] = "==";
-            }
-            if (!["==", "!="].includes(element["if"]["typeOfCheck"]) && isNaN(element["if"]["value"])) {
-                // string to ascii
-                if (element["if"]["value"].length > 1) {
-                    element["if"]["value"] = element["if"]["value"].charCodeAt(0);
-                } else {
-                    element["if"]["value"] = 0;
-                }
-            }
             if (element["if"] != undefined) {
+                if (["==", ">", "<", ">=", "<=", "!="].includes(element["if"]["typeOfCheck"]) == false) {
+                    element["if"]["typeOfCheck"] = "==";
+                }
+                if (!["==", "!="].includes(element["if"]["typeOfCheck"]) && isNaN(element["if"]["value"])) {
+                    // string to ascii
+                    if (element["if"]["value"].length > 1) {
+                        element["if"]["value"] = element["if"]["value"].charCodeAt(0);
+                    } else {
+                        element["if"]["value"] = 0;
+                    }
+                }
                 allowed = false;
                 if (element["if"]["typeOfCheck"] == "==" && this.variables[element["if"]["variable"]] == element["if"]["value"]) {
                     allowed = true;
@@ -652,5 +658,53 @@ export class VisualNovelComponent implements OnInit {
             }
         }
     }
+
+    checkForWarnings(): { [key: string]: string | number }[] {
+        function addWarning(warning: string, severity: string, where: string): void {
+            warningDictList.push({ "position": number, "warning": warning, "severity": severity, "where": where });
+            number += 1;
+        }
+
+        var number = 1;
+        var warningDictList: { [key: string]: string | number }[] = [];
+        for (let index = 0; index < Object.keys(this.story.slides).length; index++) {
+            var slide = this.story.slides[Object.keys(this.story.slides)[index]];
+            var slideId = Object.keys(this.story.slides)[index];
+            if (slide["type"] == "choice") {
+                if (slide["choices"] == undefined) {
+                    slide["choices"] = [];
+                }
+                if (Object.keys(slide["choices"]).length == 0) {
+                    addWarning("Slide '" + slideId + "' has no choices. This means that the game will end here.", "ERROR", "slide " + slideId);
+                } else {
+                    for (let index2 = 0; index2 < Object.keys(slide["choices"]).length; index2++) {
+                        var choice = slide["choices"][Object.keys(slide["choices"])[index2]];
+                        if (choice["next"] == "-1") {
+                            addWarning("Slide '" + slideId + "' has a choice that does not lead anywhere, because -1 is invalid. This means that the game will end here.", "ERROR", "slide " + slideId);
+                        } else if (this.doesThisSlideExist(choice["next"]) == false) {
+                            addWarning("Slide '" + slideId + "' has a choice that leads to a slide that does not exist. This means that the game will end here.", "WARNING", "slide " + slideId);
+                        }
+                    }
+                }
+            } else {
+                if (slide["next"] == "-1") {
+                    addWarning("Slide '" + slideId + "' has no valid next slide. This means that the game will end here.", "ERROR", "slide " + slideId);
+                } else if (this.doesThisSlideExist(slide["next"]) == false) {
+                    addWarning("Slide '" + slideId + "' has a next slide that does not exist. This means that the game will end here.", "WARNING", "slide " + slideId);
+                }
+            }
+        }
+        if (this.story.slides[this.story.startSlide] == undefined) {
+            addWarning("The start slide: '" + this.story.startSlide + "', does not exist. This means that it will take system default.", "WARNING", "slide " + this.story.startSlide);
+        }
+        if (this.story.slides[DefaultIdentifierForExceptions] == undefined) {
+            addWarning("The default slide: '" + DefaultIdentifierForExceptions + "', does not exist. This means that it will take system default.", "ERROR", "slide " + DefaultIdentifierForExceptions);
+        }
+
+
+        return warningDictList;
+
+    }
+
 }
 

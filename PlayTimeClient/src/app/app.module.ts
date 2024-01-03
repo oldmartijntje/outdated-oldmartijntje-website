@@ -38,6 +38,7 @@ import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
 import { MatOptionModule } from '@angular/material/core';
 import { AsyncPipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
@@ -79,6 +80,7 @@ import { AsyncPipe } from '@angular/common';
         MatDividerModule,
         MatButtonModule,
         MatCheckboxModule,
+        MatTableModule,
         CdkDrag,
         HttpClientModule
     ],

@@ -46,7 +46,36 @@
             title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
         <button (click)="removeUnusedParamaters()">remove Useless data</button>
     </div>
-    <!-- make all errors and warnings pop-up when saving button is pressed -->
+    <table mat-table [dataSource]="currentWarnings" class="mat-elevation-z8"
+        *ngIf="hiddenWarnings && currentWarnings.length > 0">
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element" class="{{element.severity}}"> {{element.position}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="warning">
+            <th mat-header-cell *matHeaderCellDef> Warning </th>
+            <td mat-cell *matCellDef="let element" class="{{element.severity}}"> {{element.warning}} </td>
+        </ng-container>
+
+        <!-- Severity Column -->
+        <ng-container matColumnDef="severity">
+            <th mat-header-cell *matHeaderCellDef> Severity </th>
+            <td mat-cell *matCellDef="let element" class="{{element.severity}}"> {{element.severity}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="where">
+            <th mat-header-cell *matHeaderCellDef> Where </th>
+            <td mat-cell *matCellDef="let element" class="{{element.severity}}"> {{element.where}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['position', 'warning', 'severity', 'where']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['position', 'warning', 'severity', 'where']; let i = index"></tr>
+    </table>
+    <button (click)="currentWarnings = checkForWarnings()">check for warnings</button>
+    <button *ngIf="currentWarnings.length > 0" (click)="hiddenWarnings = !hiddenWarnings">(un)hide warnings</button>
     <div>
         <mat-form-field>
             <mat-label>Editor Page</mat-label>
@@ -59,7 +88,6 @@
     </div>
     <div id="slideEditor" *ngIf="currentEditorPage == 'slide'">
         <!-- name of slide in an input box, and a button to rename it. -->
-        <!-- delete slide button -->
         <!-- select styling by slide -->
         <h1>current slide: '{{currentSlide}}'</h1>
         <h2 *ngIf="changesMade" class="warning">Current changes to this slide aren't saved!</h2>

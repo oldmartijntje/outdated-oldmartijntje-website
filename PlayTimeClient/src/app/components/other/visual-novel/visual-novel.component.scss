@@ -1,4 +1,9 @@
-@import '../../../../styles.scss';
+// @import '../../../../styles.scss';
+
+$toast-warning-background-color: #543c00;
+$toast-warning-text-color: #f1b900;
+$toast-error-background-color: #470000;
+$toast-error-text-color: #828282;
 
 .body {
     display: flex;
@@ -71,4 +76,16 @@ header {
 .scroll {
     overflow-y: scroll;
     height: 100%;
+}
+
+.error,
+.ERROR {
+    color: $toast-error-text-color;
+    background-color: $toast-error-background-color;
+}
+
+.warning,
+.WARNING {
+    color: $toast-warning-text-color;
+    background-color: $toast-warning-background-color;
 }
