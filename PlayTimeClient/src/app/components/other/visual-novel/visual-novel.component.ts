@@ -70,7 +70,9 @@ export class VisualNovelComponent implements OnInit {
             this.updateFilteredData(this.currentAutocompleteValue)
             this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes, "styling": this.styling } })
         } else {
-            this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
+            this.scene["sceneId"] = this.currentScene;
+            this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": { ...this.scene } });
+            delete this.scene["sceneId"];
         }
     }
 
@@ -78,7 +80,9 @@ export class VisualNovelComponent implements OnInit {
         if (this.editing) {
             this.exitEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes }, "currentSlide": this.currentSlide, "currentScene": this.scene })
         } else {
-            this.exitEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
+            this.scene["sceneId"] = this.currentScene;
+            this.exitEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": { ...this.scene } });
+            delete this.scene["sceneId"];
         }
     }
 
@@ -345,14 +349,12 @@ export class VisualNovelComponent implements OnInit {
         if (this.slide.scene != undefined && this.slide.scene != "-1") {
             if (this.doesThisSceneExist(this.slide.scene)) {
                 this.scene = this.scenes[this.slide.scene];
-                this.scene["sceneId"] = this.slide.scene;
             } else {
                 this.createErrorMessage("The scene that should be here does not exist.\nCheck console for details.");
                 this.scene = this.scenes[DefaultIdentifierForExceptions];
             }
         } else if (this.scene == undefined) {
             this.scene = this.scenes[DefaultIdentifierForExceptions];
-            this.scene["sceneId"] = DefaultIdentifierForExceptions;
 
         } else if (this.editing
             && (this.slide.scene == "-1" || this.slide.scene == undefined)
