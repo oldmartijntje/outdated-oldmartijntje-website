@@ -238,46 +238,6 @@ export class VisualNovelComponent implements OnInit {
         this.slide.choices.splice(index, 1);
     }
 
-    removeUnusedParamaters(): void {
-        for (let index = 0; index < Object.keys(this.story.slides).length; index++) {
-            if (this.story.slides[Object.keys(this.story.slides)[index]].type == "prompt") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
-            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "choice") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["next"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
-            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "playSound") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["promptStyling"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
-            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "variable") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["promptStyling"];
-            } else {
-                console.warn("Unknown slide type: " + this.story.slides[index].type);
-            }
-            if (this.story.slides[Object.keys(this.story.slides)[index]].scene == "-1") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
-            }
-            if (this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'] == this.story["defaultNextSlideText"]) {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'];
-            }
-        }
-    }
-
     setValueOfAutocomplete(value: string) {
         this.searchControl.setValue(value);
         this.searchControl.markAsDirty(); // Optionally mark the control as dirty
@@ -635,6 +595,46 @@ export class VisualNovelComponent implements OnInit {
         debug["DefaultIdentifierForExceptions"] = DefaultIdentifierForExceptions;
         debug["information"] = "The game file has been tempered with. This means that the game file has been changed in a way that it should not have been changed. Make sure that " + DefaultIdentifierForExceptions + " is set as the default number. This means that in case of an exception, it will default to this slide / stye / theme / etc. This means that you cannot delete this slide / stye / theme / etc.";
         this.createErrorMessage("The game file has been tempered with.\nCheck console for details.", { "errorCode": "403", "severity": "ERROR", "debug": debug });
+    }
+
+    removeUnusedParamaters(): void {
+        for (let index = 0; index < Object.keys(this.story.slides).length; index++) {
+            if (this.story.slides[Object.keys(this.story.slides)[index]].type == "prompt") {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
+            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "choice") {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["next"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
+            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "playSound") {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["promptStyling"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
+            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "variable") {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["promptStyling"];
+            } else {
+                console.warn("Unknown slide type: " + this.story.slides[index].type);
+            }
+            if (this.story.slides[Object.keys(this.story.slides)[index]].scene == "-1") {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
+            }
+            if (this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'] == this.story["defaultNextSlideText"]) {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'];
+            }
+        }
     }
 }
 
