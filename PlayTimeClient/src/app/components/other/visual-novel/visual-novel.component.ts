@@ -433,6 +433,11 @@ export class VisualNovelComponent implements OnInit {
                 this.confirmDelete = false;
                 return;
             }
+            if (DefaultIdentifierForExceptions == slideName) {
+                this.createErrorMessage("Unable to delete the default slide.\nCheck console for details.", { "errorCode": "403", "severity": "WARNING", "debug": { "slideName": slideName, "info": "number " + DefaultIdentifierForExceptions + " is set as the default number. This means that in case of an exception, it will default to this slide. This means that you cannot delete this slide." } });
+                this.confirmDelete = false;
+                return;
+            }
             delete this.story.slides[slideName];
             this.confirmDelete = false;
             this.createNewSlideButton = false;
