@@ -2,8 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Styling, DefaultScenes, DefaultStory, DefaultIdentifierForExceptions } from '../../../data/media'
 import { AudioPlayerService } from 'src/app/services/audio-player.service';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 interface ComboboxOption {
     value: string;
@@ -61,6 +59,7 @@ export class VisualNovelComponent implements OnInit {
     // Autocomplete variables
     searchControl = new FormControl();
     filteredData: { id: string; type: any; }[] = [];
+    confirmDelete: boolean = false;
 
     emitSavingEvent(): void {
         if (this.editing) {
@@ -72,10 +71,6 @@ export class VisualNovelComponent implements OnInit {
         } else {
             this.savingEvent.emit({ "variables": this.variables, "currentSlide": this.currentSlide, "currentScene": this.scene });
         }
-    }
-
-    editorTabChange() {
-        this.setEditedValue(false)
     }
 
     emitExitEvent(): void {
@@ -272,6 +267,10 @@ export class VisualNovelComponent implements OnInit {
         this.updateFilteredData(value);
     }
 
+    editorTabChange() {
+        this.setEditedValue(false)
+    }
+
     // Function to manually update filteredData based on the selected value
     private updateFilteredData(value: string) {
         const filterValue = value.toLowerCase();
@@ -421,6 +420,36 @@ export class VisualNovelComponent implements OnInit {
         }
 
     }
+
+    deleteSlide(slideName: string) {
+        if (this.confirmDelete) {
+            if (this.story.slides[slideName] == undefined) {
+                this.createErrorMessage("Unable to delete a slide that does not exist.\nCheck console for details.", { "errorCode": "404", "severity": "WARNING", "debug": { "slideName": slideName } });
+                this.confirmDelete = false;
+                return;
+            }
+            if (Object.keys(this.story.slides).length == 1) {
+                this.createErrorMessage("Unable to delete the last slide.\nCheck console for details.", { "errorCode": "403", "severity": "WARNING", "debug": { "slideName": slideName } });
+                this.confirmDelete = false;
+                return;
+            }
+            delete this.story.slides[slideName];
+            this.confirmDelete = false;
+            this.createNewSlideButton = false;
+            if (this.currentSlide == slideName) {
+                this.currentSlide = Object.keys(this.story.slides)[0];
+                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
+                this.loadSelectedSlide();
+                this.setValueOfAutocomplete(`${this.currentSlide}: ${this.story.slides[this.currentSlide].type}`);
+            }
+        } else {
+            this.confirmDelete = true;
+            setTimeout(() => {
+                this.confirmDelete = false;
+            }, 3000);
+        }
+    }
+
 
     getStyling(option: any = "next"): { [key: string]: string | number } {
         if (option == "next") {

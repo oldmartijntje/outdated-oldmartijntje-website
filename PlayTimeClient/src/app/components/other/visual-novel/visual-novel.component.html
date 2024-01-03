@@ -61,13 +61,15 @@
         <!-- name of slide in an input box, and a button to rename it. -->
         <!-- delete slide button -->
         <!-- select styling by slide -->
-        <!-- button to clear autcomplete input -->
         <h1>current slide: '{{currentSlide}}'</h1>
         <h2 *ngIf="changesMade" class="warning">Current changes to this slide aren't saved!</h2>
         <button *ngIf="createNewSlideButton"
             (click)="createSlide(currentAutocompleteValue, {'setAutocomplete': true, 'removeCreateButton': true})">Create
             '{{currentAutocompleteValue}}'
             slide</button>
+        <button (click)="deleteSlide(currentSlide)" *ngIf="!confirmDelete">Delete slide '{{currentSlide}}'</button>
+        <button (click)="deleteSlide(currentSlide)" *ngIf="confirmDelete">Confirm to Delete slide
+            '{{currentSlide}}'</button>
         <form>
             <mat-form-field>
                 <mat-label>Slide selector</mat-label>
