@@ -64,13 +64,20 @@
         <!-- button to clear autcomplete input -->
         <h1>current slide: '{{currentSlide}}'</h1>
         <h2 *ngIf="changesMade" class="warning">Current changes to this slide aren't saved!</h2>
-        <button *ngIf="createNewSlideButton" (click)="createSlide()">Create '{{currentAutocompleteValue}}'
+        <button *ngIf="createNewSlideButton"
+            (click)="createSlide(currentAutocompleteValue, {'setAutocomplete': true, 'removeCreateButton': true})">Create
+            '{{currentAutocompleteValue}}'
             slide</button>
         <form>
             <mat-form-field>
-                <mat-label>Slide</mat-label>
+                <mat-label>Slide selector</mat-label>
                 <input type="text" placeholder="Pick one" aria-label="Slide" matInput [formControl]="searchControl"
                     placeholder="Select an slide" [matAutocomplete]="selectSlideAutocomplete">
+                @if (currentAutocompleteValue) {
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="setValueOfAutocomplete('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+                }
                 <mat-autocomplete #selectSlideAutocomplete="matAutocomplete">
                     <mat-option *ngFor="let option of filteredData" [value]="option.id + ': ' + option.type">
                         {{option.id}}: {{option.type}}
@@ -117,9 +124,12 @@
             </mat-form-field>
         </div>
         <h2 *ngIf="slide['next'] == '-1' && slide['type'] != 'choice'" class="error">'-1' is not a valid slide</h2>
-        <h2 *ngIf="slide['next'] != '-1' && !doesThisSlideExist(slide['next']) && slide['type'] != 'choice'"
-            class="warning">This Slide '{{slide['next']}}' does not
-            exist, add it.</h2>
+        <div *ngIf="slide['next'] != '-1' && !doesThisSlideExist(slide['next']) && slide['type'] != 'choice'">
+            <h2 class="warning">This Slide '{{slide['next']}}' does not
+                exist, add it.</h2>
+            <button (click)="createSlide(slide['next'])">Create Slide '{{slide['next']}}'</button>
+        </div>
+
         <div *ngIf="slide['type'] == 'choice'">
             <!-- choice -->
             <h2 *ngIf="slide['choices'] == undefined || slide['choices'].length == 0" class="error">This is a dead
@@ -130,8 +140,11 @@
                 <p>Goes to Slide</p>
                 <input type="text" [(ngModel)]="choice['next']" (ngModelChange)="setEditedValue(true)">
                 <h2 *ngIf="choice['next'] == '-1'" class="error">'-1' is not a valid slide</h2>
-                <h2 *ngIf="choice['next'] != '-1' && !doesThisSlideExist(choice['next'])" class="warning">This Slide
-                    '{{choice['next']}}' does not exist, add it.</h2>
+                <div *ngIf="choice['next'] != '-1' && !doesThisSlideExist(choice['next'])">
+                    <h2 class="warning">This Slide
+                        '{{choice['next']}}' does not exist, add it.</h2>
+                    <button (click)="createSlide(choice['next'])">Create Slide '{{choice['next']}}'</button>
+                </div>
                 <button (click)="deleteOption(i)">delete</button>
                 <!-- advanced -->
             </div>

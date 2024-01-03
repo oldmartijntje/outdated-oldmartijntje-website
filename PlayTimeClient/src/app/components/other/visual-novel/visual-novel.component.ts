@@ -412,10 +412,15 @@ export class VisualNovelComponent implements OnInit {
         return JSON.stringify(obj);
     }
 
-    createSlide() {
-        this.story.slides[this.currentAutocompleteValue] = { "type": "prompt", "text": "New Slide", "next": "-1", "scene": "-1" };
-        this.setValueOfAutocomplete(`${this.currentAutocompleteValue}: ${this.story.slides[this.currentAutocompleteValue].type}`);
-        this.createNewSlideButton = false;
+    createSlide(slideName: string, settings: { [key: string]: any } = {}) {
+        this.story.slides[slideName] = { "type": "prompt", "text": this.story['defaultNextSlideText'], "next": "-1", "scene": "-1" };
+        if (settings["setAutocomplete"] != undefined && settings["setAutocomplete"]) {
+            this.setValueOfAutocomplete(`${slideName}: ${this.story.slides[slideName].type}`);
+        }
+        if (settings["removeCreateButton"] != undefined && settings["removeCreateButton"]) {
+            this.createNewSlideButton = false;
+        }
+
     }
 
     getStyling(option: any = "next"): { [key: string]: string | number } {
