@@ -1,4 +1,4 @@
-<div class="body" *ngIf="!intro && !editing">
+<div class="body" *ngIf="!intro && !editing && !runtimeError">
     <header *ngIf="false">
         <p>optional</p>
     </header>
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="intro && !editing" class="body">
+<div *ngIf="intro && !editing && !runtimeError" class="body">
     <app-glitch-text [text]="'Powered by'" [locationStyling]="{'margin-top': '20%'}"
         [href]="'https://github.com/oldmartijntje/Angular-components'"
         [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"></app-glitch-text>
@@ -38,7 +38,7 @@
         [textStyling]="{'font-size': '2rem', 'cursor': 'pointer'}"
         [href]="'https://github.com/oldmartijntje/Angular-components'"></app-glitch-text>
 </div>
-<div class="body scroll" *ngIf="editing">
+<div class="body scroll" *ngIf="editing && !runtimeError">
     <div class="save icon" style="display: flex; flex-direction: row-reverse; justify-content: space-between; ">
         <img src="../../../../assets/icons/saveButton.png" alt="Save Button" style="cursor: pointer; user-select:none;"
             title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon" class="image">
@@ -101,13 +101,15 @@
                 <hr>
                 <p>scene preview:</p>
                 <div [ngStyle]="scene.styling" class="previewScene">
-                    <button (click)="tryToPlayAudio('scene')" *ngIf="scene['music'] != undefined">Test Audio</button>
+                    <button (click)="tryToPlayAudio('scene')" *ngIf="scene['music'] != undefined">Test
+                        Audio</button>
                 </div>
                 <hr>
             </div>
             <p *ngIf="slide['scene'] == '-1'">With scene set to NONE, it'll use the scene it has loaded from a
                 previous slide.</p>
-            <p *ngIf="slide['scene'] != '-1' && !doesThisSceneExist(slide['scene'])" class="warning">The selected Scene
+            <p *ngIf="slide['scene'] != '-1' && !doesThisSceneExist(slide['scene'])" class="warning">The selected
+                Scene
                 does not exist. The app will take the default Scene instead.</p>
         </div>
         <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
@@ -222,4 +224,14 @@
         -->
         <!-- add styling row button -->
     </div>
+</div>
+<div *ngIf="runtimeError">
+    <img src="../../../../assets/icons/exitButton.png" alt="Close Button" style="cursor: pointer; user-select:none;"
+        title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
+    <app-glitch-text [text]="'ERROR'" [locationStyling]="{'margin-top': '10%'}"
+        [textStyling]="{'font-size': '4rem'}"></app-glitch-text>
+    <app-glitch-text [text]="'A catastrophic failure happened.'" [locationStyling]="{'margin-top': '10%'}"
+        [textStyling]="{'font-size': '2rem'}"></app-glitch-text>
+    <app-glitch-text [text]="'We are not able to recover the Story.'" [locationStyling]="{'margin-top': '5%'}"
+        [textStyling]="{'font-size': '1.3rem'}"></app-glitch-text>
 </div>

@@ -15,7 +15,7 @@ export class ContentPlayerPageComponent implements OnInit {
     scenes = DefaultScenes;
     story = DefaultStory;
     variables = { ...this.story['variables'] }
-    selectedADisc = 1; //set to -1 when done making the editor
+    selectedADisc = -1; //set to -1 when done making the editor
     currentDiscDisplay = 1;
     firstDiscShowedId = 0;
     animateButtons = [

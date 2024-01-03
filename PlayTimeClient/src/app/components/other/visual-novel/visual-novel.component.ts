@@ -31,6 +31,7 @@ export class VisualNovelComponent implements OnInit {
     scene: any;
     showSaveIcon: boolean = this.story["showSaveButton"];
     showExitButton: boolean = this.story["showExitButton"];
+    runtimeError: boolean = false;
 
     // editor variables
     editorValues: { [key: string]: ComboboxOption[] } = {
@@ -94,6 +95,14 @@ export class VisualNovelComponent implements OnInit {
         this.story = this.deepClone(this.story);
         this.scenes = this.deepClone(this.scenes);
         this.styling = this.deepClone(this.styling);
+        this.showSaveIcon = this.story["showSaveButton"];
+        this.showExitButton = this.story["showExitButton"];
+        if (this.showSaveIcon == undefined) {
+            this.showSaveIcon = true;
+        }
+        if (this.showExitButton == undefined) {
+            this.showExitButton = true;
+        }
         if (!this.editing) {
             setTimeout(() => {
                 this.removeIntro();
@@ -107,25 +116,35 @@ export class VisualNovelComponent implements OnInit {
                 this.currentSlide = DefaultIdentifierForExceptions;
                 this.slide = this.deepClone(this.story.slides[this.currentSlide]);
             } else {
-                this.slide = this.deepClone(this.story.slides[this.currentSlide]);
+                if (this.doesThisSlideExist(this.currentSlide)) {
+                    this.slide = this.story.slides[this.currentSlide];
+                } else {
+                    this.slide = this.story.slides[DefaultIdentifierForExceptions];
+                }
             }
         } else {
             this.slide = this.story.slides[this.currentSlide];
         }
-        if (this.currentScene == "-1" || this.currentScene == undefined) {
+        if (this.slide == undefined) {
+            this.temperedWithFileError({ "slideName": this.currentSlide, "info": "slide does not exist" });
+        }
+        if (this.currentScene == undefined) {
             this.currentScene = "-1";
+        }
+        if (this.scenes[this.currentScene] == undefined || this.currentScene == "-1") {
+            this.scene = this.scenes[DefaultIdentifierForExceptions];
         } else {
-            if (this.scenes[this.currentScene] == undefined || this.currentScene == "-1") {
-                this.scene = this.scenes[DefaultIdentifierForExceptions];
+            if (this.doesThisSceneExist(this.currentScene)) {
+                this.scene = this.scenes[this.currentScene];
             } else {
-                if (this.doesThisSceneExist(this.currentScene)) {
-                    this.scene = this.scenes[this.currentScene];
-                } else {
-                    this.createErrorMessage("The scene that should be here does not exist.\nCheck console for details.");
-                    this.scene = this.scenes[DefaultIdentifierForExceptions];
+                this.scene = this.scenes[DefaultIdentifierForExceptions];
+                if (this.scene == undefined) {
+                    this.temperedWithFileError({ "sceneName": this.currentScene, "info": "scene does not exist" });
                 }
             }
         }
+
+
         // Initialize the filteredData observable
         this.searchControl.valueChanges.subscribe(selectedValue => {
             this.currentAutocompleteValue = selectedValue;
@@ -360,6 +379,9 @@ export class VisualNovelComponent implements OnInit {
     }
 
     loadSelectedSlide() {
+        if (this.runtimeError) {
+            return;
+        }
         if (this.slide.scene != undefined && this.slide.scene != "-1") {
             if (this.doesThisSceneExist(this.slide.scene)) {
                 this.scene = this.scenes[this.slide.scene];
@@ -376,6 +398,9 @@ export class VisualNovelComponent implements OnInit {
             && (this.slide.scene == "-1" || this.slide.scene == undefined)
         ) {
             this.slide.scene = "-1";
+        }
+        if (this.scene == undefined) {
+            this.temperedWithFileError({ "sceneName": this.currentScene, "info": "scene does not exist" });
         }
 
 
@@ -603,6 +628,13 @@ export class VisualNovelComponent implements OnInit {
         } else {
             console.log("info:", errorObject);
         }
+    }
+
+    temperedWithFileError(debug: { [key: string]: any } = {}): void {
+        this.runtimeError = true;
+        debug["DefaultIdentifierForExceptions"] = DefaultIdentifierForExceptions;
+        debug["information"] = "The game file has been tempered with. This means that the game file has been changed in a way that it should not have been changed. Make sure that " + DefaultIdentifierForExceptions + " is set as the default number. This means that in case of an exception, it will default to this slide / stye / theme / etc. This means that you cannot delete this slide / stye / theme / etc.";
+        this.createErrorMessage("The game file has been tempered with.\nCheck console for details.", { "errorCode": "403", "severity": "ERROR", "debug": debug });
     }
 }
 
