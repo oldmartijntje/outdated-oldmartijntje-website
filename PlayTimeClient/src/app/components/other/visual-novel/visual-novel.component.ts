@@ -166,6 +166,9 @@ export class VisualNovelComponent implements OnInit {
             ) {
                 this.createNewSlideButton = false;
                 this.currentSlide = selectedValue.split(":")[0];
+                if (!this.doesThisSlideExist(this.currentSlide)) {
+                    this.currentSlide = DefaultIdentifierForExceptions;
+                }
                 this.slide = this.deepClone(this.story.slides[this.currentSlide]);
                 this.loadSelectedSlide();
             } else if (selectedValue != undefined
@@ -177,6 +180,9 @@ export class VisualNovelComponent implements OnInit {
             }
         });
         if (this.editing) {
+            if (!this.doesThisSlideExist(this.currentSlide)) {
+                this.currentSlide = DefaultIdentifierForExceptions;
+            }
             this.removeIntro();
             this.setValueOfAutocomplete(`${this.currentSlide}: ${this.story.slides[this.currentSlide].type}`);
             this.currentWarnings = this.checkForWarnings();
@@ -187,13 +193,18 @@ export class VisualNovelComponent implements OnInit {
         this.intro = false;
     }
 
-    getEditorScenesDict() {
+    getSlides(): string[] {
+        return Object.keys(this.story.slides);
+    }
+
+    getEditorScenesDict(value: any, where: string = "scenes") {
+        var keys = Object.keys(value);
         var scenes: ComboboxOption[] = [];
-        for (let index = 0; index < Object.keys(this.scenes).length; index++) {
-            scenes.push({ "value": Object.keys(this.scenes)[index], "viewValue": Object.keys(this.scenes)[index] })
+        for (let index = 0; index < keys.length; index++) {
+            scenes.push({ "value": keys[index], "viewValue": keys[index] })
         }
         scenes.push({ "value": "-1", "viewValue": "NONE" })
-        this.editorValues["scenes"] = scenes;
+        this.editorValues[where] = scenes;
     }
 
     saveEditing(mode: string): void {
@@ -409,7 +420,14 @@ export class VisualNovelComponent implements OnInit {
             if (this.slide['nextSlideText'] == undefined) {
                 this.slide['nextSlideText'] = this.story['defaultNextSlideText'];
             }
-            this.getEditorScenesDict();
+            if (this.slide['promptStyling'] == undefined) {
+                this.slide['promptStyling'] = '-1';
+            }
+            if (this.slide['style'] == undefined) {
+                this.slide['style'] = '-1';
+            }
+            this.getEditorScenesDict(this.scenes, "scenes");
+            this.getEditorScenesDict(this.styling['styles'], "styles");
         }
     }
 
@@ -555,6 +573,14 @@ export class VisualNovelComponent implements OnInit {
         return this.scenes[id] != undefined;
     }
 
+    doesThisStyleExist(id: string): boolean {
+        return this.styling['styles'][id] != undefined;
+    }
+
+    getStyles(): string[] {
+        return Object.keys(this.styling['styles']);
+    }
+
     createErrorMessage(message: string, data: { [key: string]: any } = {}): void {
         var errorMessage = "";
         var errorCode = "";
@@ -656,6 +682,12 @@ export class VisualNovelComponent implements OnInit {
             if (this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'] == this.story["defaultNextSlideText"]) {
                 delete this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'];
             }
+            if (this.story.slides[Object.keys(this.story.slides)[index]]['promptStyling'] == this.styling["default"]["textBox"] || this.story.slides[Object.keys(this.story.slides)[index]]['promptStyling'] == '-1') {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]['promptStyling'];
+            }
+            if (this.story.slides[Object.keys(this.story.slides)[index]]['style'] == this.styling["default"]["nextSlide"] || this.story.slides[Object.keys(this.story.slides)[index]]['style'] == '-1') {
+                delete this.story.slides[Object.keys(this.story.slides)[index]]['style'];
+            }
         }
     }
 
@@ -700,10 +732,24 @@ export class VisualNovelComponent implements OnInit {
         if (this.story.slides[DefaultIdentifierForExceptions] == undefined) {
             addWarning("The default slide: '" + DefaultIdentifierForExceptions + "', does not exist. This means that it will take system default.", "ERROR", "slide " + DefaultIdentifierForExceptions);
         }
-
+        if (!this.doesThisStyleExist(this.styling["default"]["nextSlide"])) {
+            addWarning("The default next slide style: '" + this.styling["default"]["nextSlide"] + "', does not exist does not exist and will be ignored.", "WARNING", "default nextSlide style");
+        }
+        if (!this.doesThisStyleExist(this.styling["default"]["textBox"])) {
+            addWarning("The default text box style: '" + this.styling["default"]["textBox"] + "', does not exist does not exist and will be ignored.", "WARNING", "default textBox style");
+        }
+        if (!this.doesThisStyleExist(this.styling["default"]["choices"])) {
+            addWarning("The default choices style: '" + this.styling["default"]["choices"] + "', does not exist does not exist and will be ignored.", "WARNING", "default choices style");
+        }
+        if (this.story['defaultNextSlideText'] == '') {
+            addWarning("The default next slide text is empty. Default Next slide text is empty, is this on purpose?", "WARNING", "defaultNextSlideText");
+        }
 
         return warningDictList;
+    }
 
+    debug() {
+        console.log(this.story, this.scenes, this.styling, this.currentSlide, this.currentScene, this.editing, this.variables)
     }
 
 }

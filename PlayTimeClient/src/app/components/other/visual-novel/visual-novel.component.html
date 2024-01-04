@@ -45,6 +45,7 @@
         <img src="../../../../assets/icons/exitButton.png" alt="Close Button" style="cursor: pointer; user-select:none;"
             title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
         <button mat-raised-button (click)="removeUnusedParamaters()" color="warn">remove Useless data</button>
+        <button mat-raised-button (click)="debug()">debug</button>
     </div>
     <table mat-table [dataSource]="currentWarnings" class="mat-elevation-z8"
         *ngIf="hiddenWarnings && currentWarnings.length > 0">
@@ -149,6 +150,26 @@
                 Scene
                 does not exist. The app will take the default Scene instead.</p>
         </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Prompt Styling</mat-label>
+                <mat-select [(ngModel)]="slide['promptStyling']" (ngModelChange)="setEditedValue(true)">
+                    @for (scene of editorValues['styles']; track scene) {
+                    <mat-option [value]="scene.value">{{scene.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>NextSlide-Button Styling</mat-label>
+                <mat-select [(ngModel)]="slide['style']" (ngModelChange)="setEditedValue(true)">
+                    @for (scene of editorValues['styles']; track scene) {
+                    <mat-option [value]="scene.value">{{scene.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <p *ngIf="slide['style'] == '-1' || slide['promptStyling'] == '-1'">With style set to NONE, it'll use the
+                default styling selected in the default tab.</p>
+        </div>
         <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <p>Textbox</p>
             <textarea name="" id="" cols="40" rows="1" [(ngModel)]="slide['text']"
@@ -174,13 +195,21 @@
 
         <div *ngIf="slide['type'] == 'choice'">
             <!-- choice -->
+            <!-- autoSelectrandom -->
+            <!-- shuffleOrder -->
+            <!-- whole if tab -->
+            <!-- disabledStyle -->
             <h2 *ngIf="slide['choices'] == undefined || slide['choices'].length == 0" class="error">This is a dead
                 end, add some choices!</h2>
             <div *ngFor="let choice of slide['choices']; let i = index">
-                <p>Text of option</p>
-                <input type="text" [(ngModel)]="choice['text']" (ngModelChange)="setEditedValue(true)">
-                <p>Goes to Slide</p>
-                <input type="text" [(ngModel)]="choice['next']" (ngModelChange)="setEditedValue(true)">
+                <div>
+                    <p>Text of option</p>
+                    <input type="text" [(ngModel)]="choice['text']" (ngModelChange)="setEditedValue(true)">
+                </div>
+                <div>
+                    <p>Goes to Slide</p>
+                    <input type="text" [(ngModel)]="choice['next']" (ngModelChange)="setEditedValue(true)">
+                </div>
                 <h2 *ngIf="choice['next'] == '-1'" class="error">'-1' is not a valid slide</h2>
                 <div *ngIf="choice['next'] != '-1' && !doesThisSlideExist(choice['next'])">
                     <h2 class="warning">This Slide
@@ -195,15 +224,21 @@
         </div>
         <div *ngIf="slide['type'] == 'prompt'">
             <!-- prompt -->
-            <p>Text</p>
-            <input type="text" [(ngModel)]="slide['nextSlideText']" (ngModelChange)="setEditedValue(true)">
-            <p>Next Slide</p>
-            <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+            <div>
+                <p>Text</p>
+                <input type="text" [(ngModel)]="slide['nextSlideText']" (ngModelChange)="setEditedValue(true)">
+            </div>
+            <div>
+                <p>Next Slide</p>
+                <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+            </div>
         </div>
         <div *ngIf="slide['type'] == 'variable'">
             <!-- variable -->
-            <p>Variable</p>
-            <input type="text" [(ngModel)]="slide['variable']['name']" (ngModelChange)="setEditedValue(true)">
+            <div>
+                <p>Variable</p>
+                <input type="text" [(ngModel)]="slide['variable']['name']" (ngModelChange)="setEditedValue(true)">
+            </div>
             <mat-form-field>
                 <mat-label>Modifier</mat-label>
                 <mat-select [(ngModel)]="slide['variable']['type']" (ngModelChange)="setEditedValue(true)">
@@ -212,32 +247,89 @@
                     }
                 </mat-select>
             </mat-form-field>
-            <p>Value</p>
-            <input type="text" [(ngModel)]="slide['variable']['value']" (ngModelChange)="setEditedValue(true)">
-            <p>Next Slide</p>
-            <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+            <div>
+                <p>Value</p>
+                <input type="text" [(ngModel)]="slide['variable']['value']" (ngModelChange)="setEditedValue(true)">
+            </div>
+            <div>
+                <p>Next Slide</p>
+                <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+            </div>
         </div>
         <div *ngIf="slide['type'] == 'playSound'">
             <!-- playSound -->
-            <p>Sound</p>
-            <input type="text" [(ngModel)]="slide['sound']" (ngModelChange)="setEditedValue(true)">
-            <p>Volume</p>
-            <input type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01"
-                (ngModelChange)="setEditedValue(true)">
+            <div>
+                <p>Sound</p>
+                <input type="text" [(ngModel)]="slide['sound']" (ngModelChange)="setEditedValue(true)">
+            </div>
+            <div>
+                <p>Volume</p>
+                <input type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01"
+                    (ngModelChange)="setEditedValue(true)">
+            </div>
             <button mat-raised-button color="accent" (click)="tryToPlayAudio('slide')">Test Audio</button>
-            <p>Next Slide</p>
-            <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+            <div>
+                <p>Next Slide</p>
+                <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+            </div>
         </div>
     </div>
     <div id="defaultDataEditor" *ngIf="currentEditorPage == 'default'">
         <h2 *ngIf="changesMade" class="warning">Current changes to these settings aren't saved!</h2>
-        <!-- default choice styling -->
-        <!-- default textbox styling -->
-        <!-- default nextSlide styling -->
-        <!-- default NextSlideText -->
-        <!-- start slide -->
-        <!-- show exit button -->
-        <!-- show save button -->
+        <h2 *ngIf="!doesThisStyleExist(styling['default']['choices'])" class="warning">Default choice Styling does not
+            exist and will be ignored.</h2>
+        <h2 *ngIf="!doesThisStyleExist(styling['default']['textBox'])" class="warning">Default textBox Styling does not
+            exist and will be ignored.</h2>
+        <h2 *ngIf="!doesThisStyleExist(styling['default']['nextSlide'])" class="warning">Default nextSlide Styling does
+            not exist and will be ignored.</h2>
+        <h2 *ngIf="!doesThisSlideExist(story['startSlide'])" class="warning">Default startSlide does not exist. It will
+            use system default instead.</h2>
+        <h2 *ngIf="story['defaultNextSlideText'] == ''" class="warning">Default Next slide text is empty, is this on
+            purpose?</h2>
+        <mat-form-field>
+            <mat-label>Default choice Styling</mat-label>
+            <mat-select [(ngModel)]="styling['default']['choices']">
+                @for (style of getStyles(); track style) {
+                <mat-option [value]="style">{{style}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Default textBox Styling</mat-label>
+            <mat-select [(ngModel)]="styling['default']['textBox']">
+                @for (style of getStyles(); track style) {
+                <mat-option [value]="style">{{style}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Default nextSlide Styling</mat-label>
+            <mat-select [(ngModel)]="styling['default']['nextSlide']">
+                @for (style of getStyles(); track style) {
+                <mat-option [value]="style">{{style}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <div>
+            <p>Default nextSlide Text</p>
+            <input type="text" [(ngModel)]="story['defaultNextSlideText']">
+        </div>
+        <mat-form-field>
+            <mat-label>Default nextSlide Styling</mat-label>
+            <mat-select [(ngModel)]="story['startSlide']">
+                @for (slide of getSlides(); track slide) {
+                <mat-option [value]="slide">slide {{slide}}: {{story['slides'][slide]['type']}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <div>
+            <p>Show exit button</p>
+            <input type="checkbox" [(ngModel)]="story['showExitButton']">
+        </div>
+        <div>
+            <p>Show save button</p>
+            <input type="checkbox" [(ngModel)]="story['showSaveButton']">
+        </div>
     </div>
     <div id="sceneEditor" *ngIf="currentEditorPage == 'scene'">
         <h2 *ngIf="changesMade" class="warning">Current changes to this scene aren't saved!</h2>
