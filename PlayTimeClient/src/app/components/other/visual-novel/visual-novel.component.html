@@ -44,7 +44,7 @@
             title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon" class="image">
         <img src="../../../../assets/icons/exitButton.png" alt="Close Button" style="cursor: pointer; user-select:none;"
             title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
-        <button mat-raised-button (click)="removeUnusedParamaters()" color="warn">remove Useless data</button>
+        <button mat-raised-button (click)="removeUnusedParamaters(true)" color="warn">remove Useless data</button>
         <button mat-raised-button (click)="debug()">debug</button>
     </div>
     <table mat-table [dataSource]="currentWarnings" class="mat-elevation-z8"

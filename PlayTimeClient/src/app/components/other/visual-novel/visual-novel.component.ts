@@ -69,6 +69,7 @@ export class VisualNovelComponent implements OnInit {
             this.saveEditing('slide')
             this.saveEditing('scene')
             this.saveEditing('style')
+            this.removeUnusedParamaters(false);
             this.updateFilteredData(this.currentAutocompleteValue)
             this.savingEvent.emit({ "FullStoryDict": { "story": this.story, "scenes": this.scenes, "styling": this.styling } })
         } else {
@@ -645,48 +646,49 @@ export class VisualNovelComponent implements OnInit {
         this.createErrorMessage("The game file has been tempered with.\nCheck console for details.", { "errorCode": "403", "severity": "ERROR", "debug": debug });
     }
 
-    removeUnusedParamaters(): void {
+    removeUnusedParamaters(bigRemove: boolean): void {
         for (let index = 0; index < Object.keys(this.story.slides).length; index++) {
-            if (this.story.slides[Object.keys(this.story.slides)[index]].type == "prompt") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
-            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "choice") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["next"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
-            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "playSound") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["promptStyling"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["variable"];
-            } else if (this.story.slides[Object.keys(this.story.slides)[index]].type == "variable") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["choices"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["text"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["sound"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["volume"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["nextSlideText"];
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["promptStyling"];
-            } else {
+            var slide = Object.keys(this.story.slides)[index];
+            if (this.story.slides[slide].type == "prompt" && bigRemove) {
+                delete this.story.slides[slide]["choices"];
+                delete this.story.slides[slide]["sound"];
+                delete this.story.slides[slide]["variable"];
+                delete this.story.slides[slide]["volume"];
+            } else if (this.story.slides[slide].type == "choice" && bigRemove) {
+                delete this.story.slides[slide]["text"];
+                delete this.story.slides[slide]["sound"];
+                delete this.story.slides[slide]["volume"];
+                delete this.story.slides[slide]["variable"];
+                delete this.story.slides[slide]["next"];
+                delete this.story.slides[slide]["nextSlideText"];
+            } else if (this.story.slides[slide].type == "playSound" && bigRemove) {
+                delete this.story.slides[slide]["choices"];
+                delete this.story.slides[slide]["text"];
+                delete this.story.slides[slide]["nextSlideText"];
+                delete this.story.slides[slide]["promptStyling"];
+                delete this.story.slides[slide]["variable"];
+            } else if (this.story.slides[slide].type == "variable" && bigRemove) {
+                delete this.story.slides[slide]["choices"];
+                delete this.story.slides[slide]["text"];
+                delete this.story.slides[slide]["scene"];
+                delete this.story.slides[slide]["sound"];
+                delete this.story.slides[slide]["volume"];
+                delete this.story.slides[slide]["nextSlideText"];
+                delete this.story.slides[slide]["promptStyling"];
+            } else if (bigRemove) {
                 console.warn("Unknown slide type: " + this.story.slides[index].type);
             }
-            if (this.story.slides[Object.keys(this.story.slides)[index]].scene == "-1") {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]["scene"];
+            if (this.story.slides[slide].scene == "-1") {
+                delete this.story.slides[slide]["scene"];
             }
-            if (this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'] == this.story["defaultNextSlideText"]) {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]['nextSlideText'];
+            if (this.story.slides[slide]['nextSlideText'] == this.story["defaultNextSlideText"] && bigRemove) {
+                delete this.story.slides[slide]['nextSlideText'];
             }
-            if (this.story.slides[Object.keys(this.story.slides)[index]]['promptStyling'] == this.styling["default"]["textBox"] || this.story.slides[Object.keys(this.story.slides)[index]]['promptStyling'] == '-1') {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]['promptStyling'];
+            if (this.story.slides[slide]['promptStyling'] == this.styling["default"]["textBox"] || this.story.slides[slide]['promptStyling'] == '-1') {
+                delete this.story.slides[slide]['promptStyling'];
             }
-            if (this.story.slides[Object.keys(this.story.slides)[index]]['style'] == this.styling["default"]["nextSlide"] || this.story.slides[Object.keys(this.story.slides)[index]]['style'] == '-1') {
-                delete this.story.slides[Object.keys(this.story.slides)[index]]['style'];
+            if (this.story.slides[slide]['style'] == this.styling["default"]["nextSlide"] || this.story.slides[slide]['style'] == '-1') {
+                delete this.story.slides[slide]['style'];
             }
         }
     }
