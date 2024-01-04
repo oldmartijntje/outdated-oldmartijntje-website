@@ -541,6 +541,18 @@ export const shortcuts: Shortcut[] = [
             "Y": -11
         }
     },
+    {
+        "Title": "Mail",
+        "Icon": "../assets/images/turtleWithEnvelope.png",
+        "Command": "nav",
+        "Link": "https://oldmartijntje.nl/Chat",
+        "Payload": {
+        },
+        "Location": {
+            "X": 1,
+            "Y": -9
+        }
+    },
 
 ]
 
