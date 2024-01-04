@@ -149,7 +149,7 @@
                 Scene
                 does not exist. The app will take the default Scene instead.</p>
         </div>
-        <div>
+        <div *ngIf="slide['type'] != 'variable' && slide['type'] != 'playSound'">
             <mat-form-field>
                 <mat-label>Prompt Styling</mat-label>
                 <mat-select [(ngModel)]="slide['promptStyling']" (ngModelChange)="setEditedValue(true)">
@@ -158,7 +158,7 @@
                     }
                 </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field *ngIf="slide['type'] != 'choice'">
                 <mat-label>NextSlide-Button Styling</mat-label>
                 <mat-select [(ngModel)]="slide['style']" (ngModelChange)="setEditedValue(true)">
                     @for (scene of editorValues['styles']; track scene) {
@@ -215,6 +215,20 @@
                         '{{choice['next']}}' does not exist, add it.</h2>
                     <button mat-raised-button color="primary" (click)="createSlide(choice['next'])">Create Slide
                         '{{choice['next']}}'</button>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Choice Styling</mat-label>
+                        <mat-select [(ngModel)]="choice['style']" (ngModelChange)="setEditedValue(true)">
+                            @for (style of editorValues['styles']; track style) {
+                            <mat-option [value]="style.value">{{style.viewValue}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <p *ngIf="choice['style'] == '-1' || choice['style'] == undefined">
+                        With style set to NONE, it'll
+                        use the
+                        default styling selected in the default tab.</p>
                 </div>
                 <button mat-raised-button color="warn" (click)="deleteOption(i)">delete</button>
                 <!-- advanced -->
