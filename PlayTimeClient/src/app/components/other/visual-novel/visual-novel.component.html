@@ -95,7 +95,6 @@
     </div>
     <div id="slideEditor" *ngIf="currentEditorPage == 'slide'">
         <!-- name of slide in an input box, and a button to rename it. -->
-        <!-- select styling by slide -->
         <h1>current slide: '{{currentSlide}}'</h1>
         <h2 *ngIf="changesMade" class="warning">Current changes to this slide aren't saved!</h2>
         <button *ngIf="createNewSlideButton" mat-raised-button color="primary"
