@@ -9,6 +9,7 @@
             <p class="textInTabpanel">Country: Netherlands</p>
             <p class="textInTabpanel">Interests: Programming, gaming, being social
             </p>
+            <p class="textInTabpanel">Try clicking on the items i have displayed here, they might do something.</p>
         </div>
     </div>
 
@@ -20,25 +21,13 @@
         <p class="textInTabpanel">Now I am working on this website. With a Love/Hate relationship for CSS</p>
     </div>
 
-    <div style="max-width: 20rem; margin: 2rem; height: fit-content;" role="tabpanel">
+    <!-- <div style="max-width: 20rem; margin: 2rem; height: fit-content;" role="tabpanel">
         <p class="textInTabpanel" style="margin-bottom: 0.5rem;">Here is an image I generated using AI.</p>
         <img src="../../../../assets/images/myAI.jpeg" alt="" style="height:10rem">
-    </div>
+    </div> -->
 
     <div class="mario" style="height: fit-content;">
         <app-coin-clicker-game></app-coin-clicker-game>
-    </div>
-    <div class="navbar" role="tabpanel">
-        <p class="textInTabpanel">Notable Pages:</p>
-        <a [routerLink]="['/AdBee']"
-            [queryParams]="{nav: '104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81'}">Ads
-            Museum</a>
-        <a [routerLink]="['/Projects']">My Projects</a>
-        <a [routerLink]="['/Chat']">Messages</a>
-        <!-- <a [routerLink]="['/TimeMachine']">Time Machine (unused)</a>
-    <a [routerLink]="['/Info']">Info (unused)</a>
-    <a [routerLink]="['/Gallery']">Random Gallery of content (unused)</a>
-    <a [routerLink]="['/Links']">Links (unused)</a> -->
     </div>
 
     <div style="max-width: 20rem; margin: 2rem; height: fit-content; cursor: pointer;" role="tabpanel"
@@ -46,6 +35,35 @@
         <p class="textInTabpanel" style="margin-bottom: 0.5rem;">My Disk Player. (Text adventures)</p>
         <img src="https://media1.tenor.com/m/1OvaByK_pucAAAAC/anime-funny-anime.gif" style="max-width: 100%;"
             alt="A gif of a girl putting a DVD into a VHS player.">
+    </div>
+
+    <div style="max-width: 20rem; margin: 2rem; height: fit-content; cursor: pointer;padding: 0;" role="tabpanel"
+        [routerLink]="['/Player']">
+        <div style="padding: 1rem; margin:0; height: 5rem; display: flex; background: #0a2f57;">
+            <h1 style="margin: 0;"><span style="color:yellow">Ad</span><span style="color: white">Bee</span></h1>
+            <img src="../../../../assets/images/bee.gif" alt="bee">
+        </div>
+    </div>
+
+    <div style="max-width: 20rem; margin: 2rem; height: fit-content; cursor: pointer;" role="tabpanel"
+        [routerLink]="['/Player']">
+        <p class="textInTabpanel" style="margin-bottom: 0.5rem; font-size: large;">You might have mail.</p>
+        <img src="../../../../assets/images/turtleWithEnvelope.png" style="max-width: 100%;"
+            alt="A gif of a girl putting a DVD into a VHS player.">
+    </div>
+
+    <div class="navbar" role="tabpanel">
+        <p class="textInTabpanel">Notable Pages:</p>
+        <a [routerLink]="['/AdBee']"
+            [queryParams]="{nav: '104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81'}">Ads
+            Museum</a>
+        <a [routerLink]="['/Projects']">My Projects</a>
+        <a [routerLink]="['/Chat']">Messages</a>
+        <a [routerLink]="['/Player']">DVD Player</a>
+        <!-- <a [routerLink]="['/TimeMachine']">Time Machine (unused)</a>
+    <a [routerLink]="['/Info']">Info (unused)</a>
+    <a [routerLink]="['/Gallery']">Random Gallery of content (unused)</a>
+    <a [routerLink]="['/Links']">Links (unused)</a> -->
     </div>
 
     <!-- <div class="container">
