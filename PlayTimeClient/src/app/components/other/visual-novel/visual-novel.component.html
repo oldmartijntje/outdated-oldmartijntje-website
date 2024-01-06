@@ -203,11 +203,13 @@
             <div *ngFor="let choice of slide['choices']; let i = index">
                 <div>
                     <p>Text of option</p>
-                    <input type="text" [(ngModel)]="choice['text']" (ngModelChange)="setEditedValue(true)">
+                    <input class="betterInput" type="text" [(ngModel)]="choice['text']"
+                        (ngModelChange)="setEditedValue(true)">
                 </div>
                 <div>
                     <p>Goes to Slide</p>
-                    <input type="text" [(ngModel)]="choice['next']" (ngModelChange)="setEditedValue(true)">
+                    <input class="betterInput" type="text" [(ngModel)]="choice['next']"
+                        (ngModelChange)="setEditedValue(true)">
                 </div>
                 <h2 *ngIf="choice['next'] == '-1'" class="error">'-1' is not a valid slide</h2>
                 <div *ngIf="choice['next'] != '-1' && !doesThisSlideExist(choice['next'])">
@@ -239,18 +241,21 @@
             <!-- prompt -->
             <div>
                 <p>Text</p>
-                <input type="text" [(ngModel)]="slide['nextSlideText']" (ngModelChange)="setEditedValue(true)">
+                <input class="betterInput" type="text" [(ngModel)]="slide['nextSlideText']"
+                    (ngModelChange)="setEditedValue(true)">
             </div>
             <div>
                 <p>Next Slide</p>
-                <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+                <input class="betterInput" type="text" [(ngModel)]="slide['next']"
+                    (ngModelChange)="setEditedValue(true)">
             </div>
         </div>
         <div *ngIf="slide['type'] == 'variable'">
             <!-- variable -->
             <div>
                 <p>Variable</p>
-                <input type="text" [(ngModel)]="slide['variable']['name']" (ngModelChange)="setEditedValue(true)">
+                <input class="betterInput" type="text" [(ngModel)]="slide['variable']['name']"
+                    (ngModelChange)="setEditedValue(true)">
             </div>
             <mat-form-field>
                 <mat-label>Modifier</mat-label>
@@ -262,28 +267,32 @@
             </mat-form-field>
             <div>
                 <p>Value</p>
-                <input type="text" [(ngModel)]="slide['variable']['value']" (ngModelChange)="setEditedValue(true)">
+                <input class="betterInput" type="text" [(ngModel)]="slide['variable']['value']"
+                    (ngModelChange)="setEditedValue(true)">
             </div>
             <div>
                 <p>Next Slide</p>
-                <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+                <input class="betterInput" type="text" [(ngModel)]="slide['next']"
+                    (ngModelChange)="setEditedValue(true)">
             </div>
         </div>
         <div *ngIf="slide['type'] == 'playSound'">
             <!-- playSound -->
             <div>
                 <p>Sound</p>
-                <input type="text" [(ngModel)]="slide['sound']" (ngModelChange)="setEditedValue(true)">
+                <input class="betterInput" type="text" [(ngModel)]="slide['sound']"
+                    (ngModelChange)="setEditedValue(true)">
             </div>
             <div>
                 <p>Volume</p>
-                <input type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01"
+                <input class="betterInput" type="number" [(ngModel)]="slide['volume']" min="0.01" max="1" step="0.01"
                     (ngModelChange)="setEditedValue(true)">
             </div>
             <button mat-raised-button color="accent" (click)="tryToPlayAudio('slide')">Test Audio</button>
             <div>
                 <p>Next Slide</p>
-                <input type="text" [(ngModel)]="slide['next']" (ngModelChange)="setEditedValue(true)">
+                <input class="betterInput" type="text" [(ngModel)]="slide['next']"
+                    (ngModelChange)="setEditedValue(true)">
             </div>
         </div>
     </div>
@@ -325,7 +334,7 @@
         </mat-form-field>
         <div>
             <p>Default nextSlide Text</p>
-            <input type="text" [(ngModel)]="story['defaultNextSlideText']">
+            <input class="betterInput" type="text" [(ngModel)]="story['defaultNextSlideText']">
         </div>
         <mat-form-field>
             <mat-label>Default nextSlide Styling</mat-label>
