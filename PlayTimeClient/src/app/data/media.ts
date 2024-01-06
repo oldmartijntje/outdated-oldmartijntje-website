@@ -180,10 +180,23 @@ export const Styling: { [key: string]: any } = {
             'user-select': 'none',
             'color': 'white'
         },
+        "1 w EnterKey": {
+            "background-color": "#313338",
+            'cursor': 'pointer',
+            'user-select': 'none',
+            'color': 'white',
+            'white-space': 'pre-line'
+        },
+        "1-pointerless w EnterKey": {
+            "background-color": "#313338",
+            'user-select': 'none',
+            'color': 'white',
+            'white-space': 'pre-line'
+        },
         "1-pointerless": {
             "background-color": "#313338",
             'user-select': 'none',
-            'color': 'white'
+            'color': 'white',
         },
         "redText": {
             "color": "black",
