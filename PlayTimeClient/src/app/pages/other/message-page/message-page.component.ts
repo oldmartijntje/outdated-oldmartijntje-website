@@ -291,6 +291,10 @@ export class MessagePageComponent implements OnInit {
 
     generateMessage(username: string, message: any, replaceString: string = '||USERNAME||') {
         var newMessage = { ...message };
+        var date = new Date();
+        var options = { hour12: false };
+        var datetime = date.toLocaleDateString('en-US', options) + ' ' + date.toLocaleTimeString('en-US', options);
+        newMessage.datetime = datetime;
         newMessage.content = newMessage.content.replace(replaceString, username);
         return newMessage;
     }

@@ -35,19 +35,19 @@ export const DefaultUserNames: string[] = [
     "User"
 ]
 var date = new Date();
-var options = { timeZone: 'Europe/London', hour12: false };
-var londonDatetime = date.toLocaleDateString('en-US', options) + ' ' + date.toLocaleTimeString('en-US', options);
+var options = { hour12: false };
+var datetime = date.toLocaleDateString('en-US', options) + ' ' + date.toLocaleTimeString('en-US', options);
 
 export const DefaultMessages: any[] = [
     [
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: '🤖SYSTEM',
             content: 'This website prioritizes privacy and operates in a data-safe manner. Your account is identified by a randomly generated number, with all other information stored locally in your browser.',
             type: 'hidden'
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Welcome to chat. Use /nick to set a nick. Use /help for other commands.',
             type: 'system'
@@ -55,98 +55,98 @@ export const DefaultMessages: any[] = [
     ],
     [
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Username is too long. ' + Settings['usernameMaxLength'] + ' is the limit.',
             type: 'warning',
             SysId: 0
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Message is too long. ' + Settings['messageMaxLength'] + ' is the limit.',
             type: 'warning',
             SysId: 1
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Sucessfully changed username to ||USERNAME||',
             type: 'system',
             SysId: 2
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Changing your name into ||USERNAME|| is not allowed.',
             type: 'warning',
             SysId: 3
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Username is too short. ' + Settings['usernameMinLength'] + ' is the minimum. The only characters allowed are letters, numbers, semicolons, and underscores. (a-z, A-Z, 0-9, :, ;, _)',
             type: 'warning',
             SysId: 4
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Message is too short. ' + Settings['messageMinLength'] + ' is the minimum. (Not all characters count as a character, since they\'ll be stripped away)',
             type: 'warning',
             SysId: 5
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SERVER',
             content: 'The server received your message, but it was empty. This means your message only had illegal characters.',
             type: 'error',
             SysId: 6
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SERVER',
             content: 'The server received your message, but your username was empty. This means your username only had illegal characters. The only characters allowed are letters, numbers, semicolons, and underscores. (a-z, A-Z, 0-9, :, ;, _)',
             type: 'error',
             SysId: 7
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'You need to type something to rename yourself as, for example: "/nick CoolUsername"',
             type: 'warning',
             SysId: 8
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SERVER',
             content: '||ERROR||',
             type: 'error',
             SysId: 9
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Use /nick to change your nickname. \nUse /help for other commands. \nUse /admin to get admin commands.',
             type: 'system',
             SysId: 10
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Use /ban {userId} to ban a user.\nUse /unban {userId} to unban a user.\nUse /ipban {userId} to ban an IP.\nUse /ipunban {userId} to unban an IP.\nUse /getipbans to get all banned IPs (encrypted).\nUse /getidbybans {ipBanId} to get all users that use a banned IP.\nUse /checkuser {userId} to check if a user is banned and which other users have the same IP.',
             type: 'system',
             SysId: 11
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'Command: \'||COMMAND||\'.\nData: \'||DATA||\'.\nMessage: \'||MESSAGE||\'.',
             type: 'system',
             SysId: 12
         },
         {
-            datetime: londonDatetime,
+            datetime: datetime,
             username: 'SYSTEM',
             content: 'These are all accounts on the same IP as ||USERNAME||: ||USERNAMES||\nBanned: ||BANNED||',
             type: 'system',
