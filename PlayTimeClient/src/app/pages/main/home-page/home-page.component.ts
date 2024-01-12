@@ -46,7 +46,6 @@ export class HomePageComponent implements OnInit {
                 this.counters.internships.average = 0;
             }
             this.counters.internships.gotFromApi = true;
-            console.log(this.counters.internships);
         });
         this.backendServiceService.addMessage("/admintest", "").subscribe((data) => {
             this.admin = true;
