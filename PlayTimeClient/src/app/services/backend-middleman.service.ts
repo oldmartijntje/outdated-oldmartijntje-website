@@ -121,7 +121,7 @@ export class BackendMiddlemanService {
         }
     }
 
-    getCounter(counterName: string): Promise<any> {
+    getCounter(counterName: string, force: boolean = false): Promise<any> {
         const performGetCounter = () => {
             try {
                 const counter = this.backendServiceService.getCounter(counterName).toPromise();
@@ -134,7 +134,7 @@ export class BackendMiddlemanService {
             }
         };
 
-        if (this.countersCall['value'] === undefined || !Object.keys(this.countersCall['value']).includes(counterName) || this.isPingOlderThanXMinutes(60, this.countersCall)) {
+        if (force || this.countersCall['value'] === undefined || !Object.keys(this.countersCall['value']).includes(counterName) || this.isPingOlderThanXMinutes(15, this.countersCall)) {
             return performGetCounter().then(() => Promise.resolve(this.countersCall["value"][counterName]))
         } else {
             return this.countersCall['value'][counterName];

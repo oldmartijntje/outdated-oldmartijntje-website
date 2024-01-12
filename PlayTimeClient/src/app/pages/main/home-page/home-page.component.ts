@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
         }
     }
     admin: boolean = false;
-    amount: number = 0;
+    amount: number = 8;
 
     constructor(
         private backendMiddlemanService: BackendMiddlemanService,
@@ -35,17 +35,7 @@ export class HomePageComponent implements OnInit {
 
     ngOnInit(): void {
         this.backendMiddlemanService.getCounter('internships').then((data) => {
-            this.counters.internships.done = (data.totalMinutes / 60) + this.counters.internships.modifier;
-            try {
-                this.counters.internships.average = (data.totalMinutes / 60) / data.amountOfInserts;
-                this.counters.internships.average = (this.counters.internships.average);
-            } catch (error) {
-                this.counters.internships.average = 0;
-            }
-            if (Number.isNaN(this.counters.internships.average)) {
-                this.counters.internships.average = 0;
-            }
-            this.counters.internships.gotFromApi = true;
+            this.canclulateCounterData(data)
         });
         this.backendServiceService.addMessage("/admintest", "").subscribe((data) => {
             this.admin = true;
@@ -61,7 +51,25 @@ export class HomePageComponent implements OnInit {
 
     submitHours() {
         this.backendServiceService.addCounterIteration(this.amount * 60, 'internships').subscribe((data) => {
-            console.log(data);
+            console.log(data)
+            this.backendMiddlemanService.getCounter('internships', true).then((data) => {
+                console.log(data)
+                this.canclulateCounterData(data)
+            });
         });
+    }
+
+    canclulateCounterData(data: any) {
+        this.counters.internships.done = (data.totalMinutes / 60) + this.counters.internships.modifier;
+        try {
+            this.counters.internships.average = (data.totalMinutes / 60) / data.amountOfInserts;
+            this.counters.internships.average = (this.counters.internships.average);
+        } catch (error) {
+            this.counters.internships.average = 0;
+        }
+        if (Number.isNaN(this.counters.internships.average)) {
+            this.counters.internships.average = 0;
+        }
+        this.counters.internships.gotFromApi = true;
     }
 }
