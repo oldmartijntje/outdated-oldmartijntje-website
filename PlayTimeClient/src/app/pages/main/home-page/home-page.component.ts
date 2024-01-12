@@ -23,7 +23,8 @@ export class HomePageComponent implements OnInit {
             "done": 0,
             "average": 0,
             "modifier": 851,
-            "gotFromApi": false
+            "gotFromApi": false,
+            "lastInsert": undefined
         }
     }
     admin: boolean = false;
@@ -74,5 +75,6 @@ export class HomePageComponent implements OnInit {
             this.counters.internships.average = 0;
         }
         this.counters.internships.gotFromApi = true;
+        this.counters.internships.lastInsert = data.last;
     }
 }

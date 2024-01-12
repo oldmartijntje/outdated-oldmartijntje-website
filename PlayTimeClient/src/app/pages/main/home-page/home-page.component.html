@@ -62,6 +62,8 @@
         <p class="textInTabpanel">Total hours done: {{counters.internships.done}}.</p>
         <p class="textInTabpanel" *ngIf="counters.internships.average != 0">Average per day:
             {{counters.internships.average}}.</p>
+        <p class="textInTabpanel" *ngIf="counters.internships.lastInsert">Last update:
+            {{counters.internships.lastInsert}}</p>
         <input *ngIf="admin" type="number" [(ngModel)]="amount" step="0.25">
         <button *ngIf="admin" (click)="submitHours()">Submit</button>
     </div>
