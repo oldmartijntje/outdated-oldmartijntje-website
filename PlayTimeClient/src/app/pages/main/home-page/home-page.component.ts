@@ -58,12 +58,15 @@ export class HomePageComponent implements OnInit {
             });
         });
     }
+    roundDownToOneDecimal(num: number): number {
+        return Math.floor(num * 10) / 10;
+    }
 
     canclulateCounterData(data: any) {
-        this.counters.internships.done = (data.totalMinutes / 60) + this.counters.internships.modifier;
+        this.counters.internships.done = this.roundDownToOneDecimal((data.totalMinutes / 60) + this.counters.internships.modifier);
         try {
-            this.counters.internships.average = (data.totalMinutes / 60) / data.amountOfInserts;
-            this.counters.internships.average = (this.counters.internships.average);
+            this.counters.internships.average = this.roundDownToOneDecimal((data.totalMinutes / 60) / data.amountOfInserts);
+            this.counters.internships.average = this.roundDownToOneDecimal((this.counters.internships.average));
         } catch (error) {
             this.counters.internships.average = 0;
         }
