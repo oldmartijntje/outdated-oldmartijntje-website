@@ -6,6 +6,8 @@ import { MarioClicker } from 'src/app/data/gamesData';
 import { environment } from 'src/environments/environment';
 import { AdHandler } from 'src/app/models/adHandler';
 import { Encryptor } from 'src/app/models/encryptor';
+import { BackendServiceService } from 'src/app/services/backend-service.service';
+import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 
 @Component({
     selector: 'app-home-page',
@@ -15,10 +17,52 @@ import { Encryptor } from 'src/app/models/encryptor';
 export class HomePageComponent implements OnInit {
     versionNumber = BuildData["BuildNumber"];
     versionWord = "BuildId";
+    counters = {
+        "internships": {
+            "todo": 1300,
+            "done": 0,
+            "average": 0,
+            "modifier": 851,
+            "gotFromApi": false
+        }
+    }
+    admin: boolean = false;
+    amount: number = 0;
 
-    ngOnInit(): void { }
+    constructor(
+        private backendMiddlemanService: BackendMiddlemanService,
+        private backendServiceService: BackendServiceService) { }
+
+    ngOnInit(): void {
+        this.backendMiddlemanService.getCounter('internships').then((data) => {
+            this.counters.internships.done = (data.totalMinutes / 60) + this.counters.internships.modifier;
+            try {
+                this.counters.internships.average = (data.totalMinutes / 60) / data.amountOfInserts;
+                this.counters.internships.average = (this.counters.internships.average);
+            } catch (error) {
+                this.counters.internships.average = 0;
+            }
+            if (Number.isNaN(this.counters.internships.average)) {
+                this.counters.internships.average = 0;
+            }
+            this.counters.internships.gotFromApi = true;
+            console.log(this.counters.internships);
+        });
+        this.backendServiceService.addMessage("/admintest", "").subscribe((data) => {
+            this.admin = true;
+        },
+            (error) => {
+                this.admin = false;
+            });
+    }
 
     logBuildData() {
         console.log(BuildData);
+    }
+
+    submitHours() {
+        this.backendServiceService.addCounterIteration(this.amount * 60, 'internships').subscribe((data) => {
+            console.log(data);
+        });
     }
 }

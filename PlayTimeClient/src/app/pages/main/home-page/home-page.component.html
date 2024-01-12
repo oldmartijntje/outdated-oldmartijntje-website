@@ -53,6 +53,19 @@
             alt="A gif of a girl putting a DVD into a VHS player.">
     </div>
 
+    <div style="margin: 2rem;" role="tabpanel" class="textBox" *ngIf="counters.internships.gotFromApi">
+        <h3 class="textInTabpanel">Internship counter.</h3>
+        <p class="textInTabpanel" *ngIf="counters.internships.todo - counters.internships.done > 0">Hours left todo:
+            {{counters.internships.todo - counters.internships.done}}.</p>
+        <p class="textInTabpanel" *ngIf="counters.internships.todo - counters.internships.done <= 0">
+            Hours done extra: {{(counters.internships.todo - counters.internships.done) * -1}}.</p>
+        <p class="textInTabpanel">Total hours done: {{counters.internships.done}}.</p>
+        <p class="textInTabpanel" *ngIf="counters.internships.average != 0">Average per day:
+            {{counters.internships.average}}.</p>
+        <input *ngIf="admin" type="number" [(ngModel)]="amount" step="0.25">
+        <button *ngIf="admin" (click)="submitHours()">Submit</button>
+    </div>
+
     <div class="navbar" role="tabpanel">
         <p class="textInTabpanel">Notable Pages:</p>
         <a [routerLink]="['/AdBee']"

@@ -87,7 +87,7 @@ export class MessagePageComponent implements OnInit {
             this.nickname = nickname;
         }
 
-        this.backendServiceService.getEmoji().subscribe((data) => {
+        this.backendMiddlemanService.getEmoji().then((data) => {
             // Assuming data['data'] is the dictionary you want to iterate over
             this.emojiList = Object.entries(data['data']).map(([key, value]) => ({ code: key, emoji: value }));
             for (let i = 0; i < this.emojiList.length; i++) {

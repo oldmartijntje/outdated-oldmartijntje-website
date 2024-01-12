@@ -62,4 +62,20 @@ export class BackendServiceService {
     ping(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/ping/ping.php`);
     }
+
+    getCounter(counterName: string): Observable<any> {
+        // Convert sessionToken to a URL-safe format if needed
+        const safeCounterName = encodeURIComponent(counterName);
+
+        return this.http.get<any>(`${this.apiUrl}/counter/counter.php?counter=${safeCounterName}`);
+    }
+
+    addCounterIteration(amount: number, counterName: string): Observable<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        let body = new HttpParams();
+        body = body.set('name', counterName);
+        body = body.set('amount', amount);
+        body = body.set('sessionToken', this.sessionToken);
+        return this.http.post(`${this.apiUrl}/counter/counter.php`, body, { headers })
+    }
 }

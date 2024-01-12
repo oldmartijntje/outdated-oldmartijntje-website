@@ -21,6 +21,10 @@ export class BackendMiddlemanService {
         "value": undefined,
         "date": undefined
     };
+    countersCall: { [key: string]: any } = {
+        "value": {},
+        "date": undefined
+    };
 
     constructor(
         private backendServiceService: BackendServiceService
@@ -116,6 +120,27 @@ export class BackendMiddlemanService {
             return this.emojiCall['value'];
         }
     }
+
+    getCounter(counterName: string): Promise<any> {
+        const performGetCounter = () => {
+            try {
+                const counter = this.backendServiceService.getCounter(counterName).toPromise();
+                this.countersCall['value'][counterName] = counter;
+                return counter;
+            } catch (error) {
+                // Handle error if needed
+                console.error("Error fetching counter:", error);
+                throw error;
+            }
+        };
+
+        if (this.countersCall['value'] === undefined || !Object.keys(this.countersCall['value']).includes(counterName) || this.isPingOlderThanXMinutes(60, this.countersCall)) {
+            return performGetCounter().then(() => Promise.resolve(this.countersCall["value"][counterName]))
+        } else {
+            return this.countersCall['value'][counterName];
+        }
+    }
+
 
 
 }
