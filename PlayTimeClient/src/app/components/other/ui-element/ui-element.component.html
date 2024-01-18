@@ -5,18 +5,45 @@
         </header>
         <div class="container flex">
             <div class="sidePanel" *ngIf="isWideScreen">
-                <p>sidebar</p>
+                <div class="sidebarBox">
+                    <h1>Tabs:</h1>
+                    <a [routerLink]="['/Home']">HomePage</a>
+                    <a [routerLink]="['/Chat']">Chat</a>
+                    <a [routerLink]="['/Player']">Text-adventures</a>
+                    <a [routerLink]="['/Projects']">Projects</a>
+                    <a [routerLink]="['/AdBee']"
+                        [queryParams]="{nav: '104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81'}">AdBee</a>
+                </div>
             </div>
-            <div [ngStyle]="{'min-width':widthOfContent, 'max-width': maxWidthOfContent}" style="height: 100%;"
-                class="background">
-                <ng-content style="height: 100%;"></ng-content>
+            <div style="height: 100%; width: 100%; display: flex; flex-direction: column;">
+                <div *ngIf="!isWideScreen" class="backgroundColor"
+                    style="flex-grow: 1; padding: 0.5rem; display: flex; flex-direction: row; column-gap: 0.5rem; flex-wrap: wrap;">
+                    <a [routerLink]="['/Home']">HomePage</a>
+                    <a [routerLink]="['/Chat']">Chat</a>
+                    <a [routerLink]="['/Player']">Text-adventures</a>
+                    <a [routerLink]="['/Projects']">Projects</a>
+                    <a [routerLink]="['/Projects']">Projects</a>
+                    <a [routerLink]="['/AdBee']"
+                        [queryParams]="{nav: '104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81'}">AdBee</a>
+                </div>
+                <div [ngStyle]="{'min-width':customWidthOfContent, 'max-width': maxWidthOfContent, 'height': heightOfContent}"
+                    style="overflow: hidden;" class="background">
+                    <ng-content style="height: 100%;"></ng-content>
+                </div>
             </div>
             <div class="sidePanel" *ngIf="isWideScreen">
                 sidebar
             </div>
         </div>
         <footer *ngIf="isWideScreen">
-            footer
+            <div class="row">
+                <p>Made by OldMartijntje</p>
+            </div>
+            <div class="row">
+                <p>Socials:</p>
+                <a href="https://github.com/oldmartijntje">Github</a>
+                <a href="https://discord.gg/YUSSpNCdGA">Discord</a>
+            </div>
         </footer>
     </div>
 </div>
