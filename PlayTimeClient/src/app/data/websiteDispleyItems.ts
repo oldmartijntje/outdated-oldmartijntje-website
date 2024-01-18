@@ -314,11 +314,11 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Youtube Video"
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://open.spotify.com/track/0iLhfT4AWAOUWjsbVgVy6J?si=c2ecdf245417423f",
+        "image": "https://i.scdn.co/image/ab67616d00001e025f018ef5b73de9779ede9e05",
+        "title": "Pjotr, Dit is je verjaardag",
+        "description": "How does he keep finding these LOL?",
+        "bannerText": "Spotify"
     },
     {
         "url": "",
