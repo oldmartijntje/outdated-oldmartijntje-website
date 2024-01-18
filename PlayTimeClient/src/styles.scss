@@ -39,14 +39,20 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.error,
-.ERROR {
-    color: $toast-error-text-color;
-    background-color: $toast-error-background-color;
-}
 
-.warning,
-.WARNING {
-    color: $toast-warning-text-color;
-    background-color: $toast-warning-background-color;
+
+:root {
+
+    .error,
+    .ERROR {
+        color: $toast-error-text-color;
+        background-color: $toast-error-background-color;
+    }
+
+    .warning,
+    .WARNING {
+        color: $toast-warning-text-color;
+        background-color: $toast-warning-background-color;
+    }
+
 }

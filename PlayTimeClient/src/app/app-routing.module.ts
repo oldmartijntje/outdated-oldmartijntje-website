@@ -10,6 +10,7 @@ import { MessagePageComponent } from './pages/other/message-page/message-page.co
 import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/project-gallery-page.component';
 import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
+import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'Projects', component: ProjectGalleryPageComponent },
     { path: 'Player', component: ContentPlayerPageComponent },
     { path: 'Test', component: TestingPageComponent },
+    { path: 'ItemDisplay', component: RandomDisplayPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 

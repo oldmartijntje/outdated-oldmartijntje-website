@@ -1,0 +1,87 @@
+@import '../../../../styles.scss';
+
+a,
+a:visited {
+    color: $primary-color;
+}
+
+.image {
+    max-width: 10rem;
+    max-height: 10rem;
+    width: 100%;
+}
+
+.container,
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    height: 10rem;
+    width: 10rem;
+    position: relative;
+    border: #000 solid 2px;
+    border-radius: 1rem;
+    background-color: $backgroundShade2;
+}
+
+.container {
+    flex-direction: column;
+    max-height: 35rem;
+    width: 10rem;
+    overflow: hidden;
+
+}
+
+.itemDisplay {
+    background-color: $backgroundShade1;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.banner {
+    transform: rotate(333deg);
+    top: 10%;
+    left: -40%;
+    color: #000;
+    width: 50%;
+    padding: 0 50% 0 50%;
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+}
+
+.itemText {
+    position: relative;
+    width: 100%;
+}
+
+.crown {
+    top: 0%;
+    left: 40%;
+    width: 2rem;
+}
+
+.crown,
+.banner {
+    position: absolute;
+    z-index: 10;
+    margin: 0;
+    text-align: center;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    /* remove scrollbar space */
+    background: $backgroundShade1;
+    /* optional: just make scrollbar invisible */
+    border-radius: 15pt;
+}
+
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: $primary-color;
+    border-radius: 15pt;
+}

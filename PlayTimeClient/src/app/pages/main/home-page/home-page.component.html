@@ -53,6 +53,11 @@
             alt="A gif of a girl putting a DVD into a VHS player.">
     </div>
 
+    <div style="max-width: 20rem; margin: 2rem; height: fit-content; cursor: pointer;" role="tabpanel"
+        [routerLink]="['/ItemDisplay']">
+        <img src="https://i.imgur.com/H9D8Dyl.png" style="max-width: 100%;" alt="A png of a webdisplay.">
+    </div>
+
     <div style="margin: 2rem;" role="tabpanel" class="textBox" *ngIf="counters.internships.gotFromApi">
         <h3 class="textInTabpanel">Internship counter.</h3>
         <p class="textInTabpanel" *ngIf="counters.internships.todo - counters.internships.done > 0">Hours left todo:
@@ -76,6 +81,7 @@
         <a [routerLink]="['/Projects']">My Projects</a>
         <a [routerLink]="['/Chat']">Messages</a>
         <a [routerLink]="['/Player']">DVD Player</a>
+        <a [routerLink]="['/ItemDisplay']">Random WebThings</a>
         <!-- <a [routerLink]="['/TimeMachine']">Time Machine (unused)</a>
     <a [routerLink]="['/Info']">Info (unused)</a>
     <a [routerLink]="['/Gallery']">Random Gallery of content (unused)</a>

@@ -39,6 +39,7 @@ import { TestingPageComponent } from './pages/other/testing-page/testing-page.co
 import { MatOptionModule } from '@angular/material/core';
 import { AsyncPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import { MatTableModule } from '@angular/material/table';
         ContentPlayerPageComponent,
         VisualNovelComponent,
         GlitchTextComponent,
-        TestingPageComponent
+        TestingPageComponent,
+        RandomDisplayPageComponent
     ],
     imports: [
         AsyncPipe,
