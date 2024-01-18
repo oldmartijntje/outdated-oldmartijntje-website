@@ -27,7 +27,6 @@ export class UiElementComponent implements OnInit {
         } else {
             this.heightOfContent = '90%';
         }
-        console.log(this.heightOfContent, this.isWideScreen);
         this.customWidthOfContent = this.isBiggerThanMaxWidth();
     }
 
@@ -39,5 +38,11 @@ export class UiElementComponent implements OnInit {
         }
     }
 
-
+    goToWebPage(url: string, openInNewTab: boolean = false): void {
+        if (openInNewTab) {
+            window.open(url, '_blank');
+        } else {
+            window.location.href = url;
+        }
+    }
 }
