@@ -8,6 +8,28 @@ const fillIn: itemDisplay = {
     "bannerText": ""
 }
 
+const bannerTexts: string[] = [
+    "Codepen",
+    "Youtube Channel",
+    "Website",
+    "Profile",
+    "Article",
+    "Discord Video",
+    "VScode Extension",
+    "Video",
+    "Github Repository",
+    "GIF",
+    "Software",
+    "Wallpaper Engine",
+    "Youtube Video",
+    "Discord Server",
+    "Twitch",
+    "Spotify",
+    "Twitter",
+    "Image",
+    "Item"
+]
+
 export const randomWebsites: itemDisplay[] = [
     {
         "title": "CSS social buttons and icons",
@@ -92,7 +114,7 @@ export const randomWebsites: itemDisplay[] = [
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Graph_based_maze_animation.gif/220px-Graph_based_maze_animation.gif",
         "title": "Maze generation algorithm",
         "description": "An wikipedia article on maze generation algorithms.",
-        "bannerText": "Wikipedia Article"
+        "bannerText": "Article"
     },
     {
         "url": "https://cdn.discordapp.com/attachments/329213001024667648/887940642053951518/234813949_374314457381623_1307478554580201793_n.mp4?ex=65bb332a&is=65a8be2a&hm=79da61953ba4e942cd913993470143508b5998d681f8ed6274d665da541d6e79&",
@@ -391,6 +413,90 @@ export const randomWebsites: itemDisplay[] = [
         "title": "adventure-land.nl",
         "description": "",
         "bannerText": "Website"
+    },
+    {
+        "url": "https://melonking.net/melon?z=/thoughts/lets-make",
+        "image": "https://melonking.net/images/window-grey.gif",
+        "title": "MELONS4EVER",
+        "description": "Lets make the World-Wide-Web!",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://huggingface.co/spaces/AP123/IllusionDiffusion",
+        "image": "https://i.imgur.com/01SyZSl.png",
+        "title": "IllusionDiffusion",
+        "description": "Make AI art.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://mikevanniel.nl/",
+        "image": "",
+        "title": "HBO Informatica",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://drive.google.com/file/d/1rMdqRge2JKRFYBw5CMe3c9HXl5QuOtvr/view?pli=1",
+        "image": "",
+        "title": "A minecraft world download.",
+        "description": "I think naturarium?",
+        "bannerText": "File"
+    },
+    {
+        "url": "https://mkpc.malahieude.net/mariokart.php",
+        "image": "https://i.imgur.com/4RaIbH2.png",
+        "title": "Mario Kart PC",
+        "description": "Free online Mario Kart game",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=V9gbXoKU5nY",
+        "image": "https://i.imgur.com/gU6EUO0.png",
+        "title": "Een boom die niet meer goed is",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://twitter.com/mielesgames/status/1568668773489725440",
+        "image": "https://pbs.twimg.com/profile_images/1555234124213981184/gUUQlgJ5_normal.png",
+        "title": "Mielesgames posted: Are yall still...",
+        "description": "",
+        "bannerText": "Twitter"
+    },
+    {
+        "url": "https://www.roblox.com/catalog/9342139339/Maid-Dress-Pink",
+        "image": "https://tr.rbxcdn.com/f20b0b3e60a8aeb72818011a41e97b85/420/420/LayeredAccessory/Png",
+        "title": "Maid Dress - Pink",
+        "description": "",
+        "bannerText": "Item"
+    },
+    {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2101027521",
+        "image": "https://steamuserimages-a.akamaihd.net/ugc/1028455403162871463/3E017721CEA26C448E0B1A3234D327FE6FA1C9E3/?imw=128&imh=128&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
+        "title": "Portal 2 Console Commands",
+        "description": "",
+        "bannerText": "Article"
+    },
+    {
+        "url": "https://i.imgur.com/3KtPKJn.png",
+        "image": "https://i.imgur.com/3KtPKJn.png",
+        "title": "Where is the download?",
+        "description": "",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://twitter.com/KFC_ES/status/1604816567040200707?t=HbJJnSlq8avPFQtgeCUYVg&s=33",
+        "image": "https://pbs.twimg.com/media/FkVaoOyWQAA9b4r?format=jpg&name=small",
+        "title": "KFC_ES posted:",
+        "description": "",
+        "bannerText": "Twitter"
+    },
+    {
+        "url": "",
+        "image": "",
+        "title": "",
+        "description": "",
+        "bannerText": ""
     },
     {
         "url": "",
