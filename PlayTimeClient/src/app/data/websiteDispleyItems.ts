@@ -14,7 +14,6 @@ const bannerTexts: string[] = [
     "Website",
     "Profile",
     "Article",
-    "Discord Video",
     "VScode Extension",
     "Video",
     "Github Repository",
@@ -27,7 +26,8 @@ const bannerTexts: string[] = [
     "Spotify",
     "Twitter",
     "Image",
-    "Item"
+    "Item",
+    "Game"
 ]
 
 export const randomWebsites: itemDisplay[] = [
@@ -115,14 +115,6 @@ export const randomWebsites: itemDisplay[] = [
         "title": "Maze generation algorithm",
         "description": "An wikipedia article on maze generation algorithms.",
         "bannerText": "Article"
-    },
-    {
-        "url": "https://cdn.discordapp.com/attachments/329213001024667648/887940642053951518/234813949_374314457381623_1307478554580201793_n.mp4?ex=65bb332a&is=65a8be2a&hm=79da61953ba4e942cd913993470143508b5998d681f8ed6274d665da541d6e79&",
-        "image": "https://i.imgur.com/8mlvEKx.png",
-        "title": "Random Discord Video",
-        "description": "This is the shit that my friends send me on discord.",
-        "bannerText": "Discord Video",
-        "nsfw": true
     },
     {
         "url": "https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare",
@@ -475,7 +467,7 @@ export const randomWebsites: itemDisplay[] = [
         "image": "https://steamuserimages-a.akamaihd.net/ugc/1028455403162871463/3E017721CEA26C448E0B1A3234D327FE6FA1C9E3/?imw=128&imh=128&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
         "title": "Portal 2 Console Commands",
         "description": "",
-        "bannerText": "Article"
+        "bannerText": "Item"
     },
     {
         "url": "https://i.imgur.com/3KtPKJn.png",
@@ -492,18 +484,399 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Twitter"
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://open.spotify.com/track/0MBYW7CcBJmsY3HTP05VQg?si=1261d6f9a97e45c0",
+        "image": "https://i.scdn.co/image/ab67616d00001e02804c1bb88d714079e12d80e1",
+        "title": "Russians",
+        "description": "I find this a good song.",
+        "bannerText": "Spotify"
     },
     {
-        "url": "",
+        "url": "https://store.steampowered.com/app/1121910/I_Love_You_Colonel_Sanders_A_Finger_Lickin_Good_Dating_Simulator/",
+        "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1121910/header.jpg?t=1569326440",
+        "title": "I Love You, Colonel Sanders!",
+        "description": "A Finger Lickin' Good Dating Simulator.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://emojicombos.com/cheese",
         "image": "",
-        "title": "",
+        "title": "Cheese.",
         "description": "",
-        "bannerText": ""
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://store.steampowered.com/app/2263010/Pineapple_on_pizza/",
+        "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/2263010/header.jpg?t=1683199105",
+        "title": "Pineapple on pizza",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://i.imgur.com/lIqILRT.png",
+        "image": "https://i.imgur.com/lIqILRT.png",
+        "title": "A Bruce Banner.",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://ipodtouch0218.itch.io/nsmb-mariovsluigi",
+        "image": "https://img.itch.zone/aW1hZ2UvMTQ0NTgzMS84NDQxODY3LnBuZw==/347x500/CmotUR.png",
+        "title": "nsmb-mariovsluigi",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://youtu.be/WIRK_pGdIdA",
+        "image": "https://i.ytimg.com/vi/WIRK_pGdIdA/sddefault.jpg?sqp=-oaymwEWCKoDEPABIAQqCghqEJQEGHgg6AJIWg&rs=AOn4CLAfipALpqdTqXg-I-X80-RGo8__4A",
+        "title": "chip",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/L2mPqitmJO0?si=i1cTO0KGc35H3glV",
+        "image": "https://i.ytimg.com/vi/L2mPqitmJO0/hq720.jpg",
+        "title": "I Launched His Scooter...",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/xx8NZa4ptJA?si=aYiwFvuND5ItWaYq",
+        "image": "https://i.ytimg.com/vi/xx8NZa4ptJA/hq720.jpg",
+        "title": "How To Open a Door",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/5WKJmsn627o?si=akt7K0Tz4JW2l7XA",
+        "image": "https://i.ytimg.com/vi/5WKJmsn627o/hq720.jpg?sqp=-oaymwEXCNUGEOADIAQqCwjVARCqCBh4INgESFo&rs=AOn4CLBIbNQoAM-CkyvHal9vXH7V6LQDwA",
+        "title": "Thwomp Volcano - Mario and Luigi Partners In Time (RuditheRaven Remix)",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/6ipSzUiSuRc?si=Nj0qyDNOXFGtrYgF",
+        "image": "https://i.ytimg.com/vi/6ipSzUiSuRc/hq720.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgUShYMA8=&rs=AOn4CLAHveWaCb9VwHhHlG3yQCPva0UkDw",
+        "title": "The sky is pink?",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/n7cjod9lF2s?si=JwkWHC-ilDPlLf1T",
+        "image": "https://i.ytimg.com/vi/n7cjod9lF2s/hq720.jpg",
+        "title": "The Avoongers Movie Trailer",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=Rb1HSnuR8WE",
+        "image": "https://i.ytimg.com/vi/Rb1HSnuR8WE/hqdefault.jpg?sqp=-oaymwEXCJADEOABSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDa4RRlSkWgPV2rbvR2HZRe0SJ_sQ",
+        "title": "Family Guy Funny Spelling",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/6Wd_uaE76xo",
+        "image": "https://i.ytimg.com/vi/6Wd_uaE76xo/hq720.jpg?v=64343795",
+        "title": "WIE VINDT DE MEESTE PAASEIEREN?! - GenietTV Paasspecial",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://www.roblox.com/catalog/9341914167/Maid-Dress-Black",
+        "image": "https://tr.rbxcdn.com/4f854d001a0ee619c8276763004d1fdb/420/420/LayeredAccessory/Png",
+        "title": "Maid-Dress-Black",
+        "description": "",
+        "bannerText": "Item"
+    },
+    {
+        "url": "https://www.roblox.com/catalog/15973526615/El-Gato-Cat-Suit",
+        "image": "https://tr.rbxcdn.com/4965d5ccc46bc22e1a328901a5f6a90d/420/420/LayeredAccessory/Png",
+        "title": "El-Gato-Cat-Suit",
+        "description": "",
+        "bannerText": "Item"
+    },
+    {
+        "url": "https://www.roblox.com/games/5509074977/Content-Deleted",
+        "image": "https://tr.rbxcdn.com/ecbfc1d6bfee52031dd93f703800f2a5/352/352/Image/Png",
+        "title": "Content Deleted",
+        "description": "",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://www.roblox.com/games/6726392544/Sea-shells-sea-shells-on-the-sea-shore",
+        "image": "https://tr.rbxcdn.com/e9398c44b891502f9f44ced825168664/352/352/Image/Png",
+        "title": "Sea shells sea shells on the sea shore",
+        "description": "",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=Z6bBRljccvs",
+        "image": "https://i.ytimg.com/vi/Z6bBRljccvs/hqdefault.jpg?sqp=-oaymwExCJADEOABSFryq4qpAyMIARUAAIhCGAHwAQH4AdQGgALgA4oCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLBQaANxQrNlqNIXzvBXNwd8z4gCfw",
+        "title": "10 reasons to join naturarium",
+        "description": "You should mentally prepare yourself before watching this.",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://images-na.ssl-images-amazon.com/images/I/5127loKnNJL._AC_SL1200_.jpg",
+        "image": "https://images-na.ssl-images-amazon.com/images/I/5127loKnNJL._AC_SL1200_.jpg",
+        "title": "Cable.",
+        "description": "",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://www.boredbutton.com",
+        "image": "https://www.boredbutton.com/i/bored-button-logo-300-min.png",
+        "title": "boredbutton",
+        "description": "Click it.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.buienradar.nl",
+        "image": "https://cdn.buienradar.nl/resources/svg/motregen.svg",
+        "title": "buienradar",
+        "description": "Het regent met een klein beetje kaas.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://neal.fun/password-game/",
+        "image": "https://i.imgur.com/MWaXvXr.png",
+        "title": "Password game",
+        "description": "Make the perfect password.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://simpelsubsidie.nl",
+        "image": "https://simpelsubsidie.nl/assets/images/simpel-subsidie-klein.png",
+        "title": "simpelsubsidie",
+        "description": "Brrrrrrrrrr",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://eelslap.com",
+        "image": "https://i.imgur.com/Hxon5tV.png",
+        "title": "",
+        "description": "Most important website ever!",
+        "bannerText": "Website"
+    },
+    {
+        "url": "http://www.20q.net",
+        "image": "http://www.20q.net/gfx/ktclfrb.gif",
+        "title": "20q.net",
+        "description": "idk what this is.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://scp-wiki.wikidot.com",
+        "image": "https://scp-wiki.wdfiles.com/local--files/main/logo_250.png",
+        "title": "SCP Foundation",
+        "description": "Secure, Contain, Protect",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://depomp.com",
+        "image": "https://depompalmkerk.nl/img/galerijfotos/IMG_7002-1-860x573.webp",
+        "title": "De Pomp",
+        "description": "A youth group in Almkerk, The Netherlands",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.scp.nl",
+        "image": "https://www.scp.nl/binaries/content/gallery/scp/channel-afbeeldingen/logo_scp.svg",
+        "title": "Dutch SCP",
+        "description": "Or something, IDK.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://radio.garden/listen/spinning-seal-fm/d7RMpZjk",
+        "image": "https://i.imgur.com/DoHG3LO.png",
+        "title": "Radio Garden",
+        "description": "Listen to Radio FM, You can select by geographic location.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.urbandictionary.com/define.php?term=Copium",
+        "image": "https://i.imgur.com/DD7StZ3.png",
+        "title": "Copium",
+        "description": "",
+        "bannerText": "Article"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=PnGpEJGFJ3w",
+        "image": "https://i.ytimg.com/vi/PnGpEJGFJ3w/hq720.jpg",
+        "title": "I Would Pay $999 - PARODY SONG",
+        "description": ":D",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=SLYXE9T8v6U",
+        "image": "https://i.ytimg.com/vi/SLYXE9T8v6U/sddefault.jpg?sqp=-oaymwEWCKoDEPABIAQqCghqEJQEGHgg6AJIWg&rs=AOn4CLB8Hdqo5OJdMee1d7iE5OgwYSJpxg",
+        "title": "Music Of Memes: Ultimate Edition",
+        "description": "So that's where it came from lol.",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=g2xXw7h12hE",
+        "image": "https://i.ytimg.com/vi/g2xXw7h12hE/hq720.jpg?sqp=-oaymwEXCNUGEOADIAQqCwjVARCqCBh4INgESFo&rs=AOn4CLCawmkjXInmA2352sJOAxvL7Zf9YA",
+        "title": "Het Regenbooglied gezongen door groep 8a",
+        "description": "The good old days lmao",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://modrinth.com/datapack/rogue-craft",
+        "image": "https://cdn.modrinth.com/data/HtKjVijx/2d8f731c49c3cfbea97b757c9bf6c3c7b71fcd3a.png",
+        "title": "Roguecraft",
+        "description": "I enjoy it like this.",
+        "bannerText": "Item"
+    },
+    {
+        "url": "https://www.urbandictionary.com/define.php?term=Meow",
+        "image": "https://i.imgur.com/DD7StZ3.png",
+        "title": "Meow",
+        "description": "",
+        "bannerText": "Article"
+    },
+    {
+        "url": "https://i.imgur.com/TAjRVWP.png",
+        "image": "https://i.imgur.com/TAjRVWP.png",
+        "title": "Snel vliegen.",
+        "description": "",
+        "bannerText": "Image"
+    },
+
+    {
+        "url": "https://onlywonder.net/home",
+        "image": "https://onlywonder.net/images/icon.png",
+        "title": "Only Wonder",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.roblox.com/games/14005956124/PROVE-DAD-WRONG-BY-SELLING-ROCKS-TYCOON",
+        "image": "https://tr.rbxcdn.com/8af001308db9e1627d8c64325c05f7c9/768/432/Image/Png",
+        "title": "PROVE DAD WRONG BY SELLING ROCKS TYCOON",
+        "description": "",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://www.reddit.com/r/PhoenixSC/comments/16d32d4/new_captcha_unlocked/?utm_source=share&utm_medium=web2x&context=3",
+        "image": "https://preview.redd.it/new-captcha-unlocked-v0-5lvqd07p9zmb1.jpg?width=640&crop=smart&auto=webp&s=1d0ec9d290af6484a17de8a61ef376428f55ef54",
+        "title": "New CAPTCHA unlocked",
+        "description": "",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://franticfanfic.com",
+        "image": "data:image/gif;base64,R0lGODlhXABAAPcAAP///wEAAQcGBwYDCAsCCwUKCwoLDA4QDg0HERQCFBsCHBYIGAYWFw0TExITFBkVHBMbGxscHSEAHx4EIQ8aIBoXIiQDJCcHKCoDKyUZKS0JMDMENTsFPTUJODsKPSkaNzUXNwQmJQgqKxolJxQvNwc3NyIjIyUqKikqKiorMTYqOSo0NTc5OkEFPxVAPj4JQT4QRCQkQDs9QUEMREgISkcYSU4MUVILVFgNXEsUVFUUWEowTUo2VF4MYVsVYmQOZ2YUangPfG4Tc3YVe1gsbWMkanMsexZHTRJPUTNITSNVWDRUcRhmZxF3eCVjZi9ud0JEREZKSkpLS0tOVVNJVFNUVltYXFFLbV5aY25Nc0tqb2dpamxncG1vcHFtdHZ3en2Af30UgXgqhR93hHFNkFdhkXVwi3Nxq4UYiowbk5UamoQoio4ilZYnnIk3kpYznJ0Yo6YXqp0npos5oaUoq6Msq6UyrKwptbQpu6w2tLMyvIxOlIR6h45ok5VBqK1Ms41vuKxztLglwL0uy7o3xLwxy8gZzMU5zc0w18k4084o4No35uU77rFOxr5Wypl6x7BuybZzxLlzw8REzMFQxMlF1dJG3MlY19Na3MFixcZlystv0tZ22thK5dtY5txa5N9Q8OJa6+dH+etR9elY99xm59t05tt64eNk6+F47uho9exk/PNg//Jt/ut3+PF0/vJ6/vp9/xqEhhqQkiKDhjCNlTubpi6qrjilpii2uk6MlXyEg3eYnEaTqm+UqUmssE2vtGmttWyvy2av2RzX2TTOzjTh6EXHy0nLy1fHylLL0kjZ2VjW2HPN0mfZ3E7c7nTe6lPl5G/s7oWGh5SElpSLlpKQlZqNp7mft4+vtqqosJuZ3a6LyY2swrSw6MyS09Ks19yK8OqI9/KE/vSM/+SQ8faV//Sc/tuq/Omn/PSn/fq5/5LNz5DO8bPS+JD3+KXy/bf+/s/t/e7//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUAAAAAIf4nR0lGIHJlc2l6ZWQgb24gaHR0cHM6Ly9lemdpZi5jb20vcmVzaXplACH/C3htcCBkYXRheG1w/z94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+PHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3Lncub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJmOmFib3V0PSIiIP94bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjE4QTM1QzFGNEU1NTExRUI4MTNDQUI3REQyMjMxREVGIiB4bXBNOkluc3RhbmNlSUQ9InhtcC5paWQ6MThBMzVDMUU0RTU1MTFFQjgxM0NBQjf/REQyMjMxREVGIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2IgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmRpZDo1RTQ3Rjc1RDUzNEVFQjExQTI1Q0E4M0ZDNTM4OUFFIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVFNDdGNzVENTM0RUVCMTFBMjVDQTgzRjUzODk2QUUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQi/3IiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycfGxcTDwsHAv769vLu6ubi3trW0s7KxsK+urayrqqmop6alpKOioaCfnp2cm5qZmJeWlZSTkpGQj46NjIuKiYiHhoWEg4KBgH9+fXx7enl4d3Z1dHNycXBvbm1sa2ppaGdmZWRjYmFgX15dXFtaWVhXVlVUU1JRUE9OTUxL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",
+        "title": "Frantic Fanfic",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://docs.google.com/forms/d/e/1FAIpQLScvbQ_8joTS1vWbMrYnFuJRF_IRhsV_SvI0FMRxy1P0x8cU8Q/viewform",
+        "image": "https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_dark_clr_74x24px.svg",
+        "title": "Ban appeal form",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://landover.io/game/home",
+        "image": "https://i.imgur.com/lObquNA.png",
+        "title": "Landover.io",
+        "description": "Kinda like Catan, but free and online.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://open.spotify.com/track/4NT9BkHuvYpzjtLy66l7Rg?si=e14a2757abb949f6",
+        "image": "https://i.scdn.co/image/ab67616d00001e0279d9db7eb388ca4b29fc6559",
+        "title": "Bop",
+        "description": "It is a bop.",
+        "bannerText": "Spotify"
+    },
+    {
+        "url": "https://open.spotify.com/track/3mzRTOxA53fXidsDtPX0UF?si=eae16471dd8640b0",
+        "image": "https://i.scdn.co/image/ab67616d00001e02428c4cfdcb0db673c15d0d18",
+        "title": "Objection Hearsay",
+        "description": "Song about the case of Jonny Depp vs Amber Heard.",
+        "bannerText": "Spotify"
+    },
+    {
+        "url": "https://www.roblox.com/games/8110845141/VC-POOP-WITH-FRIENDS",
+        "image": "https://tr.rbxcdn.com/1837d52ea3170c9cdfdff795cafe8240/150/150/Image/Jpeg",
+        "title": "VC POOP WITH FRIENDS",
+        "description": "Yes",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://www.roblox.com/games/9743079991/NEW-EMOTES-wonderhoy-simulator",
+        "image": "https://tr.rbxcdn.com/0216b672fef1aea3057c8e08ca023b02/768/432/Image/Png",
+        "title": "NEW EMOTES wonderhoy simulator",
+        "description": "I don't even know.",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://store.steampowered.com/app/1468160/Cube_Racer_2/",
+        "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1468160/header.jpg?t=1646853060",
+        "title": "Cube Racer 2",
+        "description": "Ultimate Chicken horse but 3D and with cubes.",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://i.imgur.com/glgas5Z.png",
+        "image": "https://i.imgur.com/glgas5Z.png",
+        "title": "Glamrock Freddy.",
+        "description": "You know what you gotta do.",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=7IOOwSwwoM8",
+        "image": "https://i.ytimg.com/vi/7IOOwSwwoM8/hq720.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGFMgZChlMA8=&rs=AOn4CLAYqKZxZH6bBHaei_5Pw3rFznX7wQ",
+        "title": "You lovely you ZEST AMV",
+        "description": "I reposted this, don't know why. It was originally a wallpaper on wallpaper engine.",
+        "bannerText": "Youtube Video",
+        "nsfw": true
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=kgCST5We3YE",
+        "image": "https://i.ytimg.com/vi/kgCST5We3YE/hq720.jpg?sqp=-oaymwEXCNUGEOADIAQqCwjVARCqCBh4INgESFo&rs=AOn4CLAoPCAcII0g4-ds2EMEI9Thbpixrg",
+        "title": "Idols(By Suppy)",
+        "description": "It's been a while since I have listened to this.",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://jesusisgod.tv",
+        "image": "https://jesusisgod.tv/wp-content/uploads/2019/08/JESUSisGODcube150clockwise.gif",
+        "title": "jesusisgod.tv",
+        "description": "I don't disagree with this website, but it's a bit much.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=iQsalE_SzCg",
+        "image": "https://i.ytimg.com/vi/iQsalE_SzCg/hqdefault.jpg?sqp=-oaymwEXCJADEOABSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBqV5ZFoDUmkZ9LOI6K9WvhqyD1fw",
+        "title": "CRUSH CRUSH - 100% Walkthrough No Commentary - PART 14: Ending [PC MAX Settings]",
+        "description": "Ehhhhhh",
+        "bannerText": "Youtube Video",
+        "nsfw": true
+    },
+    {
+        "url": "https://youtu.be/dr5vOtcoHSk",
+        "image": "https://i.ytimg.com/vi/dr5vOtcoHSk/hq720.jpg",
+        "title": "BOSCH PSB 18LT-2 Triple Bag",
+        "description": "Most important video ever.",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/BwAMltY3-c0",
+        "image": "https://i.ytimg.com/vi/BwAMltY3-c0/hq720.jpg",
+        "title": "Making Fun Of Youtuber's Intros.",
+        "description": "Baby Mrbeast go brrr. (he cringe now)",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://youtu.be/2vAo48hdO-4",
+        "image": "https://i.ytimg.com/vi/2vAo48hdO-4/hq720.jpg",
+        "title": "POV: You're Potato in my potato farm",
+        "description": "AI, help me suggest a description: \"I don't know what to put here.\"",
+        "bannerText": "Youtube Video"
     },
     {
         "url": "",
