@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RandomDisplayHandler, itemDisplay } from 'src/app/models/randomDisplayHandler';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-random-display-page',
@@ -10,6 +11,7 @@ export class RandomDisplayPageComponent implements OnInit {
     displayItems: itemDisplay[] = [];
     randomDisplayHandler = new RandomDisplayHandler();
     amount = 0;
+    development = !environment.production;
 
     constructor() { }
 
@@ -20,6 +22,10 @@ export class RandomDisplayPageComponent implements OnInit {
 
     getItems(): void {
         this.displayItems = this.randomDisplayHandler.getItems(8);
+    }
+
+    getLatestItems(): void {
+        this.displayItems = this.randomDisplayHandler.getLatestItems(8);
     }
 
 

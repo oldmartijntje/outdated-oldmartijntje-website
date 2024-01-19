@@ -34,7 +34,7 @@ export const randomWebsites: itemDisplay[] = [
         "image": "https://stats.fm/_next/image?url=https%3A%2F%2Fcdn.stats.fm%2Ffile%2Fstatsfm%2Fimages%2Fusers%2F7uatf47gcofdupwdxammpxliw%2Fc15df2d67ccfdf5eef5927054f6d830b.webp&w=256&q=75",
         "title": "My Spotify Stats",
         "description": "A website that tracks my Spotify listening habits.",
-        "bannerText": "Spotify",
+        "bannerText": "Profile",
         "myOwn": true,
     },
     {
@@ -294,9 +294,9 @@ export const randomWebsites: itemDisplay[] = [
     },
     {
         "url": "https://va.media.tumblr.com/tumblr_s1zzgjzoa91u5zg7m.mp4",
-        "image": "",
+        "image": "https://i.imgur.com/Zvgv5kt.png",
         "title": "Random video",
-        "description": "",
+        "description": "Bloopin'",
         "bannerText": "Video"
     },
     {
@@ -321,60 +321,75 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Spotify"
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://github.com/oldmartijntje",
+        "image": "https://avatars.githubusercontent.com/u/64547812?v=4",
+        "title": "My Github Profile",
+        "description": "I mean, it's also linked literally everywhere else on this website lol.",
+        "bannerText": "Profile",
+        "myOwn": true,
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://github.com/oldmartijntje/oldmartijntje.nl-client",
+        "image": "../../assets/images/mii.png",
+        "title": "oldmartijntje.nl",
+        "description": "This websites github repository.",
+        "bannerText": "Github Repository",
+        "myOwn": true,
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://github.com/oldmartijntje/CodeDungeon",
+        "image": "https://github.com/oldmartijntje/CodeDungeon/raw/main/sprites/readme/game.png",
+        "title": "CodeDungeon",
+        "description": "A dungeon crawler you control by programming.",
+        "bannerText": "Github Repository",
+        "myOwn": true,
     },
     {
-        "url": "",
+        "url": "https://github.com/oldmartijntje/Angular-Github-Pages-Scripts",
         "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "title": "Angular-Github-Pages-Scripts",
+        "description": "Scripts for hosting your angular on github pages + a tutorial on basic angular configurations / practices.",
+        "bannerText": "Github Repository",
+        "myOwn": true,
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://github.com/oldmartijntje/Articles",
+        "image": "https://i.imgur.com/TmlM3qN.png",
+        "title": "Articles",
+        "description": "My big library of knowledge. Using the obsidian app to merge my markdowns into a big library.",
+        "bannerText": "Github Repository",
+        "myOwn": true,
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://github.com/oldmartijntje/Pokemon-Vibranium",
+        "image": "https://oldmartijntje.github.io/Project-Viewer/assets/images/appTextures/pokemonVibranium.png",
+        "title": "Pokemon Vibranium",
+        "description": "A medium-ish Pokemon fangame I made in RPG maker XP.",
+        "bannerText": "Github Repository",
+        "myOwn": true,
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
-        "description": "",
-        "bannerText": ""
+        "url": "https://github.com/oldmartijntje/Pokemon-Backrooms",
+        "image": "https://oldmartijntje.github.io/Project-Viewer/assets/images/appTextures/pokemon-backrooms.png",
+        "title": "Pokemon Backrooms",
+        "description": "A small Pokemon fangame I made in RPG maker XP.",
+        "bannerText": "Github Repository",
+        "myOwn": true,
     },
     {
-        "url": "",
-        "image": "",
-        "title": "",
+        "url": "https://oldmartijntje.github.io/Project-Viewer/page/1",
+        "image": "https://oldmartijntje.github.io/Project-Viewer/assets/images/appTextures/viewer.png",
+        "title": "Project-Viewer",
+        "description": "Outdated website that I used to display my projects.",
+        "bannerText": "Website",
+        "myOwn": true,
+    },
+    {
+        "url": "https://adventure-land.nl",
+        "image": "https://oldmartijntje.github.io/Project-Viewer/assets/images/appTextures/adventureLand.png",
+        "title": "adventure-land.nl",
         "description": "",
-        "bannerText": ""
+        "bannerText": "Website"
     },
     {
         "url": "",

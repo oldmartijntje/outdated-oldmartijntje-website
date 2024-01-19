@@ -10,6 +10,7 @@
                     grabbing things that people sent me
                     on discord to make it less empty here)</p>
                 <button (click)="getItems()">Refresh</button>
+                <button *ngIf="development" (click)="getLatestItems()">Latest</button>
             </div>
         </header>
         <div class="displayBar"

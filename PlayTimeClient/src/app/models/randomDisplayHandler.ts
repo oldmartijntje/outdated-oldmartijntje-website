@@ -11,25 +11,46 @@ export interface itemDisplay {
 
 }
 
+function deepcopy(object: any) {
+    return JSON.parse(JSON.stringify(object));
+}
+
 export class RandomDisplayHandler {
-    getItems(amount: number = 8): itemDisplay[] {
-        // Shuffle the array using Fisher-Yates algorithm
-        for (let i = randomWebsites.length - 1; i > 0; i--) {
-            if (randomWebsites[i].url == "") {
-                randomWebsites.splice(i, 1);
+    randomWebsites = deepcopy(randomWebsites);
+
+    constructor() { 
+        for (let i = this.randomWebsites.length - 1; i > 0; i--) {
+            if (this.randomWebsites[i].url == "") {
+                this.randomWebsites.splice(i, 1);
             }
         }
-        for (let i = randomWebsites.length - 1; i > 0; i--) {
+    }
+
+    getItems(amount: number = 8): itemDisplay[] {
+        // Shuffle the array using Fisher-Yates algorithm
+        for (let i = this.randomWebsites.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [randomWebsites[i], randomWebsites[j]] = [randomWebsites[j], randomWebsites[i]];
+            [this.randomWebsites[i], this.randomWebsites[j]] = [this.randomWebsites[j], this.randomWebsites[i]];
         }
 
         // Return the requested amount of items
-        return randomWebsites.slice(0, amount);
+        return this.randomWebsites.slice(0, amount);
     }
 
     getAmountOfItems() {
-        return randomWebsites.length;
+        return this.randomWebsites.length;
+    }
+
+    getLatestItems(amount: number = 8): itemDisplay[] {
+        this.randomWebsites = deepcopy(randomWebsites);
+        for (let i = this.randomWebsites.length - 1; i > 0; i--) {
+            if (this.randomWebsites[i].url == "") {
+                this.randomWebsites.splice(i, 1);
+            }
+        }
+
+        const latestItems = this.randomWebsites.slice(this.randomWebsites.length - amount, this.randomWebsites.length);
+        return latestItems;
     }
 }
 
