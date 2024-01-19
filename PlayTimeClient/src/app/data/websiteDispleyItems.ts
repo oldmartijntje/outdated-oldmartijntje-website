@@ -99,7 +99,8 @@ export const randomWebsites: itemDisplay[] = [
         "image": "https://i.imgur.com/8mlvEKx.png",
         "title": "Random Discord Video",
         "description": "This is the shit that my friends send me on discord.",
-        "bannerText": "Discord Video"
+        "bannerText": "Discord Video",
+        "nsfw": true
     },
     {
         "url": "https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare",
