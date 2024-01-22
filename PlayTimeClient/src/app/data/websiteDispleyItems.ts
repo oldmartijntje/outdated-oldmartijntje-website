@@ -879,6 +879,41 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Youtube Video"
     },
     {
+        "url": "https://www.reddit.com/r/ProgrammerHumor/comments/19bgvsv/whatiseeaftertwodayscodingwithoutanybreak/",
+        "image": "https://preview.redd.it/whatiseeaftertwodayscodingwithoutanybreak-v0-6pim9o6qqmdc1.jpeg?width=640&crop=smart&auto=webp&s=f4e5da93dfa0b1921d01224df096ec9cd16286a8",
+        "title": "whatiseeaftertwodayscodingwithoutanybreak",
+        "description": "AppliedTooMuchMargin",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://www.reddit.com/r/ProgrammerHumor/comments/19aj1af/imadethis/",
+        "image": "https://preview.redd.it/hxanodkreedc1.png?width=640&crop=smart&auto=webp&s=abf6175e3f4160704748fd6051728bc133b80622",
+        "title": "imadethis",
+        "description": "Circle of life.",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://www.reddit.com/r/ProgrammerHumor/comments/199oxwo/shoulditrywithdoublelick/",
+        "image": "https://preview.redd.it/shoulditrywithdoublelick-v0-y3j3c06sx6dc1.png?width=640&crop=smart&auto=webp&s=d64a20178f9774c8cd9fa507954c1223f6c4ed38",
+        "title": "shoulditrywithdoublelick",
+        "description": "Tasty",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://www.reddit.com/r/ProgrammerHumor/comments/199v7ii/thewondersofgit/",
+        "image": "https://preview.redd.it/thewondersofgit-v0-wpveiv5ue8dc1.png?width=640&crop=smart&auto=webp&s=3488365e427f8032d0cdd3f989cd95d631361b59",
+        "title": "thewondersofgit",
+        "description": "Classy",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://www.reddit.com/r/ProgrammerHumor/comments/199q0ya/cluelessjavascript/",
+        "image": "https://preview.redd.it/etp1i8ta97dc1.jpeg?blur=40&format=pjpg&auto=webp&s=8fa90df0219546f2078c7bd12cca82e1c140c8b9",
+        "title": "cluelessjavascript",
+        "description": "Javascript is weird man.",
+        "bannerText": "Image"
+    },
+    {
         "url": "",
         "image": "",
         "title": "",
