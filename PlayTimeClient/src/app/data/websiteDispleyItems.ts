@@ -584,7 +584,7 @@ export const randomWebsites: itemDisplay[] = [
     {
         "url": "https://www.roblox.com/catalog/9341914167/Maid-Dress-Black",
         "image": "https://tr.rbxcdn.com/4f854d001a0ee619c8276763004d1fdb/420/420/LayeredAccessory/Png",
-        "title": "Maid-Dress-Black",
+        "title": "Maid Dress -Black",
         "description": "",
         "bannerText": "Item"
     },
@@ -809,7 +809,7 @@ export const randomWebsites: itemDisplay[] = [
     {
         "url": "https://www.roblox.com/games/9743079991/NEW-EMOTES-wonderhoy-simulator",
         "image": "https://tr.rbxcdn.com/0216b672fef1aea3057c8e08ca023b02/768/432/Image/Png",
-        "title": "NEW EMOTES wonderhoy simulator",
+        "title": "wonderhoy simulator",
         "description": "I don't even know.",
         "bannerText": "Game"
     },
