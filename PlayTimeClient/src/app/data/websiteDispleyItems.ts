@@ -9,7 +9,7 @@ const fillIn: itemDisplay = {
 }
 
 const bannerTexts: string[] = [
-    "Codepen",
+    "Code",
     "Youtube Channel",
     "Website",
     "Profile",
@@ -34,7 +34,7 @@ export const randomWebsites: itemDisplay[] = [
     {
         "title": "CSS social buttons and icons",
         "url": "https://codepen.io/Stanssongs/pen/VwvrBR",
-        "bannerText": "Codepen",
+        "bannerText": "Code",
         "image": "https://shots.codepen.io/username/pen/VwvrBR-1280.webp?version=1494576680",
     },
     {
@@ -128,7 +128,7 @@ export const randomWebsites: itemDisplay[] = [
         "image": "https://shots.codepen.io/username/pen/ggVemP-320.webp?version=1487719905",
         "title": "Minecraft colored text generator",
         "description": "",
-        "bannerText": "Codepen"
+        "bannerText": "Code"
     },
     {
         "url": "https://www.youtube.com/watch?v=XSAGLJckRWM",
@@ -961,6 +961,13 @@ export const randomWebsites: itemDisplay[] = [
         "title": "IMG_0323.JPG",
         "description": "This looks suspicous.",
         "bannerText": "Image"
+    },
+    {
+        "url": "https://codepen.io/Hyperplexed",
+        "image": "https://i.imgur.com/tCEFkcD.png",
+        "title": "Hyperplexed on Codepen",
+        "description": "Good css effects",
+        "bannerText": "Profile"
     },
     {
         "url": "",

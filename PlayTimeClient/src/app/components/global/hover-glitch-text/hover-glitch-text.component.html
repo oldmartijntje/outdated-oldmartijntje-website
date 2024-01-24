@@ -1,0 +1,6 @@
+<!-- hover-glitch-text.component.html -->
+
+<h1 [attr.data-value]="displayText" (mouseover)="onMouseOver($event)" class="hover-glitch-text"
+    [ngStyle]="displayTextStyle">
+    {{ displayText.toLocaleUpperCase() }}
+</h1>

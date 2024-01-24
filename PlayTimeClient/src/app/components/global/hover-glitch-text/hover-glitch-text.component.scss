@@ -1,0 +1,15 @@
+/* hover-glitch-text.component.scss */
+
+.hover-glitch-text {
+    font-family: 'Space Mono', monospace;
+    color: white;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.hover-glitch-text:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Add more styles as needed */

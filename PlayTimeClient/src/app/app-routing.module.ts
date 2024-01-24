@@ -11,6 +11,7 @@ import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/
 import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
 import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
+import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'Player', component: ContentPlayerPageComponent },
     { path: 'Test', component: TestingPageComponent },
     { path: 'ItemDisplay', component: RandomDisplayPageComponent },
+    { path: 'FunkyCSS', component: FunkyCssPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 
