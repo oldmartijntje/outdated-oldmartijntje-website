@@ -914,6 +914,55 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Image"
     },
     {
+        "url": "https://www.awesomecd.com.tw/UPLOAD/UserFiles/images/校前路匝道.jpg",
+        "image": "https://www.awesomecd.com.tw/UPLOAD/UserFiles/images/校前路匝道.jpg",
+        "title": "校前路匝道.jpg",
+        "description": "",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://www.exploit-db.com/google-hacking-database",
+        "image": "https://www.exploit-db.com/images/edb-logo.png",
+        "title": "Google Hacking Database",
+        "description": "Webcams go brrr.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "http://109.233.191.228:8090/multi.html",
+        "image": "https://i.imgur.com/6jbP1TD.png",
+        "title": "WEBCAMXP 5 Streetviews",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "http://216.137.193.126:8083/home.html",
+        "image": "https://i.imgur.com/6jbP1TD.png",
+        "title": "WEBCAMXP 5 Bird Feeder",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "http://86.82.237.217:7272/home.html",
+        "image": "https://i.imgur.com/6jbP1TD.png",
+        "title": "WEBCAMXP 5 park or forest?",
+        "description": "google dorks go brrr",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.cs.cmu.edu/~yhchu/Photos/DCIM/100CASIO/CIMG0014.JPG",
+        "image": "https://www.cs.cmu.edu/~yhchu/Photos/DCIM/100CASIO/CIMG0014.JPG",
+        "title": "CIMG0014.JPG",
+        "description": "Frog.",
+        "bannerText": "Image"
+    },
+    {
+        "url": "http://uhi.geo.u-szeged.hu/~zeno/pics/DCIM/100APPLE/IMG_0323.JPG",
+        "image": "http://uhi.geo.u-szeged.hu/~zeno/pics/DCIM/100APPLE/IMG_0323.JPG",
+        "title": "IMG_0323.JPG",
+        "description": "This looks suspicous.",
+        "bannerText": "Image"
+    },
+    {
         "url": "",
         "image": "",
         "title": "",
