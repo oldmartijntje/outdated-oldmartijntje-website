@@ -23,10 +23,11 @@
                 </div>
             </div>
             <div style="height: 100%; width: 100%; display: flex; flex-direction: column;">
+                <!-- mobile mode -->
                 <div *ngIf="!isWideScreen" class="backgroundColor"
                     [ngStyle]="{'min-width':customWidthOfContent, 'max-width': maxWidthOfContent}"
                     style="flex-grow: 1; padding: 0.5rem; display: flex; flex-direction: row; column-gap: 0.5rem; flex-wrap: wrap;">
-                    <a [routerLink]="['/Home']">HomePage</a>
+                    <a [routerLink]="['/Home']">Windows XP</a>
                     <a [routerLink]="['/Chat']">Chat</a>
                     <a [routerLink]="['/Player']">Text-adventures</a>
                     <a [routerLink]="['/Projects']">Projects</a>
