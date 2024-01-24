@@ -12,6 +12,7 @@ import { ContentPlayerPageComponent } from './pages/other/content-player-page/co
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
 import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
 import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
+import { GameListComponent } from './pages/main/game-list/game-list.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/Home' },
@@ -25,6 +26,7 @@ const routes: Routes = [
     { path: 'Test', component: TestingPageComponent },
     { path: 'ItemDisplay', component: RandomDisplayPageComponent },
     { path: 'FunkyCSS', component: FunkyCssPageComponent },
+    { path: 'Homepage', component: GameListComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 

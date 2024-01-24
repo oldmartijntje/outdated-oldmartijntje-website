@@ -42,6 +42,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
 import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
 import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/hover-glitch-text.component';
+import { GameListComponent } from './pages/main/game-list/game-list.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/
         TestingPageComponent,
         RandomDisplayPageComponent,
         FunkyCssPageComponent,
-        HoverGlitchTextComponent
+        HoverGlitchTextComponent,
+        GameListComponent
     ],
     imports: [
         AsyncPipe,

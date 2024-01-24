@@ -15,12 +15,12 @@ export class HoverGlitchTextComponent {
         'font-size': 'clamp(3rem, 10vw, 10rem)'
     };
     private readonly letters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    private readonly ingoreCharacters: string = ' ,.!?';
+    private readonly ingoreCharacters: string = ' ,.!?:;()[]{}\'"';
     private interval: any = null;
 
     onMouseOver(event: MouseEvent): void {
-        console.log(this.letters.length)
-        let iteration = 0;
+        const dynamicIncrement = 1 / (33 / this.displayText.length);
+        let iteration = 0 - dynamicIncrement * 15;
 
         clearInterval(this.interval);
 
@@ -35,14 +35,13 @@ export class HoverGlitchTextComponent {
                         return this.displayText[index];
                     }
 
-                    return this.letters[Math.floor(Math.random() * this.letters.length)];
+                    return this.letters[Math.floor(Math.random() * this.letters.length)].toLocaleUpperCase();
                 })
                 .join('');
 
             if (iteration >= this.displayText.length) {
                 clearInterval(this.interval);
             }
-            const dynamicIncrement = 1 / (33 / this.displayText.length);
             iteration += dynamicIncrement;
         }, 30);
     }

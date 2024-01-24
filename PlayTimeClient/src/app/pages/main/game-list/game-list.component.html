@@ -1,0 +1,127 @@
+<!-- thanks to https://github.com/iqbaladinur/switch-ui -->
+
+<!-- switch-ui.component.html -->
+
+<div class="basic-black">
+    <div class="container">
+        <div class="status-bar">
+            <div class="profile">
+                <a>
+                    <!-- should do something with this -->
+                    <img src="../../../../assets/images/mii.png" alt="Profile Image">
+                </a>
+                <p class="user">
+                    OldMartijntje
+                </p>
+            </div>
+            <div class="app-indicator">
+                <div class="app-container">
+                    <div class="flex" id="clock">
+                        <p class="m-auto"><span id="clockNumber">{{currentTime}}</span> <span style="font-size: 1rem;"
+                                id="clockAmPm">{{amOrPm}}</span></p>
+                    </div>
+                    <div class="wifi" style="padding-bottom: 2px;">
+                        <svg width="33px" height="100%" viewBox="0 0 22 16" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Icons" stroke="none" stroke-width="1">
+                                <g id="Rounded" transform="translate(-577.000000, -3702.000000)">
+                                    <g id="Notification" transform="translate(100.000000, 3600.000000)">
+                                        <g id="-Round-/-Notification-/-wifi"
+                                            transform="translate(476.000000, 98.000000)">
+                                            <g>
+                                                <path
+                                                    d="M2.06,10.06 C2.57,10.57 3.38,10.62 3.93,10.16 C8.6,6.32 15.38,6.32 20.06,10.15 C20.62,10.61 21.44,10.57 21.95,10.06 C22.54,9.47 22.5,8.49 21.85,7.96 C16.14,3.29 7.88,3.29 2.16,7.96 C1.51,8.48 1.46,9.46 2.06,10.06 Z M9.82,17.82 L11.29,19.29 C11.68,19.68 12.31,19.68 12.7,19.29 L14.17,17.82 C14.64,17.35 14.54,16.54 13.94,16.23 C12.72,15.6 11.26,15.6 10.03,16.23 C9.46,16.54 9.35,17.35 9.82,17.82 Z M6.09,14.09 C6.58,14.58 7.35,14.63 7.92,14.22 C10.36,12.49 13.64,12.49 16.08,14.22 C16.65,14.62 17.42,14.58 17.91,14.09 L17.92,14.08 C18.52,13.48 18.48,12.46 17.79,11.97 C14.35,9.48 9.66,9.48 6.21,11.97 C5.52,12.47 5.48,13.48 6.09,14.09 Z"
+                                                    id="🔹-Icon-Color"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="battery">
+                        <p>
+                            18 <span style="font-size:1rem">%</span>
+                        </p>
+                        <div style="padding-top: 8px;">
+                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="45px" height="45px"
+                                viewBox="0 0 92 92" enable-background="new 0 0 92 92" xml:space="preserve">
+                                <path id="XMLID_1657_" d="M88,35h-3V24c0-2.2-1.7-4-4-4H4c-2.2,0-4,1.8-4,4v44c0,2.2,1.8,4,4,4h77c2.2,0,4-1.8,4-4V57h3
+                              c2.2,0,4-1.4,4-3.6V38.6C92,36.4,90.2,35,88,35z M77,64H8V28h69v10.6v14.8V64z M29,54c0,2.2-1.8,4-4,4h-7c-2.2,0-4-1.8-4-4V38
+                              c0-2.2,1.8-4,4-4h7c2.2,0,4,1.8,4,4V54z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="game-list" id="gameList">
+            <div class="game" *ngFor="let game of games" [ngClass]="isGameSelected(game.id)">
+                <a (click)="selectGame(game.id)" (dblclick)="selectGame(game.id);goToGame()">
+                    <p class="game-title">
+                        {{game.name}}
+                    </p>
+                    <img src="{{game.imageUrl}}" width="100%">
+                </a>
+            </div>
+            <div class="game" *ngFor="let game of emptyGameSlots"></div>
+            <div class="closing"></div>
+        </div>
+        <div class="menu-container">
+            <div class="menu">
+                <button class="item">
+                    <img src="../../../../assets/icons/switch/news.svg" class="m-auto">
+                    <p class="desc">
+                        news
+                    </p>
+                </button>
+                <button class="item">
+                    <img src="../../../../assets/icons/switch/eshop.svg" class="m-auto">
+                    <p class="desc">
+                        eShop
+                    </p>
+                </button>
+                <button class="item">
+                    <img src="../../../../assets/icons/switch/gallery.svg" class="m-auto">
+                    <p class="desc">
+                        gallery
+                    </p>
+                </button>
+                <button class="item">
+                    <img src="../../../../assets/icons/switch/controlls.svg" class="m-auto">
+                    <p class="desc">
+                        controller
+                    </p>
+                </button>
+                <button class="item">
+                    <img src="../../../../assets/icons/switch/settings.svg" class="m-auto">
+                    <p class="desc">
+                        setting
+                    </p>
+                </button>
+                <button class="item">
+                    <img src="../../../../assets/icons/switch/power.svg" class="m-auto">
+                    <p class="desc">
+                        power
+                    </p>
+                </button>
+            </div>
+        </div>
+        <div style="padding: 0px 30px 0px 30px">
+            <hr>
+            <div class="footer">
+                <div class="status-mode">
+                    <img src="../../../../assets/icons/switch/mode.svg" alt="Mode" class="my-auto mode">
+                </div>
+                <div class="information">
+                    <div *ngIf="selectedGameId != ''">
+                        <button class="button-information">+</button> <span>Options</span>
+                        <button class="button-information" (click)="selectGame('')">X</button><span>Deselect</span>
+                        <button class="button-information" (click)="goToGame()">A</button> <span>Start</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

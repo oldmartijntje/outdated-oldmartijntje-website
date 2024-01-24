@@ -1,15 +1,35 @@
 <!-- app.component.html or any other template file -->
 
-<app-hover-glitch-text [displayText]="'Big Text'"></app-hover-glitch-text>
-<app-hover-glitch-text [displayText]="'smoller version'" [displayTextStyle]="{
-    'padding': '0rem 1rem',
-    'border-radius': '0.4rem',
-    'font-size': '2rem'
-}"></app-hover-glitch-text>
-<app-hover-glitch-text [displayText]="'mini text can be used for very long pieces of text. It\'s very customisable!'"
-    [displayTextStyle]="{
-    'padding': '0rem 0.5rem',
-    'border-radius': '0.4rem',
-    'font-size': '1rem'
-}"></app-hover-glitch-text>
-<app-hover-glitch-text [displayText]="'Empty styling example'" [displayTextStyle]="{}"></app-hover-glitch-text>
+<div class="container">
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <app-hover-glitch-text [displayText]="'Choose your character!'"
+            [displayTextStyle]="{'padding': '0.5rem', 'border-radius': '0.5rem'}"></app-hover-glitch-text>
+    </div>
+
+
+    <div class="selector-container">
+        <button class="button" type="button" (click)="selectPlayer('mario')">
+            <img class="button-image" src="https://assets.codepen.io/4175254/mario.png" alt="" />
+            <span>Mario</span>
+        </button>
+        <button class="button" type="button" (click)="selectPlayer('luigi')">
+            <img class="button-image" src="https://assets.codepen.io/4175254/luigi.png" alt="" />
+            <span>Luigi</span>
+        </button>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <app-hover-glitch-text [displayText]="'Selector:'"
+            [displayTextStyle]="{'padding': '0.5rem', 'border-radius': '0.5rem'}"></app-hover-glitch-text>
+    </div>
+    <div class="selector-container">
+        <button class="button" type="button" (click)="switchToSwitchUI()">
+            <span>Launch System</span>
+        </button>
+        <button class="button" type="button" (click)="pointlessButtonclick()">
+            <span>Do nothing</span>
+        </button>
+        <!-- <button class="button" type="button" [routerLink]="['/Home']">
+            <span>Homepage</span>
+        </button> -->
+    </div>
+</div>
