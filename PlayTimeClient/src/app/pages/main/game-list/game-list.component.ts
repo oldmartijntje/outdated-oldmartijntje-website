@@ -21,6 +21,10 @@ export class GameListComponent implements OnInit {
     currentTime: string = '';
     amOrPm: string = '';
 
+    wonderEffect: string = 'wonder-effect-false';
+
+    settingsMenu: boolean = false;
+
     constructor(
         private router: Router
     ) { }
@@ -93,6 +97,9 @@ export class GameListComponent implements OnInit {
         }
     }
 
+    goToLink(link: string): void {
+        CommonModel.navigateToLink(this.router, link);
+    }
 
     goToGame(): void {
         var activGame: Game | undefined = this.games.find(game => game.id === this.selectedGameId);
