@@ -970,6 +970,105 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Profile"
     },
     {
+        "url": "https://checkboxrace.com/",
+        "image": "https://i.imgur.com/d7zwi10.png",
+        "title": "checkbox race",
+        "description": "gotta go fast.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://maninthedark.com/",
+        "image": "https://i.imgur.com/YxHCVSW.png",
+        "title": "man in the dark",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://rotatingsandwiches.com/",
+        "image": "https://i0.wp.com/rotatingsandwiches.com/wp-content/uploads/2023/04/bub-and-pops-italian-hoagie.gif?resize=480%2C270&ssl=1",
+        "title": "rotatingsandwiches",
+        "description": "spinny sandwich",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://ihasabucket.com/",
+        "image": "https://ihasabucket.com/images/walrus_bucket.jpg",
+        "title": "i has a bucket",
+        "description": "my favorite website.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://potatoortomato.com/",
+        "image": "https://potatoortomato.com/images/potato.svg",
+        "title": "",
+        "description": "is it a potato or a tomato?",
+        "bannerText": "Website"
+    },
+    {
+        "url": "http://www.ismycomputeron.com/",
+        "image": "",
+        "title": "ismycomputeron",
+        "description": "it's going to suprise you.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://trello.com/b/Ebm2tHr5/oldmartijntjenl",
+        "image": "https://i.imgur.com/mS2DTLI.png",
+        "title": "Trello board.",
+        "description": "It's the trello board I use for this website.",
+        "bannerText": "Website",
+        "myOwn": true
+    },
+    {
+        "url": "https://puginarug.com/",
+        "image": "https://puginarug.com/assets/pug.png",
+        "title": "puginarug",
+        "description": "its a pug in a rug",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://pointerpointer.com/",
+        "image": "https://pointerpointer.com/images/615.jpg",
+        "title": "pointerpointer",
+        "description": "for if you don't know where your pointer is.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://heeeeeeeey.com/",
+        "image": "",
+        "title": "heeeeeeeey",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://binarypiano.com/",
+        "image": "",
+        "title": "binary piano",
+        "description": "this was too loud for my liking.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://open.spotify.com/track/1zPWTZRStEg3Vye5HtagV5?si=c30f197d214446f6",
+        "image": "https://i.scdn.co/image/ab67616d00001e02f3a53da972a0e0693756ba14",
+        "title": "Big chungus",
+        "description": "",
+        "bannerText": "Spotify"
+    },
+    {
+        "url": "https://open.spotify.com/track/4FCiImxB9hnmyFWgcZJV2S?si=bVOqMmr_TmSuQuar2dHMAA",
+        "image": "https://i.scdn.co/image/ab67616d00001e02e3da34ddbe0995171b6b52f5",
+        "title": "Opblaasbare Afwasbare Barbara.",
+        "description": "",
+        "bannerText": "Spotify"
+    },
+    {
+        "url": "https://www.reddit.com/r/ProgrammerHumor/comments/19f0xuo/feint/?share_id=ygti7JF3x20bHqLndyodT&utm_content=1&utm_medium=android_app&utm_name=androidcss&utm_source=share&utm_term=3",
+        "image": "https://i.redd.it/v1e0hopokiec1.jpeg",
+        "title": "feint",
+        "description": "it do be like that. :<",
+        "bannerText": "Image"
+    },
+    {
         "url": "",
         "image": "",
         "title": "",
