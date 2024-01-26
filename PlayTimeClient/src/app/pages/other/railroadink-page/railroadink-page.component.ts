@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EditorServiceService } from 'src/app/services/editor-service.service';
-import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 export interface Dice {
     diceType: string;
@@ -21,8 +19,6 @@ export interface DiceInfo {
 })
 
 export class RailroadinkPageComponent implements OnInit {
-
-    pageVariables: { [key: string]: any } = {};
     diceId = 1
 
     diceDict: { [key: string]: DiceInfo } = {
@@ -130,16 +126,11 @@ export class RailroadinkPageComponent implements OnInit {
         ["forrest", "forrest"],
     ]
 
-    constructor(
-        private runtimeServiceService: RuntimeServiceService,
-        private editorServiceService: EditorServiceService
-    ) { }
+    constructor() { }
 
     ngOnInit(): void {
         // this.editorService.setAllowEditor(true);
-        this.runtimeServiceService.pageVariables$.subscribe((value) => {
-            this.pageVariables = value;
-        });
+        this.addSet(0)
     }
 
     addSet(number: number) {
@@ -149,23 +140,6 @@ export class RailroadinkPageComponent implements OnInit {
 
 
         }
-    }
-
-    getPageVariable(key: string | string[]): any | undefined {
-        if (typeof key === 'string') {
-            return this.pageVariables[key];
-        } else if (Array.isArray(key)) {
-            let currentLevel = this.pageVariables;
-            for (const currentKey of key) {
-                if (currentLevel && typeof currentLevel === 'object' && currentKey in currentLevel) {
-                    currentLevel = currentLevel[currentKey];
-                } else {
-                    return false; // Return undefined if any intermediate key is missing
-                }
-            }
-            return currentLevel;
-        }
-        return false; // Return undefined for unsupported key types
     }
 
     createDiceJson(name: string) {

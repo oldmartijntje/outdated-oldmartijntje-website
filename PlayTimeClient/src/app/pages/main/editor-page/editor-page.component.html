@@ -17,38 +17,18 @@
                             <button class="bottomSpace" mat-raised-button color="primary" *ngIf="!sandBoxMode"
                                 (click)="saveCode()">Save to
                                 Localstorage</button>
-                            <section class="example-section">
-                                <span class="example-list-section">
-                                    <mat-checkbox disabled="{{sandBoxMode}}" class="example-margin"
-                                        [checked]="allComplete" [color]="task.color" [indeterminate]="someComplete()"
-                                        (change)="setAll($event.checked)">
-                                        {{task.name}}
-                                    </mat-checkbox>
-                                </span>
-                                <span class="example-list-section">
-                                    <ul>
-                                        <li *ngFor="let subtask of task.subtasks">
-                                            <mat-checkbox [(ngModel)]="subtask.completed" disabled="{{sandBoxMode}}"
-                                                [color]="subtask.color" (ngModelChange)="updateAllComplete()"
-                                                (change)="checkCode(true)">
-                                                {{subtask.name}}
-                                            </mat-checkbox>
-                                        </li>
-                                    </ul>
-                                </span>
-                            </section>
                             <p *ngIf="sandBoxMode">You can't manage Modules</p>
                             <mat-form-field>
                                 <mat-label>Language Mode</mat-label>
                                 <mat-select [(ngModel)]="language" disabled="{{sandBoxMode}}"
                                     (valueChange)="setLanguage($event)">
                                     <mat-option value="javascript">Javascript</mat-option>
-                                    <mat-option value="MarjinScript">MarjinScript</mat-option>
+                                    <mat-option value="MarjinScript">MarjinScript (removed)</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <footer>
-                            <p (click)="logBuildData()">{{versionWord}}: <span>{{versionNumber}}</span></p>
+                            <p>{{versionWord}}: <span>{{versionNumber}}</span></p>
                         </footer>
                     </div>
                 </as-split-area>
@@ -135,10 +115,6 @@
                     <!-- <p>Run</p> -->
                     <button mat-raised-button color="primary" class="marginLeftBottom topSpace"
                         (click)="sendCodeToRunner()">Run
-                        Code</button>
-                    <button *ngIf="runDefaultPageButton" mat-raised-button color="primary"
-                        class="marginLeftBottom topSpace" (click)="runDefaultPage()">Run
-                        Default
                         Code</button>
                     <button (click)="routerNav([''])" mat-raised-button color="accent" class="marginLeftBottom topSpace"
                         *ngIf="!sandBoxMode">Back to

@@ -1,32 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Message } from 'src/app/models/message.interface';
-import { EditorSettings } from 'src/app/data/settings';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RuntimeServiceService {
-    private outputSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
     private mobileModeSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({ "MobileUser": false, "MobileMode": false });
-    private consoleSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
-    private problemsSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
-    private pageVariablesSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({});
 
-    outputSubjectValue$: Observable<Message[]> = this.outputSubject.asObservable();
     mobileModeSubjectValue$: Observable<{ [key: string]: any }> = this.mobileModeSubject.asObservable();
-    pageVariables$: Observable<{ [key: string]: any }> = this.pageVariablesSubject.asObservable();
-    problemsSubjectValue$: Observable<Message[]> = this.problemsSubject.asObservable();
-    consoleSubjectValue$: Observable<Message[]> = this.consoleSubject.asObservable();
-    setProblems: Message[] = [];
-    tempPageVariables: { [key: string]: any } = {};
     tempMobileMode: { [key: string]: any } = { "MobileUser": false, "MobileMode": false };
-
-
-
-    emptyProblemsSubject() {
-        this.setProblems = [];
-    }
 
     setMobileMode(value: boolean) {
         this.tempMobileMode["MobileMode"] = value;
@@ -36,52 +19,6 @@ export class RuntimeServiceService {
     setMobileUserType(value: boolean) {
         this.tempMobileMode["MobileUser"] = value;
         this.mobileModeSubject.next(this.tempMobileMode);
-    }
-
-    setOutputSubject(value: Message[]) {
-        this.outputSubject.next(value);
-        this.checkMaxLines();
-    }
-
-    setConsoleSubject(value: Message[]) {
-        this.consoleSubject.next(value);
-        this.checkMaxLines();
-    }
-
-    removeFirstOutputSubject() {
-        var value = this.outputSubject.getValue();
-        value.shift();
-        this.outputSubject.next(value);
-    }
-
-    removeFirstConsoleSubject() {
-        var value = this.consoleSubject.getValue();
-        value.shift();
-        this.consoleSubject.next(value);
-    }
-
-    addOutputSubject(value: Message) {
-        var currentValue = this.outputSubject.getValue();
-        currentValue = this.checkForCopyMessage(value, currentValue);
-        this.outputSubject.next(currentValue);
-        this.checkMaxLines();
-    }
-
-    addProblemsSubject(value: Message) {
-        var currentValue = this.problemsSubject.getValue();
-        this.setProblems = this.checkForCopyMessage(value, this.setProblems);
-        this.problemsSubject.next(currentValue);
-    }
-
-    flushProblemsSubject() {
-        this.problemsSubject.next(this.setProblems);
-    }
-
-    addConsoleSubject(value: Message) {
-        var currentValue = this.consoleSubject.getValue();
-        currentValue = this.checkForCopyMessage(value, currentValue);
-        this.consoleSubject.next(currentValue);
-        this.checkMaxLines();
     }
 
     checkForCopyMessage(value: Message, whole: Message[]) {
@@ -98,49 +35,4 @@ export class RuntimeServiceService {
         }
         return whole;
     }
-
-    checkMaxLines() {
-        while (this.consoleSubject.getValue().length > EditorSettings["MaxLines"]["Console"]) {
-            this.removeFirstConsoleSubject();
-        }
-        while (this.outputSubject.getValue().length > EditorSettings["MaxLines"]["Output"]) {
-            this.removeFirstOutputSubject();
-        }
-    }
-
-    setPageVariablesToEmpty() {
-        this.pageVariablesSubject.next({});
-        this.tempPageVariables = {};
-    }
-
-    setPageVariable(key: string, value: any) {
-        this.tempPageVariables[key] = value;
-    }
-
-    setPageVariables(value: any) {
-        this.tempPageVariables = value;
-    }
-
-    flushPageVariables() {
-        this.pageVariablesSubject.next(this.tempPageVariables);
-    }
-
-    resetTempPageVariables() {
-        this.tempPageVariables = {};
-    }
-
-    readPageVariable(key: string) {
-        return this.pageVariablesSubject.getValue()[key];
-    }
-
-    readPageVariables() {
-        return this.pageVariablesSubject.getValue();
-    }
-
-    readTempPageVariables() {
-        return this.tempPageVariables;
-    }
-
-
-
 }
