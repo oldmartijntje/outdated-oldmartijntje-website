@@ -1,0 +1,22 @@
+.mobileMode {
+    height: 100svh;
+    background-image: url('../assets/images/mobileUserRegularBackground.png');
+    background-size: 100% auto;
+    background-repeat: repeat;
+}
+
+.disclaimerContainer {
+    position: relative;
+    user-select: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.disclaimer {
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
