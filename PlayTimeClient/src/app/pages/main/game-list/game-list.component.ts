@@ -28,7 +28,7 @@ export class GameListComponent implements OnInit {
 
     wonderEffect: string = 'wonder-effect-false';
 
-    settingsMenu: boolean = false;
+    settingsMenu: boolean = true;
 
     constructor(
         private router: Router
@@ -62,19 +62,47 @@ export class GameListComponent implements OnInit {
         }, 30000);
     }
 
+    getGameData(gameId: string): Game | undefined {
+        return this.games.find(game => game.id === gameId);
+    }
+
+    getDataFromGame(game: Game | undefined, data: string): any {
+        if (game) {
+            return game[data];
+        } else {
+            return '';
+        }
+    }
+
     @HostListener('document:keydown', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent): void {
-        // Check if the pressed key is 'a' (you can use 'A' for capital 'A' key)
-        if (event.key === 'a') {
-            // Call the goToGame() function when 'a' key is pressed
-            this.goToGame();
-        } else if (event.key === 'x') {
-            this.selectGame('');
+        if (this.selectedGameId !== '' && !this.settingsMenu) {
+            // Check if the pressed key is 'a' (you can use 'A' for capital 'A' key)
+            if (event.key === 'a') {
+                // Call the goToGame() function when 'a' key is pressed
+                this.goToGame();
+            } else if (event.key === 'x') {
+                this.selectGame('');
+            } else if (event.key === '+' && this.gameHasSettings(this.selectedGameId)) {
+                this.settingsMenu = true;
+            }
+        } else if (this.selectedGameId !== '' && this.settingsMenu) {
+            if (event.key === 'Escape' || event.key === 'b') {
+                this.settingsMenu = false;
+            }
         }
     }
 
     doesGameExist(gameId: string): boolean {
         return this.games.findIndex(game => game.id === gameId) !== -1;
+    }
+
+    gameHasSettings(gameId: string): boolean {
+        const game = this.games.find(game => game.id === gameId);
+        if (game) {
+            return game.settings !== undefined;
+        }
+        return false;
     }
 
     updateTime() {

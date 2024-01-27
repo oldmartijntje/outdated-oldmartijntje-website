@@ -4,8 +4,37 @@
 
 <div class="basic-black" [ngClass]="wonderEffect">
     <div class="settingsMenu" *ngIf="settingsMenu">
-        <div class="settings">
+        <div class="settings" style="display: flex; flex-direction: column;">
+            <header style="padding: 0px 30px 0px 30px;">
+                <div style="display: flex; flex-direction: row;">
+                    <img src="{{getDataFromGame(getGameData(selectedGameId), 'imageUrl')}}" alt="" class="small-logo">
+                    <div style="display: flex; flex-direction: column;">
+                        <p style="font-size: 25pt; margin-bottom: 14px;">{{getDataFromGame(getGameData(selectedGameId),
+                            'name')}}</p>
+                        <span style="color: #959595">{{getDataFromGame(getGameData(selectedGameId),
+                            'settings')['version']}} <span style="margin: 0 1rem 0 1rem">|</span>
+                            {{getDataFromGame(getGameData(selectedGameId), 'settings')['publisher']}}</span>
+                    </div>
+                </div>
+                <hr>
+            </header>
+            <div style="flex: 1;">
 
+            </div>
+            <div style="padding: 0px 30px 0px 30px; position: relative; bottom: 0;">
+                <hr>
+                <div class="footer">
+                    <div class="status-mode">
+                        <img src="../../../../assets/icons/switch/mode.svg" alt="Mode" class="my-auto mode">
+                    </div>
+                    <div class="information">
+                        <div>
+                            <button class="button-information" (click)="settingsMenu = false">B</button> <span
+                                *ngIf="doesGameExist(selectedGameId)">Back</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -121,10 +150,13 @@
                     <img src="../../../../assets/icons/switch/mode.svg" alt="Mode" class="my-auto mode">
                 </div>
                 <div class="information">
-                    <div *ngIf="selectedGameId != '' && doesGameExist(selectedGameId)">
-                        <button class="button-information">+</button> <span>Options</span>
+                    <div *ngIf="selectedGameId != ''">
+                        <button *ngIf="gameHasSettings(selectedGameId)" class="button-information"
+                            (click)="settingsMenu = true">+</button>
+                        <span *ngIf="gameHasSettings(selectedGameId)">Options</span>
                         <button class="button-information" (click)="selectGame('')">X</button><span>Deselect</span>
-                        <button class="button-information" (click)="goToGame()">A</button> <span>Start</span>
+                        <button *ngIf="doesGameExist(selectedGameId)" class="button-information"
+                            (click)="goToGame()">A</button> <span *ngIf="doesGameExist(selectedGameId)">Start</span>
                     </div>
                 </div>
             </div>
