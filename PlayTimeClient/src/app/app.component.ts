@@ -1,11 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ToastQueueService } from './services/toast-queue.service';
-import { EditorServiceService } from './services/editor-service.service';
 import { Router } from '@angular/router';
 import { Settings } from './data/settings';
 import { RuntimeServiceService } from './services/runtime-service.service';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
-import { smallAdList, mediumAdList, bigAdList } from './data/ads';
 
 @Component({
     selector: 'app-root',
@@ -15,7 +13,6 @@ import { smallAdList, mediumAdList, bigAdList } from './data/ads';
 export class AppComponent implements OnInit {
     title = 'PlayTime';
     editorSubscription: any;
-    showEditor: boolean = false;
     showWindows: boolean = false;
     mobileMode: { [key: string]: any } = {
         "MobileUser": false,
@@ -26,7 +23,6 @@ export class AppComponent implements OnInit {
 
     constructor(
         private toastQueueService: ToastQueueService,
-        private editorServiceService: EditorServiceService,
         private runtimeServiceService: RuntimeServiceService,
         private router: Router,
         @Inject(DOCUMENT) private document: Document,
@@ -37,9 +33,6 @@ export class AppComponent implements OnInit {
         // this.toastQueueService.showToast('Hello World!', 'info', 0);
         // this.toastQueueService.showToast('Hello World!', 'warning', 0);
         // this.toastQueueService.showToast('Hello World!', 'error', 0);
-        this.editorSubscription = this.editorServiceService.currentValue$.subscribe((value) => {
-            this.showEditor = value;
-        });
         this.router.events.subscribe(event => {
             const currentUrl = this.router.url; // Get the full URL
             const currentPathWithoutQueryParams = currentUrl.split('?')[0].substring(1); // Extract the path
