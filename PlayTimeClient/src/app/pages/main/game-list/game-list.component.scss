@@ -134,6 +134,12 @@ body {
     scroll-snap-align: center;
 }
 
+.game-list>.game,
+.game>a>img,
+.game>a>.game-title {
+    user-select: none;
+}
+
 .game>a>.game-title {
     position: absolute;
     top: 0;
