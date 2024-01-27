@@ -28,7 +28,7 @@ export class GameListComponent implements OnInit {
 
     wonderEffect: string = 'wonder-effect-false';
 
-    settingsMenu: boolean = true;
+    settingsMenu: boolean = false;
 
     constructor(
         private router: Router
