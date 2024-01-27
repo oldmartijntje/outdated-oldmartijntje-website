@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="game-list" id="gameList">
+        <div class="game-list" #gameList (click)="snapToItem($event)">
             <div class="game" *ngFor="let game of games" [ngClass]="isGameSelected(game.id)">
                 <a (click)="selectGame(game.id)" (dblclick)="selectGame(game.id);goToGame()">
                     <p class="game-title">
@@ -70,7 +70,8 @@
                     <img src="{{game.imageUrl}}" width="100%">
                 </a>
             </div>
-            <div class="game" *ngFor="let game of emptyGameSlots"></div>
+            <div class="game fake-game" *ngFor="let game of emptyGameSlots" (click)="selectGame(game.id)"
+                [ngClass]="isGameSelected(game.id)"></div>
             <div class="closing"></div>
         </div>
         <div class="menu-container">
@@ -120,7 +121,7 @@
                     <img src="../../../../assets/icons/switch/mode.svg" alt="Mode" class="my-auto mode">
                 </div>
                 <div class="information">
-                    <div *ngIf="selectedGameId != ''">
+                    <div *ngIf="selectedGameId != '' && doesGameExist(selectedGameId)">
                         <button class="button-information">+</button> <span>Options</span>
                         <button class="button-information" (click)="selectGame('')">X</button><span>Deselect</span>
                         <button class="button-information" (click)="goToGame()">A</button> <span>Start</span>

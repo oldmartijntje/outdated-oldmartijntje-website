@@ -1,5 +1,5 @@
 // game-list.component.ts
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { games, Game } from 'src/app/data/homescreenItems';
 import { CommonModel } from 'src/app/models/commonModel';
@@ -10,7 +10,12 @@ import { CommonModel } from 'src/app/models/commonModel';
     styleUrls: ['./game-list.component.scss']
 })
 export class GameListComponent implements OnInit {
+    @ViewChild('gameList', { static: false }) scrollContainer!: ElementRef;
+
     private readonly minAmountOfSlots = 15;
+    private readonly gridGap = 10;
+    private readonly borderWidth = 2;
+    private readonly offset = 200;
 
     emptyGameSlots: any[] = [];
 
@@ -33,6 +38,9 @@ export class GameListComponent implements OnInit {
         const selectedGameId = localStorage.getItem('selectedGameId');
         if (selectedGameId) {
             this.selectedGameId = selectedGameId;
+            if (this.games.findIndex(game => game.id === selectedGameId) === -1) {
+                this.selectedGameId = '';
+            }
 
             const gameIndex = this.games.findIndex(game => game.id === selectedGameId);
             if (gameIndex !== -1) {
@@ -42,7 +50,7 @@ export class GameListComponent implements OnInit {
         }
         if (this.games.length < this.minAmountOfSlots) {
             for (let i = 0; i < this.minAmountOfSlots - this.games.length; i++) {
-                this.emptyGameSlots.push({});
+                this.emptyGameSlots.push({ "id": "fakeSlot" + i });
             }
         }
         // Set the initial time
@@ -65,6 +73,10 @@ export class GameListComponent implements OnInit {
         }
     }
 
+    doesGameExist(gameId: string): boolean {
+        return this.games.findIndex(game => game.id === gameId) !== -1;
+    }
+
     updateTime() {
         const now = new Date();
         const hours = this.padZero(now.getHours());
@@ -84,7 +96,7 @@ export class GameListComponent implements OnInit {
         return date.getHours() >= 12 ? 'PM' : 'AM';
     }
 
-    selectGame(gameId: string): void {
+    selectGame(gameId: string, settings: any = {}): void {
         this.selectedGameId = gameId;
         localStorage.setItem('selectedGameId', gameId);
     }
@@ -105,6 +117,49 @@ export class GameListComponent implements OnInit {
         var activGame: Game | undefined = this.games.find(game => game.id === this.selectedGameId);
         if (activGame) {
             CommonModel.navigateToLink(this.router, activGame.nav);
+        }
+    }
+
+    snapToItem(event: MouseEvent) {
+        var clickedItem = event.target as HTMLElement;
+        if (clickedItem.classList.contains('game-list')) {
+            return;
+        }
+        if (clickedItem.classList.contains('closing')) {
+            const parentElement = clickedItem.parentNode as HTMLElement;
+            clickedItem = parentElement.firstChild as HTMLElement;
+        }
+        // Ensure that clickedItem.parentNode is not null
+        if (clickedItem.parentNode) {
+
+            const parentElement = clickedItem.parentNode as HTMLElement;
+
+            // Check if the parent element is an anchor (<a>) element
+            if (parentElement.tagName.toLowerCase() === 'a') {
+                clickedItem = parentElement.parentNode as HTMLElement;
+            }
+        }
+        if (clickedItem.parentNode) {
+            // Find the index of the clicked item
+            const index = Array.from(clickedItem.parentNode.children).indexOf(clickedItem);
+            var calculatedOffset = 0;
+            if (this.scrollContainer.nativeElement.scrollLeft > 0) {
+                calculatedOffset = this.offset;
+            }
+
+            // Calculate the scrollLeft position to snap to the clicked item
+            const scrollLeftPosition = index * clickedItem.offsetWidth;
+
+            // Check if the clicked item is not fully visible
+            const amountOfItemsOnScreen = Math.floor(this.scrollContainer.nativeElement.clientWidth / clickedItem.offsetWidth)
+            if (
+                scrollLeftPosition < this.scrollContainer.nativeElement.scrollLeft ||
+                scrollLeftPosition + clickedItem.offsetWidth + (this.gridGap * amountOfItemsOnScreen) + (amountOfItemsOnScreen * this.borderWidth * 2) >
+                this.scrollContainer.nativeElement.scrollLeft + this.scrollContainer.nativeElement.clientWidth - calculatedOffset
+            ) {
+                // Set the scrollLeft property of the container to scroll to the clicked item
+                this.scrollContainer.nativeElement.scrollLeft = scrollLeftPosition;
+            }
         }
     }
 

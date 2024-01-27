@@ -147,20 +147,33 @@ body {
     display: none;
 }
 
-.game>a>img {
+.game>a>img,
+.fake-game {
     border: 2px solid rgba(0, 0, 0, 0.041);
 }
 
 .game>a:focus>img,
 .game>a:hover>img,
-.game.selected>a>img {
+.game.selected>a>img,
+.fake-game:focus,
+.fake-game:hover,
+.fake-game.selected {
     animation: focus 1s infinite;
 }
 
 .game>a:focus>.game-title,
 .game>a:hover>.game-title,
-.game.selected>a>.game-title {
+.game.selected>a>.game-title,
+.fake-game:focus,
+.fake-game:hover,
+.fake-game.selected {
     display: block;
+}
+
+.fake-game {
+    height: 300px;
+    width: 300px;
+    margin-top: 5px;
 }
 
 .game-list>.closing {
