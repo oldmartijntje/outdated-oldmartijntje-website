@@ -92,7 +92,7 @@
         </div>
         <div class="game-list" #gameList (click)="snapToItem($event)">
             <div class="game" *ngFor="let game of games" [ngClass]="isGameSelected(game.id)">
-                <a (click)="selectGame(game.id)" (dblclick)="selectGame(game.id);goToGame()">
+                <a (click)="selectGame(game.id)">
                     <p class="game-title">
                         {{game.name}}
                     </p>
