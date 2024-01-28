@@ -59,8 +59,6 @@ export class AppComponent implements OnInit {
                 this.runtimeServiceService.setMobileMode(JSON.parse(localStorage.getItem("MobileMode") || ""));
             }
         }
-        console.log("MobileMode: " + this.mobileMode["MobileMode"] + " MobileUser: " + this.mobileMode["MobileUser"])
-        console.log("IgnoreDisclaimer: " + this.ignoreDisclaimer + " ShowWindows: " + this.showWindows)
 
 
     }

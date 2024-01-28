@@ -9,7 +9,7 @@
         <router-outlet></router-outlet>
     </app-mobile-application-page>
 </div>
-<div *ngIf="!showWindows && mobileMode['MobileMode']">
+<div *ngIf="!showWindows && mobileMode['MobileUser']">
     <div *ngIf="mobileModePopup && !ignoreDisclaimer" (click)="mobileModePopup = false" class="mobileMode">
         <div class="disclaimerContainer">
             <img class="disclaimer" src="../assets/images/mobileUserRegularCopyright.png" alt="copyright"
@@ -22,5 +22,5 @@
     </div>
     <router-outlet *ngIf="!mobileModePopup || ignoreDisclaimer"></router-outlet>
 </div>
-<router-outlet *ngIf="!showWindows && !mobileMode['MobileMode']"></router-outlet>
+<router-outlet *ngIf="!showWindows && !mobileMode['MobileUser']"></router-outlet>
 <app-toast></app-toast>
