@@ -13,9 +13,11 @@
     <div *ngIf="mobileModePopup && !ignoreDisclaimer" (click)="mobileModePopup = false" class="mobileMode">
         <div class="disclaimerContainer">
             <img class="disclaimer" src="../assets/images/mobileUserRegularCopyright.png" alt="copyright"
-                style="z-index: 2;">
+                style="z-index: 3;">
             <img class="disclaimer" src="../assets/images/mobileUserRegular4.png" alt="disclaimer image"
-                style="z-index: 1;">
+                style="z-index: 2;">
+            <img class="disclaimer" src="../assets/images/mobileUserRegularPressAnywhere.png"
+                alt="press anywhere message" style="z-index: 1;">
         </div>
     </div>
     <router-outlet *ngIf="!mobileModePopup || ignoreDisclaimer"></router-outlet>
