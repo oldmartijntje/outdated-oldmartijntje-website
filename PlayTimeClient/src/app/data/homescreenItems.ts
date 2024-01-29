@@ -88,4 +88,10 @@ export const games: Game[] = [
         imageUrl: 'https://i.imgur.com/1bZ0CgJ.png',
         nav: 'https://github.com/oldmartijntje'
     },
+    {
+        id: 'obsidianVault',
+        name: 'OldMartijntje\'s Obsidian Vault.',
+        imageUrl: 'https://i.imgur.com/BqEtov7.png',
+        nav: 'https://oldmartijntje.github.io/Articles/'
+    },
 ];
