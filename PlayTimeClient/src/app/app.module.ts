@@ -43,6 +43,7 @@ import { RandomDisplayPageComponent } from './pages/other/random-display-page/ra
 import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
 import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/hover-glitch-text.component';
 import { GameListComponent } from './pages/main/game-list/game-list.component';
+import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 
 @NgModule({
     declarations: [
@@ -68,7 +69,8 @@ import { GameListComponent } from './pages/main/game-list/game-list.component';
         RandomDisplayPageComponent,
         FunkyCssPageComponent,
         HoverGlitchTextComponent,
-        GameListComponent
+        GameListComponent,
+        HomepageDeciderComponent
     ],
     imports: [
         AsyncPipe,

@@ -1,60 +1,4 @@
-export interface Game {
-    [key: string]: any;
-    id: string;
-    name: string;
-    imageUrl: string;
-    nav: string;
-    settings?: GameSettings;
-    info?: GameInfo;
-}
-
-export interface GameInfo {
-    text: string;
-    demoUrl?: string;
-    keywords?: string[];
-    developers?: string[];
-}
-
-export interface GameSettings {
-    jsonDesign: any;
-    items: GameSettingItem[];
-    version: string;
-    publisher: string;
-}
-
-export interface GameSettingItem {
-    title: string;
-    type: GameSettingType;
-    replaceIdentifierForJson: string;
-}
-
-export interface GameSettingType {
-    value: any;
-}
-
-export interface GameSettingTypeText extends GameSettingType {
-    type: 'text';
-}
-
-export interface GameSettingTypeNumber extends GameSettingType {
-    type: 'number';
-    min: number;
-    max: number;
-}
-
-export interface GameSettingTypeBoolean extends GameSettingType {
-    type: 'boolean';
-}
-
-export interface GameSettingTypeSelect extends GameSettingType {
-    type: 'select';
-    options: GameSettingSelectable[];
-}
-
-export interface GameSettingSelectable {
-    text: string;
-    value: any;
-}
+import { Game, GameSettingTypeBoolean } from "../models/homescreenItems.interface"
 
 export const games: Game[] = [
     {
@@ -76,31 +20,61 @@ export const games: Game[] = [
             ],
             version: 'Ver. 1.0.0',
             publisher: 'OldMartijntje'
-        }
+        },
+        info: {
+            text: 'A windows XP homepage recreation. Made with Angular.',
+            demoUrl: '/Home',
+            keywords: ['Angular', 'HTML/CSS', 'TypeScript'],
+            developers: ['OldMartijntje']
+        },
     },
     {
         id: 'chat',
         name: 'My Chat',
         imageUrl: 'https://i.imgur.com/YImBBrS.png',
-        nav: '/Chat'
+        nav: '/Chat',
+        info: {
+            text: 'A chat website that I made with Angular and PHP.',
+            demoUrl: 'Chat',
+            keywords: ['Angular', 'HTML/CSS', 'TypeScript', 'PHP'],
+            developers: ['OldMartijntje']
+        }
     },
     {
         id: 'explorer',
         name: 'Explorer of the internet',
         imageUrl: 'https://i.imgur.com/O20GeaF.png',
-        nav: '/ItemDisplay'
+        nav: '/ItemDisplay',
+        info: {
+            text: 'A webpage that I made with Angular. You can explore random websites with it.',
+            demoUrl: '',
+            keywords: [],
+            developers: ['OldMartijntje']
+        }
     },
     {
         id: 'github',
         name: 'Github',
         imageUrl: 'https://i.imgur.com/1bZ0CgJ.png',
-        nav: 'https://github.com/oldmartijntje'
+        nav: 'https://github.com/oldmartijntje',
+        info: {
+            text: '',
+            demoUrl: '',
+            keywords: [],
+            developers: ['OldMartijntje']
+        }
     },
     {
         id: 'obsidianVault',
         name: 'OldMartijntje\'s Obsidian Vault.',
         imageUrl: 'https://i.imgur.com/BqEtov7.png',
-        nav: 'https://oldmartijntje.github.io/Articles/'
+        nav: 'https://oldmartijntje.github.io/Articles/',
+        info: {
+            text: '',
+            demoUrl: '',
+            keywords: [],
+            developers: ['OldMartijntje']
+        },
     },
 ];
 

@@ -1,8 +1,9 @@
 // game-list.component.ts
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { games, Game } from 'src/app/data/homescreenItems';
+import { games } from 'src/app/data/homescreenItems';
 import { CommonModel } from 'src/app/models/commonModel';
+import { Game } from 'src/app/models/homescreenItems.interface';
 
 @Component({
     selector: 'app-game-list',
@@ -46,7 +47,7 @@ export class GameListComponent implements OnInit {
         if (!this.importedComponent) {
             selectedGameId = localStorage.getItem('selectedGameId');
         } else {
-            this.games = this.applicationList;
+            this.games = [...this.applicationList];
         }
         if (selectedGameId) {
             this.selectedGameId = selectedGameId;
