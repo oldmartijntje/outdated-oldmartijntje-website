@@ -11,14 +11,23 @@
                     <div style="display: flex; flex-direction: column;">
                         <p style="font-size: 25pt; margin-bottom: 14px;">{{getDataFromGame(getGameData(selectedGameId),
                             'name')}}</p>
-                        <span style="color: #959595">{{getDataFromGame(getGameData(selectedGameId),
+                        <span *ngIf="!infotabInsteadOfSettings"
+                            style="color: #959595">{{getDataFromGame(getGameData(selectedGameId),
                             'settings')['version']}} <span style="margin: 0 1rem 0 1rem">|</span>
                             {{getDataFromGame(getGameData(selectedGameId), 'settings')['publisher']}}</span>
+                        <span *ngIf="infotabInsteadOfSettings && getDataFromGame(getGameData(selectedGameId),
+                            'info')['developers']" style="color: #959595">
+                            <span *ngFor="let developer of getDataFromGame(getGameData(selectedGameId),
+                            'info')['developers']"> | {{developer}}</span><span> |</span>
+                        </span>
                     </div>
                 </div>
                 <hr>
             </header>
-            <div style="flex: 1;">
+            <div style="flex: 1;" *ngIf="infotabInsteadOfSettings">
+
+            </div>
+            <div style="flex: 1;" *ngIf="!infotabInsteadOfSettings">
 
             </div>
             <div style="padding: 0px 30px 0px 30px; position: relative; bottom: 0;">
@@ -29,7 +38,7 @@
                     </div>
                     <div class="information">
                         <div>
-                            <button class="button-information" (click)="settingsMenu = false">B</button> <span
+                            <button class="button-information" (click)="closeSettingsOrInfo()">B</button> <span
                                 *ngIf="doesGameExist(selectedGameId)">Back</span>
                         </div>
                     </div>
@@ -90,7 +99,7 @@
                 </div>
             </div>
         </div>
-        <div class="game-list" #gameList (click)="snapToItem($event)">
+        <div class="game-list" #gameList (click)="snapToItem($event)" [ngClass]="getGridClass()">
             <div class="game" *ngFor="let game of games" [ngClass]="isGameSelected(game.id)">
                 <a (click)="selectGame(game.id)">
                     <p class="game-title">
@@ -99,9 +108,18 @@
                     <img src="{{game.imageUrl}}" width="100%">
                 </a>
             </div>
-            <div class="game fake-game" *ngFor="let game of emptyGameSlots" (click)="selectGame(game.id)"
-                [ngClass]="isGameSelected(game.id)"></div>
-            <div class="closing"></div>
+            <div class="game fake-game fake-game-border" *ngFor="let game of emptyGameSlots"
+                (click)="selectGame(game.id)" [ngClass]="isGameSelected(game.id)"></div>
+            <div class="more-software fake-game" [ngClass]="isGameSelected(moreGamesButtonId)"
+                *ngIf="!importedComponent" (click)="selectGame(moreGamesButtonId)">
+                <a (click)="selectGame(moreGamesButtonId)" style="width:200px; height: 200px;">
+                    <p class="game-title">
+                        All Software
+                    </p>
+                    <img src="../../../../assets/icons/moreApps.png" width="100%">
+                </a>
+            </div>
+            <div class="closing" *ngIf="!importedComponent"></div>
         </div>
         <div class="menu-container">
             <div class="menu">
@@ -152,8 +170,11 @@
                 <div class="information">
                     <div *ngIf="selectedGameId != ''">
                         <button *ngIf="gameHasSettings(selectedGameId)" class="button-information"
-                            (click)="settingsMenu = true">+</button>
+                            (click)="openSettings()">+</button>
                         <span *ngIf="gameHasSettings(selectedGameId)">Options</span>
+                        <button *ngIf="gameHasInfo(selectedGameId) && importedComponent" class="button-information"
+                            (click)="openInfo()">I</button>
+                        <span *ngIf="gameHasInfo(selectedGameId) && importedComponent">Info</span>
                         <button class="button-information" (click)="selectGame('')">X</button><span>Deselect</span>
                         <button *ngIf="doesGameExist(selectedGameId)" class="button-information"
                             (click)="goToGame()">A</button> <span *ngIf="doesGameExist(selectedGameId)">Start</span>

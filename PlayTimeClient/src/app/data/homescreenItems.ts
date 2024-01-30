@@ -5,6 +5,14 @@ export interface Game {
     imageUrl: string;
     nav: string;
     settings?: GameSettings;
+    info?: GameInfo;
+}
+
+export interface GameInfo {
+    text: string;
+    demoUrl?: string;
+    keywords?: string[];
+    developers?: string[];
 }
 
 export interface GameSettings {
@@ -94,4 +102,31 @@ export const games: Game[] = [
         imageUrl: 'https://i.imgur.com/BqEtov7.png',
         nav: 'https://oldmartijntje.github.io/Articles/'
     },
+];
+
+export const projects: Game[] = [
+    {
+        id: 'sisu',
+        name: 'Simpel Subsidie Chatbot',
+        imageUrl: 'https://i.imgur.com/JepdwY6.png',
+        nav: 'info',
+        info: {
+            text: 'Chatbot that I made for the company SimpelSubsidie. It is a chatbot that helps people with questions about subsidies.',
+            demoUrl: 'https://isde-subsidie.nl/chatbot/',
+            keywords: ['PHP', 'Chatbot', 'ChatGPT'],
+            developers: ['OldMartijntje']
+        }
+    },
+    {
+        id: 'nintendoSwitchHomescreen',
+        name: 'Nintendo Homepage UI',
+        imageUrl: 'https://i.imgur.com/RFOG0iI.png',
+        nav: 'Homepage',
+        info: {
+            text: 'A recreation of the Nintendo Switch Homepage UI. Made with Angular.',
+            demoUrl: 'Homepage',
+            keywords: ['Angular', 'HTML/CSS', 'TypeScript'],
+            developers: ['OldMartijntje']
+        },
+    }
 ];

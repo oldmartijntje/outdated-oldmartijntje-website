@@ -112,7 +112,6 @@ body {
 .game-list {
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(100, 300px);
     overflow-x: auto;
     grid-gap: 10px;
     padding-left: 130px;
@@ -123,24 +122,46 @@ body {
     /* Firefox */
 }
 
+.game-list-row {
+    grid-template-columns: repeat(100, 300px);
+}
+
+.game-list-grid {
+    grid-template-columns: repeat(auto-fill, 150px);
+    grid-template-rows: repeat(4, 150px);
+}
+
 .game-list::-webkit-scrollbar {
     display: none;
 }
 
-.game-list>.game {
-    height: 300px;
+.game-list>.game,
+.game-list>.fake-game {
     background: rgba(255, 255, 255, 0.068);
     position: relative;
     scroll-snap-align: center;
 }
 
+.game-list>.game {
+    height: 300px;
+}
+
 .game-list>.game,
 .game>a>img,
-.game>a>.game-title {
+.game>a>.game-title,
+.fake-game>a>.game-title,
+.fake-game>a>img {
     user-select: none;
 }
 
-.game>a>.game-title {
+.game-list>.game>a>img,
+.game-list>.fake-game>a>img {
+    width: 300px;
+    height: 300px;
+}
+
+.game>a>.game-title,
+.fake-game>a>.game-title {
     position: absolute;
     top: 0;
     left: 0;
@@ -153,8 +174,14 @@ body {
     display: none;
 }
 
+.fake-game>a>.game-title {
+    text-align: center;
+    margin-top: -40px;
+    font-size: 24px;
+}
+
 .game>a>img,
-.fake-game {
+.fake-game-border {
     border: 2px solid rgba(0, 0, 0, 0.041);
 }
 
@@ -172,7 +199,10 @@ body {
 .game.selected>a>.game-title,
 .fake-game:focus,
 .fake-game:hover,
-.fake-game.selected {
+.fake-game.selected,
+.fake-game>a:focus>.game-title,
+.fake-game>a:hover>.game-title,
+.fake-game.selected>a>.game-title {
     display: block;
 }
 
@@ -359,4 +389,46 @@ body {
     height: 100px;
     width: 100px;
     margin: 15px 15px 0 30px
+}
+
+.more-software {
+    background-color: #505050;
+    width: 200px;
+    height: 200px;
+    margin: 50px;
+    border-radius: 50%;
+}
+
+.more-software>a>img {
+    position: relative;
+    top: -25%;
+    left: -25%;
+}
+
+.game-list-grid>.fake-game {
+    height: 150px;
+    width: 150px;
+}
+
+.game-list-grid {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    scroll-snap-type: y mandatory;
+}
+
+.game-list-grid>.game {
+    height: 150px;
+}
+
+.game-list-grid>.game>a>.game-title {
+    background-color: rgba(94, 94, 94, 0.884);
+    padding: 5px;
+    width: calc(100% - 5px);
+    border-radius: 5px;
+}
+
+.game-list-grid>.game>a>img,
+.game-list-grid>.fake-game>a>img {
+    width: 150px;
+    height: 150px;
 }
