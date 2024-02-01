@@ -3,7 +3,8 @@ export const Settings: any = {
         "404", "Railroad", "Home", "AdBee"
     ],
     "ignoreDisclaimer": [
-        "AdBee"
+        "AdBee",
+        "home"
     ],
     "usernameMaxLength": 16,
     "messageMaxLength": 256,

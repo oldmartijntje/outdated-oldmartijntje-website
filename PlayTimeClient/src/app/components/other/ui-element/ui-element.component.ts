@@ -8,6 +8,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 export class UiElementComponent implements OnInit {
     @Input() widthOfContent: string = '800px';
     @Input() maxWidthOfContent: string = 'none';
+    @Input() capAtVH: boolean = true;
 
     heightOfContent: string = '100%';
     customWidthOfContent = this.widthOfContent;
@@ -25,9 +26,19 @@ export class UiElementComponent implements OnInit {
         if (this.isWideScreen) {
             this.heightOfContent = '100%';
         } else {
-            this.heightOfContent = '90%';
+            this.heightOfContent = '90svh';
         }
         this.customWidthOfContent = this.isBiggerThanMaxWidth();
+    }
+
+    returnHeightClass(mode: number = 0): string {
+        if (this.capAtVH && mode === 0) {
+            return 'height-cap-vh';
+        } else if (this.capAtVH && mode === 0) {
+            return 'height-cap-percent';
+        } else {
+            return 'height-cap-none';
+        }
     }
 
     isBiggerThanMaxWidth(): string {

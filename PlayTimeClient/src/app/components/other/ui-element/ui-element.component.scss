@@ -22,6 +22,11 @@ a:visited {
     color: $primary-color;
 }
 
+.height-cap-vh {
+    max-height: 100svh;
+    overflow: hidden;
+}
+
 .background {
     background-color: $background-color;
 }
