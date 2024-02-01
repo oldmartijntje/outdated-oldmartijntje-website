@@ -14,6 +14,14 @@ export class ToastQueueService {
         return this.queue;
     }
 
+    /**
+ * Enqueue a toast message with optional parameters.
+ *
+ * @param {string} message - The message to be displayed in the toast.
+ * @param {string} [typeOfToast='info'] - The type of toast (e.g., 'info', 'success', 'warning', 'error').
+ * @param {number} [timeModifier=0] - An optional time modifier for controlling the display time of the toast. 1 == extra 1 second. 0 == default time. 69420 disables the timeout.
+ * @returns {void}
+ */
     enqueueToast(message: string, typeOfToast: string = 'info', timeModifier: number = 0): void {
         const toast: Toast = { id: this.currentId++, message, timeoutId: null, type: typeOfToast, timeModifier: timeModifier };
         this.queue.push(toast);

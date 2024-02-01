@@ -8,6 +8,7 @@ import { AdHandler } from 'src/app/models/adHandler';
 import { Encryptor } from 'src/app/models/encryptor';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-home-page',
@@ -32,7 +33,8 @@ export class HomePageComponent implements OnInit {
 
     constructor(
         private backendMiddlemanService: BackendMiddlemanService,
-        private backendServiceService: BackendServiceService) { }
+        private backendServiceService: BackendServiceService,
+        private toastQueue: ToastQueueService) { }
 
     ngOnInit(): void {
         this.backendMiddlemanService.getCounter('internships').then((data) => {
@@ -76,5 +78,9 @@ export class HomePageComponent implements OnInit {
         }
         this.counters.internships.gotFromApi = true;
         this.counters.internships.lastInsert = data.last;
+    }
+
+    clickedTheInfoButton() {
+        this.toastQueue.enqueueToast('This statistic is calculated by deviding the total hours left by the daily average.', 'info', 1);
     }
 }

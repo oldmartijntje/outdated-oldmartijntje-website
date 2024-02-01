@@ -68,6 +68,12 @@
         <p class="textInTabpanel">Total hours done: {{counters.internships.done}}.</p>
         <p class="textInTabpanel" *ngIf="counters.internships.average != 0">Average per day:
             {{counters.internships.average}}.</p>
+        <p class="textInTabpanel" *ngIf="counters.internships.todo - counters.internships.done > 0">Days left todo:
+            ±{{roundDownToOneDecimal((counters.internships.todo - counters.internships.done) /
+            counters.internships.average)}}.<mat-icon (click)="clickedTheInfoButton()">info</mat-icon></p>
+        <p class="textInTabpanel" *ngIf="counters.internships.todo - counters.internships.done > 0">Weeks left todo:
+            ±{{roundDownToOneDecimal((counters.internships.todo - counters.internships.done) /
+            counters.internships.average / 5)}}.<mat-icon (click)="clickedTheInfoButton()">info</mat-icon></p>
         <p class="textInTabpanel" *ngIf="counters.internships.lastInsert">Last update:
             {{counters.internships.lastInsert}}</p>
         <input *ngIf="admin" type="number" [(ngModel)]="amount" step="0.25">
