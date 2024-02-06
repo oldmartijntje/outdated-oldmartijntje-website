@@ -368,7 +368,7 @@ export const randomWebsites: itemDisplay[] = [
         "myOwn": true,
     },
     {
-        "url": "https://oldmartijntje.github.io/Articles/",
+        "url": "https://docs.oldmartijntje.nl",
         "image": "https://i.imgur.com/TmlM3qN.png",
         "title": "Articles",
         "description": "My big library of knowledge. Using the obsidian app to merge my markdowns into a big library.",

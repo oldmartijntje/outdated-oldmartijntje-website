@@ -68,7 +68,7 @@ export const games: Game[] = [
         id: 'obsidianVault',
         name: 'OldMartijntje\'s Obsidian Vault.',
         imageUrl: 'https://i.imgur.com/BqEtov7.png',
-        nav: 'https://oldmartijntje.github.io/Articles/',
+        nav: 'https://docs.oldmartijntje.nl',
         info: {
             text: '',
             demoUrl: '',
