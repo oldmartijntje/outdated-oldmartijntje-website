@@ -85,7 +85,7 @@ export const projects: Game[] = [
         id: 'sisu',
         name: 'Simpel Subsidie Chatbot',
         imageUrl: 'https://i.imgur.com/JepdwY6.png',
-        nav: 'info',
+        nav: '',
         info: {
             text: 'Chatbot that I made for the company SimpelSubsidie. It is a chatbot that helps people with questions about subsidies.',
             demoUrl: 'https://isde-subsidie.nl/chatbot/',
@@ -97,7 +97,7 @@ export const projects: Game[] = [
         id: 'nintendoSwitchHomescreen',
         name: 'Nintendo Homepage UI',
         imageUrl: 'https://i.imgur.com/RFOG0iI.png',
-        nav: 'Homepage',
+        nav: '',
         info: {
             text: 'A recreation of the Nintendo Switch Homepage UI. Made with Angular.',
             demoUrl: 'Homepage',

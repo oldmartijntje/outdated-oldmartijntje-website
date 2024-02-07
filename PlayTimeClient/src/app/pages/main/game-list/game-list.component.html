@@ -184,8 +184,9 @@
                             (click)="openInfo()">I</button>
                         <span *ngIf="gameHasInfo(selectedGameId) && importedComponent">Info</span>
                         <button class="button-information" (click)="selectGame('')">X</button><span>Deselect</span>
-                        <button *ngIf="doesGameExist(selectedGameId)" class="button-information"
-                            (click)="goToGame()">A</button> <span *ngIf="doesGameExist(selectedGameId)">Start</span>
+                        <button *ngIf="doesGameExist(selectedGameId) && hasHREF(selectedGameId)"
+                            class="button-information" (click)="goToGame()">A</button> <span
+                            *ngIf="doesGameExist(selectedGameId) && hasHREF(selectedGameId)">Start</span>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,7 @@ export class GameListComponent implements OnInit {
 
     games: Game[] = games;
 
-    selectedGameId: string = 'windowsXPHomepage';
+    selectedGameId: string = '';
     selectedTab: string = 'General';
 
     currentTime: string = '';
@@ -37,7 +37,7 @@ export class GameListComponent implements OnInit {
 
     wonderEffect: string = 'wonder-effect-false';
 
-    settingsMenu: boolean = true;
+    settingsMenu: boolean = false;
 
     constructor(
         private router: Router
@@ -233,6 +233,14 @@ export class GameListComponent implements OnInit {
         } else {
             return '';
         }
+    }
+
+    hasHREF(gameId: string): boolean {
+        const game = this.games.find(game => game.id === gameId);
+        if (game) {
+            return game.nav !== '';
+        }
+        return false;
     }
 
     goToLink(link: string): void {
