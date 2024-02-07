@@ -150,7 +150,8 @@ body {
 .game>a>img,
 .game>a>.game-title,
 .fake-game>a>.game-title,
-.fake-game>a>img {
+.fake-game>a>img,
+.tabSelectItem {
     user-select: none;
 }
 
@@ -162,16 +163,27 @@ body {
 
 .game>a>.game-title,
 .fake-game>a>.game-title {
+    font-weight: bold;
+}
+
+.game>a>.game-title,
+.fake-game>a>.game-title,
+.tabSelectItem:hover,
+.tabSelectItem:focus,
+.tabSelectItem.selected {
+    color: var(--focus-dark);
+    text-transform: capitalize;
+}
+
+.game>a>.game-title,
+.fake-game>a>.game-title {
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
     margin-top: -30px;
-    font-weight: bold;
-    color: var(--focus-dark);
-    text-transform: capitalize;
     font-size: 15pt;
     width: 100%;
-    display: none;
 }
 
 .fake-game>a>.game-title {
@@ -190,7 +202,10 @@ body {
 .game.selected>a>img,
 .fake-game:focus,
 .fake-game:hover,
-.fake-game.selected {
+.fake-game.selected,
+.tabSelectItem:hover,
+.tabSelectItem:focus,
+.tabSelectItem.selected {
     animation: focus 1s infinite;
 }
 
@@ -433,4 +448,21 @@ body {
     height: 150px;
     object-fit: cover;
     object-position: center top;
+}
+
+.tabSelectItem {
+    padding: 0.8rem 2rem 0.8rem 2rem;
+    margin: 0 0.5rem 1rem 3rem;
+    font-size: 24px;
+}
+
+.tabSelectItem:hover,
+.tabSelectItem:focus,
+.tabSelectItem.selected {
+    background-color: #404548;
+}
+
+.tabSelectMenu {
+    padding: 1rem;
+    background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), #515151, #515151, #515151, #515151, #515151, rgba(255, 0, 0, 0));
 }

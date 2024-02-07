@@ -22,10 +22,12 @@ export interface GameSettings {
     items: GameSettingItem[];
     version: string;
     publisher: string;
+    tabs: string[];
 }
 
 export interface GameSettingItem {
     title: string;
+    settingTab: string;
     type: GameSettingType;
     replaceIdentifierForJson: string;
 }

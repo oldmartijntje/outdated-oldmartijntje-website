@@ -2,7 +2,7 @@ import { Game, GameSettingTypeBoolean } from "../models/homescreenItems.interfac
 
 export const games: Game[] = [
     {
-        id: 'home',
+        id: 'windowsXPHomepage',
         name: 'My WindowsXP Homepage',
         imageUrl: 'https://i.imgur.com/AleDHLn.png',
         nav: '/Home',
@@ -11,6 +11,7 @@ export const games: Game[] = [
             items: [
                 {
                     title: 'Mobile mode',
+                    settingTab: 'General',
                     type: {
                         type: 'boolean',
                         value: false
@@ -18,6 +19,7 @@ export const games: Game[] = [
                     replaceIdentifierForJson: 'val1'
                 }
             ],
+            tabs: ['General', 'Test'],
             version: 'Ver. 1.0.0',
             publisher: 'OldMartijntje'
         },

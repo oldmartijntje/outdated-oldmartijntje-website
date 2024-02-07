@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { Router } from '@angular/router';
 import { games } from 'src/app/data/homescreenItems';
 import { CommonModel } from 'src/app/models/commonModel';
-import { Game } from 'src/app/models/homescreenItems.interface';
+import { Game, GameInfo, GameSettings } from 'src/app/models/homescreenItems.interface';
 
 @Component({
     selector: 'app-game-list',
@@ -29,14 +29,15 @@ export class GameListComponent implements OnInit {
 
     games: Game[] = games;
 
-    selectedGameId: string = '';
+    selectedGameId: string = 'windowsXPHomepage';
+    selectedTab: string = 'General';
 
     currentTime: string = '';
     amOrPm: string = '';
 
     wonderEffect: string = 'wonder-effect-false';
 
-    settingsMenu: boolean = false;
+    settingsMenu: boolean = true;
 
     constructor(
         private router: Router
@@ -79,6 +80,24 @@ export class GameListComponent implements OnInit {
         setInterval(() => {
             this.updateTime();
         }, 30000);
+    }
+
+    getGameInformation(gameId: string): GameInfo | undefined {
+        const game = this.getGameData(gameId);
+        return game?.info;
+    }
+
+    getGameSettings(gameId: string): GameSettings | undefined {
+        const game = this.getGameData(gameId);
+        return game?.settings;
+    }
+
+    getSpecificInformation(gameId: string, data: keyof GameInfo): any {
+        const game = this.getGameInformation(gameId);
+        if (game) {
+            return game[data];
+        }
+        return undefined;
     }
 
     getGridClass() {
@@ -138,15 +157,36 @@ export class GameListComponent implements OnInit {
     }
 
     openSettings(): void {
+        this.selectedTab = 'General'
         this.settingsMenu = true;
         this.infotabInsteadOfSettings = false;
+        console.log(this.getGameSettings(this.selectedGameId)?.tabs);
     }
 
     openInfo(): void {
+        this.selectedTab = 'General'
         this.settingsMenu = true;
         this.infotabInsteadOfSettings = true;
         console.log(this.getDataFromGame(this.getGameData(this.selectedGameId),
             'info'));
+        console.log(this.getSpecificInformation(this.selectedGameId, 'text'));
+
+    }
+
+    isTabSelected(tab: string): string {
+        if (this.selectedTab === tab) {
+            return 'selected';
+        } else {
+            return '';
+        }
+    }
+
+    getSettingsByTab(tab: string): any[] {
+        const settings = this.getGameSettings(this.selectedGameId);
+        if (settings) {
+            return settings.items.filter(setting => setting.settingTab === tab);
+        }
+        return [];
     }
 
     closeSettingsOrInfo(): void {
