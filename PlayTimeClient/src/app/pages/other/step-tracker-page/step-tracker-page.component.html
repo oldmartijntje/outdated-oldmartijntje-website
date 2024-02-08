@@ -1,0 +1,47 @@
+<app-ui-element [widthOfContent]="'500px'" [maxWidthOfContent]="'500px'" [overflowY]="'scroll'">
+    <div>
+        <h1>Step Tracker</h1>
+        <div>
+            <div>
+                <h1>Input</h1>
+                <div>
+                    <input type="text" [(ngModel)]="inputFieldText" (keyup.enter)="onEnterKeyPressed()">
+                    <button (click)="onEnterKeyPressed()">Submit</button>
+                </div>
+                <p *ngIf="lastStep">Continue from: '{{lastStep.stepText}}'</p>
+            </div>
+            <div>
+                <!-- radio buttons -->
+                <div>
+                    <h2>Markdown mode</h2>
+                    <input type="radio" name="mode1" value="mode1" [(ngModel)]="markdownMode" (change)="onModeChange()">
+                    <label for="mode1">none</label>
+                    <input type="radio" name="mode2" value="mode2" [(ngModel)]="markdownMode" (change)="onModeChange()">
+                    <label for="mode2">numbers</label>
+                    <input type="radio" name="mode3" value="mode3" [(ngModel)]="markdownMode" (change)="onModeChange()">
+                    <label for="mode3">stripe</label>
+                    <input type="radio" name="mode4" value="mode4" [(ngModel)]="markdownMode" (change)="onModeChange()">
+                    <label for="mode4">checkbox</label>
+                </div>
+                <div>
+                    <h2>Indentation</h2>
+                    <input type="radio" name="2spaces" value="  " [(ngModel)]="indentation" (change)="onModeChange()">
+                    <label for="2spaces">2 spaces</label>
+                    <input type="radio" name="4spaces" value="    " [(ngModel)]="indentation" (change)="onModeChange()">
+                    <label for="4spaces">4 spaces</label>
+                </div>
+                <div>
+                    <h2>Alternative paths</h2>
+                    <input type="checkbox" name="alternative" [(ngModel)]="alternativePath" (change)="onPathChange()">
+                    <label for="alternative">Show truncated steps</label>
+                </div>
+                <div>
+                    <h1>Output</h1>
+                    <p>You can not type in this field, it gets filled automatically.</p>
+                    <textarea name="outputDoc" id="outputDoc" cols="60" rows="15" readonly
+                        [(ngModel)]="outputDoc"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-ui-element>

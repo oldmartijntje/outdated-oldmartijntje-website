@@ -9,6 +9,7 @@ export class UiElementComponent implements OnInit {
     @Input() widthOfContent: string = '800px';
     @Input() maxWidthOfContent: string = 'none';
     @Input() capAtVH: boolean = true;
+    @Input() overflowY: string = 'hidden';
 
     heightOfContent: string = '100%';
     customWidthOfContent = this.widthOfContent;
