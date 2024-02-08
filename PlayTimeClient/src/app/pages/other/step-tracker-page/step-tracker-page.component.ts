@@ -104,17 +104,22 @@ export class StepTrackerPageComponent implements OnInit {
         var highestIdItem = this.steps.reduce((maxItem: Step | null, currentItem: Step) => {
             return (currentItem.id > (maxItem ? maxItem.id : 0)) ? currentItem : maxItem;
         }, null);
-        if (highestIdItem) {
-            for (var i = 0; i <= highestIdItem.id; i++) {
-                var item = this.steps.slice().reverse().find(x => x.id === i)
-                if (item) {
-                    if (item.timelineId < currentTimelineId) {
-                        continue
+        if (highestIdItem || this.steps.length == 1) {
+            if (this.steps.length == 1) {
+                highestIdItem = this.steps[0]
+            }
+            if (highestIdItem) {
+                for (var i = 0; i <= highestIdItem.id; i++) {
+                    var item = this.steps.slice().reverse().find(x => x.id === i)
+                    if (item) {
+                        if (item.timelineId < currentTimelineId) {
+                            continue
+                        }
+                        if (item.timelineId > currentTimelineId) {
+                            currentTimelineId = item.timelineId
+                        }
+                        timeline.push(item)
                     }
-                    if (item.timelineId > currentTimelineId) {
-                        currentTimelineId = item.timelineId
-                    }
-                    timeline.push(item)
                 }
             }
         }
