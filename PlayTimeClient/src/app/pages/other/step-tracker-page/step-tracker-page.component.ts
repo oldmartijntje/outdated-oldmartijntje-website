@@ -13,6 +13,15 @@ interface Step {
 })
 
 export class StepTrackerPageComponent implements OnInit {
+    // Dear me,
+    //
+    // I'm sorry for the mess I made. I tried to make a step tracker, I really did. But it didn't work perfectly. I hope you can fix it.
+    // If you can't, I'm sorry. I tried my best.
+    // I wish you the best of luck with this mess of a code.
+    //
+    // Kind regards,
+    // Your past self
+
     markdownMode = 'mode2'
     inputFieldText = ''
 
