@@ -1,4 +1,4 @@
-<app-ui-element [widthOfContent]="'500px'" [maxWidthOfContent]="'500px'" [overflowY]="'scroll'">
+<app-ui-element [widthOfContent]="'700px'" [maxWidthOfContent]="'700px'" [overflowY]="'scroll'">
     <div>
         <h1>Step Tracker</h1>
         <div>
@@ -9,6 +9,8 @@
                     <button (click)="onEnterKeyPressed()">Submit</button>
                 </div>
                 <p *ngIf="lastStep">Continue from: '{{lastStep.stepText}}'</p>
+                <p class="warning">If you type something that already exists, it will go back to that point in time and
+                    continue from there.</p>
             </div>
             <div>
                 <!-- radio buttons -->
