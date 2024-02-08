@@ -38,7 +38,7 @@ export class StepTrackerPageComponent implements OnInit {
 
     lastStep: Step | undefined = undefined
 
-    alternativePath: boolean = true
+    alternativePath: boolean = false
 
     ngOnInit(): void {
         this.constructTimeline()
