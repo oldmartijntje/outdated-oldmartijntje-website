@@ -26,17 +26,14 @@
                     <label for="mode4">checkbox</label>
                 </div>
                 <div>
-                    <h2>Alternative paths</h2>
                     <input type="checkbox" name="alternative" [(ngModel)]="alternativePath" (change)="onPathChange()">
                     <label for="alternative">Show truncated steps</label>
                 </div>
                 <div>
-                    <h2>Show linebreaks</h2>
                     <input type="checkbox" name="alternative" [(ngModel)]="showLineBraks" (change)="onPathChange()">
                     <label for="alternative">Show linebreaks</label>
                 </div>
                 <div *ngIf="alternativePath">
-                    <h2>Indentation</h2>
                     <input type="radio" name="0spaces" value="" [(ngModel)]="indentation" (change)="onModeChange()">
                     <label for="0spaces">no spaces</label>
                     <input type="radio" name="2spaces" value="  " [(ngModel)]="indentation" (change)="onModeChange()">
