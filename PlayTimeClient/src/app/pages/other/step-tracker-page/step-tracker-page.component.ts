@@ -49,33 +49,37 @@ export class StepTrackerPageComponent implements OnInit {
 
     lastStep: Step | undefined = undefined
 
-    alternativePath: boolean = false
+    alternativePath: boolean = true
+
+    showLineBraks: boolean = true
+
+    truncateTextMode = 'strikethrough'
 
     ngOnInit(): void {
         this.constructTimeline()
-        // for (var i = 0; i < 10; i++) {
-        //     this.onEnterKeyPressed(`${i + 1}`)
-        // }
-        // this.onEnterKeyPressed('2')
-        // this.onEnterKeyPressed('2.1')
-        // this.onEnterKeyPressed('2.2')
-        // this.onEnterKeyPressed('4')
-        // this.onEnterKeyPressed('4.01')
-        // this.onEnterKeyPressed('4.02')
-        // this.onEnterKeyPressed('2.2')
-        // this.onEnterKeyPressed('2.3')
-        // this.onEnterKeyPressed('2.4')
-        // this.onEnterKeyPressed('1')
-        // this.onEnterKeyPressed('1.001')
-        // this.onEnterKeyPressed('2')
-        // this.onEnterKeyPressed('2.0001')
-        // this.onEnterKeyPressed('4.02')
-        // this.onEnterKeyPressed('4.03')
-        // this.onEnterKeyPressed('2.3')
-        // this.onEnterKeyPressed('2.31')
-        // this.onEnterKeyPressed('2.32')
-        // this.onEnterKeyPressed('10')
-        // this.onEnterKeyPressed('11')
+        for (var i = 0; i < 10; i++) {
+            this.onEnterKeyPressed(`${i + 1}`)
+        }
+        this.onEnterKeyPressed('2')
+        this.onEnterKeyPressed('2.1')
+        this.onEnterKeyPressed('2.2')
+        this.onEnterKeyPressed('4')
+        this.onEnterKeyPressed('4.01')
+        this.onEnterKeyPressed('4.02')
+        this.onEnterKeyPressed('2.2')
+        this.onEnterKeyPressed('2.3')
+        this.onEnterKeyPressed('2.4')
+        this.onEnterKeyPressed('1')
+        this.onEnterKeyPressed('1.001')
+        this.onEnterKeyPressed('2')
+        this.onEnterKeyPressed('2.0001')
+        this.onEnterKeyPressed('4.02')
+        this.onEnterKeyPressed('4.03')
+        this.onEnterKeyPressed('2.3')
+        this.onEnterKeyPressed('2.31')
+        this.onEnterKeyPressed('2.32')
+        this.onEnterKeyPressed('10')
+        this.onEnterKeyPressed('11')
     }
 
     onEnterKeyPressed(text: string = '') {
@@ -175,10 +179,13 @@ export class StepTrackerPageComponent implements OnInit {
         var mainCounter = 0;
         var displayNumber = 0;
 
+        var mainTimelineStep = true;
         var indentation: number[] = []
         var numberingPerIndentation: { [key: number]: number } = {}
         for (var i = 0; i < this.timelineList.length; i++) {
+
             if (!mainTimeline.includes(this.timelineList[i])) {
+                mainTimelineStep = false;
                 if (!indentation.includes(this.timelineList[i].timelineId)) {
                     var parentBranchId = this.timelineList[i].parentTimelineId;
                     if (parentBranchId && indentation.includes(parentBranchId)) {
@@ -197,11 +204,11 @@ export class StepTrackerPageComponent implements OnInit {
                 for (var j = 0; j < indexOfId; j++) {
                     this.outputDoc += this.indentation
                 }
-                this.outputDoc += '//'
                 displayNumber = numberingPerIndentation[this.timelineList[i].timelineId];
 
 
             } else {
+                mainTimelineStep = true;
                 numberingPerIndentation = {}
                 indentation = [];
                 mainCounter += 1;
@@ -216,7 +223,31 @@ export class StepTrackerPageComponent implements OnInit {
             if (this.markdownMode === 'mode4') {
                 this.outputDoc += '- [ ] '
             }
-            this.outputDoc += this.timelineList[i].stepText + '\n'
+            if (!mainTimelineStep) {
+                if (this.truncateTextMode === 'strikethrough') {
+                    this.outputDoc += '~~'
+                } else if (this.truncateTextMode === 'comment') {
+                    this.outputDoc += '//'
+                } else if (this.truncateTextMode === 'italics') {
+                    this.outputDoc += '<i>'
+                } else if (this.truncateTextMode === 'underlined') {
+                    this.outputDoc += '<u>'
+                }
+            }
+            this.outputDoc += this.timelineList[i].stepText
+            if (!mainTimelineStep) {
+                if (this.truncateTextMode === 'strikethrough') {
+                    this.outputDoc += '~~'
+                } else if (this.truncateTextMode === 'italics') {
+                    this.outputDoc += '</i>'
+                } else if (this.truncateTextMode === 'underlined') {
+                    this.outputDoc += '</u>'
+                }
+            }
+            if (this.showLineBraks) {
+                this.outputDoc += '<br>'
+            }
+            this.outputDoc += '\n'
         }
     }
 }

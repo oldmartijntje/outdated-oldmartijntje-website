@@ -30,6 +30,11 @@
                     <input type="checkbox" name="alternative" [(ngModel)]="alternativePath" (change)="onPathChange()">
                     <label for="alternative">Show truncated steps</label>
                 </div>
+                <div>
+                    <h2>Show linebreaks</h2>
+                    <input type="checkbox" name="alternative" [(ngModel)]="showLineBraks" (change)="onPathChange()">
+                    <label for="alternative">Show linebreaks</label>
+                </div>
                 <div *ngIf="alternativePath">
                     <h2>Indentation</h2>
                     <input type="radio" name="0spaces" value="" [(ngModel)]="indentation" (change)="onModeChange()">
@@ -38,6 +43,24 @@
                     <label for="2spaces">2 spaces</label>
                     <input type="radio" name="4spaces" value="    " [(ngModel)]="indentation" (change)="onModeChange()">
                     <label for="4spaces">4 spaces</label>
+                </div>
+                <div *ngIf="alternativePath">
+                    <h2>Display Truncated Steps</h2>
+                    <input type="radio" name="strikethrough " value="strikethrough" [(ngModel)]="truncateTextMode"
+                        (change)="onModeChange()">
+                    <label for="strikethrough" style="text-decoration: line-through">Strikethrough </label>
+                    <input type="radio" name="comment" value="comment" [(ngModel)]="truncateTextMode"
+                        (change)="onModeChange()">
+                    <label for="comment">// Comment</label>
+                    <input type="radio" name="italics" value="italics" [(ngModel)]="truncateTextMode"
+                        (change)="onModeChange()">
+                    <label for="italics" style="font-style: italic">Italic</label>
+                    <input type="radio" name="underlined" value="underlined" [(ngModel)]="truncateTextMode"
+                        (change)="onModeChange()">
+                    <label for="underlined" style="text-decoration: underline">Underlined</label>
+                    <input type="radio" name="none" value="none" [(ngModel)]="truncateTextMode"
+                        (change)="onModeChange()">
+                    <label for="none">Normal</label>
                 </div>
                 <div>
                     <h1>Output</h1>
