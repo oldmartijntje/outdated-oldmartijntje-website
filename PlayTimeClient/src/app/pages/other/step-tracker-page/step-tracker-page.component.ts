@@ -4,6 +4,7 @@ interface Step {
     stepText: string
     timelineId: number
     id: number
+    parentTimelineId: number | undefined
 }
 
 @Component({
@@ -22,6 +23,15 @@ export class StepTrackerPageComponent implements OnInit {
     // Kind regards,
     // Your past self
 
+    // Dear past me,
+    //
+    // Thank you for your kind words.
+    // I fixed the code, and it works perfectly now.
+    // I'm sorry you had to go through this.
+    //
+    // Kind regards,
+    // Your present self
+
     markdownMode = 'mode2'
     inputFieldText = ''
 
@@ -29,6 +39,7 @@ export class StepTrackerPageComponent implements OnInit {
     currentTimelineId = 0
     currentId = 0
     outputDoc = ''
+    parentBranchId: number | undefined = undefined
 
     branches: { [key: number]: Step[] } = {}
 
@@ -58,7 +69,13 @@ export class StepTrackerPageComponent implements OnInit {
         // this.onEnterKeyPressed('1.001')
         // this.onEnterKeyPressed('2')
         // this.onEnterKeyPressed('2.0001')
-
+        // this.onEnterKeyPressed('4.02')
+        // this.onEnterKeyPressed('4.03')
+        // this.onEnterKeyPressed('2.3')
+        // this.onEnterKeyPressed('2.31')
+        // this.onEnterKeyPressed('2.32')
+        // this.onEnterKeyPressed('10')
+        // this.onEnterKeyPressed('11')
     }
 
     onEnterKeyPressed(text: string = '') {
@@ -68,20 +85,15 @@ export class StepTrackerPageComponent implements OnInit {
         if (this.inputFieldText == '') {
             return
         }
-        var item: Step | undefined = this.steps.slice().reverse().find(x => x.stepText === this.inputFieldText)
+        var item: Step | undefined = this.steps.slice().reverse().find(x => x.stepText === this.inputFieldText);
         if (item === undefined) {
-            this.steps.push({ stepText: this.inputFieldText, timelineId: this.currentTimelineId, id: this.currentId });
+            this.steps.push({ stepText: this.inputFieldText, timelineId: this.currentTimelineId, id: this.currentId, parentTimelineId: this.parentBranchId });
             this.currentId++;
-            this.lastStep = this.steps[this.steps.length - 1]
+            this.lastStep = this.steps[this.steps.length - 1];
+            this.parentBranchId = this.currentTimelineId;
         } else {
-            var newItem = item;
-            const filteredSteps = this.steps.filter(step => step.timelineId <= newItem.timelineId && step.id <= newItem.id);
-            if (filteredSteps.length > 0) {
-                for (var i = 0; i < filteredSteps.length; i++) {
-                    filteredSteps[i].timelineId = this.currentTimelineId + 1;
-                }
-            }
-            this.lastStep = newItem
+            this.lastStep = item;
+            this.parentBranchId = item.timelineId;
             this.currentId = item.id + 1;
             this.currentTimelineId += 1;
         }
@@ -90,81 +102,113 @@ export class StepTrackerPageComponent implements OnInit {
     }
 
     onModeChange() {
-        this.printOutput()
+        this.constructTimeline()
     }
 
     onPathChange() {
-        this.printOutput()
+        this.constructTimeline()
     }
-
 
     constructTimeline() {
-        var timeline = []
-        var currentTimelineId = 0
-        var highestIdItem = this.steps.reduce((maxItem: Step | null, currentItem: Step) => {
-            return (currentItem.id > (maxItem ? maxItem.id : 0)) ? currentItem : maxItem;
-        }, null);
-        if (highestIdItem || this.steps.length == 1) {
-            if (this.steps.length == 1) {
-                highestIdItem = this.steps[0]
-            }
-            if (highestIdItem) {
-                for (var i = 0; i <= highestIdItem.id; i++) {
-                    var item = this.steps.slice().reverse().find(x => x.id === i)
-                    if (item) {
-                        if (item.timelineId < currentTimelineId) {
-                            continue
-                        }
-                        if (item.timelineId > currentTimelineId) {
-                            currentTimelineId = item.timelineId
-                        }
-                        timeline.push(item)
-                    }
+        if (this.lastStep) {
+            this.timelineList = []
+            this.findParentsOfStep(this.lastStep)
+        }
+        var mainTimeline = [...this.timelineList]
+        if (this.alternativePath) {
+            this.steps.sort((a, b) => a.timelineId + b.timelineId);
+            // for all steps, chjeck if it is already in the timelineList,
+            // if it is not, don't add it to the list using findParentsOfStep()
+            for (var i = 0; i < this.steps.length; i++) {
+                if (!this.timelineList.includes(this.steps[i])) {
+                    this.findParentsOfStep(this.steps[i])
                 }
             }
         }
-        this.timelineList = timeline
-        this.printOutput()
+        this.printOutput(mainTimeline)
+
     }
 
-    printOutput() {
+    findParentsOfStep(step: Step) {
+        // find the parent of the step
+        // using a while loop, so that we don't need to worry about incursion
+        if (this.timelineList.includes(step)) {
+            return
+        }
+        var queue: Step[] = []
+        queue.push(step)
+        var found = false
+        var child = step
+        while (!found) {
+            var parent = this.steps.find(x => x.timelineId === child.parentTimelineId && x.id === child.id - 1);
+            if (parent) {
+                if (!this.timelineList.includes(parent)) {
+                    queue.push(parent);
+                    child = parent;
+                } else {
+                    found = true;
+                }
+            } else {
+                found = true;
+            }
+        }
+        // for each item in the queue.reverse(), add it to the timelineList behind it's parent.
+        // if the parent is undefined, add it to the start of the list
+        var queueReversed = queue.reverse()
+        for (var i = 0; i < queueReversed.length; i++) {
+            if (queueReversed[i].parentTimelineId === undefined) {
+                this.timelineList.unshift(queueReversed[i])
+            } else {
+                var index = this.timelineList.findIndex(x => x.timelineId === queueReversed[i].parentTimelineId && x.id === queueReversed[i].id - 1)
+                this.timelineList.splice(index + 1, 0, queueReversed[i])
+            }
+        }
+
+
+    }
+
+    printOutput(mainTimeline: Step[]) {
         this.outputDoc = ''
 
-        var listToWorkFrom = []
-        if (this.alternativePath) {
-            listToWorkFrom = this.steps
-        } else {
-            listToWorkFrom = this.timelineList
-        }
-        listToWorkFrom.sort((a, b) => a.timelineId + b.timelineId);
-        var lastI = 0
-        var itemNumber = 0
+        this.timelineList.sort((a, b) => a.timelineId + b.timelineId);
+
+        var mainCounter = 0;
+        var displayNumber = 0;
+
         var indentation: number[] = []
-        for (var i = 0; i < listToWorkFrom.length; i++) {
-            if (!this.inFinalPath(listToWorkFrom[i])) {
-                if (!indentation.includes(listToWorkFrom[i].timelineId)) {
-                    indentation.push(listToWorkFrom[i].timelineId)
+        var numberingPerIndentation: { [key: number]: number } = {}
+        for (var i = 0; i < this.timelineList.length; i++) {
+            if (!mainTimeline.includes(this.timelineList[i])) {
+                if (!indentation.includes(this.timelineList[i].timelineId)) {
+                    var parentBranchId = this.timelineList[i].parentTimelineId;
+                    if (parentBranchId && indentation.includes(parentBranchId)) {
+                        numberingPerIndentation[this.timelineList[i].timelineId] = numberingPerIndentation[parentBranchId] + 1;
+                    } else {
+                        var indentation: number[] = []
+                        numberingPerIndentation[this.timelineList[i].timelineId] = mainCounter + 1;
+                    }
+                    indentation.push(this.timelineList[i].timelineId);
+                } else {
+                    numberingPerIndentation[this.timelineList[i].timelineId]++
                 }
                 // get the id of what place in the array the timelineId is
-                var indexOfId = indentation.indexOf(listToWorkFrom[i].timelineId)
+                var indexOfId = indentation.indexOf(this.timelineList[i].timelineId);
                 indexOfId += 1
                 for (var j = 0; j < indexOfId; j++) {
                     this.outputDoc += this.indentation
                 }
                 this.outputDoc += '//'
-                if (lastI == itemNumber) {
-                    lastI = itemNumber - 1
-                }
-            } else {
-                if (itemNumber != lastI) {
-                    itemNumber = lastI + 1
-                }
-                lastI++
-                indentation = []
+                displayNumber = numberingPerIndentation[this.timelineList[i].timelineId];
 
+
+            } else {
+                numberingPerIndentation = {}
+                indentation = [];
+                mainCounter += 1;
+                displayNumber = mainCounter;
             }
             if (this.markdownMode === 'mode2') {
-                this.outputDoc += (itemNumber + 1) + '. '
+                this.outputDoc += (displayNumber) + '. '
             }
             if (this.markdownMode === 'mode3') {
                 this.outputDoc += '- '
@@ -172,13 +216,7 @@ export class StepTrackerPageComponent implements OnInit {
             if (this.markdownMode === 'mode4') {
                 this.outputDoc += '- [ ] '
             }
-            this.outputDoc += listToWorkFrom[i].stepText + '\n'
-            itemNumber++
+            this.outputDoc += this.timelineList[i].stepText + '\n'
         }
     }
-
-    inFinalPath(item: Step) {
-        return JSON.stringify(this.timelineList).includes(JSON.stringify(item))
-    }
-
 }
