@@ -57,29 +57,29 @@ export class StepTrackerPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.constructTimeline()
-        for (var i = 0; i < 10; i++) {
-            this.onEnterKeyPressed(`${i + 1}`)
-        }
-        this.onEnterKeyPressed('2')
-        this.onEnterKeyPressed('2.1')
-        this.onEnterKeyPressed('2.2')
-        this.onEnterKeyPressed('4')
-        this.onEnterKeyPressed('4.01')
-        this.onEnterKeyPressed('4.02')
-        this.onEnterKeyPressed('2.2')
-        this.onEnterKeyPressed('2.3')
-        this.onEnterKeyPressed('2.4')
-        this.onEnterKeyPressed('1')
-        this.onEnterKeyPressed('1.001')
-        this.onEnterKeyPressed('2')
-        this.onEnterKeyPressed('2.0001')
-        this.onEnterKeyPressed('4.02')
-        this.onEnterKeyPressed('4.03')
-        this.onEnterKeyPressed('2.3')
-        this.onEnterKeyPressed('2.31')
-        this.onEnterKeyPressed('2.32')
-        this.onEnterKeyPressed('10')
-        this.onEnterKeyPressed('11')
+        // for (var i = 0; i < 10; i++) {
+        //     this.onEnterKeyPressed(`${i + 1}`)
+        // }
+        // this.onEnterKeyPressed('2')
+        // this.onEnterKeyPressed('2.1')
+        // this.onEnterKeyPressed('2.2')
+        // this.onEnterKeyPressed('4')
+        // this.onEnterKeyPressed('4.01')
+        // this.onEnterKeyPressed('4.02')
+        // this.onEnterKeyPressed('2.2')
+        // this.onEnterKeyPressed('2.3')
+        // this.onEnterKeyPressed('2.4')
+        // this.onEnterKeyPressed('1')
+        // this.onEnterKeyPressed('1.001')
+        // this.onEnterKeyPressed('2')
+        // this.onEnterKeyPressed('2.0001')
+        // this.onEnterKeyPressed('4.02')
+        // this.onEnterKeyPressed('4.03')
+        // this.onEnterKeyPressed('2.3')
+        // this.onEnterKeyPressed('2.31')
+        // this.onEnterKeyPressed('2.32')
+        // this.onEnterKeyPressed('10')
+        // this.onEnterKeyPressed('11')
     }
 
     onEnterKeyPressed(text: string = '') {
