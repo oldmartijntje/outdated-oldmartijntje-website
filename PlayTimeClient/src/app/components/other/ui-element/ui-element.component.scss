@@ -114,3 +114,17 @@ a:visited {
 #tje:hover {
     color: #ff7000;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+    /* remove scrollbar space */
+    background: $backgroundShade1;
+    /* optional: just make scrollbar invisible */
+    border-radius: 15pt;
+}
+
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: $primary-color;
+    border-radius: 15pt;
+}

@@ -44,6 +44,7 @@ import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-pa
 import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/hover-glitch-text.component';
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
+import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { HomepageDeciderComponent } from './components/other/homepage-decider/ho
         FunkyCssPageComponent,
         HoverGlitchTextComponent,
         GameListComponent,
-        HomepageDeciderComponent
+        HomepageDeciderComponent,
+        StepTrackerPageComponent
     ],
     imports: [
         AsyncPipe,

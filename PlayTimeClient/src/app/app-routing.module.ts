@@ -14,6 +14,7 @@ import { RandomDisplayPageComponent } from './pages/other/random-display-page/ra
 import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
+import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -29,6 +30,7 @@ const routes: Routes = [
     { path: 'ItemDisplay', component: RandomDisplayPageComponent },
     { path: 'FunkyCSS', component: FunkyCssPageComponent },
     { path: 'Homepage', component: GameListComponent },
+    { path: 'StepTracker', component: StepTrackerPageComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 
