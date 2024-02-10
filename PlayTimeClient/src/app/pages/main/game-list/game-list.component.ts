@@ -8,7 +8,7 @@ import { Game, GameInfo, GameSettings } from 'src/app/models/homescreenItems.int
 @Component({
     selector: 'app-game-list',
     templateUrl: './game-list.component.html',
-    styleUrls: ['./game-list.component.scss']
+    styleUrls: ['./game-list.component.scss'],
 })
 export class GameListComponent implements OnInit {
     @ViewChild('gameList', { static: false }) scrollContainer!: ElementRef;
@@ -29,8 +29,11 @@ export class GameListComponent implements OnInit {
 
     games: Game[] = games;
 
-    selectedGameId: string = 'nintendoSwitchHomescreen';
+    selectedGameId: string = '';
     selectedTab: string = 'General';
+    // used for gallery
+    selectedTabItem: number = 0;
+    selectedAnTabItem: boolean = false;
 
     currentTime: string = '';
     amOrPm: string = '';
@@ -39,12 +42,12 @@ export class GameListComponent implements OnInit {
 
     settingsMenu: boolean = false;
 
+
     constructor(
         private router: Router
     ) { }
 
     ngOnInit(): void {
-        this.openInfo();
         var selectedGameId: any = null;
         if (!this.importedComponent) {
             selectedGameId = localStorage.getItem('selectedGameId');
@@ -83,18 +86,64 @@ export class GameListComponent implements OnInit {
         }, 30000);
     }
 
+    getImageIndex(image: string): number {
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            return images.indexOf(image);
+        }
+        return 0;
+    }
+
+    showImage(index: number) {
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            this.selectedAnTabItem = true;
+            this.selectedTabItem = index;
+            return images[index];
+        }
+        this.selectedTabItem = 0;
+        return undefined
+    }
+
+    getGameImage(): string {
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            if (this.selectedTabItem < 0) {
+                this.selectedTabItem = images.length - 1;
+            }
+            if (this.selectedTabItem >= images.length) {
+                this.selectedTabItem = 0;
+            }
+            return images[this.selectedTabItem];
+        }
+        return '';
+    }
+
+    showNeighbourImage(index: number) {
+        var current = this.selectedTabItem + index;
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            if (current < 0) {
+                current = images.length - 1;
+            }
+            if (current >= images.length) {
+                current = 0;
+            }
+            this.selectedAnTabItem = true;
+            this.selectedTabItem = current;
+            return images[current];
+        }
+        this.selectedTabItem = 0;
+        return undefined
+    }
+
     getGameInformation(gameId: string): GameInfo {
         const game = this.getGameData(gameId);
         if (game && game.info) {
             return game.info;
         } else {
             return {
-                text: '',
-                demoUrl: '',
-                keywords: [],
-                developers: [],
-                githubRepo: '',
-                images: []
+                text: ''
             };
         }
     }
@@ -138,19 +187,22 @@ export class GameListComponent implements OnInit {
             // Check if the pressed key is 'a' (you can use 'A' for capital 'A' key)
             if (event.key === 'a') {
                 // Call the goToGame() function when 'a' key is pressed
-                this.goToGame();
+                this.goToGame({ 'blank': true });
             } else if (event.key === 'x') {
                 this.selectGame('');
             } else if (event.key === '+' && this.gameHasSettings(this.selectedGameId)) {
                 this.openSettings();
-            } else if (event.key === 'i' && this.gameHasInfo(this.selectedGameId) && this.importedComponent) {
+            } else if (event.key === 'i' && this.gameHasInfo(this.selectedGameId)) {
                 this.openInfo();
             }
         } else if (this.selectedGameId !== '' && this.settingsMenu) {
-            if (event.key === 'Escape' || event.key === 'b') {
+            if (event.key == 'a' && this.infotabInsteadOfSettings && this.getGameInformation(this.selectedGameId)['demoUrl']) {
+                this.goToGame({ "demoUrl": true, 'blank': true });
+            } else if (event.key === 'Escape' || event.key === 'b') {
                 this.settingsMenu = false;
             }
         }
+
     }
 
     doesGameExist(gameId: string): boolean {
@@ -169,6 +221,7 @@ export class GameListComponent implements OnInit {
     }
 
     openSettings(): void {
+        this.selectedAnTabItem = false;
         this.selectedTab = 'General'
         this.settingsMenu = true;
         this.infotabInsteadOfSettings = false;
@@ -176,6 +229,7 @@ export class GameListComponent implements OnInit {
     }
 
     openInfo(): void {
+        this.selectedAnTabItem = false;
         this.selectedTab = 'info'
         this.settingsMenu = true;
         this.infotabInsteadOfSettings = true;
@@ -246,7 +300,7 @@ export class GameListComponent implements OnInit {
     hasHREF(gameId: string): boolean {
         const game = this.games.find(game => game.id === gameId);
         if (game) {
-            return game.nav !== '';
+            return game.nav !== '' && game.nav !== undefined;
         }
         return false;
     }
@@ -255,13 +309,24 @@ export class GameListComponent implements OnInit {
         CommonModel.navigateToLink(this.router, link);
     }
 
-    goToGame(): void {
+    goToGame(settings = {}): void {
         if (this.selectedGameId == this.moreGamesButtonId) {
             CommonModel.navigateToLink(this.router, '/Projects');
         }
         var activGame: Game | undefined = this.games.find(game => game.id === this.selectedGameId);
-        if (activGame) {
-            CommonModel.navigateToLink(this.router, activGame.nav);
+        var url = activGame?.nav;
+        if ("demoUrl" in settings && settings["demoUrl"] == true) {
+            url = activGame?.info?.demoUrl;
+        } else if ('githubRepo' in settings && settings['githubRepo'] == true) {
+            url = activGame?.info?.githubRepo;
+        }
+        var blank: boolean = false;
+        if ('blank' in settings && settings['blank'] == true) {
+            blank = true;
+        }
+        console.log(url)
+        if (activGame && url !== '' && url !== undefined) {
+            CommonModel.navigateToLink(this.router, url, blank);
         }
     }
 
