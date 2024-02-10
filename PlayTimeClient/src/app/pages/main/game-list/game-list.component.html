@@ -15,17 +15,24 @@
                             style="color: #959595">{{getDataFromGame(getGameData(selectedGameId),
                             'settings')['version']}} <span style="margin: 0 1rem 0 1rem">|</span>
                             {{getDataFromGame(getGameData(selectedGameId), 'settings')['publisher']}}</span>
-                        <span *ngIf="infotabInsteadOfSettings && getDataFromGame(getGameData(selectedGameId),
-                            'info')['developers']" style="color: #959595">
-                            <span *ngFor="let developer of getDataFromGame(getGameData(selectedGameId),
-                            'info')['developers']"> | {{developer}}</span><span> |</span>
+                        <span *ngIf="infotabInsteadOfSettings && getGameInformation(selectedGameId)['developers']"
+                            style="color: #959595">
+                            <span *ngFor="let developer of getGameInformation(selectedGameId)['developers']"> |
+                                {{developer}}</span><span> |</span>
                         </span>
                     </div>
                 </div>
                 <hr>
             </header>
-            <div style="flex: 1;" *ngIf="infotabInsteadOfSettings">
-
+            <div style="flex: 1; display: flex; flex-direction: row;" *ngIf="infotabInsteadOfSettings">
+                <div class="tabSelectMenu" style="flex: 1;">
+                    <div class="tabSelectItem" [ngClass]="isTabSelected('info')" (click)="selectedTab = 'info'">
+                        Information
+                    </div>
+                </div>
+                <div class="tabItems" style="flex: 2;">
+                    <p *ngFor="let e of getSettingsByTab(selectedTab)">{{e}}</p>
+                </div>
             </div>
             <div style="flex: 1; display: flex; flex-direction: row;" *ngIf="!infotabInsteadOfSettings">
                 <div class="tabSelectMenu" style="flex: 1;">

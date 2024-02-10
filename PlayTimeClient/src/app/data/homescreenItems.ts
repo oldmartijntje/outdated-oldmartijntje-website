@@ -102,7 +102,8 @@ export const projects: Game[] = [
             text: 'A recreation of the Nintendo Switch Homepage UI. Made with Angular.',
             demoUrl: 'Homepage',
             keywords: ['Angular', 'HTML/CSS', 'TypeScript'],
-            developers: ['OldMartijntje']
+            developers: ['OldMartijntje'],
+            images: ['https://i.imgur.com/Wa9FHbw.png', 'https://i.imgur.com/inIHXQB.png', 'https://i.imgur.com/Ae3uVfP.png', 'https://i.imgur.com/RNW13iU.png']
         },
     }
 ];

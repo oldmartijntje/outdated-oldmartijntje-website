@@ -29,7 +29,7 @@ export class GameListComponent implements OnInit {
 
     games: Game[] = games;
 
-    selectedGameId: string = '';
+    selectedGameId: string = 'nintendoSwitchHomescreen';
     selectedTab: string = 'General';
 
     currentTime: string = '';
@@ -44,6 +44,7 @@ export class GameListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.openInfo();
         var selectedGameId: any = null;
         if (!this.importedComponent) {
             selectedGameId = localStorage.getItem('selectedGameId');
@@ -82,9 +83,20 @@ export class GameListComponent implements OnInit {
         }, 30000);
     }
 
-    getGameInformation(gameId: string): GameInfo | undefined {
+    getGameInformation(gameId: string): GameInfo {
         const game = this.getGameData(gameId);
-        return game?.info;
+        if (game && game.info) {
+            return game.info;
+        } else {
+            return {
+                text: '',
+                demoUrl: '',
+                keywords: [],
+                developers: [],
+                githubRepo: '',
+                images: []
+            };
+        }
     }
 
     getGameSettings(gameId: string): GameSettings | undefined {
@@ -164,13 +176,9 @@ export class GameListComponent implements OnInit {
     }
 
     openInfo(): void {
-        this.selectedTab = 'General'
+        this.selectedTab = 'info'
         this.settingsMenu = true;
         this.infotabInsteadOfSettings = true;
-        console.log(this.getDataFromGame(this.getGameData(this.selectedGameId),
-            'info'));
-        console.log(this.getSpecificInformation(this.selectedGameId, 'text'));
-
     }
 
     isTabSelected(tab: string): string {
