@@ -19,7 +19,6 @@ import { MatOptionModule } from '@angular/material/core';
 import { AsyncPipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
-import { NgMagnizoomModule } from 'ng-magnizoom';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -78,7 +77,6 @@ import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-t
     ],
     imports: [
         AsyncPipe,
-        NgMagnizoomModule,
         MatOptionModule,
         ReactiveFormsModule,
         MatAutocompleteModule,
