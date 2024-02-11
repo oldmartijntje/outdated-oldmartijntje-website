@@ -85,9 +85,9 @@ export class GameListComponent implements OnInit {
             this.updateTime();
         }, 30000);
 
-        // this.openInfo();
-        // this.selectedTab = 'gallery';
-        // this.showImage(0);
+        this.openInfo();
+        this.selectedTab = 'gallery';
+        this.showImage(1);
     }
 
     getImageIndex(image: string): number {

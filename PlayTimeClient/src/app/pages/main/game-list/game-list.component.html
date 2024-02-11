@@ -67,7 +67,9 @@
                                 (click)="showNeighbourImage(1)"><mat-icon>arrow_circle_right</mat-icon></button>
                         </div>
                         <div class="imageContainer">
-                            <img src="{{getGameImage()}}" alt="">
+                            <app-magnifier [image]="getGameImage()"
+                                [imageStyling]="{'max-width':'700px', 'max-height': '400px'}">
+                            </app-magnifier>
                         </div>
                     </div>
                     <div *ngIf="!selectedAnTabItem">

@@ -1,0 +1,10 @@
+<div #container class="container" (mousemove)="showMagnifier($event)" [ngStyle]="imageStyling">
+    <div class="magnifier" [style.left.px]="magnifierX" [style.top.px]="magnifierY" *ngIf="isHovered"
+        [ngStyle]="imageStyling">
+        <div class="zoomed-image" [ngStyle]="imageStyling" [style.left.px]="magnifierImageX"
+            [style.top.px]="magnifierImageY" [style.transform]="'scale(' + scale + ')'">
+            <img [src]="image" [ngStyle]="imageStyling">
+        </div>
+    </div>
+    <img [src]="image" (mouseenter)="toggleHover(true)" (mouseleave)="toggleHover(false)" [ngStyle]="imageStyling">
+</div>

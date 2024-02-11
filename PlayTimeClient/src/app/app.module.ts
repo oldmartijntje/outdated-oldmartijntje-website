@@ -46,6 +46,7 @@ import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
+import { MagnifierComponent } from './components/global/magnifier/magnifier.component';
 
 @NgModule({
     declarations: [
@@ -73,7 +74,8 @@ import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-t
         HoverGlitchTextComponent,
         GameListComponent,
         HomepageDeciderComponent,
-        StepTrackerPageComponent
+        StepTrackerPageComponent,
+        MagnifierComponent
     ],
     imports: [
         AsyncPipe,
