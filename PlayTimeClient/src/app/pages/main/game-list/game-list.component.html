@@ -57,18 +57,20 @@
                 </div>
                 <div class="tabItems" style="flex: 2;" *ngIf="isTabSelected('gallery')">
                     <div *ngIf="selectedAnTabItem" style="display: flex; flex-direction: column;">
-                        <div class="imageContainer">
-                            <img src="{{getGameImage()}}">
-                        </div>
                         <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 1rem;">
+                            style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 1rem;">
                             <button class="button-information centerIcon"
                                 (click)="showNeighbourImage(-1)"><mat-icon>arrow_circle_left</mat-icon></button>
                             <button class="button-information centerIcon"
                                 (click)="selectedAnTabItem = false"><mat-icon>fullscreen_exit</mat-icon></button>
                             <button class="button-information centerIcon"
                                 (click)="showNeighbourImage(1)"><mat-icon>arrow_circle_right</mat-icon></button>
-
+                        </div>
+                        <div class="imageContainer">
+                            <lib-ngx-image-zoom [thumbImage]="getGameImage()" [fullImage]="getGameImage()"
+                                [zoomMode]="'hover-freeze'" [enableLens]="true" [magnification]="2" [lensWidth]="150"
+                                [circularLens]="true" [lensHeight]="150" [enableScrollZoom]="true">
+                            </lib-ngx-image-zoom>
                         </div>
                     </div>
                     <div *ngIf="!selectedAnTabItem">

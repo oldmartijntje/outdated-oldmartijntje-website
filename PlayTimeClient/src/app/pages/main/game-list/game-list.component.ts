@@ -29,11 +29,11 @@ export class GameListComponent implements OnInit {
 
     games: Game[] = games;
 
-    selectedGameId: string = '';
-    selectedTab: string = 'General';
+    selectedGameId: string = ''; // sisu
+    selectedTab: string = ''; // info, gallery, General
     // used for gallery
-    selectedTabItem: number = 0;
-    selectedAnTabItem: boolean = false;
+    selectedTabItem: number = 0; // for example: the image index in the gallery
+    selectedAnTabItem: boolean = false; // did you select an image?
 
     currentTime: string = '';
     amOrPm: string = '';
@@ -84,6 +84,10 @@ export class GameListComponent implements OnInit {
         setInterval(() => {
             this.updateTime();
         }, 30000);
+
+        // this.openInfo();
+        // this.selectedTab = 'gallery';
+        // this.showImage(0);
     }
 
     getImageIndex(image: string): number {
