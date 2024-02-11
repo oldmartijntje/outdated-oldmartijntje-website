@@ -67,10 +67,7 @@
                                 (click)="showNeighbourImage(1)"><mat-icon>arrow_circle_right</mat-icon></button>
                         </div>
                         <div class="imageContainer">
-                            <lib-ngx-image-zoom [thumbImage]="getGameImage()" [fullImage]="getGameImage()"
-                                [zoomMode]="'hover-freeze'" [enableLens]="true" [magnification]="2" [lensWidth]="150"
-                                [circularLens]="true" [lensHeight]="150" [enableScrollZoom]="true">
-                            </lib-ngx-image-zoom>
+                            <img src="{{getGameImage()}}" alt="">
                         </div>
                     </div>
                     <div *ngIf="!selectedAnTabItem">

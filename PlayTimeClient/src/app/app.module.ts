@@ -46,7 +46,6 @@ import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
-import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
     declarations: [
@@ -78,7 +77,6 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     ],
     imports: [
         AsyncPipe,
-        NgxImageZoomModule,
         MatOptionModule,
         ReactiveFormsModule,
         MatAutocompleteModule,
