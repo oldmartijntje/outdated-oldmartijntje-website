@@ -4,9 +4,13 @@ export class CommonModel {
 
     constructor() { }
 
-    static navigateToLink(router: Router, linkAddress: string = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"): void {
+    static navigateToLink(router: Router, linkAddress: string = "https://www.youtube.com/watch?v=dQw4w9WgXcQ", _blank: boolean = false): void {
         if (linkAddress.startsWith("http")) {
-            window.location.href = linkAddress;
+            if (_blank) {
+                window.open(linkAddress, '_blank');
+            } else {
+                window.location.href = linkAddress;
+            }
         } else {
             router.navigate([linkAddress]);
         }

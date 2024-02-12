@@ -8,7 +8,7 @@ import { Game, GameInfo, GameSettings } from 'src/app/models/homescreenItems.int
 @Component({
     selector: 'app-game-list',
     templateUrl: './game-list.component.html',
-    styleUrls: ['./game-list.component.scss']
+    styleUrls: ['./game-list.component.scss'],
 })
 export class GameListComponent implements OnInit {
     @ViewChild('gameList', { static: false }) scrollContainer!: ElementRef;
@@ -29,8 +29,11 @@ export class GameListComponent implements OnInit {
 
     games: Game[] = games;
 
-    selectedGameId: string = '';
-    selectedTab: string = 'General';
+    selectedGameId: string = ''; // sisu
+    selectedTab: string = ''; // info, gallery, General
+    // used for gallery
+    selectedTabItem: number = 0; // for example: the image index in the gallery
+    selectedAnTabItem: boolean = false; // did you select an image?
 
     currentTime: string = '';
     amOrPm: string = '';
@@ -38,6 +41,7 @@ export class GameListComponent implements OnInit {
     wonderEffect: string = 'wonder-effect-false';
 
     settingsMenu: boolean = false;
+
 
     constructor(
         private router: Router
@@ -80,11 +84,72 @@ export class GameListComponent implements OnInit {
         setInterval(() => {
             this.updateTime();
         }, 30000);
+
+        // this.openInfo();
+        // this.selectedTab = 'gallery';
+        // this.showImage(1);
     }
 
-    getGameInformation(gameId: string): GameInfo | undefined {
+    getImageIndex(image: string): number {
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            return images.indexOf(image);
+        }
+        return 0;
+    }
+
+    showImage(index: number) {
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            this.selectedAnTabItem = true;
+            this.selectedTabItem = index;
+            return images[index];
+        }
+        this.selectedTabItem = 0;
+        return undefined
+    }
+
+    getGameImage(): string {
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            if (this.selectedTabItem < 0) {
+                this.selectedTabItem = images.length - 1;
+            }
+            if (this.selectedTabItem >= images.length) {
+                this.selectedTabItem = 0;
+            }
+            return images[this.selectedTabItem];
+        }
+        return '';
+    }
+
+    showNeighbourImage(index: number) {
+        var current = this.selectedTabItem + index;
+        var images = this.getGameInformation(this.selectedGameId)['images']
+        if (images && images.length > 0) {
+            if (current < 0) {
+                current = images.length - 1;
+            }
+            if (current >= images.length) {
+                current = 0;
+            }
+            this.selectedAnTabItem = true;
+            this.selectedTabItem = current;
+            return images[current];
+        }
+        this.selectedTabItem = 0;
+        return undefined
+    }
+
+    getGameInformation(gameId: string): GameInfo {
         const game = this.getGameData(gameId);
-        return game?.info;
+        if (game && game.info) {
+            return game.info;
+        } else {
+            return {
+                text: ''
+            };
+        }
     }
 
     getGameSettings(gameId: string): GameSettings | undefined {
@@ -126,19 +191,22 @@ export class GameListComponent implements OnInit {
             // Check if the pressed key is 'a' (you can use 'A' for capital 'A' key)
             if (event.key === 'a') {
                 // Call the goToGame() function when 'a' key is pressed
-                this.goToGame();
+                this.goToGame({ 'blank': true });
             } else if (event.key === 'x') {
                 this.selectGame('');
             } else if (event.key === '+' && this.gameHasSettings(this.selectedGameId)) {
                 this.openSettings();
-            } else if (event.key === 'i' && this.gameHasInfo(this.selectedGameId) && this.importedComponent) {
+            } else if (event.key === 'i' && this.gameHasInfo(this.selectedGameId)) {
                 this.openInfo();
             }
         } else if (this.selectedGameId !== '' && this.settingsMenu) {
-            if (event.key === 'Escape' || event.key === 'b') {
+            if (event.key == 'a' && this.infotabInsteadOfSettings && this.getGameInformation(this.selectedGameId)['demoUrl']) {
+                this.goToGame({ "demoUrl": true, 'blank': true });
+            } else if (event.key === 'Escape' || event.key === 'b') {
                 this.settingsMenu = false;
             }
         }
+
     }
 
     doesGameExist(gameId: string): boolean {
@@ -157,6 +225,7 @@ export class GameListComponent implements OnInit {
     }
 
     openSettings(): void {
+        this.selectedAnTabItem = false;
         this.selectedTab = 'General'
         this.settingsMenu = true;
         this.infotabInsteadOfSettings = false;
@@ -164,13 +233,10 @@ export class GameListComponent implements OnInit {
     }
 
     openInfo(): void {
-        this.selectedTab = 'General'
+        this.selectedAnTabItem = false;
+        this.selectedTab = 'info'
         this.settingsMenu = true;
         this.infotabInsteadOfSettings = true;
-        console.log(this.getDataFromGame(this.getGameData(this.selectedGameId),
-            'info'));
-        console.log(this.getSpecificInformation(this.selectedGameId, 'text'));
-
     }
 
     isTabSelected(tab: string): string {
@@ -238,7 +304,7 @@ export class GameListComponent implements OnInit {
     hasHREF(gameId: string): boolean {
         const game = this.games.find(game => game.id === gameId);
         if (game) {
-            return game.nav !== '';
+            return game.nav !== '' && game.nav !== undefined;
         }
         return false;
     }
@@ -247,13 +313,24 @@ export class GameListComponent implements OnInit {
         CommonModel.navigateToLink(this.router, link);
     }
 
-    goToGame(): void {
+    goToGame(settings = {}): void {
         if (this.selectedGameId == this.moreGamesButtonId) {
             CommonModel.navigateToLink(this.router, '/Projects');
         }
         var activGame: Game | undefined = this.games.find(game => game.id === this.selectedGameId);
-        if (activGame) {
-            CommonModel.navigateToLink(this.router, activGame.nav);
+        var url = activGame?.nav;
+        if ("demoUrl" in settings && settings["demoUrl"] == true) {
+            url = activGame?.info?.demoUrl;
+        } else if ('githubRepo' in settings && settings['githubRepo'] == true) {
+            url = activGame?.info?.githubRepo;
+        }
+        var blank: boolean = false;
+        if ('blank' in settings && settings['blank'] == true) {
+            blank = true;
+        }
+        console.log(url)
+        if (activGame && url !== '' && url !== undefined) {
+            CommonModel.navigateToLink(this.router, url, blank);
         }
     }
 

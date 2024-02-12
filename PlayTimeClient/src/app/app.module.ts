@@ -3,17 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
 import { AngularSplitModule } from 'angular-split';
-import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MONACO_PATH, MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
-import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
-import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
-import { ErrorPageComponent } from './pages/main/error-pages/error-page/error-page.component';
-import { HomePageComponent } from './pages/main/home-page/home-page.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,11 +14,23 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ApplicationPageComponent } from './pages/main/application-page/application-page.component';
 import { CdkDrag } from '@angular/cdk/drag-drop';
+import { MatOptionModule } from '@angular/material/core';
+import { AsyncPipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
+import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
+import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
+import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
+import { ErrorPageComponent } from './pages/main/error-pages/error-page/error-page.component';
+import { HomePageComponent } from './pages/main/home-page/home-page.component';
+import { ApplicationPageComponent } from './pages/main/application-page/application-page.component';
 import { MobileApplicationPageComponent } from './pages/main/mobile-application-page/mobile-application-page.component';
 import { TaskManagerComponent } from './components/applications/task-manager/task-manager.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CoinClickerGameComponent } from './components/other/coin-clicker-game/coin-clicker-game.component';
 import { AdflyPageComponent } from './pages/other/adfly-page/adfly-page.component';
 import { MessagePageComponent } from './pages/other/message-page/message-page.component';
@@ -36,15 +40,13 @@ import { ContentPlayerPageComponent } from './pages/other/content-player-page/co
 import { VisualNovelComponent } from './components/other/visual-novel/visual-novel.component';
 import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.component';
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
-import { MatOptionModule } from '@angular/material/core';
-import { AsyncPipe } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
 import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
 import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
 import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/hover-glitch-text.component';
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
+import { MagnifierComponent } from './components/global/magnifier/magnifier.component';
 
 @NgModule({
     declarations: [
@@ -72,7 +74,8 @@ import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-t
         HoverGlitchTextComponent,
         GameListComponent,
         HomepageDeciderComponent,
-        StepTrackerPageComponent
+        StepTrackerPageComponent,
+        MagnifierComponent
     ],
     imports: [
         AsyncPipe,

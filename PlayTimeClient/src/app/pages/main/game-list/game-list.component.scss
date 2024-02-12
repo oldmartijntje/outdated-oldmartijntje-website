@@ -197,6 +197,7 @@ body {
     border: 2px solid rgba(0, 0, 0, 0.041);
 }
 
+.imageContainer:hover,
 .game>a:focus>img,
 .game>a:hover>img,
 .game.selected>a>img,
@@ -311,6 +312,7 @@ body {
     margin-right: 10px;
 }
 
+.tabSelectItem:hover,
 .button-information:hover {
     cursor: pointer;
 }
@@ -395,9 +397,8 @@ body {
 
 .settings {
     background: var(--settings-menu);
-    width: calc(100% - 316px);
-    height: 100%;
-    margin: 0 158px 0 158px;
+    width: calc(100% - 22vw);
+    margin: 0 11vw 0 11vw;
 }
 
 .small-logo {
@@ -465,4 +466,70 @@ body {
 .tabSelectMenu {
     padding: 1rem;
     background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), #515151, #515151, #515151, #515151, #515151, rgba(255, 0, 0, 0));
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    margin-right: 50px;
+    /* remove scrollbar space */
+    background: transparent;
+    /* optional: just make scrollbar invisible */
+    border-radius: 15pt;
+}
+
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #686868;
+    border-radius: 15pt;
+}
+
+.tabItems {
+    padding: 1rem 1rem 0 2rem;
+    margin: 0 0.5rem 1rem 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.galleryItem {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.galleryItem:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
+.centerIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #404548;
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+}
+
+.imageContainer * {
+    display: block;
+    max-width: 700px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    user-select: none;
+}
+
+.galleryItem {
+    transition: transform 0.3s ease;
 }

@@ -2,8 +2,7 @@ export interface Game {
     [key: string]: any;
     id: string;
     name: string;
-    imageUrl: string;
-    nav: string;
+    nav?: string;
     settings?: GameSettings;
     info?: GameInfo;
 }

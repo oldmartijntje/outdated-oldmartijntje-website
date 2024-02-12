@@ -4,7 +4,7 @@
 
 <div class="basic-black" [ngClass]="wonderEffect">
     <div class="settingsMenu" *ngIf="settingsMenu">
-        <div class="settings" style="display: flex; flex-direction: column;">
+        <div class="settings" style="display: flex; flex-direction: column; height: 100svh; overflow: hidden;">
             <header style="padding: 0px 30px 0px 30px;">
                 <div style="display: flex; flex-direction: row;">
                     <img src="{{getDataFromGame(getGameData(selectedGameId), 'imageUrl')}}" alt="" class="small-logo">
@@ -15,17 +15,73 @@
                             style="color: #959595">{{getDataFromGame(getGameData(selectedGameId),
                             'settings')['version']}} <span style="margin: 0 1rem 0 1rem">|</span>
                             {{getDataFromGame(getGameData(selectedGameId), 'settings')['publisher']}}</span>
-                        <span *ngIf="infotabInsteadOfSettings && getDataFromGame(getGameData(selectedGameId),
-                            'info')['developers']" style="color: #959595">
-                            <span *ngFor="let developer of getDataFromGame(getGameData(selectedGameId),
-                            'info')['developers']"> | {{developer}}</span><span> |</span>
+                        <span *ngIf="infotabInsteadOfSettings && getGameInformation(selectedGameId)['developers']"
+                            style="color: #959595">
+                            <span>Made by </span><span
+                                *ngFor="let developer of getGameInformation(selectedGameId)['developers']"> |
+                                {{developer}}</span><span> |</span>
                         </span>
                     </div>
                 </div>
                 <hr>
             </header>
-            <div style="flex: 1;" *ngIf="infotabInsteadOfSettings">
-
+            <div style="flex: 1; display: flex; flex-direction: row; overflow: hidden;"
+                *ngIf="infotabInsteadOfSettings">
+                <div class="tabSelectMenu" style="flex: 1; overflow-y: scroll; overflow-x: hidden; height: 100%;">
+                    <div class="tabSelectItem" [ngClass]="isTabSelected('info')" (click)="selectedTab = 'info'">
+                        Information
+                    </div>
+                    <div class="tabSelectItem" [ngClass]="isTabSelected('gallery')" (click)="selectedTab = 'gallery'"
+                        *ngIf="getGameInformation(selectedGameId)['images']">
+                        Gallery
+                    </div>
+                </div>
+                <div class="tabItems" style="flex: 2;" *ngIf="isTabSelected('info')">
+                    <div *ngIf="infotabInsteadOfSettings && getGameInformation(selectedGameId)['keywords']"
+                        style="color: #959595; display: flex; flex-direction: row;">
+                        <mat-icon>label</mat-icon>
+                        <div
+                            style="color: #959595; display: flex; flex-direction: row; flex-wrap: wrap; font-size: 1.2rem; column-gap: 0.4rem;">
+                            <span *ngFor="let developer of getGameInformation(selectedGameId)['keywords']"><span
+                                    style="margin-right: 0.4rem;">|</span>{{developer}}</span><span>|</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 20px; white-space: pre-line;">{{getGameInformation(selectedGameId)['text']}}
+                    </p>
+                    <div class="tabSelectItem" *ngIf="getGameInformation(selectedGameId)['githubRepo']"
+                        (click)="goToGame({'githubRepo': true, 'blank': true})"
+                        style="font-size: 20px; margin: 1rem; display: flex; flex-direction: row; column-gap: 1rem;">
+                        <img src="https://i.imgur.com/8wLb6AY.png" alt="" style="height: 1.5rem">
+                        <p style="margin: 0"> Github Repo</p>
+                    </div>
+                </div>
+                <div class="tabItems" style="flex: 2;" *ngIf="isTabSelected('gallery')">
+                    <div *ngIf="selectedAnTabItem" style="display: flex; flex-direction: column;">
+                        <div
+                            style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 1rem;">
+                            <button class="button-information centerIcon"
+                                (click)="showNeighbourImage(-1)"><mat-icon>arrow_circle_left</mat-icon></button>
+                            <button class="button-information centerIcon"
+                                (click)="selectedAnTabItem = false"><mat-icon>fullscreen_exit</mat-icon></button>
+                            <button class="button-information centerIcon"
+                                (click)="showNeighbourImage(1)"><mat-icon>arrow_circle_right</mat-icon></button>
+                        </div>
+                        <div class="imageContainer">
+                            <app-magnifier [image]="getGameImage()"
+                                [imageStyling]="{'max-width':'700px', 'max-height': '400px'}">
+                            </app-magnifier>
+                        </div>
+                    </div>
+                    <div *ngIf="!selectedAnTabItem">
+                        <div class="gallery"
+                            style="display: flex; flex-direction: row; flex-wrap: wrap; margin-top: 1rem;">
+                            <div *ngFor="let image of getGameInformation(selectedGameId)['images']"
+                                (click)="showImage(getImageIndex(image))" class="galleryItem fake-game"
+                                style="background-image: url({{image}});">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div style="flex: 1; display: flex; flex-direction: row;" *ngIf="!infotabInsteadOfSettings">
                 <div class="tabSelectMenu" style="flex: 1;">
@@ -46,8 +102,13 @@
                     </div>
                     <div class="information">
                         <div>
-                            <button class="button-information" (click)="closeSettingsOrInfo()">B</button> <span
-                                *ngIf="doesGameExist(selectedGameId)">Back</span>
+                            <button class="button-information" (click)="goToGame({'demoUrl': true, 'blank': true})"
+                                *ngIf="infotabInsteadOfSettings && getGameInformation(selectedGameId)['demoUrl']">A</button>
+                            <span
+                                *ngIf="infotabInsteadOfSettings && getGameInformation(selectedGameId)['demoUrl']">Launch
+                                Demo</span>
+                            <button class="button-information" (click)="closeSettingsOrInfo()">B</button>
+                            <span>Back</span>
                         </div>
                     </div>
                 </div>
@@ -113,7 +174,7 @@
                     <p class="game-title">
                         {{game.name}}
                     </p>
-                    <img src="{{game.imageUrl}}" width="100%">
+                    <img src="{{game['imageUrl']}}" width="100%">
                 </a>
             </div>
             <div class="game fake-game fake-game-border" *ngFor="let game of emptyGameSlots"
@@ -180,12 +241,12 @@
                         <button *ngIf="gameHasSettings(selectedGameId)" class="button-information"
                             (click)="openSettings()">+</button>
                         <span *ngIf="gameHasSettings(selectedGameId)">Options</span>
-                        <button *ngIf="gameHasInfo(selectedGameId) && importedComponent" class="button-information"
+                        <button *ngIf="gameHasInfo(selectedGameId)" class="button-information"
                             (click)="openInfo()">I</button>
-                        <span *ngIf="gameHasInfo(selectedGameId) && importedComponent">Info</span>
+                        <span *ngIf="gameHasInfo(selectedGameId)">Info</span>
                         <button class="button-information" (click)="selectGame('')">X</button><span>Deselect</span>
                         <button *ngIf="doesGameExist(selectedGameId) && hasHREF(selectedGameId)"
-                            class="button-information" (click)="goToGame()">A</button> <span
+                            class="button-information" (click)="goToGame({'blank': true})">A</button> <span
                             *ngIf="doesGameExist(selectedGameId) && hasHREF(selectedGameId)">Start</span>
                     </div>
                 </div>
