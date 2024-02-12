@@ -17,9 +17,9 @@ export class HomepageDeciderComponent implements OnInit {
     ngOnInit(): void {
         this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {
             if (value['MobileUser']) {
-                this.router.navigate(['/Home']);
+                this.router.navigate(['/Home'], { skipLocationChange: true });
             } else {
-                this.router.navigate(['/Homepage']);
+                this.router.navigate(['/Homepage'], { skipLocationChange: true });
             }
         });
     }
