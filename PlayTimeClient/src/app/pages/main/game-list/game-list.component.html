@@ -245,9 +245,10 @@
                             (click)="openInfo()">I</button>
                         <span *ngIf="gameHasInfo(selectedGameId)">Info</span>
                         <button class="button-information" (click)="selectGame('')">X</button><span>Deselect</span>
-                        <button *ngIf="doesGameExist(selectedGameId) && hasHREF(selectedGameId)"
+                        <button
+                            *ngIf="(doesGameExist(selectedGameId) && hasHREF(selectedGameId)) || selectedGameId == 'MoreAppsFolder'"
                             class="button-information" (click)="goToGame({'blank': true})">A</button> <span
-                            *ngIf="doesGameExist(selectedGameId) && hasHREF(selectedGameId)">Start</span>
+                            *ngIf="(doesGameExist(selectedGameId) && hasHREF(selectedGameId)) || selectedGameId == 'MoreAppsFolder'">Start</span>
                     </div>
                 </div>
             </div>
