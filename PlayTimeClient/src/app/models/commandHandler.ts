@@ -25,16 +25,18 @@ export class CommandHandler {
     private history: terminalLine[] = [];
     private memory: { [key: string]: any } = {};
 
-    constructor() { }
+    constructor() {
+        this.writeMemory("color", '#ffffff');
+    }
 
     private runFunction(command: command): void {
         var pureCommand = this.alignArguments(command);
         const commandFunction = commandFunctions[command.identifier].functionToExecute;
         if (commandFunction) {
-            commandFunction(command, this);
+            commandFunction(pureCommand, this);
         } else {
-            console.error(`Unknown command: ${command}`);
-            this.history.push({ text: "'" + command.identifier + "' is not recognized as a command.", type: "output" });
+            console.error(`Unknown command: ${pureCommand}`);
+            this.history.push({ text: "'" + pureCommand.identifier + "' is not recognized as a command.", type: "output" });
         }
     }
 
@@ -57,6 +59,8 @@ export class CommandHandler {
                 var key = command.argumentOrder[0];
                 newArguments[arg.name] = command.arguments[key];
                 command.argumentOrder.shift();
+            } else {
+                newArguments[arg.name] = arg.defaultValue;
             }
         }
         console.log(newArguments, command);
@@ -77,6 +81,10 @@ export class CommandHandler {
 
     setHistory(history: terminalLine[]) {
         this.history = history;
+    }
+
+    appendHistory(history: terminalLine) {
+        this.history.push(history);
     }
 
     getHistory() {

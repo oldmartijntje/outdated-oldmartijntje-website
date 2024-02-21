@@ -2,15 +2,17 @@
     <header>
         <p>Terminal</p>
     </header>
-    <div (mousedown)="onMouseDown($event)" (click)="onClick($event)" #terminalContainerDiv id="terminalContainerDiv">
-        <div id="terminalBox">
+    <div (mousedown)="onMouseDown($event)" (click)="onClick($event)" (dblclick)="onDoubleClick($event)"
+        #terminalContainerDiv id="terminalContainerDiv">
+        <div id="terminalBox" [ngStyle]="{'color': textColor}">
             <div *ngFor="let line of history" class="line">
                 <p *ngIf="line.type == 'input'"># {{line.text}}</p>
                 <p *ngIf="line.type == 'output'">{{line.text}}</p>
             </div>
             <div class="line">
                 <label># </label>
-                <input type="text" #terminalInput (keydown.enter)="onEnterPress()" [(ngModel)]="terminalInputValue">
+                <input type="text" #terminalInput (keydown.enter)="onEnterPress()" [(ngModel)]="terminalInputValue"
+                    [ngStyle]="{'color': textColor}">
             </div>
         </div>
 
