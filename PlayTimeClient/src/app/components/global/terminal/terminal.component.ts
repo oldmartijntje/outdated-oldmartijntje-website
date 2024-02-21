@@ -22,7 +22,7 @@ export class TerminalComponent implements OnInit {
 
     ngOnInit(): void {
         this.commandHandler.setHistory(this.history);
-        this.commandHandler.runCommand("zdd 1=2 ff \"fsfgs fgsfg\" e=s a=\"fds dsf\"");
+        // this.commandHandler.runCommand("zdd 1=2 ff \"fsfgs fgsfg\" e=s a=\"fds dsf\"");
         this.history = this.commandHandler.getHistory();
     }
 

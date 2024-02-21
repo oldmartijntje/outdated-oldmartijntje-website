@@ -93,6 +93,7 @@ export class CommandHandler {
     }
 
     private findCommand(command: string): boolean {
+        command = command.split(' ')[0];
         return this.commands.hasOwnProperty(command) ? this.commands[command] : false;
     }
 
