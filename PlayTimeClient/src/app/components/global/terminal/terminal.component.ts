@@ -22,7 +22,8 @@ export class TerminalComponent implements OnInit {
 
     ngOnInit(): void {
         this.commandHandler.setHistory(this.history);
-        // this.commandHandler.runCommand("zdd 1=2 ff \"fsfgs fgsfg\" e=s a=\"fds dsf\"");
+        this.commandHandler.runCommand("command2 1=2 ff \"fsfgs fgsfg\" e=s a=\"fds dsf\"");
+        // this.commandHandler.runCommand("echo; jij bent mijn henk; dit \"is koel ; kaas");
         this.history = this.commandHandler.getHistory();
     }
 

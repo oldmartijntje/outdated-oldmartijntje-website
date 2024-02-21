@@ -12,7 +12,7 @@ p {
 }
 
 * {
-    white-space: pre-line;
+    white-space: pre;
 }
 
 #terminalContainer {
@@ -52,7 +52,7 @@ input[type="text"] {
     color: white;
     border: none;
     width: 90% !important;
-    padding: 0.5rem 0.5rem 0.5rem 0;
+    padding: 0;
     font-size: 1rem;
     outline: none;
 }

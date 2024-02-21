@@ -8,7 +8,7 @@
                 <p *ngIf="line.type == 'input'"># {{line.text}}</p>
                 <p *ngIf="line.type == 'output'">{{line.text}}</p>
             </div>
-            <div>
+            <div class="line">
                 <label># </label>
                 <input type="text" #terminalInput (keydown.enter)="onEnterPress()" [(ngModel)]="terminalInputValue">
             </div>
