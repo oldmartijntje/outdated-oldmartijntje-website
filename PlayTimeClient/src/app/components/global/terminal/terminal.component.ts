@@ -12,6 +12,7 @@ export class TerminalComponent implements OnInit {
         y: 0
     };
 
+    terminalInputValue = "";
     commandHandler = new CommandHandler();
 
     history: terminalLine[] = [
@@ -21,6 +22,8 @@ export class TerminalComponent implements OnInit {
 
     ngOnInit(): void {
         this.commandHandler.setHistory(this.history);
+        this.commandHandler.runCommand("zdd 1=2 ff \"fsfgs fgsfg\" e=s a=\"fds dsf\"");
+        this.history = this.commandHandler.getHistory();
     }
 
     @ViewChild("terminalInput") terminalInputField: ElementRef | undefined = undefined;
@@ -35,9 +38,9 @@ export class TerminalComponent implements OnInit {
 
     onEnterPress() {
         if (this.terminalInputField && this.container) {
-            const value = this.terminalInputField.nativeElement.value;
-            this.history.push({ text: value, type: "input" });
-            this.terminalInputField.nativeElement.value = "";
+            this.commandHandler.runCommand(this.terminalInputValue);
+            this.history = this.commandHandler.getHistory();
+            this.terminalInputValue = "";
 
             // wait for the DOM to update
             setTimeout(() => {
