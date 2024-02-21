@@ -47,6 +47,7 @@ import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 import { MagnifierComponent } from './components/global/magnifier/magnifier.component';
+import { TerminalComponent } from './components/global/terminal/terminal.component';
 
 @NgModule({
     declarations: [
@@ -75,7 +76,8 @@ import { MagnifierComponent } from './components/global/magnifier/magnifier.comp
         GameListComponent,
         HomepageDeciderComponent,
         StepTrackerPageComponent,
-        MagnifierComponent
+        MagnifierComponent,
+        TerminalComponent
     ],
     imports: [
         AsyncPipe,

@@ -1,0 +1,72 @@
+@import '../../../../styles.scss';
+
+#terminalContainerDiv {
+    width: calc(100% - 10px);
+    background-color: black;
+    padding-left: 0.5rem;
+    flex-grow: 1;
+}
+
+p {
+    margin: 0
+}
+
+#terminalContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header p {
+    color: white;
+    font-size: 1rem;
+    margin: 0 0 0 1rem;
+    padding: 0.5rem;
+    background-color: black;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: block;
+    width: fit-content;
+}
+
+header {
+    padding-top: 0.5rem;
+    background-color: #333333;
+    width: 100%;
+}
+
+#terminalBox * {
+    width: 90%;
+}
+
+#terminalContainerDiv {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+input[type="text"] {
+    background-color: black;
+    color: white;
+    border: none;
+    width: 90% !important;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+    font-size: 1rem;
+    outline: none;
+}
+
+.line {
+    margin-top: 0.5rem;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    /* remove scrollbar space */
+    background: $backgroundShade1;
+    /* optional: just make scrollbar invisible */
+    border-radius: 15pt;
+}
+
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: $primary-color;
+    border-radius: 150pt;
+}

@@ -15,6 +15,7 @@ import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-pa
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
+import { TerminalComponent } from './components/global/terminal/terminal.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -31,6 +32,7 @@ const routes: Routes = [
     { path: 'FunkyCSS', component: FunkyCssPageComponent },
     { path: 'Homepage', component: GameListComponent },
     { path: 'StepTracker', component: StepTrackerPageComponent },
+    { path: 'index', component: TerminalComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 

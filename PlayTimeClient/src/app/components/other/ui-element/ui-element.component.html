@@ -18,6 +18,7 @@
                     <a [routerLink]="['/Player']">Text-adventures</a>
                     <a [routerLink]="['/Projects']">Projects</a>
                     <a [routerLink]="['/ItemDisplay']">Random WebThings</a>
+                    <a [routerLink]="['/index']">Terminal</a>
                     <a [routerLink]="['/StepTracker']">Step Tracker</a>
                     <a [routerLink]="['/AdBee']"
                         [queryParams]="{nav: '104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81'}">AdBee</a>
@@ -42,6 +43,9 @@
                 </div>
             </div>
             <div class="sidePanel" *ngIf="isWideScreen" style="overflow: hidden;">
+                <div style="max-width: 100%; max-height: 250px; overflow: hidden; height: 100%;">
+                    <app-terminal></app-terminal>
+                </div>
                 <iframe
                     style="border:none; margin-top: 0.5rem; max-width: 180px; max-height: 180px; width: 100%; aspect-ratio: 1 / 1;"
                     src="https://dimden.neocities.org/navlink/" name="neolink"></iframe>
@@ -51,6 +55,7 @@
                     <p (click)="goToWebPage('https://hotlinewebring.club')" style="cursor: pointer;">Hotline Webring</p>
                     <p (click)="goToWebPage('https://hotlinewebring.club/oldma/next')" style="cursor: pointer;">→</p>
                 </div>
+
             </div>
         </div>
         <footer *ngIf="isWideScreen">
