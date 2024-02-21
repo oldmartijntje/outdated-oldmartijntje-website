@@ -33,6 +33,7 @@ const routes: Routes = [
     { path: 'Homepage', component: GameListComponent },
     { path: 'StepTracker', component: StepTrackerPageComponent },
     { path: 'index', component: TerminalComponent },
+    { path: 'index.php', component: TerminalComponent },
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 
