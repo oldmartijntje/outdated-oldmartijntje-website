@@ -59,7 +59,8 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             const maxCommands = Number(fullCommand.arguments['maxPerPage']);
             var commands = deepcopy(commandFunctions);
             var text = "";
-            if (fullCommand.arguments['command'] != undefined && commands.hasOwnProperty(fullCommand.arguments['command'])) {
+            if (fullCommand.arguments['command'] != undefined && commandFunctions[fullCommand.arguments['command']] != undefined) {
+                console.log(fullCommand.arguments['command'], commandFunctions[fullCommand.arguments['command']])
                 if (fullCommand.arguments['command'] == "help") {
                     fullCommand.arguments['-arg'] = true;
                 }
@@ -68,16 +69,25 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
                     text += `\nArguments:\n`;
                     for (let i = 0; i < commands[fullCommand.arguments['command']].arguments.length; i++) {
                         const arg = commands[fullCommand.arguments['command']].arguments[i];
-                        text += ` - '${arg.name}':   ${arg.description}\n`;
+                        text += ` - '${arg.name}':   ${arg.description}, default = '${arg.defaultValue}'\n`;
                     }
                 }
                 text += '\n';
                 obj.appendHistory({ text: text, type: "output" });
                 return;
             }
+            if (fullCommand.arguments['command'] != undefined) {
+                text = `Command '${fullCommand.arguments['command']}' not found.\n\n`;
+                obj.appendHistory({ text: text, type: "output" });
+                return;
+            }
             var page = fullCommand.arguments['page'];
             var commandKeys = Object.keys(commands);
             // remove first 'page' * 10 commands
+            page--;
+            if (page < 1) {
+                page = 0;
+            }
             commandKeys.splice(0, page * maxCommands);
             // remove all commands after maxCommands
             commandKeys.splice(maxCommands, commandKeys.length);
@@ -85,7 +95,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
                 const command = commandKeys[i];
                 text += ` - ${command}:   ${commands[command].description}\n`;
             }
-            text += '\n';
+            text += '\nPage ' + (page + 1) + ' of ' + Math.ceil(Object.keys(commands).length / maxCommands) + '.\n';
             obj.appendHistory({ text: text, type: "output" });
             return;
         },
@@ -99,7 +109,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             {
                 name: "page",
                 description: "The page of commands to display.",
-                defaultValue: 0,
+                defaultValue: 1,
             },
             {
                 name: "-arg",
@@ -134,3 +144,26 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
         arguments: [],
     },
 };
+
+export const experimentalCommands: Record<string, FullCommandFunction> = {
+    "msg": {
+        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            obj.backendServiceService.addMessage(fullCommand.arguments['message'], fullCommand.arguments['nickname']).subscribe((data) => {
+                obj.appendHistory({ text: "Message sent.", type: "output" });
+            });
+        },
+        description: "Send a message to https://oldmartijntje.nl/Chat.",
+        arguments: [
+            {
+                name: "message",
+                description: "The message to send.",
+                defaultValue: "",
+            },
+            {
+                name: "nickname",
+                description: "The name to send the message as.",
+                defaultValue: "Terminal_Guy",
+            }
+        ],
+    }
+}

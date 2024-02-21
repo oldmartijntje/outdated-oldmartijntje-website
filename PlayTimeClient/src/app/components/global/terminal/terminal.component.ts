@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { terminalLine, CommandHandler } from 'src/app/models/commandHandler';
+import { BackendServiceService } from 'src/app/services/backend-service.service';
 
 @Component({
     selector: 'app-terminal',
@@ -16,7 +17,12 @@ export class TerminalComponent implements OnInit {
     textColor: string = "#ffffff";
 
     terminalInputValue = "";
-    commandHandler = new CommandHandler();
+
+    constructor(
+        public backendServiceService: BackendServiceService
+    ) { }
+
+    commandHandler = new CommandHandler(this.backendServiceService);
 
     history: terminalLine[] = [
         { text: "Welcome to the Terminal", type: "output" },
@@ -25,6 +31,8 @@ export class TerminalComponent implements OnInit {
 
     ngOnInit(): void {
         this.commandHandler.setHistory(this.history);
+        // this.commandHandler.runCommand("help");
+        // this.history = this.commandHandler.getHistory();
     }
 
     @ViewChild("terminalInput") terminalInputField: ElementRef | undefined = undefined;

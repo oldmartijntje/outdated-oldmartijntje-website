@@ -1,4 +1,5 @@
 import { commandFunctions } from '../data/terminalCommands';
+import { BackendServiceService } from '../services/backend-service.service';
 
 export interface terminalLine {
     text: string;
@@ -25,7 +26,9 @@ export class CommandHandler {
     private history: terminalLine[] = [];
     private memory: { [key: string]: any } = {};
 
-    constructor() {
+    constructor(
+        public backendServiceService: BackendServiceService
+    ) {
         this.writeMemory("color", '#ffffff');
     }
 
@@ -151,6 +154,20 @@ export class CommandHandler {
         return commandList;
     }
 
+    spamProtection(splittedCommands: command[]): boolean {
+        const protectedCommands = ["msg"];
+        var foundDict: { [key: string]: boolean } = {};
+        for (let i = 0; i < splittedCommands.length; i++) {
+            if (protectedCommands.includes(splittedCommands[i].identifier)) {
+                if (foundDict.hasOwnProperty(splittedCommands[i].identifier)) {
+                    return true;
+                }
+                foundDict[splittedCommands[i].identifier] = true;
+            }
+        }
+        return false;
+    }
+
     private findCommand(command: command): boolean {
         var commandIdentifier = command.identifier;
         return commandFunctions.hasOwnProperty(commandIdentifier);
@@ -160,6 +177,10 @@ export class CommandHandler {
         console.log(this.splitCommand(command))
         var splittedCommands = this.splitCommand(command);
         this.history.push({ text: command, type: "input" });
+        if (this.spamProtection(splittedCommands)) {
+            this.history.push({ text: "A command that you are trying to use is spamprotected. This means you can only use the command once.", type: "output" });
+            return;
+        }
         for (let i = 0; i < splittedCommands.length; i++) {
             if (!this.findCommand(splittedCommands[i])) {
                 this.history.push({ text: "'" + splittedCommands[i].identifier + "' is not recognized as a command.", type: "output" });
@@ -168,9 +189,6 @@ export class CommandHandler {
             this.runFunction(splittedCommands[i]);
             continue;
         }
-
-
-
         return;
     }
 }
