@@ -69,7 +69,11 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
                     text += `\nArguments:\n`;
                     for (let i = 0; i < commands[fullCommand.arguments['command']].arguments.length; i++) {
                         const arg = commands[fullCommand.arguments['command']].arguments[i];
-                        text += ` - '${arg.name}':   ${arg.description}, default = '${arg.defaultValue}'\n`;
+                        if (fullCommand.arguments['-listOnly']) {
+                            text += ` - '${arg.name}'\n`;
+                        } else {
+                            text += ` - '${arg.name}':   ${arg.description} Default = '${arg.defaultValue}'\n`;
+                        }
                     }
                 }
                 text += '\n';
@@ -93,7 +97,11 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             commandKeys.splice(maxCommands, commandKeys.length);
             for (let i = 0; i < commandKeys.length; i++) {
                 const command = commandKeys[i];
-                text += ` - ${command}:   ${commands[command].description}\n`;
+                if (fullCommand.arguments['-listOnly']) {
+                    text += ` - ${command}\n`;
+                } else {
+                    text += ` - ${command}:   ${commands[command].description}\n`;
+                }
             }
             text += '\nPage ' + (page + 1) + ' of ' + Math.ceil(Object.keys(commands).length / maxCommands) + '.\n';
             obj.appendHistory({ text: text, type: "output" });
@@ -120,7 +128,12 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
                 name: "maxPerPage",
                 description: "Amount of commands to display per page.",
                 defaultValue: 10,
-            }
+            },
+            {
+                name: "-listOnly",
+                description: "Only show names of commands / arguments.",
+                defaultValue: false,
+            },
         ],
     },
     "color": {
