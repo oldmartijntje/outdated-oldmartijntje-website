@@ -84,6 +84,19 @@ export const games: Game[] = [
             githubRepo: 'https://github.com/oldmartijntje/oldmartijntje.nl-client'
         },
     },
+    {
+        id: 'terminal',
+        name: 'Terminal.',
+        imageUrl: 'https://i.imgur.com/DkWfK2p.png',
+        nav: '/index',
+        info: {
+            text: "I created a dynamic terminal using Angular, featuring a variety of entertaining commands for interactive engagement. The terminal supports commands with adjustable arguments, cleverly recognizing text within quotes as a single argument, even if it includes spaces. For added complexity, users can specify particular arguments using the syntax $argument=input. Additionally, the terminal allows chaining commands together using the semicolon (;) for seamless execution of multiple operations.",
+            demoUrl: '/index',
+            keywords: ['Terminal', 'Command Line', 'CLI', 'Angular', 'HTML/CSS', 'TypeScript', 'Mobile Compatible'],
+            developers: ['OldMartijntje'],
+            images: ['https://i.imgur.com/E6fwjKO.png', 'https://i.imgur.com/IQM6lNb.png', 'https://i.imgur.com/HlwPZEX.png', 'https://i.imgur.com/dMciHX0.png']
+        },
+    },
 ];
 
 export const projects: Game[] = [

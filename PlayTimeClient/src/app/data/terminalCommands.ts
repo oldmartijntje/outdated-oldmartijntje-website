@@ -28,45 +28,6 @@ export function shuffleList<T>(list: T[]): T[] {
 }
 
 export const commandFunctions: Record<string, FullCommandFunction> = {
-    "cheese": {
-        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
-            console.log("Executing command 1");
-            var response = `⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡞⠉⠛⠶⢤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⢰⠞⠛⢷⠀⠈⠙⠳⠦⣄⣀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠘⠒⠒⠋⠀⣠⣤⡀⠀⠀⠉⠛⢶⣤⣀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠋⢀⡴⠖⠶⢦⠀⠀⠀⢧⣬⠇⣀⣠⠴⠞⠋⠁⡏
-    ⠀⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠘⠧⣤⣀⡼⠀⢀⣀⡤⠶⢛⣩⣤⣀⠀⢠⡞⠋
-    ⠀⠀⠀⠀⠀⠀⣠⠞⣁⣀⠀⠀⠀⠀⢀⣠⡴⠖⠋⠁⠀⠀⣿⠁⠀⣹⠀⠈⢷⡄
-    ⠀⠀⠀⠀⣠⠞⠁⠀⠷⠿⣀⣤⠴⠚⠉⠁⠀⠀⠀⠀⠀⠀⠈⠓⠒⠃⠀⠀⠀⡇
-    ⠀⠀⣠⠞⣁⣠⡤⠶⠚⠛⠉⠀⠀⠀⣀⡀⠀⠀⠀⠀⢀⡤⠶⠶⠦⣄⠀⠀⠀⡇
-    ⠀⡾⠛⠋⢉⣤⢤⣀⠀⠀⠀⠀⣰⠞⠉⠙⠳⡄⠀⠀⡟⠀⠀⠀⠀⢸⡆⠀⠀⡇
-    ⠀⡇⠀⢰⡏⠀⠀⢹⡆⠀⠀⠀⡇⠀⠀⠀⠀⣿⠀⠀⠳⣄⡀⠀⢀⣸⠇⠀⠀⡇
-    ⠀⡇⠀⠀⢷⣤⣤⠞⠁⠀⠀⠀⢷⣀⣀⣠⡴⠃⠀⠀⠀⠈⠉⠉⠉⠁⣀⣠⠴⠇
-    ⠀⠻⣆⠀⠀⠀⠀⢀⣀⣤⣀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⢀⣠⡤⠖⠛⠉⠀⠀⠀
-    ⠀⠀⡿⠀⠀⠀⢰⡏⠀⠀⢹⡆⠀⠀⠀⠀⠀⣀⣤⠶⠚⠉⠁⠀⠀⠀⠀⠀⠀⠀
-    ⢰⠞⠁⠀⠀⠀⠀⢷⣄⣤⠞⠁⣀⣠⠴⠚⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⢸⡆⠀⠀⠀⠀⠀⠀⣀⡤⠖⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⢸⡇⠀⢀⣠⡴⠞⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`;
-            obj.appendHistory({ text: response, type: "output" });
-        },
-        description: "Prints a block of cheese",
-        arguments: [],
-    },
-    "echo": {
-        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
-            obj.appendHistory({ text: fullCommand.arguments['text'], type: "output" });
-        },
-        description: "Replies with the given text.",
-        arguments: [
-            {
-                name: "text",
-                description: "The text to reply with.",
-                defaultValue: "undefined",
-            }
-        ],
-    },
     "help": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
             console.log(fullCommand);
@@ -169,53 +130,6 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
         description: "Clears the terminal.",
         arguments: [],
     },
-    "chat.history": {
-        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
-            obj.backendMiddlemanService.getMessages().then((data) => {
-                for (let i = 0; i < data['data'].length; i++) {
-                    const message = data['data'][i];
-                    obj.appendHistory({ text: message.username + "#" + message.uid + ": " + message.content, type: "output" });
-                }
-            });
-        },
-        description: "Displays the chat history.",
-        arguments: [],
-    },
-    "DoS": {
-        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
-            if (fullCommand.arguments['-endless'] == 'true') {
-                fullCommand.arguments['-endless'] = true;
-            } else {
-                fullCommand.arguments['-endless'] = false;
-            }
-            var succesfullJob = obj.backendServiceService.DoS(fullCommand.arguments['target'], fullCommand.arguments['amount'], fullCommand.arguments['-endless'], obj);
-            succesfullJob.then((data) => {
-                if (data == fullCommand.arguments['amount']) {
-                    obj.appendHistory({ text: "Attack executed.", type: "output" });
-                } else {
-                    obj.appendHistory({ text: "Attack failed after " + data + " WebRequests.", type: "output" });
-                }
-            });
-        },
-        description: "Denial of Service attack.",
-        arguments: [
-            {
-                name: "target",
-                description: "The target of the attack.",
-                defaultValue: "localhost:8080",
-            },
-            {
-                name: "amount",
-                description: "The amount of requests to send.",
-                defaultValue: 1000,
-            },
-            {
-                name: "-endless",
-                description: "Keep sending requests until the server crashes. (or you run out of memory)",
-                defaultValue: false,
-            }
-        ],
-    },
     "command.example": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
             var command = deepcopy(commandFunctions[fullCommand.arguments['command']]);
@@ -273,6 +187,93 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             }
         ],
     },
+    "cheese": {
+        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            console.log("Executing command 1");
+            var response = `⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡞⠉⠛⠶⢤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⢰⠞⠛⢷⠀⠈⠙⠳⠦⣄⣀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠘⠒⠒⠋⠀⣠⣤⡀⠀⠀⠉⠛⢶⣤⣀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠋⢀⡴⠖⠶⢦⠀⠀⠀⢧⣬⠇⣀⣠⠴⠞⠋⠁⡏
+    ⠀⠀⠀⠀⠀⠀⠀⠀⣠⠟⠀⠀⠘⠧⣤⣀⡼⠀⢀⣀⡤⠶⢛⣩⣤⣀⠀⢠⡞⠋
+    ⠀⠀⠀⠀⠀⠀⣠⠞⣁⣀⠀⠀⠀⠀⢀⣠⡴⠖⠋⠁⠀⠀⣿⠁⠀⣹⠀⠈⢷⡄
+    ⠀⠀⠀⠀⣠⠞⠁⠀⠷⠿⣀⣤⠴⠚⠉⠁⠀⠀⠀⠀⠀⠀⠈⠓⠒⠃⠀⠀⠀⡇
+    ⠀⠀⣠⠞⣁⣠⡤⠶⠚⠛⠉⠀⠀⠀⣀⡀⠀⠀⠀⠀⢀⡤⠶⠶⠦⣄⠀⠀⠀⡇
+    ⠀⡾⠛⠋⢉⣤⢤⣀⠀⠀⠀⠀⣰⠞⠉⠙⠳⡄⠀⠀⡟⠀⠀⠀⠀⢸⡆⠀⠀⡇
+    ⠀⡇⠀⢰⡏⠀⠀⢹⡆⠀⠀⠀⡇⠀⠀⠀⠀⣿⠀⠀⠳⣄⡀⠀⢀⣸⠇⠀⠀⡇
+    ⠀⡇⠀⠀⢷⣤⣤⠞⠁⠀⠀⠀⢷⣀⣀⣠⡴⠃⠀⠀⠀⠈⠉⠉⠉⠁⣀⣠⠴⠇
+    ⠀⠻⣆⠀⠀⠀⠀⢀⣀⣤⣀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⢀⣠⡤⠖⠛⠉⠀⠀⠀
+    ⠀⠀⡿⠀⠀⠀⢰⡏⠀⠀⢹⡆⠀⠀⠀⠀⠀⣀⣤⠶⠚⠉⠁⠀⠀⠀⠀⠀⠀⠀
+    ⢰⠞⠁⠀⠀⠀⠀⢷⣄⣤⠞⠁⣀⣠⠴⠚⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⢸⡆⠀⠀⠀⠀⠀⠀⣀⡤⠖⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⢸⡇⠀⢀⣠⡴⠞⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`;
+            obj.appendHistory({ text: response, type: "output" });
+        },
+        description: "Prints a block of cheese",
+        arguments: [],
+    },
+    "echo": {
+        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            obj.appendHistory({ text: fullCommand.arguments['text'], type: "output" });
+        },
+        description: "Replies with the given text.",
+        arguments: [
+            {
+                name: "text",
+                description: "The text to reply with.",
+                defaultValue: "undefined",
+            }
+        ],
+    },
+    "chat.history": {
+        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            obj.backendMiddlemanService.getMessages().then((data) => {
+                for (let i = 0; i < data['data'].length; i++) {
+                    const message = data['data'][i];
+                    obj.appendHistory({ text: message.username + "#" + message.uid + ": " + message.content, type: "output" });
+                }
+            });
+        },
+        description: "Displays the chat history.",
+        arguments: [],
+    },
+    "DoS": {
+        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            if (fullCommand.arguments['-endless'] == 'true') {
+                fullCommand.arguments['-endless'] = true;
+            } else {
+                fullCommand.arguments['-endless'] = false;
+            }
+            var succesfullJob = obj.backendServiceService.DoS(fullCommand.arguments['target'], fullCommand.arguments['amount'], fullCommand.arguments['-endless'], obj);
+            succesfullJob.then((data) => {
+                if (data == fullCommand.arguments['amount']) {
+                    obj.appendHistory({ text: "Attack executed.", type: "output" });
+                } else {
+                    obj.appendHistory({ text: "Attack failed after " + data + " WebRequests.", type: "output" });
+                }
+            });
+        },
+        description: "Denial of Service attack.",
+        arguments: [
+            {
+                name: "target",
+                description: "The target of the attack.",
+                defaultValue: "localhost:8080",
+            },
+            {
+                name: "amount",
+                description: "The amount of requests to send.",
+                defaultValue: 1000,
+            },
+            {
+                name: "-endless",
+                description: "Keep sending requests until the server crashes. (or you run out of memory)",
+                defaultValue: false,
+            }
+        ],
+    },
+
 };
 
 export const experimentalCommands: Record<string, FullCommandFunction> = {
