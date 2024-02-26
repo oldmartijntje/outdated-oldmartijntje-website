@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { terminalLine, CommandHandler } from 'src/app/models/commandHandler';
+import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 
 @Component({
@@ -19,10 +20,11 @@ export class TerminalComponent implements OnInit {
     terminalInputValue = "";
 
     constructor(
-        public backendServiceService: BackendServiceService
+        private backendServiceService: BackendServiceService,
+        private backendMiddlemanService: BackendMiddlemanService
     ) { }
 
-    commandHandler = new CommandHandler(this.backendServiceService);
+    commandHandler = new CommandHandler(this.backendServiceService, this.backendMiddlemanService);
 
     history: terminalLine[] = [
         { text: "Welcome to the Terminal", type: "output" },

