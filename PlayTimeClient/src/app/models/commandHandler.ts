@@ -141,8 +141,12 @@ export class CommandHandler {
             // Looping through the arguments array and extracting key-value pairs
             argsArray.forEach((arg) => {
                 arg = arg.replace(/"/g, "");
-                if (!arg.includes('"') && arg.includes('=') && arg.startsWith('$')) {
-                    const [key, value] = arg.split("=");
+                if (arg.endsWith(' ')) {
+                    arg = arg.slice(0, -1);
+                }
+                if (arg.includes('=') && arg.startsWith('$')) {
+                    var [key, value] = arg.split("=");
+                    key = key.slice(1);
                     argumentsObj[key] = value;
                     argumentOrder.push(key);
                 } else if (arg.startsWith('-')) {

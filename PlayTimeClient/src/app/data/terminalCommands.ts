@@ -14,6 +14,19 @@ export interface FullCommandFunction {
     arguments: argument[];
 }
 
+export function shuffleList<T>(list: T[]): T[] {
+    // Create a copy of the original list to avoid modifying the original array
+    const shuffledList = [...list];
+
+    // Fisher-Yates algorithm for shuffling
+    for (let i = shuffledList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
+    }
+
+    return shuffledList;
+}
+
 export const commandFunctions: Record<string, FullCommandFunction> = {
     "cheese": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
@@ -56,11 +69,11 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
     },
     "help": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            console.log(fullCommand);
             const maxCommands = Number(fullCommand.arguments['maxPerPage']);
             var commands = deepcopy(commandFunctions);
             var text = "";
             if (fullCommand.arguments['command'] != undefined && commandFunctions[fullCommand.arguments['command']] != undefined) {
-                console.log(fullCommand.arguments['command'], commandFunctions[fullCommand.arguments['command']])
                 if (fullCommand.arguments['command'] == "help") {
                     fullCommand.arguments['-arg'] = true;
                 }
@@ -80,7 +93,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
                 obj.appendHistory({ text: text, type: "output" });
                 return;
             }
-            if (fullCommand.arguments['command'] != undefined) {
+            if (fullCommand.arguments['command'] != "undefined") {
                 text = `Command '${fullCommand.arguments['command']}' not found.\n\n`;
                 obj.appendHistory({ text: text, type: "output" });
                 return;
@@ -112,7 +125,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             {
                 name: "command",
                 description: "The command to get help for.",
-                defaultValue: undefined,
+                defaultValue: "undefined",
             },
             {
                 name: "page",
@@ -122,7 +135,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             {
                 name: "-arg",
                 description: "Show all arguments for the given command.\nAlways true for the 'help' command.",
-                defaultValue: false,
+                defaultValue: true,
             },
             {
                 name: "maxPerPage",
@@ -170,7 +183,6 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
     },
     "DoS": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
-            console.log(fullCommand)
             if (fullCommand.arguments['-endless'] == 'true') {
                 fullCommand.arguments['-endless'] = true;
             } else {
@@ -178,7 +190,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             }
             var succesfullJob = obj.backendServiceService.DoS(fullCommand.arguments['target'], fullCommand.arguments['amount'], fullCommand.arguments['-endless'], obj);
             succesfullJob.then((data) => {
-                if (succesfullJob == fullCommand.arguments['amount']) {
+                if (data == fullCommand.arguments['amount']) {
                     obj.appendHistory({ text: "Attack executed.", type: "output" });
                 } else {
                     obj.appendHistory({ text: "Attack failed after " + data + " WebRequests.", type: "output" });
@@ -201,6 +213,63 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
                 name: "-endless",
                 description: "Keep sending requests until the server crashes. (or you run out of memory)",
                 defaultValue: false,
+            }
+        ],
+    },
+    "command.example": {
+        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            var command = deepcopy(commandFunctions[fullCommand.arguments['command']]);
+            var amount = 3;
+            var text = "Example commands:\n";
+            var keys = command.arguments;
+            if (keys.length > 2) {
+                amount = Math.floor(keys.length / 2) + 1;
+            } else if (keys.length == 0) {
+                amount = 0;
+            }
+            if (amount > 0) {
+                var defaultExample = ` - '${fullCommand.arguments['command']}`;
+                for (let j = 0; j < keys.length; j++) {
+                    const key = keys[j];
+                    defaultExample += ` "${key.defaultValue}"`;
+                }
+                text += defaultExample + ";'\n";
+                defaultExample = ` - '${fullCommand.arguments['command']}`;
+                for (let j = 0; j < keys.length; j++) {
+                    const key = keys[j];
+                    defaultExample += ` $${key.name}="${key.defaultValue}"`;
+                }
+                text += defaultExample + ";'\n";
+                for (let i = 0; i < amount; i++) {
+                    var example = ` - '${fullCommand.arguments['command']}`;
+                    keys = shuffleList(keys);
+                    for (let j = 0; j < keys.length; j++) {
+                        const key = keys[j];
+                        const randomValue = Math.random() * 3;
+                        if (randomValue < 1) {
+                            example += ` $${key.name}="${key.defaultValue}"`;
+                        } else if (key.name.startsWith("-") && key.defaultValue == true) {
+                            example += ` ${key.name}`;
+                        } else {
+                            example += ` $${key.name}="${key.defaultValue}"`;
+                        }
+                    }
+                    text += example + ";'\n";
+                }
+                text += "\nThe above commands all execute the same way. (These are the default values)\n";
+            } else {
+                text += "\nThis command doesn't take any arguments."
+            }
+            obj.appendHistory({ text: text, type: "output" });
+
+            console.log(keys);
+        },
+        description: "Shows a few example commands.",
+        arguments: [
+            {
+                name: "command",
+                description: "The command to get an example for.",
+                defaultValue: "help",
             }
         ],
     },
