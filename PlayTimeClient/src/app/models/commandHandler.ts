@@ -1,4 +1,5 @@
 import { commandFunctions } from '../data/terminalCommands';
+import { BackendMiddlemanService } from '../services/backend-middleman.service';
 import { BackendServiceService } from '../services/backend-service.service';
 
 export interface terminalLine {
@@ -27,7 +28,8 @@ export class CommandHandler {
     private memory: { [key: string]: any } = {};
 
     constructor(
-        public backendServiceService: BackendServiceService
+        public backendServiceService: BackendServiceService,
+        public backendMiddlemanService: BackendMiddlemanService
     ) {
         this.writeMemory("color", '#ffffff');
     }
@@ -66,7 +68,6 @@ export class CommandHandler {
                 newArguments[arg.name] = arg.defaultValue;
             }
         }
-        console.log(newArguments, command);
         return { identifier: command.identifier, arguments: newArguments };
     }
 
@@ -121,6 +122,12 @@ export class CommandHandler {
             if (command.startsWith(' ')) {
                 command = command.slice(1);
             }
+            if (command.endsWith(' ')) {
+                command = command.slice(0, -1);
+            }
+            if (command === "") {
+                return;
+            }
             const argRegex = /\s*(?:"([^"]*)"|([^"\s]+))\s*/g;
             // Extracting the identifier from the command
             const identifier = command.split(" ")[0];
@@ -134,7 +141,7 @@ export class CommandHandler {
             // Looping through the arguments array and extracting key-value pairs
             argsArray.forEach((arg) => {
                 arg = arg.replace(/"/g, "");
-                if (!arg.includes('"') && arg.includes('=')) {
+                if (!arg.includes('"') && arg.includes('=') && arg.startsWith('$')) {
                     const [key, value] = arg.split("=");
                     argumentsObj[key] = value;
                     argumentOrder.push(key);
@@ -174,7 +181,6 @@ export class CommandHandler {
     }
 
     runCommand(command: string): void {
-        console.log(this.splitCommand(command))
         var splittedCommands = this.splitCommand(command);
         this.history.push({ text: command, type: "input" });
         if (this.spamProtection(splittedCommands)) {
