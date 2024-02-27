@@ -244,9 +244,24 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
     },
     "terminal.startup": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
-            const command = fullCommand.arguments['command'].replace(/\|\:\|/g, ";").replace(/\|\~\|/g, "\"");
-            localStorage.setItem("startupCommand", command);
-            obj.appendHistory({ text: "Startup command set to: " + command, type: "output" });
+            if (fullCommand.arguments['mode'] == "-set") {
+                const command = fullCommand.arguments['command'].replace(/\|\:\|/g, ";").replace(/\|\~\|/g, "\"");
+                localStorage.setItem("startupCommand", command);
+                obj.appendHistory({ text: "Startup command set to: " + command, type: "output" });
+                return;
+            }
+            if (fullCommand.arguments['mode'] == "-get") {
+                var command = localStorage.getItem("startupCommand");
+                if (command == null) {
+                    // If no startup command is set, return the default command
+                    command = commandFunctions[fullCommand.identifier].arguments[0].defaultValue;
+                }
+                if (command != null) {
+                    command = command.replace(/;/g, "|:|").replace(/\"/g, "|~|").replace(/\n/g, "\\n");
+                }
+                obj.appendHistory({ text: "Current startup command: \"" + command + "\"", type: "output" });
+                return;
+            }
         },
         description: "Set a startup command for the terminal. \nIf you want to use ';' in your startup command, use '|:|' instead.\nIf you want to use double quotes inside of your startup command, use '|~|' instead.",
         arguments: [
@@ -254,6 +269,11 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
                 name: "command",
                 description: "The command to execute on startup.",
                 defaultValue: "echo |~|Welcome to the Terminal\nType 'help' for a list of commands|~||:|",
+            },
+            {
+                name: "mode",
+                description: "-set: Set the startup command.\n-get: Get the current startup command.",
+                defaultValue: "-set",
             }
         ],
     },
