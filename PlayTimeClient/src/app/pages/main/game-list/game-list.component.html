@@ -66,9 +66,23 @@
                             <button class="button-information centerIcon"
                                 (click)="showNeighbourImage(1)"><mat-icon>arrow_circle_right</mat-icon></button>
                         </div>
+                        <div
+                            style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 1rem; column-gap: 1rem;">
+                            <span>Magnifier scale:</span>
+                            <div
+                                style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                                <button class="button-information centerIcon"
+                                    (click)="magnifierScale = 1.1">1.1</button>
+                                <button class="button-information centerIcon"
+                                    (click)="magnifierScale = 1.5">1.5</button>
+                                <button class="button-information centerIcon" (click)="magnifierScale = 2">2</button>
+                                <button class="button-information centerIcon" (click)="magnifierScale = 3">3</button>
+                                <button class="button-information centerIcon" (click)="magnifierScale = 4">4</button>
+                            </div>
+                        </div>
                         <div class="imageContainer">
                             <app-magnifier [image]="getGameImage()"
-                                [imageStyling]="{'max-width':'700px', 'max-height': '400px'}">
+                                [imageStyling]="{'max-width':'700px', 'max-height': '400px'}" [scale]="magnifierScale">
                             </app-magnifier>
                         </div>
                     </div>

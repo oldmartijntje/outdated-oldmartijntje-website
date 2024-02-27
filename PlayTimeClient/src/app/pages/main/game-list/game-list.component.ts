@@ -29,6 +29,7 @@ export class GameListComponent implements OnInit {
 
     games: Game[] = games;
 
+    magnifierScale: number = 2
     selectedGameId: string = ''; // sisu
     selectedTab: string = ''; // info, gallery, General
     // used for gallery
