@@ -215,7 +215,11 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
     },
     "echo": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
-            obj.appendHistory({ text: fullCommand.arguments['text'], type: "output" });
+            const text = fullCommand.arguments['text'];
+            const splittedText = text.split("\\n");
+            for (let i = 0; i < splittedText.length; i++) {
+                obj.appendHistory({ text: splittedText[i], type: "output" });
+            }
         },
         description: "Replies with the given text.",
         arguments: [
@@ -237,6 +241,21 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
         },
         description: "Displays the chat history.",
         arguments: [],
+    },
+    "terminal.startup": {
+        functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
+            const command = fullCommand.arguments['command'].replace(/\|\:\|/g, ";").replace(/\|\~\|/g, "\"");
+            localStorage.setItem("startupCommand", command);
+            obj.appendHistory({ text: "Startup command set to: " + command, type: "output" });
+        },
+        description: "Set a startup command for the terminal. \nIf you want to use ';' in your startup command, use '|:|' instead.\nIf you want to use double quotes inside of your startup command, use '|~|' instead.",
+        arguments: [
+            {
+                name: "command",
+                description: "The command to execute on startup.",
+                defaultValue: "echo |~|Welcome to the Terminal\nType 'help' for a list of commands|~||:|",
+            }
+        ],
     },
     "DoS": {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {

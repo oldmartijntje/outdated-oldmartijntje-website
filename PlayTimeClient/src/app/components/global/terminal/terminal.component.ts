@@ -26,13 +26,18 @@ export class TerminalComponent implements OnInit {
 
     commandHandler = new CommandHandler(this.backendServiceService, this.backendMiddlemanService);
 
-    history: terminalLine[] = [
-        { text: "Welcome to the Terminal", type: "output" },
-        { text: "Type 'help' for a list of commands", type: "output" }
-    ];
+    history: terminalLine[] = [];
 
     ngOnInit(): void {
-        this.commandHandler.setHistory(this.history);
+        const startupCommand = localStorage.getItem("startupCommand");
+        if (startupCommand) {
+            console.log("Running startup command: " + startupCommand);
+            this.runCommand(startupCommand, true);
+        } else {
+            console.log("No startup command found");
+            const defaultStartupCommand = "echo \"Welcome to the Terminal\nType 'help' for a list of commands\""
+            this.runCommand(defaultStartupCommand, true);
+        }
         // this.commandHandler.runCommand("help");
         // this.history = this.commandHandler.getHistory();
     }
@@ -47,17 +52,21 @@ export class TerminalComponent implements OnInit {
         }
     }
 
+    runCommand(command: string, silent: boolean = false) {
+        this.commandHandler.runCommand(command, silent);
+        this.history = this.commandHandler.getHistory();
+        this.terminalInputValue = "";
+        this.textColor = this.commandHandler.readMemory("color");
+
+        // wait for the DOM to update
+        setTimeout(() => {
+            this.scrollDown();
+        }, 0);
+    }
+
     onEnterPress() {
         if (this.terminalInputField && this.container) {
-            this.commandHandler.runCommand(this.terminalInputValue);
-            this.history = this.commandHandler.getHistory();
-            this.terminalInputValue = "";
-            this.textColor = this.commandHandler.readMemory("color");
-
-            // wait for the DOM to update
-            setTimeout(() => {
-                this.scrollDown();
-            }, 0);
+            this.runCommand(this.terminalInputValue);
         }
     }
 

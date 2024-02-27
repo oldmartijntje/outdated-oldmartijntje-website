@@ -184,9 +184,12 @@ export class CommandHandler {
         return commandFunctions.hasOwnProperty(commandIdentifier);
     }
 
-    runCommand(command: string): void {
+    runCommand(command: string, silent: boolean): void {
         var splittedCommands = this.splitCommand(command);
-        this.history.push({ text: command, type: "input" });
+        if (!silent) {
+            this.history.push({ text: command, type: "input" });
+        }
+        console.log(splittedCommands);
         if (this.spamProtection(splittedCommands)) {
             this.history.push({ text: "A command that you are trying to use is spamprotected. This means you can only use the command once.", type: "output" });
             return;
