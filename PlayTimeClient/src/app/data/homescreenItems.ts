@@ -5,7 +5,7 @@ export const games: Game[] = [
         id: 'windowsXPHomepage',
         name: 'My WindowsXP Homepage',
         imageUrl: 'https://i.imgur.com/AleDHLn.png',
-        nav: '/Home',
+        nav: '/windows',
         settings: {
             jsonDesign: { "mobileMode": "val1" },
             items: [
@@ -25,7 +25,7 @@ export const games: Game[] = [
         },
         info: {
             text: "I crafted a Windows XP desktop using Angular, featuring both mobile and PC modes. In the PC mode, users can interact with a desktop environment complete with movable icons and runnable applications. The 'Page Explorer' application, reminiscent of the classic Internet Explorer, allows users to navigate through various webpages on my website. On the other hand, the mobile mode focuses solely on the 'Page Explorer,' offering a nostalgic look and feel of the old Internet Explorer.",
-            demoUrl: '/Home',
+            demoUrl: '/windows',
             keywords: ['Angular', 'HTML/CSS', 'TypeScript', 'Windows XP', 'Mobile Compatible'],
             developers: ['OldMartijntje'],
             githubRepo: 'https://github.com/oldmartijntje/oldmartijntje.nl-client',

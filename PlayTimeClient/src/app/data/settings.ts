@@ -1,6 +1,6 @@
 export const Settings: any = {
     "inWindowsRouter": [
-        "404", "Railroad", "Home", "AdBee"
+        "404", "Railroad", "windows", "AdBee"
     ],
     "ignoreDisclaimer": [
         "AdBee",

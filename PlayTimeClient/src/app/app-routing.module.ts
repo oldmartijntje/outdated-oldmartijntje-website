@@ -16,11 +16,12 @@ import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 import { TerminalComponent } from './components/global/terminal/terminal.component';
+import { EmptyComponent } from './components/other/empty/empty.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
     { path: 'home', component: HomepageDeciderComponent },
-    { path: 'Home', component: HomePageComponent },
+    { path: 'windows', component: HomePageComponent },
     { path: 'Editor', component: EditorPageComponent },
     { path: 'Railroad', component: RailroadinkPageComponent },
     { path: 'AdBee', component: AdflyPageComponent },
@@ -30,10 +31,12 @@ const routes: Routes = [
     { path: 'Test', component: TestingPageComponent },
     { path: 'ItemDisplay', component: RandomDisplayPageComponent },
     { path: 'FunkyCSS', component: FunkyCssPageComponent },
-    { path: 'Homepage', component: GameListComponent },
+    { path: 'nintendo', component: GameListComponent },
     { path: 'StepTracker', component: StepTrackerPageComponent },
     { path: 'index', component: TerminalComponent },
     { path: 'index.php', component: TerminalComponent },
+    { path: 'void', component: EmptyComponent },
+
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
 

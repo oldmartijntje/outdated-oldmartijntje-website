@@ -48,6 +48,7 @@ import { HomepageDeciderComponent } from './components/other/homepage-decider/ho
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 import { MagnifierComponent } from './components/global/magnifier/magnifier.component';
 import { TerminalComponent } from './components/global/terminal/terminal.component';
+import { EmptyComponent } from './components/other/empty/empty.component';
 
 @NgModule({
     declarations: [
@@ -77,7 +78,8 @@ import { TerminalComponent } from './components/global/terminal/terminal.compone
         HomepageDeciderComponent,
         StepTrackerPageComponent,
         MagnifierComponent,
-        TerminalComponent
+        TerminalComponent,
+        EmptyComponent
     ],
     imports: [
         AsyncPipe,
