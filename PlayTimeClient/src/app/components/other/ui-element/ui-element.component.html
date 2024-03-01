@@ -12,8 +12,8 @@
             <div class="sidePanel" *ngIf="isWideScreen">
                 <div class="sidebarBox">
                     <h1>Tabs:</h1>
-                    <a [routerLink]="['/Homepage']">Homepage</a>
-                    <a [routerLink]="['/Home']">Windows XP</a>
+                    <a [routerLink]="['/nintendo']">Homepage</a>
+                    <a [routerLink]="['/windows']">Windows XP</a>
                     <a [routerLink]="['/Chat']">Chat</a>
                     <a [routerLink]="['/Player']">Text-adventures</a>
                     <a [routerLink]="['/Projects']">Projects</a>
@@ -29,7 +29,7 @@
                 <div *ngIf="!isWideScreen" class="backgroundColor"
                     [ngStyle]="{'min-width':customWidthOfContent, 'max-width': maxWidthOfContent}"
                     style="flex-grow: 1; padding: 0.5rem; display: flex; flex-direction: row; column-gap: 0.5rem; flex-wrap: wrap;">
-                    <a [routerLink]="['/Home']">Windows XP</a>
+                    <a [routerLink]="['/windows']">Windows XP</a>
                     <a [routerLink]="['/Chat']">Chat</a>
                     <a [routerLink]="['/Player']">Text-adventures</a>
                     <a [routerLink]="['/ItemDisplay']">Random WebThings</a>
