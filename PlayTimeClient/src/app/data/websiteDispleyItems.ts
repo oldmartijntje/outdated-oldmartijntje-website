@@ -1069,6 +1069,139 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Image"
     },
     {
+        "url": "https://www.youtube.com/watch?v=EShUeudtaFg",
+        "image": "https://i.ytimg.com/vi/EShUeudtaFg/hqdefault.jpg?sqp=-oaymwEXCJADEOABSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAAeKtvx8ijpeGHTRzpvqH16QLtQQ",
+        "title": "how is prangent formed",
+        "description": "Yes, spelling...",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://neal.fun/infinite-craft/",
+        "image": "https://i.imgur.com/rXv0Dg5.png",
+        "title": "Infinite Craft",
+        "description": "Craft me :3",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://purring.co/",
+        "image": "https://i.imgur.com/ajV3ohA.png",
+        "title": "Neat website :3",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2863816963",
+        "image": "https://i.imgur.com/E4Lpmik.png",
+        "title": "galaxy",
+        "description": "its a background thingy that i made. (kinda)",
+        "bannerText": "Item"
+    },
+    {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=1129194457",
+        "image": "https://i.imgur.com/LfESKts.png",
+        "title": "Matrix Randomizer",
+        "description": "its a background thingy.",
+        "bannerText": "Item"
+    },
+    {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3025013651",
+        "image": "https://i.imgur.com/Kj1ho1P.png",
+        "title": "Programmer Clock",
+        "description": "its a background thingy.",
+        "bannerText": "Item"
+    },
+    {
+        "url": "https://youtu.be/-SHTeywlEEI",
+        "image": "https://i.ytimg.com/vi/-SHTeywlEEI/hq720.jpg",
+        "title": "How Brutal was Papa Smurf's Communist Revolution?",
+        "description": "",
+        "bannerText": "Youtube Video"
+    },
+    {
+        "url": "https://pianoverse.net/",
+        "image": "https://i.imgur.com/TCJk4kQ.png",
+        "title": "Multiplayer piano?",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://nekoweb.org/",
+        "image": "https://nekoweb.org/assets/banners/banner2.png",
+        "title": "Nekoweb",
+        "description": "Easy hosting",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://discord.gg/hvfHKyVS6b",
+        "image": "https://nekoweb.org/assets/banners/banner1.png",
+        "title": "Nekoweb discord",
+        "description": "",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://publish.obsidian.md/hub/00+-+Start+here",
+        "image": "https://publish-01.obsidian.md/access/e25082da1bfe16d54e36618cd5bfee68/logo.svg",
+        "title": "Obsidian hub",
+        "description": "plugins go brrrr",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://johnnydecimal.com/",
+        "image": "https://johnnydecimal.com/img/_new/11.01.07-susans-tidy-files-700x900.png",
+        "title": "Johnny Decimal",
+        "description": "a way to order your life.",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://app.nos.nl/op3/stresstest-voor-je-adres/",
+        "image": "https://i.imgur.com/HE5wWm7.png",
+        "title": "Stresstest",
+        "description": "Is je huis nog droog in 2050?",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://i.imgur.com/LevkKUe.png",
+        "image": "https://i.imgur.com/LevkKUe.png",
+        "title": "LevkKUe.png",
+        "description": ":)",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://i.imgur.com/yvohibc.png",
+        "image": "https://i.imgur.com/yvohibc.png",
+        "title": "yvohibc.png",
+        "description": "Pika",
+        "bannerText": "Image"
+    },
+    {
+        "url": "https://store.steampowered.com/app/2021910/FPS_Chess/",
+        "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/2021910/header.jpg?t=1670241965",
+        "title": "FPS Chess",
+        "description": "Google 'An passant'",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://store.steampowered.com/app/2138700/Crypt/",
+        "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/2138700/header.jpg?t=1664309237",
+        "title": "Crypt",
+        "description": "REEEEEEEEEEEEE",
+        "bannerText": "Game"
+    },
+    {
+        "url": "https://reliccastle.com/resources/1404/",
+        "image": "https://reliccastle.com/data/resource_icons/1/1404.jpg?1696674230",
+        "title": "Arcky's Region Map",
+        "description": "Your own Pokemon game go brrr",
+        "bannerText": "Website"
+    },
+    {
+        "url": "https://www.thisman.org",
+        "image": "https://i0.wp.com/www.thisman.org/wp-content/uploads/2023/02/thisman_small.jpg?fit=200%2C235&ssl=1",
+        "title": "This man",
+        "description": "Have you seen him?",
+        "bannerText": "Website"
+    },
+    {
         "url": "",
         "image": "",
         "title": "",
