@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
     versionWord = "BuildId";
     counters = {
         "internships": {
-            "todo": 1100,
+            "todo": 1300,
             "done": 0,
             "average": 0,
             "modifier": 851,
