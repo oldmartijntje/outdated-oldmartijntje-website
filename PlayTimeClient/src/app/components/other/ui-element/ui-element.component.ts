@@ -1,5 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AudioPlayerService } from 'src/app/services/audio-player.service';
 
 @Component({
     selector: 'app-ui-element',
@@ -17,7 +18,8 @@ export class UiElementComponent implements OnInit {
         class: { '1': '', '2': '', '3': '', '4': '' },
         secretClickOrder: ['1', '2', '3', '4', 'middle'],
         found: false,
-        convertor: { '1': 'game', '2': 'film', '3': 'food', '4': 'style', 'middle': 'middle' }
+        pageConvertor: { '1': 'game', '2': 'film', '3': 'food', '4': 'style', 'middle': 'middle' },
+        audioConvertor: { '1': '../../../../assets/audio/simon tune1.mp3', '2': '../../../../assets/audio/simon tune1.mp3', '3': '../../../../assets/audio/simon tune2.mp3', '4': '../../../../assets/audio/simon tune2.mp3', 'middle': '../../../../assets/audio/simon tune3.mp3' }
     }
 
     heightOfContent: string = '100%';
@@ -27,6 +29,7 @@ export class UiElementComponent implements OnInit {
 
     constructor(
         private router: Router,
+        private audioService: AudioPlayerService
     ) { }
 
     ngOnInit() {
@@ -74,13 +77,28 @@ export class UiElementComponent implements OnInit {
     gameTheoryClicked(id: string): void {
         if (this.gameTheory['found']) {
             this.gameTheory['found'] = false;
-            var page = this.gameTheory['convertor'][id];
-            if (page == 'middle') {
-                page = this.gameTheory['convertor'][`${Math.floor(Math.random() * 4) + 1}`];
+            var page = '';
+            const tempVolume = this.audioService.getVolume();
+            this.audioService.setVolume(0.1);
+            this.audioService.playAudio('../../../../assets/audio/simon tune4.mp3');
+            if (id == 'middle') {
+                const tempText = `${Math.floor(Math.random() * 4) + 1}`
+                page = this.gameTheory['pageConvertor'][tempText];
+            } else {
+                page = this.gameTheory['pageConvertor'][id];
             }
+            setTimeout(() => {
+                this.audioService.setVolume(tempVolume);
+            }, 4000);
             this.router.navigate(['/simonGame', page]);
             return;
         }
+        const tempVolume = this.audioService.getVolume();
+        this.audioService.setVolume(0.1);
+        this.audioService.playAudio(this.gameTheory['audioConvertor'][id]);
+        setTimeout(() => {
+            this.audioService.setVolume(tempVolume);
+        }, 1000);
         this.gameTheory['clickedOrder'].push(id);
         if (this.gameTheory['clickedOrder'].length > 5) {
             this.gameTheory['clickedOrder'].shift();
