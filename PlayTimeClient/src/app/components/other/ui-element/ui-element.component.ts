@@ -78,7 +78,6 @@ export class UiElementComponent implements OnInit {
         if (this.gameTheory['found']) {
             this.gameTheory['found'] = false;
             var page = '';
-            const tempVolume = this.audioService.getVolume();
             this.audioService.setVolume(0.1);
             this.audioService.playAudio('../../../../assets/audio/simon tune4.mp3');
             if (id == 'middle') {
@@ -87,18 +86,12 @@ export class UiElementComponent implements OnInit {
             } else {
                 page = this.gameTheory['pageConvertor'][id];
             }
-            setTimeout(() => {
-                this.audioService.setVolume(tempVolume);
-            }, 4000);
+
             this.router.navigate(['/simonGame', page]);
             return;
         }
-        const tempVolume = this.audioService.getVolume();
         this.audioService.setVolume(0.1);
         this.audioService.playAudio(this.gameTheory['audioConvertor'][id]);
-        setTimeout(() => {
-            this.audioService.setVolume(tempVolume);
-        }, 1000);
         this.gameTheory['clickedOrder'].push(id);
         if (this.gameTheory['clickedOrder'].length > 5) {
             this.gameTheory['clickedOrder'].shift();
@@ -108,14 +101,16 @@ export class UiElementComponent implements OnInit {
                 this.gameTheory['class'][key] = '';
             }
         }
-        if (id != 'middle') {
-            this.gameTheory['class'][id] = 'locked';
-        } else if (JSON.stringify(this.gameTheory['clickedOrder']) === JSON.stringify(this.gameTheory['secretClickOrder'])) {
+        if (id == 'middle') {
             for (let key in this.gameTheory['class']) {
                 if (key !== id) {
                     this.gameTheory['class'][key] = 'locked';
                 }
             }
+        }
+        if (id != 'middle') {
+            this.gameTheory['class'][id] = 'locked';
+        } else if (JSON.stringify(this.gameTheory['clickedOrder']) === JSON.stringify(this.gameTheory['secretClickOrder'])) {
             this.gameTheory['found'] = true;
         }
     }
