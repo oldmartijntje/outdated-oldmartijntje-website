@@ -79,6 +79,7 @@ export class UiElementComponent implements OnInit {
                 page = this.gameTheory['convertor'][`${Math.floor(Math.random() * 4) + 1}`];
             }
             this.router.navigate(['/simonGame', page]);
+            return;
         }
         this.gameTheory['clickedOrder'].push(id);
         if (this.gameTheory['clickedOrder'].length > 5) {
