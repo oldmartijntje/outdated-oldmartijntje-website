@@ -49,6 +49,20 @@
                 <iframe
                     style="border:none; margin-top: 0.5rem; max-width: 180px; max-height: 180px; width: 100%; aspect-ratio: 1 / 1;"
                     src="https://dimden.neocities.org/navlink/" name="neolink"></iframe>
+
+                <div id="gameTheoryMain">
+                    <div id="gameTheoryGrid-container">
+                        <div class="grid-item" [ngClass]="gameTheory['class']['1']" (click)="gameTheoryClicked('1')">
+                        </div>
+                        <div class="grid-item" [ngClass]="gameTheory['class']['2']" (click)="gameTheoryClicked('2')">
+                        </div>
+                        <div class="grid-item" [ngClass]="gameTheory['class']['3']" (click)="gameTheoryClicked('3')">
+                        </div>
+                        <div class="grid-item" [ngClass]="gameTheory['class']['4']" (click)="gameTheoryClicked('4')">
+                        </div>
+                        <div id="gameTheoryCircle" (click)="gameTheoryClicked('middle')"></div>
+                    </div>
+                </div>
                 <div style="display: flex;">
                     <p (click)="goToWebPage('https://hotlinewebring.club/oldma/previous')" style="cursor: pointer;">←
                     </p>

@@ -1,4 +1,5 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-ui-element',
@@ -11,10 +12,22 @@ export class UiElementComponent implements OnInit {
     @Input() capAtVH: boolean = true;
     @Input() overflowY: string = 'hidden';
 
+    gameTheory: { [key: string]: any } = {
+        clickedOrder: [],
+        class: { '1': '', '2': '', '3': '', '4': '' },
+        secretClickOrder: ['1', '2', '3', '4', 'middle'],
+        found: false,
+        convertor: { '1': 'game', '2': 'film', '3': 'food', '4': 'style', 'middle': 'middle' }
+    }
+
     heightOfContent: string = '100%';
     customWidthOfContent = this.widthOfContent;
 
     isWideScreen: boolean = window.innerWidth >= 1024;
+
+    constructor(
+        private router: Router,
+    ) { }
 
     ngOnInit() {
         this.customWidthOfContent = this.isBiggerThanMaxWidth();
@@ -55,6 +68,36 @@ export class UiElementComponent implements OnInit {
             window.open(url, '_blank');
         } else {
             window.location.href = url;
+        }
+    }
+
+    gameTheoryClicked(id: string): void {
+        if (this.gameTheory['found']) {
+            this.gameTheory['found'] = false;
+            var page = this.gameTheory['convertor'][id];
+            if (page == 'middle') {
+                page = this.gameTheory['convertor'][`${Math.floor(Math.random() * 4) + 1}`];
+            }
+            this.router.navigate(['/simonGame', page]);
+        }
+        this.gameTheory['clickedOrder'].push(id);
+        if (this.gameTheory['clickedOrder'].length > 5) {
+            this.gameTheory['clickedOrder'].shift();
+        }
+        for (let key in this.gameTheory['class']) {
+            if (key !== id) {
+                this.gameTheory['class'][key] = '';
+            }
+        }
+        if (id != 'middle') {
+            this.gameTheory['class'][id] = 'locked';
+        } else if (JSON.stringify(this.gameTheory['clickedOrder']) === JSON.stringify(this.gameTheory['secretClickOrder'])) {
+            for (let key in this.gameTheory['class']) {
+                if (key !== id) {
+                    this.gameTheory['class'][key] = 'locked';
+                }
+            }
+            this.gameTheory['found'] = true;
         }
     }
 }
