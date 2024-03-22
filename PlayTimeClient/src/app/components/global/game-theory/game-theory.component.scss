@@ -1,0 +1,90 @@
+#gameTheoryTrophy {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    pointer-events: none;
+}
+
+#gameTheoryTrophy svg.locked {
+    fill: #06d31d;
+    background-color: #000000;
+}
+
+#gameTheoryMain {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    background-color: #000000;
+    border-radius: 55%;
+    padding: 5%;
+}
+
+#gameTheoryGrid-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5%;
+    width: 100%;
+    height: 100%;
+}
+
+.grid-item {
+    width: 100%;
+    height: 100%;
+    background-color: #5e5855;
+    cursor: pointer;
+}
+
+.grid-item:nth-child(1) {
+    border-radius: 100% 0 0 0;
+}
+
+.grid-item:nth-child(2) {
+    border-radius: 0 100% 0 0;
+}
+
+.grid-item:nth-child(3) {
+    border-radius: 0 0 0 100%;
+}
+
+.grid-item:nth-child(4) {
+    border-radius: 0 0 100% 0;
+}
+
+.grid-item:nth-child(1):hover,
+.locked:nth-child(1) {
+    background-color: #06d31d;
+    /* Green */
+}
+
+.grid-item:nth-child(2):hover,
+.locked:nth-child(2) {
+    background-color: #cc2017;
+    /* Red */
+}
+
+.grid-item:nth-child(3):hover,
+.locked:nth-child(3) {
+    background-color: #bae804;
+    /* Yellow */
+}
+
+.grid-item:nth-child(4):hover,
+.locked:nth-child(4) {
+    background-color: #0667cf;
+    /* Blue */
+}
+
+#gameTheoryCircle {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+    background-color: #000000;
+    border-radius: 50%;
+    cursor: pointer;
+}

@@ -80,6 +80,10 @@
         <button *ngIf="admin" (click)="submitHours()">Submit</button>
     </div>
 
+    <div id="gameTheoryContainer">
+        <app-game-theory></app-game-theory>
+    </div>
+
     <div class="navbar" role="tabpanel">
         <p class="textInTabpanel">Notable Pages:</p>
         <a [routerLink]="['/AdBee']"

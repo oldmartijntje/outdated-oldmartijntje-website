@@ -1,0 +1,28 @@
+<div id="gameTheoryMain">
+    <div id="gameTheoryGrid-container">
+        <div class="grid-item" [ngClass]="gameTheory['class']['1']" (click)="gameTheoryClicked('1')">
+        </div>
+        <div class="grid-item" [ngClass]="gameTheory['class']['2']" (click)="gameTheoryClicked('2')">
+        </div>
+        <div class="grid-item" [ngClass]="gameTheory['class']['3']" (click)="gameTheoryClicked('3')">
+        </div>
+        <div class="grid-item" [ngClass]="gameTheory['class']['4']" (click)="gameTheoryClicked('4')">
+        </div>
+        <div id="gameTheoryCircle" (click)="gameTheoryClicked('middle')"></div>
+    </div>
+    <div id="gameTheoryTrophy">
+        <svg fill="#5e5855" height="40%" width="40%" version="1.1" id="Capa_1" [ngClass]="gameTheory['class']['trophy']"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+            xml:space="preserve">
+            <path d="M512,112c0-25.641-9.984-49.75-28.117-67.875C456.906,17.141,417.795,9.914,384,21.844V16c0-8.836-7.163-16-16-16H144
+  c-8.837,0-16,7.164-16,16v5.844c-33.798-11.93-72.904-4.711-99.883,22.281C9.984,62.25,0,86.359,0,112s9.984,49.75,28.117,67.875
+  c0.2,0.203,0.438,0.328,0.643,0.523c0.193,0.188,0.33,0.406,0.529,0.586l109.258,98.75c5.021,4.555,58.156,45.031,85.453,52.07V384
+  l-16,64h-16c-17.673,0-32,14.328-32,32v32h192v-32c0-17.672-14.327-32-32-32h-16l-16-64v-52.195
+  c27.297-7.039,80.433-47.531,85.453-52.07l109.258-98.75c0.199-0.18,0.336-0.398,0.529-0.586c0.205-0.195,0.443-0.32,0.643-0.523
+  C502.016,161.75,512,137.641,512,112z M393.367,89.375c12.484-12.469,32.781-12.469,45.266,0C444.672,95.422,448,103.453,448,112
+  c0,8.461-3.281,16.406-9.207,22.43L384,183.953V95.766C387.382,94.227,390.587,92.156,393.367,89.375z M73.367,89.375
+  c12.484-12.469,32.781-12.469,45.266,0c2.78,2.781,5.985,4.844,9.367,6.391v88.187L73.207,134.43C67.281,128.406,64,120.461,64,112
+  C64,103.453,67.328,95.422,73.367,89.375z" />
+        </svg>
+    </div>
+</div>

@@ -49,6 +49,7 @@ import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-t
 import { MagnifierComponent } from './components/global/magnifier/magnifier.component';
 import { TerminalComponent } from './components/global/terminal/terminal.component';
 import { EmptyComponent } from './components/other/empty/empty.component';
+import { GameTheoryComponent } from './components/global/game-theory/game-theory.component';
 
 @NgModule({
     declarations: [
@@ -79,7 +80,8 @@ import { EmptyComponent } from './components/other/empty/empty.component';
         StepTrackerPageComponent,
         MagnifierComponent,
         TerminalComponent,
-        EmptyComponent
+        EmptyComponent,
+        GameTheoryComponent
     ],
     imports: [
         AsyncPipe,
