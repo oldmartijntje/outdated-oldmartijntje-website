@@ -50,7 +50,6 @@ import { MagnifierComponent } from './components/global/magnifier/magnifier.comp
 import { TerminalComponent } from './components/global/terminal/terminal.component';
 import { EmptyComponent } from './components/other/empty/empty.component';
 import { GameTheoryComponent } from './components/global/game-theory/game-theory.component';
-import { MqttViewerComponent } from './components/other/mqtt-viewer/mqtt-viewer.component';
 
 @NgModule({
     declarations: [
@@ -83,7 +82,6 @@ import { MqttViewerComponent } from './components/other/mqtt-viewer/mqtt-viewer.
         TerminalComponent,
         EmptyComponent,
         GameTheoryComponent,
-        MqttViewerComponent
     ],
     imports: [
         AsyncPipe,
