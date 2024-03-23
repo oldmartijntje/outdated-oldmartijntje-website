@@ -153,7 +153,8 @@ export const Settings: any = {
     ],
     "ignoreDisclaimer": [
         "AdBee",
-        "home"
+        "home",
+        "link"
     ],
     "usernameMaxLength": 16,
     "messageMaxLength": 256,
@@ -334,12 +335,12 @@ export const PageInfo: any = [
     },
     {
         "Navigate": {
-            "Base": ["Home"],
+            "Base": ["windows"],
             "QueryParams": {}
         },
         "Title": "Main Page",
         "Description": "This is the main page.",
-        "TitlePath": "Home"
+        "TitlePath": "windows"
     },
     {
         "Navigate": {
