@@ -31,9 +31,9 @@ export class NavigatorPageComponent {
                 // window.location.href = params['url'];
                 const url = Links.find(x => x.queryParam === params['me']);
                 if (url) {
-                    CommonModel.navigateToLink(this.router, url.link);
+                    CommonModel.navigateToLink(this.router, url.link, undefined, true);
                 } else {
-                    CommonModel.navigateToLink(this.router, []);
+                    CommonModel.navigateToLink(this.router, [], undefined, true);
                 }
             } else {
                 this.showAnything = true;
@@ -68,7 +68,7 @@ export class NavigatorPageComponent {
             return;
         }
         if (!this.search) {
-            CommonModel.navigateToLink(this.router, link.link, true);
+            CommonModel.navigateToLink(this.router, link.link, true, true);
         } else {
             this.clipboard.copy(this.tooltip + link.queryParam);
             this.toastQueue.enqueueToast("Link copied to clipboard", "info");

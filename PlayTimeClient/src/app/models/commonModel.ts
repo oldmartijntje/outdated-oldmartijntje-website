@@ -4,8 +4,12 @@ export class CommonModel {
 
     constructor() { }
 
-    static navigateToLink(router: Router, linkAddress: string | string[] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ", _blank: boolean = false): void {
+    static navigateToLink(router: Router, linkAddress: string | string[] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ", _blank: boolean = false, skipLocationChange: boolean = false): void {
         if (typeof linkAddress === "object") {
+            if (skipLocationChange) {
+                router.navigate(linkAddress, { skipLocationChange: true });
+                return;
+            }
             router.navigate(linkAddress);
             return;
         }
@@ -16,7 +20,12 @@ export class CommonModel {
                 window.location.href = linkAddress;
             }
         } else {
+            if (skipLocationChange) {
+                router.navigate([linkAddress], { skipLocationChange: true });
+                return;
+            }
             router.navigate([linkAddress]);
+            return;
         }
     }
 }
