@@ -56,7 +56,7 @@ export const Links: Link[] = [
         discoverable: true
     },
     {
-        queryParam: "home",
+        queryParam: "website",
         link: "",
         title: "Website Homepage",
         discoverable: true
