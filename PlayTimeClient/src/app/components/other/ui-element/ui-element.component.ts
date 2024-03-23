@@ -11,6 +11,7 @@ export class UiElementComponent implements OnInit {
     @Input() maxWidthOfContent: string = 'none';
     @Input() capAtVH: boolean = true;
     @Input() overflowY: string = 'hidden';
+    @Input() disableLinks: boolean = false;
 
 
 

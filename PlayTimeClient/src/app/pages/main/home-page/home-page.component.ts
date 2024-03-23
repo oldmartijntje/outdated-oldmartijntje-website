@@ -45,7 +45,8 @@ export class HomePageComponent implements OnInit {
         },
             (error) => {
                 this.admin = false;
-            });
+            }
+        );
     }
 
     logBuildData() {

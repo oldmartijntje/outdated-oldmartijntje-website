@@ -1,0 +1,17 @@
+<app-ui-element [widthOfContent]="'800px'" [maxWidthOfContent]="'1000px'" [disableLinks]="true" *ngIf="showAnything">
+    <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; color: #ff00bf">
+        <h1>Navigator</h1>
+        <p>Choose a page to navigate to.</p>
+        <p style="margin: 0">My website calculates where to send you when you use these links.</p>
+        <p style="margin-top: 0">This way you don't have to worry about outdated links.</p>
+        <div>
+            <label for="search">Copy Link on click</label>
+            <input type="checkbox" (click)="onCheckbox($event)">
+        </div>
+    </div>
+    <div style="display:flex;flex-direction: row; flex-wrap: wrap; column-gap: 1rem; margin: 1rem; row-gap: 1rem;">
+        <button *ngFor="let link of links" (click)="navigateToLink(link)"
+            title="{{tooltip}}{{link.queryParam}}">{{link.title}}</button>
+    </div>
+</app-ui-element>
+<h1 *ngIf="!showAnything">Redirecting...</h1>

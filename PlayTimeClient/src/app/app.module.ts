@@ -50,6 +50,7 @@ import { MagnifierComponent } from './components/global/magnifier/magnifier.comp
 import { TerminalComponent } from './components/global/terminal/terminal.component';
 import { EmptyComponent } from './components/other/empty/empty.component';
 import { GameTheoryComponent } from './components/global/game-theory/game-theory.component';
+import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
 
 @NgModule({
     declarations: [
@@ -82,6 +83,7 @@ import { GameTheoryComponent } from './components/global/game-theory/game-theory
         TerminalComponent,
         EmptyComponent,
         GameTheoryComponent,
+        NavigatorPageComponent,
     ],
     imports: [
         AsyncPipe,

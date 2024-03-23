@@ -1,3 +1,140 @@
+export interface Link {
+    queryParam: string;
+    link: string;
+    title: string;
+    discoverable: boolean;
+}
+export const linkTooltip: string = "https://oldmartijntje.nl/link?me=";
+
+export const Links: Link[] = [
+    {
+        queryParam: "github",
+        link: "https://github.com/oldmartijntje",
+        title: "My Github",
+        discoverable: true
+    },
+    {
+        queryParam: "discord",
+        link: "https://discord.com/invite/YUSSpNCdGA",
+        title: "My Discord Server",
+        discoverable: true
+    },
+    {
+        queryParam: "docs",
+        link: "https://docs.oldmartijntje.nl",
+        title: "My Digital Garden",
+        discoverable: true
+    },
+    {
+        queryParam: "spotify",
+        link: "https://stats.fm/oldmartijntje",
+        title: "My Spotify statistics",
+        discoverable: true
+    },
+    {
+        queryParam: "youtube",
+        link: "https://www.youtube.com/channel/UCd9_pxx4m9KP13s1-TncLcQ",
+        title: "My Youtube channel",
+        discoverable: true
+    },
+    {
+        queryParam: "youtube2",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        title: "Rickroll",
+        discoverable: true
+    },
+    {
+        queryParam: "blog",
+        link: "https://oldmartijntje.tumblr.com",
+        title: "My Blog.",
+        discoverable: true
+    },
+    {
+        queryParam: "reddit",
+        link: "https://www.reddit.com/user/oldmartijntje/",
+        title: "My Reddit account.",
+        discoverable: true
+    },
+    {
+        queryParam: "home",
+        link: "",
+        title: "Website Homepage",
+        discoverable: true
+    },
+    {
+        queryParam: "",
+        link: "",
+        title: "empty",
+        discoverable: false
+    },
+    {
+        queryParam: "instagram",
+        link: "https://www.instagram.com/oldmartijntje/",
+        title: "My personal instagram account.",
+        discoverable: false
+    },
+    {
+        queryParam: "twitter",
+        link: "https://twitter.com/oldmartijntje",
+        title: "My Twitter account.",
+        discoverable: true
+    },
+    {
+        queryParam: "twitter2",
+        link: "https://twitter.com/OldMartinG",
+        title: "My Twitter alt account.",
+        discoverable: true
+    },
+    {
+        queryParam: "roblox",
+        link: "https://www.roblox.com/users/1860710799/profile",
+        title: "My roblox account.",
+        discoverable: true
+    },
+    {
+        queryParam: "steam",
+        link: "https://steamcommunity.com/profiles/76561199033294793/",
+        title: "My Steam account.",
+        discoverable: false
+    },
+    {
+        queryParam: "anime",
+        link: "https://www.anime-planet.com/users/oldmartijntje",
+        title: "My Anime-Planet account.",
+        discoverable: false
+    },
+    {
+        queryParam: "linkedin",
+        link: "https://www.linkedin.com/in/martijn-van-houwelingen/",
+        title: "My LinkedIn account.",
+        discoverable: false
+    },
+    {
+        queryParam: "msg",
+        link: "https://oldmartijntje.tumblr.com/ask",
+        title: "A place to contact me.",
+        discoverable: true
+    },
+    {
+        queryParam: "chat",
+        link: "Chat",
+        title: "A chat application I made.",
+        discoverable: true
+    },
+    {
+        queryParam: "discord2",
+        link: "https://discord.gg/tdpVxnnpCb",
+        title: "My Private Discord Server (Gameing Grounds)",
+        discoverable: false
+    },
+    {
+        queryParam: "pfp",
+        link: "https://oldmartijntje.nl/assets/images/mii.png",
+        title: "My profile picture.",
+        discoverable: true
+    },
+]
+
 export const Settings: any = {
     "inWindowsRouter": [
         "404", "Railroad", "windows", "AdBee"

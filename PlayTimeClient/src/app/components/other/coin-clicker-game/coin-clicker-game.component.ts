@@ -61,7 +61,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             return;
         }
         var encr = new Encryptor();
-        if (pure) {
+        if (pure || true) {
             this.clickerGame = JSON.parse(this.exportTextbox);
         } else {
             this.clickerGame = JSON.parse(encr.decryptString(this.exportTextbox));
@@ -73,7 +73,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
 
     export(pure: boolean = false) {
         var encr = new Encryptor();
-        if (pure) {
+        if (pure || true) {
             this.exportTextbox = JSON.stringify(this.clickerGame);
         } else {
             this.exportTextbox = encr.encryptString(JSON.stringify(this.clickerGame));

@@ -17,7 +17,7 @@ import { HomepageDeciderComponent } from './components/other/homepage-decider/ho
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 import { TerminalComponent } from './components/global/terminal/terminal.component';
 import { EmptyComponent } from './components/other/empty/empty.component';
-import { MqttViewerComponent } from './components/other/mqtt-viewer/mqtt-viewer.component';
+import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -37,7 +37,7 @@ const routes: Routes = [
     { path: 'index', component: TerminalComponent },
     { path: 'index.php', component: TerminalComponent },
     { path: 'void', component: EmptyComponent },
-    { path: 'mqtt', component: MqttViewerComponent },
+    { path: 'link', component: NavigatorPageComponent },
 
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
