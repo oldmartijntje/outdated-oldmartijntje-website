@@ -8,6 +8,12 @@ export const linkTooltip: string = "https://oldmartijntje.nl/link?me=";
 
 export const Links: Link[] = [
     {
+        queryParam: "socials",
+        link: "link",
+        title: "All Socials",
+        discoverable: true
+    },
+    {
         queryParam: "github",
         link: "https://github.com/oldmartijntje",
         title: "My Github",
@@ -89,7 +95,7 @@ export const Links: Link[] = [
         queryParam: "roblox",
         link: "https://www.roblox.com/users/1860710799/profile",
         title: "My roblox account.",
-        discoverable: true
+        discoverable: false
     },
     {
         queryParam: "steam",
@@ -131,6 +137,12 @@ export const Links: Link[] = [
         queryParam: "pfp",
         link: "https://oldmartijntje.nl/assets/images/mii.png",
         title: "My profile picture.",
+        discoverable: true
+    },
+    {
+        queryParam: "adbee",
+        link: "https://oldmartijntje.nl/AdBee?nav=104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81",
+        title: "Rickroll Adbee",
         discoverable: true
     },
 ]

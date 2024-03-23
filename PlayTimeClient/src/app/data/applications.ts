@@ -46,7 +46,7 @@ export const shortcuts: Shortcut[] = [
                             }
                         ],
                         "Tabs": [],
-                        "InnerHTML": '<img src="https://media.tenor.com/W9t4G8la9w4AAAAd/you-are-idiot.gif" style="width: 100%">'
+                        "InnerHTML": '<img src="https://media1.tenor.com/m/9MVlipGuNioAAAAC/you-are-an-idiot.gif" style="width: 100%">'
                     }
                 },
                 {
@@ -359,7 +359,7 @@ export const shortcuts: Shortcut[] = [
                 {
                     "Text": "OK",
                     "Command": "nav",
-                    "Link": "https://github.com/oldmartijntje"
+                    "Link": "https://oldmartijntje.nl/link?me=github"
                 },
                 {
                     "Text": "This website is open source!",

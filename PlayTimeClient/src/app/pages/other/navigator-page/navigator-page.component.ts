@@ -61,7 +61,12 @@ export class NavigatorPageComponent {
         );
     }
 
-    navigateToLink(link: Link): void {
+    navigateToLink(link: Link | undefined): void {
+        if (!link) {
+            this.clipboard.copy(this.tooltip.split('?')[0]);
+            this.toastQueue.enqueueToast("Link copied to clipboard", "info");
+            return;
+        }
         if (!this.search) {
             CommonModel.navigateToLink(this.router, link.link, true);
         } else {
