@@ -18,6 +18,7 @@ import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-t
 import { TerminalComponent } from './components/global/terminal/terminal.component';
 import { EmptyComponent } from './components/other/empty/empty.component';
 import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
+import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -38,6 +39,7 @@ const routes: Routes = [
     { path: 'index.php', component: TerminalComponent },
     { path: 'void', component: EmptyComponent },
     { path: 'link', component: NavigatorPageComponent },
+    { path: 'blueScreen', component: BlueScreenComponent },
 
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },

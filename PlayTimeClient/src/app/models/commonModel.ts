@@ -4,13 +4,23 @@ export class CommonModel {
 
     constructor() { }
 
-    static navigateToLink(router: Router, linkAddress: string | string[] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ", _blank: boolean = false, skipLocationChange: boolean = false): void {
+    /**
+     * Navigate to a link
+     * @param router 
+     * @param linkAddress 
+     * @param _blank 
+     * @param skipLocationChange 
+     * @param queryParams
+     * @returns 
+     */
+    static navigateToLink(router: Router, linkAddress: string | string[] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ", _blank: boolean = false, skipLocationChange: boolean = false, queryParams: { [key: string]: string } = {}): void {
+        console.log(queryParams, linkAddress, _blank, skipLocationChange)
         if (typeof linkAddress === "object") {
             if (skipLocationChange) {
-                router.navigate(linkAddress, { skipLocationChange: true });
+                router.navigate(linkAddress, { skipLocationChange: true, queryParams: queryParams });
                 return;
             }
-            router.navigate(linkAddress);
+            router.navigate(linkAddress, { skipLocationChange: false, queryParams: queryParams });
             return;
         }
         if (linkAddress.startsWith("http")) {
@@ -21,10 +31,11 @@ export class CommonModel {
             }
         } else {
             if (skipLocationChange) {
-                router.navigate([linkAddress], { skipLocationChange: true });
+                router.navigate([linkAddress], { skipLocationChange: true, queryParams: queryParams });
                 return;
             }
-            router.navigate([linkAddress]);
+            console.log(queryParams)
+            router.navigate([linkAddress], { queryParams: queryParams });
             return;
         }
     }

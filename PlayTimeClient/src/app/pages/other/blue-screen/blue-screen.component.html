@@ -1,0 +1,28 @@
+<div class="pageContainer">
+    <div id="page">
+        <div id="container">
+            <h1 (click)="navigateToPage()">:(</h1>
+            <h2>Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll
+                restart for
+                you.</h2>
+            <h2>
+                <span id="percentage">{{displayNumber}}</span>% complete
+            </h2>
+            <div id="details">
+                <div id="qr">
+                    <div id="image" (click)="navigateToPage()">
+                        <img src="assets/images/aprilFoolsQR.png" alt="QR Code" />
+                    </div>
+                </div>
+                <div id="stopcode">
+                    <h4>For more information about this issue and possible fixes, visit
+                        <br />https://oldmartijntje.nl/link?me=dQw4w9WgXcQ
+                    </h4>
+                    <h5>If you call a support person, give them this info:
+                        <br />Stop Code: dQw4w9WgXcQ
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

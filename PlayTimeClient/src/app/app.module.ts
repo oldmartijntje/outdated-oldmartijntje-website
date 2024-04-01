@@ -51,6 +51,7 @@ import { TerminalComponent } from './components/global/terminal/terminal.compone
 import { EmptyComponent } from './components/other/empty/empty.component';
 import { GameTheoryComponent } from './components/global/game-theory/game-theory.component';
 import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
+import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.component';
 
 @NgModule({
     declarations: [
@@ -84,6 +85,7 @@ import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-p
         EmptyComponent,
         GameTheoryComponent,
         NavigatorPageComponent,
+        BlueScreenComponent,
     ],
     imports: [
         AsyncPipe,

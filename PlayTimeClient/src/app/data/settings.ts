@@ -1,8 +1,9 @@
 export interface Link {
     queryParam: string;
-    link: string;
+    link: string | string[];
     title: string;
     discoverable: boolean;
+    queryParamsInLink?: { [key: string]: string };
 }
 export const linkTooltip: string = "https://oldmartijntje.nl/link?me=";
 
@@ -63,13 +64,13 @@ export const Links: Link[] = [
     },
     {
         queryParam: "website",
-        link: "",
+        link: [],
         title: "Website Homepage",
         discoverable: true
     },
     {
         queryParam: "",
-        link: "",
+        link: [],
         title: "empty",
         discoverable: false
     },
@@ -140,10 +141,32 @@ export const Links: Link[] = [
         discoverable: true
     },
     {
+        queryParam: "aprilFools",
+        link: ['home'],
+        title: "Not Added Yet.",
+        discoverable: false,
+        queryParamsInLink: { "plain": "true" }
+    },
+    {
+        queryParam: "dQw4w9WgXcQ",
+        link: ['home'],
+        title: "Not Added Yet.",
+        discoverable: false,
+        queryParamsInLink: { "plain": "true" }
+    },
+    {
+        queryParam: "plainWebsite",
+        link: ['home'],
+        title: "The homepage of this website. (No fancy stuff or April Fools jokes)",
+        discoverable: true,
+        queryParamsInLink: { "plain": "true" }
+    },
+    {
         queryParam: "adbee",
-        link: "https://oldmartijntje.nl/AdBee?nav=104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81",
+        link: ["AdBee"],
         title: "Rickroll Adbee",
-        discoverable: true
+        discoverable: true,
+        queryParamsInLink: { "nav": "104,116,116,112,115,58,47,47,119,119,119,46,121,111,117,116,117,98,101,46,99,111,109,47,119,97,116,99,104,63,118,61,100,81,119,52,119,57,87,103,88,99,81" }
     },
 ]
 
@@ -154,7 +177,8 @@ export const Settings: any = {
     "ignoreDisclaimer": [
         "AdBee",
         "home",
-        "link"
+        "link",
+        "blueScreen"
     ],
     "usernameMaxLength": 16,
     "messageMaxLength": 256,
