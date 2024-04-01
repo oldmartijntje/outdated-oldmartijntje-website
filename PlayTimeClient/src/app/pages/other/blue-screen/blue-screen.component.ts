@@ -17,14 +17,7 @@ export class BlueScreenComponent {
         private route: ActivatedRoute,
         private toastQueueService: ToastQueueService,
         private router: Router
-    ) {
-        this.route.queryParams.subscribe(params => {
-            const max = params['ignoreMax'];
-            if (max) {
-                this.ignoreMax = max.toLowerCase() === 'true';
-            }
-        });
-    }
+    ) { }
 
     navigateToPage() {
         CommonModel.navigateToLink(this.router, ['link'], false, false, { 'me': 'plainWebsite' });
@@ -35,6 +28,14 @@ export class BlueScreenComponent {
         this.timeout = setInterval(() => {
             this.loop();
         }, interval);
+        this.route.queryParams.subscribe(params => {
+            const max = params['ignoreMax'];
+            if (max) {
+                this.ignoreMax = max.toLowerCase() == 'true';
+            } else {
+                this.ignoreMax = false;
+            }
+        });
     }
 
     loop() {

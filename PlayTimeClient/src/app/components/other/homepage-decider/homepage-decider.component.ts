@@ -28,14 +28,15 @@ export class HomepageDeciderComponent implements OnInit {
 
     ngOnInit(): void {
         this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {
+            const queryParams = this.route.snapshot.queryParams;
             const date = new Date();
             if (date.getMonth() === 3 && date.getDate() === 1 && !this.strict) {
                 this.toastQueueService.enqueueToast('This is an April Fools joke. Click the :( or QR-code to go to the normal site.', 'warning', 69420);
-                this.router.navigate(['/blueScreen'], { skipLocationChange: true });
+                this.router.navigate(['/blueScreen'], { queryParams, skipLocationChange: true });
             } else if (value['MobileUser']) {
-                this.router.navigate(['/windows'], { skipLocationChange: true });
+                this.router.navigate(['/windows'], { queryParams, skipLocationChange: true });
             } else {
-                this.router.navigate(['/nintendo'], { skipLocationChange: true });
+                this.router.navigate(['/nintendo'], { queryParams, skipLocationChange: true });
             }
         });
     }
