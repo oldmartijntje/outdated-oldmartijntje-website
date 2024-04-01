@@ -39,14 +39,14 @@ export class BlueScreenComponent {
 
     loop() {
         this.displayNumber += Math.floor(Math.random() * 7) + 1;
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
         if (this.displayNumber > 100 && !this.ignoreMax) {
             this.displayNumber = 100;
             this.toastQueueService.enqueueToast('Nothing Happens..', 'info', 69420);
             this.toastQueueService.enqueueToast('To remove the cap of 100%, add "?ignoreMax=true" to the url', 'info', 69420);
             return;
-        }
-        if (this.timeout) {
-            clearTimeout(this.timeout);
         }
 
         const interval = Math.floor(Math.random() * 15) * 1000 + 1000;
