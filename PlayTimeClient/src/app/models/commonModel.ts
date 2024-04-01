@@ -14,7 +14,6 @@ export class CommonModel {
      * @returns 
      */
     static navigateToLink(router: Router, linkAddress: string | string[] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ", _blank: boolean = false, skipLocationChange: boolean = false, queryParams: { [key: string]: string } = {}): void {
-        console.log(queryParams, linkAddress, _blank, skipLocationChange)
         if (typeof linkAddress === "object") {
             if (skipLocationChange) {
                 router.navigate(linkAddress, { skipLocationChange: true, queryParams: queryParams });
@@ -34,7 +33,6 @@ export class CommonModel {
                 router.navigate([linkAddress], { skipLocationChange: true, queryParams: queryParams });
                 return;
             }
-            console.log(queryParams)
             router.navigate([linkAddress], { queryParams: queryParams });
             return;
         }
