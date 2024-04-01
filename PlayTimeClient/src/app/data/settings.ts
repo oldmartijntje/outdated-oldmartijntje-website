@@ -142,10 +142,9 @@ export const Links: Link[] = [
     },
     {
         queryParam: "aprilFools",
-        link: ['home'],
-        title: "Not Added Yet.",
-        discoverable: false,
-        queryParamsInLink: { "plain": "true" }
+        link: ['blueScreen'],
+        title: "Navigates to the latest April Fools joke.",
+        discoverable: false
     },
     {
         queryParam: "dQw4w9WgXcQ",
