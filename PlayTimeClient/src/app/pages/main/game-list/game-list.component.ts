@@ -1,6 +1,6 @@
 // game-list.component.ts
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { games } from 'src/app/data/homescreenItems';
 import { CommonModel } from 'src/app/models/commonModel';
 import { Game, GameInfo, GameSettings } from 'src/app/models/homescreenItems.interface';
@@ -45,7 +45,8 @@ export class GameListComponent implements OnInit {
 
 
     constructor(
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {

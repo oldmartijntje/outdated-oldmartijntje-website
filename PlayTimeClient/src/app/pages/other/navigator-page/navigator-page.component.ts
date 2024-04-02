@@ -31,7 +31,12 @@ export class NavigatorPageComponent {
                 // window.location.href = params['url'];
                 const url = Links.find(x => x.queryParam === params['me']);
                 if (url) {
-                    CommonModel.navigateToLink(this.router, url.link, undefined, true, url.queryParamsInLink);
+                    const params = this.getParams(url);
+                    var skipNav = true;
+                    if (url.setSkipLocationChange != undefined) {
+                        skipNav = url.setSkipLocationChange;
+                    }
+                    CommonModel.navigateToLink(this.router, url.link, undefined, skipNav, params);
                 } else {
                     CommonModel.navigateToLink(this.router, [], undefined, true, undefined);
                 }
@@ -39,9 +44,21 @@ export class NavigatorPageComponent {
                 this.showAnything = true;
                 console.log("No query params found");
                 this.getLinksToShow()
-                console.log(this.links)
             }
         });
+    }
+
+    getParams(url: Link | undefined): { [key: string]: string } {
+        var params = { ...this.route.snapshot.queryParams };
+        params['me'] = undefined;
+        if (!url) {
+            return params;
+        }
+        var paramsFromLink = url.queryParamsInLink;
+        if (paramsFromLink) {
+            params = Object.assign(params, paramsFromLink);
+        }
+        return params;
     }
 
     getLinksToShow() {
@@ -68,7 +85,12 @@ export class NavigatorPageComponent {
             return;
         }
         if (!this.search) {
-            CommonModel.navigateToLink(this.router, link.link, true, true, link.queryParamsInLink);
+            const params = this.getParams(link);
+            var skipNav = true;
+            if (link.setSkipLocationChange != undefined) {
+                skipNav = link.setSkipLocationChange;
+            }
+            CommonModel.navigateToLink(this.router, link.link, true, skipNav, params);
         } else {
             this.clipboard.copy(this.tooltip + link.queryParam);
             this.toastQueue.enqueueToast("Link copied to clipboard", "info");

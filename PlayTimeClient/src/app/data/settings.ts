@@ -1,12 +1,14 @@
 export interface Link {
     queryParam: string;
-    link: string | string[];
+    link: string | string[]; // list of strings is for same website links
     title: string;
     discoverable: boolean;
-    queryParamsInLink?: { [key: string]: string };
+    queryParamsInLink?: { [key: string]: string }; // only works with same website links
+    setSkipLocationChange?: boolean; // default is true
 }
 export const linkTooltip: string = "https://oldmartijntje.nl/link?me=";
 
+// never use link: '' or link: [''] as a link, it will remove the queryparams
 export const Links: Link[] = [
     {
         queryParam: "socials",
@@ -64,13 +66,13 @@ export const Links: Link[] = [
     },
     {
         queryParam: "website",
-        link: [],
+        link: ['home'],
         title: "Website Homepage",
         discoverable: true
     },
     {
         queryParam: "",
-        link: [],
+        link: ['link'],
         title: "empty",
         discoverable: false
     },
@@ -144,7 +146,8 @@ export const Links: Link[] = [
         queryParam: "aprilFools",
         link: ['blueScreen'],
         title: "Navigates to the latest April Fools joke.",
-        discoverable: false
+        discoverable: true,
+        setSkipLocationChange: false
     },
     {
         queryParam: "dQw4w9WgXcQ",
