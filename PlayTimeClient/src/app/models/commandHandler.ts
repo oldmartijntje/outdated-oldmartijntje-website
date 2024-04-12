@@ -1,6 +1,7 @@
 import { commandFunctions } from '../data/terminalCommands';
 import { BackendMiddlemanService } from '../services/backend-middleman.service';
 import { BackendServiceService } from '../services/backend-service.service';
+import { LocalstorageHandlingService } from '../services/localstorage-handling.service';
 
 export interface terminalLine {
     text: string;
@@ -29,7 +30,8 @@ export class CommandHandler {
 
     constructor(
         public backendServiceService: BackendServiceService,
-        public backendMiddlemanService: BackendMiddlemanService
+        public backendMiddlemanService: BackendMiddlemanService,
+        public localstorageHandlingService: LocalstorageHandlingService
     ) {
         this.writeMemory("color", '#ffffff');
     }

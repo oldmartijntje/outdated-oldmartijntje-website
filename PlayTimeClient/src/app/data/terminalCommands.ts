@@ -246,20 +246,20 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
         functionToExecute: (fullCommand: pureCommand, obj: CommandHandler) => {
             if (fullCommand.arguments['mode'] == "-set") {
                 const command = fullCommand.arguments['command'].replace(/\|\:\|/g, ";").replace(/\|\~\|/g, "\"");
-                localStorage.setItem("startupCommand", command);
+                obj.localstorageHandlingService.addEditRequestToQueue(command, "app.terminal.startupCommand");
                 obj.appendHistory({ text: "Startup command set to: " + command, type: "output" });
                 return;
             }
             if (fullCommand.arguments['mode'] == "-get") {
-                var command = localStorage.getItem("startupCommand");
-                if (command == null) {
+                const response = obj.localstorageHandlingService.getLocalstorageHandler().loadData("app.terminal.startupCommand");
+                if (!response.success) {
                     // If no startup command is set, return the default command
-                    command = commandFunctions[fullCommand.identifier].arguments[0].defaultValue;
+                    response.data = commandFunctions[fullCommand.identifier].arguments[0].defaultValue;
                 }
-                if (command != null) {
-                    command = command.replace(/;/g, "|:|").replace(/\"/g, "|~|").replace(/\n/g, "\\n");
+                if (response.data == null) {
+                    response.data = response.data.replace(/;/g, "|:|").replace(/\"/g, "|~|").replace(/\n/g, "\\n");
                 }
-                obj.appendHistory({ text: "Current startup command: \"" + command + "\"", type: "output" });
+                obj.appendHistory({ text: "Current startup command: \"" + response.data + "\"", type: "output" });
                 return;
             }
         },

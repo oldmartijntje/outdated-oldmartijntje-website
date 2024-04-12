@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { terminalLine, CommandHandler } from 'src/app/models/commandHandler';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
     selector: 'app-terminal',
@@ -21,18 +22,19 @@ export class TerminalComponent implements OnInit {
 
     constructor(
         private backendServiceService: BackendServiceService,
-        private backendMiddlemanService: BackendMiddlemanService
+        private backendMiddlemanService: BackendMiddlemanService,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) { }
 
-    commandHandler = new CommandHandler(this.backendServiceService, this.backendMiddlemanService);
+    commandHandler = new CommandHandler(this.backendServiceService, this.backendMiddlemanService, this.localstorageHandlingService);
 
     history: terminalLine[] = [];
 
     ngOnInit(): void {
-        const startupCommand = localStorage.getItem("startupCommand");
-        if (startupCommand) {
-            console.log("Running startup command: " + startupCommand);
-            this.runCommand(startupCommand, true);
+        const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.terminal.startupCommand");
+        if (handlerResponse.success) {
+            console.log("Running startup command: " + handlerResponse.data);
+            this.runCommand(handlerResponse.data, true);
         } else {
             console.log("No startup command found");
             const defaultStartupCommand = "echo \"Welcome to the Terminal\nType 'help' for a list of commands\""

@@ -2,6 +2,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MarioClicker } from 'src/app/data/gamesData';
 import { Encryptor } from 'src/app/models/encryptor';
 import { AudioPlayerService } from 'src/app/services/audio-player.service';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,7 +28,8 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
 
     constructor(
         private audioPlayerService: AudioPlayerService,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) {
 
     }
@@ -146,13 +148,14 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         // 0 = save, 1 = load, 2 = reset, 3 = reset but not cookie
         var encr = new Encryptor();
         if (mode == 0) {
-            localStorage.setItem("clickerGame", encr.encryptString(JSON.stringify(this.clickerGame)));
+
+            this.localstorageHandlingService.addEditRequestToQueue(encr.encryptString(JSON.stringify(this.clickerGame)), "data", "ClickerGame.appData.oldmartijntje.nl");
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 1) {
-            var data = localStorage.getItem("clickerGame")
-            if (data != null) {
+            const response = this.localstorageHandlingService.getLocalstorageHandler().loadData("data", "ClickerGame.appData.oldmartijntje.nl");
+            if (response.success) {
                 try {
-                    this.clickerGame = JSON.parse(encr.decryptString(data));
+                    this.clickerGame = JSON.parse(encr.decryptString(response.data));
                     this.checkContent();
                 } catch (error) {
                     console.error("The save file is corrupted, resetting the save file...\nIt's not overwritten yet, so save it whilst you can!\n" + error);
@@ -164,7 +167,8 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             }
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 2) {
-            localStorage.removeItem("clickerGame");
+            this.localstorageHandlingService.addDeleteRequestToQueue("data", "ClickerGame.appData.oldmartijntje.nl");
+
             this.clickerGame = this.deepClone(this.defaultClickerGame);
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 3) {
