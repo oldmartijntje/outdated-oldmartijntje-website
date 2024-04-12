@@ -247,6 +247,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             if (fullCommand.arguments['mode'] == "-set") {
                 const command = fullCommand.arguments['command'].replace(/\|\:\|/g, ";").replace(/\|\~\|/g, "\"");
                 obj.localstorageHandlingService.addEditRequestToQueue(command, "app.terminal.startupCommand");
+                obj.localstorageHandlingService.immediatlyGoThroughQueue();
                 obj.appendHistory({ text: "Startup command set to: " + command, type: "output" });
                 return;
             }
@@ -268,7 +269,7 @@ export const commandFunctions: Record<string, FullCommandFunction> = {
             {
                 name: "command",
                 description: "The command to execute on startup.",
-                defaultValue: "echo |~|Welcome to the Terminal\nType 'help' for a list of commands|~||:|",
+                defaultValue: "echo |~|Welcome to the Terminal\\nType 'help' for a list of commands|~||:|",
             },
             {
                 name: "mode",
