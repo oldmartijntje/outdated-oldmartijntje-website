@@ -153,7 +153,7 @@ export class ContentPlayerPageComponent implements OnInit {
         } else {
             try {
                 var decr = handlingRespone.data;
-                return JSON.parse(decr);
+                return decr;
             } catch (e) {
                 console.error(e);
                 return {};
