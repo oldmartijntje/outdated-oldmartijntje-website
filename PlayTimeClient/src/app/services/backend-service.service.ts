@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { UUID } from '../models/uuid';
 import { CommandHandler } from '../models/commandHandler';
 import { LocalstorageHandlingService } from './localstorage-handling.service';
-import { LocalStorageHandler } from '../models/localStorageHandler';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +18,7 @@ export class BackendServiceService {
         private localstorageHandlingService: LocalstorageHandlingService,
 
     ) {
-        var getDataResponse = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "private.userAccountKey");
+        var getDataResponse = this.localstorageHandlingService.getLocalstorageHandler().loadData("private.userAccountKey");
         if (!getDataResponse.success) {
             var uuid = UUID.generate();
             this.localstorageHandlingService.addEditRequestToQueue(uuid, "private.userAccountKey");

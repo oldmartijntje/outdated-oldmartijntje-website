@@ -4,7 +4,6 @@ import { Discs, DiscType } from '../../../models/discs'
 import { Encryptor } from 'src/app/models/encryptor';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
 import { UUID } from 'src/app/models/uuid';
-import { LocalStorageHandler } from 'src/app/models/localStorageHandler';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
@@ -38,7 +37,7 @@ export class ContentPlayerPageComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        const handlingRespone = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "app.Text-Adventures.selected-disc");
+        const handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.Text-Adventures.selected-disc");
         if (handlingRespone.success) {
             this.highlightDisc(parseInt(handlingRespone.data));
         } else {
@@ -150,7 +149,7 @@ export class ContentPlayerPageComponent implements OnInit {
     }
 
     getLocalstorageDict(key: string): { [key: string]: any } {
-        const handlingRespone = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "app.Text-Adventures." + key);
+        const handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.Text-Adventures." + key);
         if (!handlingRespone.success) {
             return {};
         } else {

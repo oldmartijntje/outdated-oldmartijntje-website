@@ -1,13 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
 import { Message } from 'src/app/models/message.interface';
-import { DatePipe, NgFor } from '@angular/common';
 import { PageCode } from 'src/app/data/settings';
 import { NavigationEnd, Router } from '@angular/router';
 import { ThemePalette } from '@angular/material/core';
 import { BuildData } from 'src/app/models/buildData';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
-import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 export interface Task {
     name: string;
@@ -37,15 +36,15 @@ export class EditorPageComponent implements OnInit {
     syntaxHighlightLanguage = 'javascript';
     language = 'javascript';
     consoleList: Message[] = [
-        { message: 'This featuere is removed', type: 'error', amount: 1},
-        { message: 'You can still run js in this though.', type: 'info', amount: 1}
+        { message: 'This featuere is removed', type: 'error', amount: 1 },
+        { message: 'You can still run js in this though.', type: 'info', amount: 1 }
     ];
     outputList: Message[] = [
-        { message: 'This featuere is removed', type: 'error', amount: 1},
-        { message: 'This is a message to show off how it used to work.', type: 'warning', amount: 3}
+        { message: 'This featuere is removed', type: 'error', amount: 1 },
+        { message: 'This is a message to show off how it used to work.', type: 'warning', amount: 3 }
     ];
     problemList: Message[] = [
-        { message: 'This featuere is removed', type: 'error', amount: 1}
+        { message: 'This featuere is removed', type: 'error', amount: 1 }
     ];
     consoleWindowInput = '';
     sandBoxMode = false;
@@ -69,9 +68,8 @@ export class EditorPageComponent implements OnInit {
     allComplete: boolean = false;
 
     constructor(private toastQueueService: ToastQueueService,
-        private runtimeServiceService: RuntimeServiceService,
-        private datePipe: DatePipe,
-        private router: Router
+        private router: Router,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) { }
 
     sendCodeToRunner(input: string = '', mode: number = 0, from: string = 'EditorCode') {
@@ -86,7 +84,7 @@ export class EditorPageComponent implements OnInit {
 
     setLanguage(event: any) {
         this.language = event;
-        localStorage.setItem('language', this.language);
+        this.localstorageHandlingService.addEditRequestToQueue(this.language, "app.codeEditor.language");
     }
 
     runJavaScript(input: string = '') {
@@ -107,9 +105,10 @@ export class EditorPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (localStorage.getItem('language') != null) {
-            this.language = localStorage.getItem('language') || 'MarjinScript';
-        }
+
+        const response = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.codeEditor.language");
+        this.language = response.success ? response.data : 'MarjinScript';
+
         this.checkCode();
         this.router.events.subscribe(event => {
             // This event is triggered when the navigation is complete
@@ -126,11 +125,12 @@ export class EditorPageComponent implements OnInit {
     }
 
     saveCode() {
-        localStorage.setItem('code', this.code);
+        this.localstorageHandlingService.addEditRequestToQueue(this.code, "app.codeEditor.code");
     }
 
     loadCode() {
-        this.code = localStorage.getItem('code') || '';
+        const response = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.codeEditor.code");
+        this.code = response.success ? response.data : '';
         this.checkCode();
     }
 

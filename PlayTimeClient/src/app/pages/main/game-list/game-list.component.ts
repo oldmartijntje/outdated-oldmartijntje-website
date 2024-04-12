@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { games } from 'src/app/data/homescreenItems';
 import { CommonModel } from 'src/app/models/commonModel';
 import { Game, GameInfo, GameSettings } from 'src/app/models/homescreenItems.interface';
+import { HandlerRespone } from 'src/app/models/localStorageHandler';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
     selector: 'app-game-list',
@@ -46,23 +48,24 @@ export class GameListComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) { }
 
     ngOnInit(): void {
-        var selectedGameId: any = null;
+        var handlingRespone: HandlerRespone = { success: false, message: '', data: '' };
         if (!this.importedComponent) {
-            selectedGameId = localStorage.getItem('selectedGameId');
+            handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.nintendo.selectedGameId");
         } else {
             this.games = [...this.applicationList];
         }
-        if (selectedGameId) {
-            this.selectedGameId = selectedGameId;
-            if (this.games.findIndex(game => game.id === selectedGameId) === -1) {
+        if (handlingRespone.success) {
+            this.selectedGameId = handlingRespone.data;
+            if (this.games.findIndex(game => game.id === handlingRespone.data) === -1) {
                 this.selectedGameId = '';
             }
 
-            const gameIndex = this.games.findIndex(game => game.id === selectedGameId);
+            const gameIndex = this.games.findIndex(game => game.id === handlingRespone.data);
             if (gameIndex !== -1) {
                 const game = this.games.splice(gameIndex, 1);
                 this.games.unshift(game[0]);
@@ -291,7 +294,7 @@ export class GameListComponent implements OnInit {
     selectGame(gameId: string, settings: any = {}): void {
         this.selectedGameId = gameId;
         if (!this.importedComponent) {
-            localStorage.setItem('selectedGameId', gameId);
+            this.localstorageHandlingService.addEditRequestToQueue(gameId, "app.nintendo.selectedGameId");
         }
     }
 
@@ -312,10 +315,12 @@ export class GameListComponent implements OnInit {
     }
 
     goToLink(link: string): void {
+        this.localstorageHandlingService.immediatlyGoThroughQueue();
         CommonModel.navigateToLink(this.router, link);
     }
 
     goToGame(settings = {}): void {
+        this.localstorageHandlingService.immediatlyGoThroughQueue();
         if (this.selectedGameId == this.moreGamesButtonId) {
             CommonModel.navigateToLink(this.router, '/Projects');
         }

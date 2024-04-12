@@ -90,8 +90,9 @@ export class AppComponent implements OnInit {
             this.runtimeServiceService.setMobileMode(true);
             this.runtimeServiceService.setMobileUserType(true);
         } else {
-            if (localStorage.getItem("MobileMode") != null) {
-                this.runtimeServiceService.setMobileMode(JSON.parse(localStorage.getItem("MobileMode") || ""));
+            const HandlerRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("layout.mobileMode");
+            if (HandlerRespone.success) {
+                this.runtimeServiceService.setMobileMode(JSON.parse(HandlerRespone.data || ""));
             }
         }
 

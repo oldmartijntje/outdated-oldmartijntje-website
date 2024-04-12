@@ -36,7 +36,9 @@ export class LocalstorageHandlingService {
         }
     }
 
-
+    getLocalstorageHandler(): LocalStorageHandler {
+        return this.localStorageHandler;
+    }
 
     addDeleteRequestToQueue(subKey: string, mainKeyOverride: string | undefined = undefined): void {
         this.queue[0].push({

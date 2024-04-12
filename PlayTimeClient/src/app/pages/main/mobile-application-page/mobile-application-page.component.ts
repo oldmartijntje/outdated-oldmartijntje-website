@@ -4,6 +4,7 @@ import { displayAd } from 'src/app/data/ads';
 import { Settings, PageInfo } from 'src/app/data/settings';
 import { AdHandler } from 'src/app/models/adHandler';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 @Component({
@@ -30,7 +31,8 @@ export class MobileApplicationPageComponent implements OnInit {
     constructor(
         private router: Router,
         private runtimeServiceService: RuntimeServiceService,
-        private backendMiddlemanService: BackendMiddlemanService
+        private backendMiddlemanService: BackendMiddlemanService,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) { }
 
     gatAPI(): void {
@@ -83,24 +85,13 @@ export class MobileApplicationPageComponent implements OnInit {
     }
 
     setMobileMode(value: boolean) {
-        localStorage.setItem("MobileMode", value.toString());
+        this.localstorageHandlingService.addEditRequestToQueue(value.toString(), "layout.mobileMode");
         this.runtimeServiceService.setMobileMode(value);
     }
 
     deleteLocalStorage() {
-        const sessionToken = localStorage.getItem("sessionToken");
-
-        // Clear all keys except "sessionToken"
-        for (let key in localStorage) {
-            if (key !== "sessionToken") {
-                localStorage.removeItem(key);
-            }
-        }
-
-        // Restore the "sessionToken"
-        if (sessionToken) {
-            localStorage.setItem("sessionToken", sessionToken);
-        }
+        this.localstorageHandlingService.addDeleteRequestToQueue("layout");
+        this.localstorageHandlingService.addDeleteRequestToQueue("app");
     }
 
     getListOfdisplayAds(): displayAd[] {

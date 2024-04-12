@@ -5,7 +5,6 @@ import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdent
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
-import { LocalStorageHandler } from 'src/app/models/localStorageHandler';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
@@ -77,7 +76,7 @@ export class MessagePageComponent implements OnInit {
             }
             this.sentMessages = this.sentMessages.concat(DefaultMessages[0])
         });
-        const handlingRespone = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "app.Chat.nickname");
+        const handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.Chat.nickname");
         var nickname = "";
         if (!handlingRespone.success) {
             nickname = this.generateRandomName();
