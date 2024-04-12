@@ -1,6 +1,5 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MarioClicker } from 'src/app/data/gamesData';
-import { Encryptor } from 'src/app/models/encryptor';
 import { AudioPlayerService } from 'src/app/services/audio-player.service';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 import { environment } from 'src/environments/environment';
@@ -58,28 +57,20 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         }
     }
 
-    import(pure: boolean = false) {
+    import() {
         if (this.exportTextbox == "") {
             return;
         }
-        var encr = new Encryptor();
-        if (pure || true) {
-            this.clickerGame = JSON.parse(this.exportTextbox);
-        } else {
-            this.clickerGame = JSON.parse(encr.decryptString(this.exportTextbox));
-        }
+        this.clickerGame = JSON.parse(this.exportTextbox);
         this.checkContent();
         this.clickerGame['autoSave'] = 0;
         this.exportTextbox = "";
     }
 
-    export(pure: boolean = false) {
-        var encr = new Encryptor();
-        if (pure || true) {
-            this.exportTextbox = JSON.stringify(this.clickerGame);
-        } else {
-            this.exportTextbox = encr.encryptString(JSON.stringify(this.clickerGame));
-        }
+    export() {
+
+        this.exportTextbox = JSON.stringify(this.clickerGame);
+
     }
 
     getMaximum(type: string = "coin") {
@@ -146,16 +137,15 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
 
     clickerDataHandler(mode: number = 0) {
         // 0 = save, 1 = load, 2 = reset, 3 = reset but not cookie
-        var encr = new Encryptor();
         if (mode == 0) {
 
-            this.localstorageHandlingService.addEditRequestToQueue(encr.encryptString(JSON.stringify(this.clickerGame)), "data", "ClickerGame.appData.oldmartijntje.nl");
+            this.localstorageHandlingService.addEditRequestToQueue(this.clickerGame, "data", "ClickerGame.appData.oldmartijntje.nl");
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 1) {
             const response = this.localstorageHandlingService.getLocalstorageHandler().loadData("data", "ClickerGame.appData.oldmartijntje.nl");
             if (response.success) {
                 try {
-                    this.clickerGame = JSON.parse(encr.decryptString(response.data));
+                    this.clickerGame = response.data;
                     this.checkContent();
                 } catch (error) {
                     console.error("The save file is corrupted, resetting the save file...\nIt's not overwritten yet, so save it whilst you can!\n" + error);

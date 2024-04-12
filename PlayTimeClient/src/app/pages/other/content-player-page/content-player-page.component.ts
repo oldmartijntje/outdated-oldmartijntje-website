@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Styling, DefaultScenes, DefaultStory } from '../../../data/media'
 import { Discs, DiscType } from '../../../models/discs'
-import { Encryptor } from 'src/app/models/encryptor';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
 import { UUID } from 'src/app/models/uuid';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
@@ -89,8 +88,7 @@ export class ContentPlayerPageComponent implements OnInit {
                 "scene": message['currentScene']["sceneId"],
                 "variables": message['variables']
             };
-            var encr = new Encryptor();
-            var encrData = encr.encryptString(JSON.stringify(data), 1);
+            var encrData = JSON.parse(JSON.stringify(data));
             this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player");
             this.toastQueue.enqueueToast('Your progress has been saved', 'info');
         }
@@ -154,8 +152,7 @@ export class ContentPlayerPageComponent implements OnInit {
             return {};
         } else {
             try {
-                var encr = new Encryptor();
-                var decr = encr.decryptString(handlingRespone.data, 1);
+                var decr = handlingRespone.data;
                 return JSON.parse(decr);
             } catch (e) {
                 console.error(e);
@@ -268,8 +265,7 @@ export class ContentPlayerPageComponent implements OnInit {
             discName = this.importedStory["story"]["customStoryId"];
         }
         delete data[discName];
-        var encr = new Encryptor();
-        var encrData = encr.encryptString(JSON.stringify(data), 1);
+        var encrData = JSON.parse(JSON.stringify(data));
         this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player");
         this.toastQueue.enqueueToast('Your progress has been deleted', 'info');
         this.updateSelectedData();

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { displayAd } from 'src/app/data/ads';
 import { AdHandler } from 'src/app/models/adHandler';
-import { Encryptor } from 'src/app/models/encryptor';
 import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
@@ -107,15 +106,49 @@ export class AdflyPageComponent implements OnInit {
     }
 
     formatTextToParams(inputText: string): string {
-        var encr = new Encryptor();
-        var formattedText = encr.simpleToAscii(inputText);
+        var formattedText = this.simpleToAscii(inputText);
         return formattedText;
     }
 
     formatTextFromParams(inputText: string): string {
-        var encr = new Encryptor();
-        var formattedText = encr.asciiToSimple(inputText);
+        var formattedText = this.asciiToSimple(inputText);
         return formattedText;
+    }
+
+    private simpleToAscii(inputString: string): string {
+        const asciiList = this.stringToAsciiList(inputString);
+        return asciiList.join(',');
+    }
+
+    private asciiToSimple(inputString: string): string {
+        const asciiList = inputString
+            .split(',')
+            .map(value => parseInt(value, 10))
+            .filter(value => !isNaN(value) && value >= 0 && value <= 127); // Check if valid ASCII
+
+        if (asciiList.length === 0) {
+            return ''; // Return empty string for invalid ASCII
+        }
+
+        return this.asciiListToString(asciiList);
+    }
+
+    private stringToAsciiList(str: string): number[] {
+        const asciiList: number[] = [];
+        for (let i = 0; i < str.length; i++) {
+            const asciiValue = str.charCodeAt(i);
+            asciiList.push(asciiValue);
+        }
+        return asciiList;
+    }
+
+    /**
+     * Function to convert a list of ASCII values to a string
+     * @param asciiList 
+     * @returns 
+     */
+    private asciiListToString(asciiList: number[]): string {
+        return asciiList.map(asciiValue => String.fromCharCode(asciiValue)).join('');
     }
 
     removeUselessSpaces(input: string): string {
