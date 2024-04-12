@@ -5,6 +5,8 @@ import { DefaultUserNames, DefaultMessages, Settings, userTypeEmoji, hiddenIdent
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
+import { LocalStorageHandler } from 'src/app/models/localStorageHandler';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
     selector: 'app-message-page',
@@ -27,7 +29,8 @@ export class MessagePageComponent implements OnInit {
         private backendMiddlemanService: BackendMiddlemanService,
         private backendServiceService: BackendServiceService,
         private sanitizer: DomSanitizer,
-        private runtimeServiceService: RuntimeServiceService
+        private runtimeServiceService: RuntimeServiceService,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) { }
 
     gatAPI(): void {
@@ -74,15 +77,16 @@ export class MessagePageComponent implements OnInit {
             }
             this.sentMessages = this.sentMessages.concat(DefaultMessages[0])
         });
-        var nickname = localStorage.getItem('nickname');
-        if (nickname == null) {
+        const handlingRespone = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "app.Chat.nickname");
+        var nickname = "";
+        if (!handlingRespone.success) {
             nickname = this.generateRandomName();
-            localStorage.setItem('nickname', nickname);
+            this.localstorageHandlingService.addEditRequestToQueue(nickname, "app.Chat.nickname");
             this.nickname = nickname;
         } else {
-            if (nickname.length > Settings['usernameMaxLength']) {
+            if (handlingRespone.data.length > Settings['usernameMaxLength']) {
                 nickname = this.generateRandomName();
-                localStorage.setItem('nickname', nickname);
+                this.localstorageHandlingService.addEditRequestToQueue(nickname, "app.Chat.nickname");
             }
             this.nickname = nickname;
         }
@@ -175,7 +179,7 @@ export class MessagePageComponent implements OnInit {
                 );
                 return;
             }
-            localStorage.setItem('nickname', nickname);
+            this.localstorageHandlingService.addEditRequestToQueue(nickname, "app.Chat.nickname");
             this.messageBoxInput = '';
             this.nickname = nickname;
             // message for succesfully changing username

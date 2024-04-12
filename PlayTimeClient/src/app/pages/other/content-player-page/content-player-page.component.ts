@@ -4,6 +4,8 @@ import { Discs, DiscType } from '../../../models/discs'
 import { Encryptor } from 'src/app/models/encryptor';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
 import { UUID } from 'src/app/models/uuid';
+import { LocalStorageHandler } from 'src/app/models/localStorageHandler';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
     selector: 'app-content-player-page',
@@ -32,12 +34,13 @@ export class ContentPlayerPageComponent implements OnInit {
 
     constructor(
         private toastQueue: ToastQueueService,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) { }
 
     ngOnInit(): void {
-        var selected = localStorage.getItem('selected-disc');
-        if (selected != null) {
-            this.highlightDisc(parseInt(selected));
+        const handlingRespone = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "app.Text-Adventures.selected-disc");
+        if (handlingRespone.success) {
+            this.highlightDisc(parseInt(handlingRespone.data));
         } else {
             this.highlightDisc(0)
         }
@@ -89,7 +92,7 @@ export class ContentPlayerPageComponent implements OnInit {
             };
             var encr = new Encryptor();
             var encrData = encr.encryptString(JSON.stringify(data), 1);
-            localStorage.setItem('content-player', encrData);
+            this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player");
             this.toastQueue.enqueueToast('Your progress has been saved', 'info');
         }
     }
@@ -147,13 +150,13 @@ export class ContentPlayerPageComponent implements OnInit {
     }
 
     getLocalstorageDict(key: string): { [key: string]: any } {
-        var data = localStorage.getItem(key);
-        if (data == null) {
+        const handlingRespone = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "app.Text-Adventures." + key);
+        if (!handlingRespone.success) {
             return {};
         } else {
             try {
                 var encr = new Encryptor();
-                var decr = encr.decryptString(data, 1);
+                var decr = encr.decryptString(handlingRespone.data, 1);
                 return JSON.parse(decr);
             } catch (e) {
                 console.error(e);
@@ -268,7 +271,7 @@ export class ContentPlayerPageComponent implements OnInit {
         delete data[discName];
         var encr = new Encryptor();
         var encrData = encr.encryptString(JSON.stringify(data), 1);
-        localStorage.setItem('content-player', encrData);
+        this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player");
         this.toastQueue.enqueueToast('Your progress has been deleted', 'info');
         this.updateSelectedData();
         this.checkForImportedSaveFile();
@@ -321,7 +324,7 @@ export class ContentPlayerPageComponent implements OnInit {
             this.currentSlide = "-1";
             this.currentScene = "-1";
         }
-        localStorage.setItem('selected-disc', this.currentDiscDisplay.toString());
+        this.localstorageHandlingService.addEditRequestToQueue(this.currentDiscDisplay.toString(), "app.Text-Adventures.selected-disc");
     }
 
     debug() {

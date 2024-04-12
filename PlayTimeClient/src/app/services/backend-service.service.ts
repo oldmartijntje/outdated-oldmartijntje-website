@@ -20,7 +20,6 @@ export class BackendServiceService {
 
     ) {
         var getDataResponse = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "private.userAccountKey");
-        var sessionToken = localStorage.getItem('sessionToken');
         if (!getDataResponse.success) {
             var uuid = UUID.generate();
             this.localstorageHandlingService.addEditRequestToQueue(uuid, "private.userAccountKey");
