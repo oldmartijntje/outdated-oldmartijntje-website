@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ToastQueueService } from './services/toast-queue.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Settings } from './data/settings';
 import { RuntimeServiceService } from './services/runtime-service.service';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
 import { LocalstorageHandlingService } from './services/localstorage-handling.service';
 import { BuildData } from './models/buildData';
+import { filter } from 'rxjs';
 
 interface LocalStorageDictionary {
     [key: string]: string | null;
@@ -82,6 +83,12 @@ export class AppComponent implements OnInit {
             } else {
                 this.ignoreDisclaimer = false;
             }
+        });
+
+        this.router.events.pipe(
+            filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+        ).subscribe((event: NavigationEnd) => {
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
         });
         this.runtimeServiceService.mobileModeSubjectValue$.subscribe((value) => {
             this.mobileMode = value;
