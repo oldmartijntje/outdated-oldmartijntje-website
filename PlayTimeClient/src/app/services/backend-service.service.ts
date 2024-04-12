@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UUID } from '../models/uuid';
 import { CommandHandler } from '../models/commandHandler';
+import { LocalstorageHandlingService } from './localstorage-handling.service';
+import { LocalStorageHandler } from '../models/localStorageHandler';
 
 @Injectable({
     providedIn: 'root'
@@ -12,14 +14,20 @@ export class BackendServiceService {
     apiUrl = environment.apiUrl;
     sessionToken: string = '';
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private localstorageHandlingService: LocalstorageHandlingService,
+
+    ) {
+        var getDataResponse = LocalStorageHandler.staticLoadData("appData.oldmartijntje.nl", "private.userAccountKey");
         var sessionToken = localStorage.getItem('sessionToken');
-        if (sessionToken == null) {
+        if (!getDataResponse.success) {
             var uuid = UUID.generate();
-            localStorage.setItem('sessionToken', uuid);
+            this.localstorageHandlingService.addEditRequestToQueue(uuid, "private.userAccountKey");
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
             this.sessionToken = uuid;
         } else {
-            this.sessionToken = sessionToken;
+            this.sessionToken = getDataResponse.data;
         }
     }
 

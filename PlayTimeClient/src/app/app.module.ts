@@ -85,7 +85,7 @@ import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.compo
         EmptyComponent,
         GameTheoryComponent,
         NavigatorPageComponent,
-        BlueScreenComponent,
+        BlueScreenComponent
     ],
     imports: [
         AsyncPipe,
