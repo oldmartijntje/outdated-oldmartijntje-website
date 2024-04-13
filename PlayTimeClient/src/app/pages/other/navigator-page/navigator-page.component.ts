@@ -36,6 +36,23 @@ export class NavigatorPageComponent {
                     if (url.setSkipLocationChange != undefined) {
                         skipNav = url.setSkipLocationChange;
                     }
+                    if (params['/']) {
+                        if (typeof url.link === "object") {
+                            const slash = params['/'].split("/");
+                            for (let i = 0; i < slash.length; i++) {
+                                url.link.push(slash[i]);
+                            }
+                        }
+                        else if (url.link.startsWith("http")) {
+                            url.link += "/" + params['/'];
+                        } else {
+                            const slash = params['/'].split("/");
+                            slash.unshift(url.link);
+                            url.link = slash;
+                        }
+                        delete params['/'];
+
+                    }
                     CommonModel.navigateToLink(this.router, url.link, undefined, skipNav, params);
                 } else {
                     CommonModel.navigateToLink(this.router, [], undefined, true, undefined);
@@ -50,7 +67,7 @@ export class NavigatorPageComponent {
 
     getParams(url: Link | undefined): { [key: string]: string } {
         var params = { ...this.route.snapshot.queryParams };
-        params['me'] = undefined;
+        delete params['me'];
         if (!url) {
             return params;
         }

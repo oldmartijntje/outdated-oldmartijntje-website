@@ -19,6 +19,18 @@ export class CommonModel {
             return;
         }
         if (linkAddress.startsWith("http")) {
+            if (queryParams) {
+                let query = "";
+                for (const key in queryParams) {
+                    if (queryParams.hasOwnProperty(key)) {
+                        query += `${key}=${queryParams[key]}&`;
+                    }
+                }
+                if (query) {
+                    query = "?" + query.slice(0, -1);
+                    linkAddress += query;
+                }
+            }
             if (_blank) {
                 window.open(linkAddress, '_blank');
             } else {

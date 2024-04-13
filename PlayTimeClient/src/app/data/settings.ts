@@ -48,9 +48,10 @@ export const Links: Link[] = [
     },
     {
         queryParam: "youtube2",
-        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        link: "https://www.youtube.com/watch",
         title: "Rickroll",
-        discoverable: true
+        discoverable: true,
+        queryParamsInLink: { "v": "dQw4w9WgXcQ" }
     },
     {
         queryParam: "blog",
