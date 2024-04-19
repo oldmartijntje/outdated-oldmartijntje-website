@@ -86,7 +86,7 @@ export class FancyNotFoundPageComponent {
             return;
         }
         const stringReturn2 = this.checkForCurrentSentence(false)
-        if (stringReturn2.toLowerCase().includes(' sex ') || stringReturn == 'sex') {
+        if (stringReturn2.toLowerCase().includes(' sex ') || stringReturn == 'sex' || stringReturn2.toLowerCase().includes(' poop ') || stringReturn == 'poop') {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.theFunnyOne')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.theFunnyOne')

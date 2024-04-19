@@ -1,9 +1,11 @@
 export interface Achievement {
-    teaserText: AchievementSettings;
-    unlockedText: AchievementSettings;
+    lockedData: AchievementSettings;
+    unlockedData: AchievementSettings;
     type: AchievementType;
     localstorageUrl: string;
     unlocksWhenLocolStorageUrlIsSetTo: any;
+    hideOnMobile: boolean;
+    found?: boolean;
 }
 
 export interface AchievementSettings {
@@ -21,83 +23,105 @@ export enum AchievementType {
 
 export const achievements: Achievement[] = [
     {
-        teaserText: {
+        lockedData: {
             title: 'But hey...',
-            description: '',
-            show: false,
-            icon: ''
-        },
-        unlockedText: {
-            title: 'That\'s just a theory!',
-            description: '',
+            description: 'Thanks for watching!',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0001-locked.png'
+        },
+        unlockedData: {
+            title: 'That\'s just a theory!',
+            description: 'You did the order of [this](https://www.youtube.com/watch?v=OcAUG4tsthE) Game theory intro.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0001-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.matpatCircle',
-        unlocksWhenLocolStorageUrlIsSetTo: true
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false
     },
     {
-        teaserText: {
-            title: '',
-            description: '',
-            show: false,
-            icon: ''
-        },
-        unlockedText: {
-            title: '',
-            description: '',
+        lockedData: {
+            title: 'Funy go brr',
+            description: 'I think people in third grade find this funny.\n\nIt is done on a 404 page..',
             show: true,
             icon: ''
         },
-        type: AchievementType.Achievement,
-        localstorageUrl: 'easterEggs.xxxxx',
-        unlocksWhenLocolStorageUrlIsSetTo: true
-    },
-    {
-        teaserText: {
-            title: '',
-            description: '',
-            show: false,
-            icon: ''
-        },
-        unlockedText: {
-            title: '',
-            description: '',
+        unlockedData: {
+            title: 'Peepee poopoo',
+            description: 'Made a funny word on the [404 page](https://oldmartijntje.nl/Fancy404).',
             show: true,
             icon: ''
         },
-        type: AchievementType.Achievement,
-        localstorageUrl: 'easterEggs.xxxxx',
-        unlocksWhenLocolStorageUrlIsSetTo: true
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.Fancy404.theFunnyOne',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true
     },
     {
-        teaserText: {
-            title: '',
-            description: '',
-            show: false,
+        lockedData: {
+            title: '!.,?;:',
+            description: '404 characters not found.',
+            show: true,
             icon: ''
         },
-        unlockedText: {
-            title: '',
-            description: '',
-            show: false,
+        unlockedData: {
+            title: 'No need to be formal',
+            description: 'You removed the interpunction from the [404 page](https://oldmartijntje.nl/Fancy404).',
+            show: true,
             icon: ''
         },
-        type: AchievementType.Achievement,
-        localstorageUrl: 'easterEggs.xxxxx',
-        unlocksWhenLocolStorageUrlIsSetTo: true
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.Fancy404.noNeedToBeFormal',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true
+    },
+    {
+        lockedData: {
+            title: 'UNO reverse card?',
+            description: '404 funny joke not found.\n\nIt probably fell off the page.',
+            show: true,
+            icon: ''
+        },
+        unlockedData: {
+            title: 'The One Page is REALLL!!',
+            description: 'You removed the "not" from the "404 not found" message.',
+            show: true,
+            icon: ''
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.Fancy404.OhWaitItDoesExist',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true
+    },
+    {
+        lockedData: {
+            title: 'Thanos snap?',
+            description: '404 page not found.\n\nIt probably got snapped away.',
+            show: true,
+            icon: ''
+        },
+        unlockedData: {
+            title: '404 Letters not found',
+            description: 'You removed all the characters from the [404 page](https://oldmartijntje.nl/Fancy404).',
+            show: true,
+            icon: ''
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.Fancy404.LettersNotFound',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true
     },
 ];
 
 const emptyAchievement: Achievement = {
-    teaserText: {
+    lockedData: {
         title: '',
         description: '',
         show: false,
         icon: ''
     },
-    unlockedText: {
+    unlockedData: {
         title: '',
         description: '',
         show: false,
@@ -105,5 +129,6 @@ const emptyAchievement: Achievement = {
     },
     type: AchievementType.Achievement,
     localstorageUrl: 'easterEggs.xxxxx',
-    unlocksWhenLocolStorageUrlIsSetTo: true
+    unlocksWhenLocolStorageUrlIsSetTo: true,
+    hideOnMobile: false
 };
