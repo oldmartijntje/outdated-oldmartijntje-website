@@ -45,13 +45,13 @@ export const achievements: Achievement[] = [
             title: 'Funy go brr',
             description: 'I think people in third grade find this funny.\n\nIt is done on a 404 page..',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0002-locked.png'
         },
         unlockedData: {
             title: 'Peepee poopoo',
             description: 'Made a funny word on the [404 page](https://oldmartijntje.nl/Fancy404).',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0002-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.theFunnyOne',
@@ -63,13 +63,13 @@ export const achievements: Achievement[] = [
             title: '!.,?;:',
             description: '404 characters not found.',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0004-locked.png'
         },
         unlockedData: {
             title: 'No need to be formal',
             description: 'You removed the interpunction from the [404 page](https://oldmartijntje.nl/Fancy404).',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0004-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.noNeedToBeFormal',
@@ -78,16 +78,16 @@ export const achievements: Achievement[] = [
     },
     {
         lockedData: {
-            title: 'UNO reverse card?',
-            description: '404 funny joke not found.\n\nIt probably fell off the page.',
+            title: '404 UNO reverse card not found',
+            description: 'But let\'s say that, hypothetically, it was found?',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0003-locked.png'
         },
         unlockedData: {
             title: 'The One Page is REALLL!!',
             description: 'You removed the "not" from the "404 not found" message.',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0003-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.OhWaitItDoesExist',
@@ -97,15 +97,15 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Thanos snap?',
-            description: '404 page not found.\n\nIt probably got snapped away.',
+            description: 'The 404 page is not found, as it should be.',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0005-locked.png'
         },
         unlockedData: {
             title: '404 Letters not found',
             description: 'You removed all the characters from the [404 page](https://oldmartijntje.nl/Fancy404).',
             show: true,
-            icon: ''
+            icon: '../assets/icons/achievements/Sprite-0005-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.LettersNotFound',

@@ -3,6 +3,8 @@ import { BuildData } from 'src/app/models/buildData';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
+import { CommonModel } from 'src/app/models/commonModel';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home-page',
@@ -28,7 +30,9 @@ export class HomePageComponent implements OnInit {
     constructor(
         private backendMiddlemanService: BackendMiddlemanService,
         private backendServiceService: BackendServiceService,
-        private toastQueue: ToastQueueService) { }
+        private toastQueue: ToastQueueService,
+        private router: Router
+    ) { }
 
     ngOnInit(): void {
         this.backendMiddlemanService.getCounter('internships').then((data) => {
@@ -45,6 +49,10 @@ export class HomePageComponent implements OnInit {
 
     logBuildData() {
         console.log(BuildData);
+    }
+
+    goToLink(link: string): void {
+        CommonModel.navigateToLink(this.router, link);
     }
 
     submitHours() {
