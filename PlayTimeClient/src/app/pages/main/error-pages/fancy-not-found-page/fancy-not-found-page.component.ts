@@ -35,6 +35,9 @@ export class FancyNotFoundPageComponent {
     }
 
     ngOnInit() {
+        this.pageFound = false;
+        this.letters1 = [];
+        this.letters2 = [];
         // Generate random angles for each letter
         for (let i = 0; i < this.fullText1.length; i++) { // Adjust this number according to the number of letters
             this.letters1.push({ value: this.fullText1[i], angle: this.getRandomAngle(40, 20), id: i, offset: [this.getRandomAngle(6, 3), this.getRandomAngle(10, 5)], dropped: false });
