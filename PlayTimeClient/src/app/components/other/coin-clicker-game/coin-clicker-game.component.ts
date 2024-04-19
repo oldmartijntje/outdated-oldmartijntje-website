@@ -1,7 +1,7 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MarioClicker } from 'src/app/data/gamesData';
-import { AudioPlayerService } from 'src/app/services/audio-player.service';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -26,7 +26,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     exportTextbox: string = "";
 
     constructor(
-        private audioPlayerService: AudioPlayerService,
+        private runtimeService: RuntimeServiceService,
         private ngZone: NgZone,
         private localstorageHandlingService: LocalstorageHandlingService
     ) {
@@ -91,19 +91,19 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     }
 
     playAudio(url: string): void {
-        this.audioPlayerService.playAudio(url);
+        this.runtimeService.playAudio(url);
     }
 
     pauseAudio(): void {
-        this.audioPlayerService.pauseAudio();
+        this.runtimeService.pauseAudio();
     }
 
     setVolume(volume: number): void {
-        this.audioPlayerService.setVolume(volume);
+        this.runtimeService.setVolume(volume);
     }
 
     getVolume(): number {
-        return this.audioPlayerService.getVolume();
+        return this.runtimeService.getVolume();
     }
 
     checkContent() {

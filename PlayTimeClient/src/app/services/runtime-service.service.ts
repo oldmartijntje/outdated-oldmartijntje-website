@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Message } from 'src/app/models/message.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RuntimeServiceService {
     private mobileModeSubject: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject<{ [key: string]: any }>({ "MobileUser": false, "MobileMode": false });
+
+    private volume: number = 0.3;
+    private audio: HTMLAudioElement = new Audio();
+
+    constructor() {
+        this.audio.volume = this.volume;
+    }
 
     mobileModeSubjectValue$: Observable<{ [key: string]: any }> = this.mobileModeSubject.asObservable();
     tempMobileMode: { [key: string]: any } = { "MobileUser": false, "MobileMode": false };
@@ -21,18 +27,24 @@ export class RuntimeServiceService {
         this.mobileModeSubject.next(this.tempMobileMode);
     }
 
-    checkForCopyMessage(value: Message, whole: Message[]) {
-        const length = whole.length - 1;
-        if (whole.length == 0) {
-            whole.push(value);
-        } else if (whole[length].message == value.message && whole[length].type == value.type && whole[length].from == value.from) {
-            if (value.datetimeTimestamp != undefined) {
-                whole[length].datetimeTimestamp = value.datetimeTimestamp;
-            }
-            whole[length].amount++;
-        } else {
-            whole.push(value);
+    playAudio(url: string): void {
+        this.audio.src = url;
+        this.audio.load();
+        this.audio.play();
+    }
+
+    pauseAudio(): void {
+        this.audio.pause();
+    }
+
+    setVolume(volume: number): void {
+        if (volume >= 0 && volume <= 1) {
+            this.volume = volume;
+            this.audio.volume = volume;
         }
-        return whole;
+    }
+
+    getVolume(): number {
+        return this.volume;
     }
 }

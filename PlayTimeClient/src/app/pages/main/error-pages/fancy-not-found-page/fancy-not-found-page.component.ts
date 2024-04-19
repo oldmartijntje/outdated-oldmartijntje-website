@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModel } from 'src/app/models/commonModel';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 interface Letter {
@@ -27,7 +28,8 @@ export class FancyNotFoundPageComponent {
     constructor(
         private localstorageHandlingService: LocalstorageHandlingService,
         private toestQueueService: ToastQueueService,
-        private router: Router
+        private router: Router,
+        private runtimeService: RuntimeServiceService,
     ) { }
 
     goToLink(link: string | string[]): void {
@@ -99,10 +101,12 @@ export class FancyNotFoundPageComponent {
         }
         if (stringReturn.toLowerCase().includes('found!') && stringReturn.toLowerCase().includes('thispagedoesexist')) {
             this.pageFound = true;
+            this.runtimeService.setVolume(0.5);
+            this.runtimeService.playAudio('../../../assets/audio/can-we-get-much-higher-one-piece-meme.mp3');
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.OhWaitItDoesExist')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.OhWaitItDoesExist')
-                this.toestQueueService.enqueueToast("You found the \"One Piece\" easter egg!", 'achievement', 69420)
+                this.toestQueueService.enqueueToast("You found the \"The One Page is real!\" easter egg!", 'achievement', 69420)
             }
         }
 

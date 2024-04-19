@@ -21,11 +21,14 @@
     </div>
 </app-ui-element>
 <div *ngIf="pageFound" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2rem">
+    <div>
+        <h1>You were right, the page is found.</h1>
+        <button (click)="ngOnInit()">Get me the f*ck outta here.</button>
+    </div>
     <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gWo12TtN9Kk?si=20CROUBvJaXmrUms"
         title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <img src="https://i.imgur.com/W3reHr3.png" alt="" style="width: 25%">
-    <h1>You were right, the page is found.</h1>
-    <button (click)="ngOnInit()">I wanna go home.</button>
+    <img src="https://static.tvtropes.org/pmwiki/pub/images/damndaniel1.png" alt="">
 </div>
