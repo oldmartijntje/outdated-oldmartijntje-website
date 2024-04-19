@@ -56,7 +56,7 @@ export class AchievementCollectionPageComponent implements OnInit {
     ngOnInit(): void {
         for (const achievement of achievements) {
             const response = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad(achievement.localstorageUrl);
-            if (response != achievement.unlocksWhenLocolStorageUrlIsSetTo) {
+            if (response != achievement.unlocksWhenLocolStorageUrlIsSetTo && !(typeof achievement.unlocksWhenLocolStorageUrlIsSetTo == typeof response && response > achievement.unlocksWhenLocolStorageUrlIsSetTo)) {
                 achievement.found = false;
                 if (!achievement.hideOnMobile) {
                     this.counters.mobileMode[achievement.type].total++;

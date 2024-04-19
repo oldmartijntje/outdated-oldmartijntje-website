@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
-import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
+import { RailroadinkPageComponent } from './pages/random/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
 import { ApplicationPageComponent } from './pages/main/application-page/application-page.component';

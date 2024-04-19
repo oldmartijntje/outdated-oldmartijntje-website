@@ -24,7 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
 import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
-import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
+import { RailroadinkPageComponent } from './pages/random/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
 import { ErrorPageComponent } from './pages/main/error-pages/error-page/error-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';

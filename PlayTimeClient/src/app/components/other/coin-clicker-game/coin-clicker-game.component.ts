@@ -2,6 +2,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MarioClicker } from 'src/app/data/gamesData';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -28,7 +29,8 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     constructor(
         private runtimeService: RuntimeServiceService,
         private ngZone: NgZone,
-        private localstorageHandlingService: LocalstorageHandlingService
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueueService: ToastQueueService
     ) {
 
     }
@@ -54,6 +56,12 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             var overflow = Math.floor(this.clickerGame['currency']['coin']['amount'] / this.getMaximum("coin"));
             this.clickerGame['currency']['coin']['amount'] -= overflow * this.getMaximum("coin");
             this.addLife(overflow, byClick)
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.ClickerGame.1up')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.ClickerGame.1up')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueueService.enqueueToast("You found the \"What a deal!\" Achievement!", 'achievement', 69420)
+            }
         }
     }
 

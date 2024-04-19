@@ -112,6 +112,78 @@ export const achievements: Achievement[] = [
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: true
     },
+    {
+        lockedData: {
+            title: 'Ethernity not found.',
+            description: 'Try clicking 404 page text.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0006-locked.png'
+        },
+        unlockedData: {
+            title: 'Ethernal Power!',
+            description: 'You found the DOOM game.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0006-unlocked.png'
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.404.EthernityNF',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false
+    },
+    {
+        lockedData: {
+            title: '100 Clicks!',
+            description: 'Get a 1up mushroom.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0007-locked.png'
+        },
+        unlockedData: {
+            title: 'What a deal!',
+            description: 'You clicked a coin 100 times, and got a 1up mushroom!',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0007-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.ClickerGame.1up',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false
+    },
+    {
+        lockedData: {
+            title: 'Fast Traval.',
+            description: 'If only there was a way to not have to type out the full URL to my socials...',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0008-locked.png'
+        },
+        unlockedData: {
+            title: 'Fast Travel.',
+            description: 'You used the [navigator](https://oldmartijntje.nl/link) to fast travel.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0008-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.navigator.fastTravel',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false
+    },
+    {
+        lockedData: {
+            title: 'Fast Maniac.',
+            description: 'Can\'t get enough of fast traveling, that\'s why you did it 10 times!',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0008-locked.png'
+        },
+        unlockedData: {
+            title: 'Fast Maniac.',
+            description: 'You used the [navigator](https://oldmartijntje.nl/link) to fast travel 10 times.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0009-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.navigator.fastTravelCounter',
+        unlocksWhenLocolStorageUrlIsSetTo: 10,
+        hideOnMobile: false
+    }
 ];
 
 const emptyAchievement: Achievement = {
