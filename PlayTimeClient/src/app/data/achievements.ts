@@ -61,7 +61,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: '!.,?;:',
-            description: '[404](http://localhost:4200/Fancy404) characters not found.',
+            description: '[404](https://oldmartijntje.nl/Fancy404) characters not found.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0004-locked.png'
         },
