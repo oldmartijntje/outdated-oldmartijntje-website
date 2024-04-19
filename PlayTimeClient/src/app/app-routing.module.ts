@@ -12,7 +12,7 @@ import { ContentPlayerPageComponent } from './pages/other/content-player-page/co
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
 import { RandomDisplayPageComponent } from './pages/random/random-display-page/random-display-page.component';
 import { FunkyCssPageComponent } from './pages/random/funky-css-page/funky-css-page.component';
-import { GameListComponent } from './pages/main/game-list/game-list.component';
+import { GameListComponent } from './pages/main/nintendo-switch/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 import { TerminalComponent } from './components/global/terminal/terminal.component';
@@ -20,6 +20,7 @@ import { EmptyComponent } from './components/other/empty/empty.component';
 import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
 import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.component';
 import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
+import { AchievementCollectionPageComponent } from './pages/main/achievement-collection-page/achievement-collection-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -42,6 +43,7 @@ const routes: Routes = [
     { path: 'link', component: NavigatorPageComponent },
     { path: 'blueScreen', component: BlueScreenComponent },
     { path: 'Fancy404', component: FancyNotFoundPageComponent },
+    { path: 'achievements', component: AchievementCollectionPageComponent },
 
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },
