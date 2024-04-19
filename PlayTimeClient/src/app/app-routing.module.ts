@@ -10,8 +10,8 @@ import { MessagePageComponent } from './pages/other/message-page/message-page.co
 import { ProjectGalleryPageComponent } from './pages/other/project-gallery-page/project-gallery-page.component';
 import { ContentPlayerPageComponent } from './pages/other/content-player-page/content-player-page.component';
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
-import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
-import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
+import { RandomDisplayPageComponent } from './pages/random/random-display-page/random-display-page.component';
+import { FunkyCssPageComponent } from './pages/random/funky-css-page/funky-css-page.component';
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';

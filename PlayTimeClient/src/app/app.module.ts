@@ -40,8 +40,8 @@ import { ContentPlayerPageComponent } from './pages/other/content-player-page/co
 import { VisualNovelComponent } from './components/other/visual-novel/visual-novel.component';
 import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.component';
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
-import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
-import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
+import { RandomDisplayPageComponent } from './pages/random/random-display-page/random-display-page.component';
+import { FunkyCssPageComponent } from './pages/random/funky-css-page/funky-css-page.component';
 import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/hover-glitch-text.component';
 import { GameListComponent } from './pages/main/game-list/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';

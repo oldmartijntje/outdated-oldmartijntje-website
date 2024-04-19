@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModel } from 'src/app/models/commonModel';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
@@ -16,6 +18,7 @@ interface Letter {
     styleUrl: './fancy-not-found-page.component.scss'
 })
 export class FancyNotFoundPageComponent {
+    pageFound = false;
     letters1: Letter[] = [];
     letters2: Letter[] = [];
     readonly fullText1 = '404 Not Found!';
@@ -24,7 +27,12 @@ export class FancyNotFoundPageComponent {
     constructor(
         private localstorageHandlingService: LocalstorageHandlingService,
         private toestQueueService: ToastQueueService,
+        private router: Router
     ) { }
+
+    goToLink(link: string | string[]): void {
+        CommonModel.navigateToLink(this.router, link);
+    }
 
     ngOnInit() {
         // Generate random angles for each letter
@@ -67,7 +75,7 @@ export class FancyNotFoundPageComponent {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.LettersNotFound')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.LettersNotFound')
-                this.toestQueueService.enqueueToast("You found the '404 Letters not found' easter egg!", 'info', 5)
+                this.toestQueueService.enqueueToast("You unlocked the \"404 Letters not found\" achievement!", 'achievement', 69420)
             }
             return;
         }
@@ -76,14 +84,22 @@ export class FancyNotFoundPageComponent {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.theFunnyOne')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.theFunnyOne')
-                this.toestQueueService.enqueueToast("You found the 'The Funny One' easter egg!", 'info', 5)
+                this.toestQueueService.enqueueToast("You found the \"The Funny One\" easter egg!", 'achievement', 69420)
             }
         }
         if (!stringReturn.toLowerCase().includes('!') && !stringReturn.toLowerCase().includes(',')) {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.noNeedToBeFormal')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.noNeedToBeFormal')
-                this.toestQueueService.enqueueToast("You found the 'Who needs interpunction?' easter egg!", 'info', 5)
+                this.toestQueueService.enqueueToast("You found the \"Who needs interpunction?\" easter egg!", 'achievement', 69420)
+            }
+        }
+        if (stringReturn.toLowerCase().includes('found!') && stringReturn.toLowerCase().includes('thispagedoesexist')) {
+            this.pageFound = true;
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.OhWaitItDoesExist')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.OhWaitItDoesExist')
+                this.toestQueueService.enqueueToast("You found the \"One Piece\" easter egg!", 'achievement', 69420)
             }
         }
 

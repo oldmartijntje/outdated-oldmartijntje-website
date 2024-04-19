@@ -17,6 +17,7 @@
     align-items: center;
 }
 
+.button,
 .dismiss-button {
     border: none;
     background: none;
@@ -30,6 +31,7 @@
     color: $toast-info-text-color;
 }
 
+.achievement .dismiss-button,
 .info .dismiss-button {
     color: $toast-info-close-color;
 }
@@ -50,4 +52,9 @@
 
 .error .dismiss-button {
     color: $toast-error-close-color;
+}
+
+.achievement {
+    background: linear-gradient(#e66465, #9198e5);
+    color: black
 }
