@@ -130,13 +130,14 @@ export class NavigatorPageComponent {
             this.toastQueue.enqueueToast("You found the \"Fast Traval.\" Achievement!", 'achievement', 69420)
         }
         const handlerResponse2 = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.navigator.fastTravelCounter')
-        if (handlerResponse == null || handlerResponse == false) {
+        if (handlerResponse2 == null || handlerResponse == false) {
             this.localstorageHandlingService.addEditRequestToQueue(1, 'easterEggs.navigator.fastTravelCounter')
-        } else {
+        } else if (handlerResponse2 < 10) {
             if (handlerResponse2 + 1 == 10) {
                 this.toastQueue.enqueueToast("You found the \"Fast Maniac.\" Achievement!", 'achievement', 69420)
             }
-            this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.navigator.fastTravelCounter')
+            this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.navigator.fastTravelCounter');
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
         }
 
     }

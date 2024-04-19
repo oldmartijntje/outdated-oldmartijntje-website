@@ -43,7 +43,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Funy go brr',
-            description: 'I think people in third grade find this funny.\n\nIt is done on a 404 page..',
+            description: 'I think people in third grade find this funny.\n\nIt is done on a very fancy 404 page..',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0002-locked.png'
         },
@@ -61,7 +61,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: '!.,?;:',
-            description: '404 characters not found.',
+            description: '[404](http://localhost:4200/Fancy404) characters not found.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0004-locked.png'
         },
@@ -79,7 +79,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: '404 UNO reverse card not found',
-            description: 'But let\'s say that, hypothetically, it was found?',
+            description: 'But let\'s say that, hypothetically, it was found?\n\nVery fancy..',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0003-locked.png'
         },
@@ -96,7 +96,7 @@ export const achievements: Achievement[] = [
     },
     {
         lockedData: {
-            title: 'Thanos snap?',
+            title: 'Thanos fanciest snap?',
             description: 'The 404 page is not found, as it should be.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0005-locked.png'
