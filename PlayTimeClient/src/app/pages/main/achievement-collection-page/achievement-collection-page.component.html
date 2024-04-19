@@ -20,7 +20,7 @@
                         <div *ngIf="achievement.localstorageUrl != '' && !(achievement.hideOnMobile && mobileMode && !achievement.found)"
                             class="achievement-container"
                             [ngClass]="{'unlocked': achievement.found, 'locked': !achievement.found}">
-                            <div>
+                            <div (click)="achievementClick(achievement)">
                                 <div *ngIf="achievement.found && achievement.unlockedData.show">
                                     <div class="itemHeader">
                                         <img src="{{ achievement.unlockedData.icon }}" alt="" class="icon">

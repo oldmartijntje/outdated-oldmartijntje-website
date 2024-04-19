@@ -183,6 +183,24 @@ export const achievements: Achievement[] = [
         localstorageUrl: 'easterEggs.navigator.fastTravelCounter',
         unlocksWhenLocolStorageUrlIsSetTo: 10,
         hideOnMobile: false
+    },
+    {
+        lockedData: {
+            title: 'The first one\'s always free',
+            description: 'Use 0.0005 joules of energy to unlock this achievement.\n\nThis is equivalent to 10-7 kilocalories (big calories)—or less than a calorie, and even smaller than a small calorie. Even if I exert a bigger force over a greater distance, I\'m not going to burn one big calorie clicking a mouse.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0010-locked.png'
+        },
+        unlockedData: {
+            title: 'The first one\'s always free',
+            description: 'You clicked this achievement.\n\nThis costed you 0.0005 joules of energy.\nThis is equivalent to 10-7 kilocalories (big calories)—or less than a calorie, and even smaller than a small calorie.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0010-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.firstOneFree',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false
     }
 ];
 

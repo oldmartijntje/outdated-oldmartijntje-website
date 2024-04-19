@@ -5,6 +5,7 @@ import { LocalstorageHandlingService } from 'src/app/services/localstorage-handl
 import { CommonModel } from 'src/app/models/commonModel';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-achievement-collection-page',
@@ -50,7 +51,8 @@ export class AchievementCollectionPageComponent implements OnInit {
         private runtimeService: RuntimeServiceService,
         private localstorageHandlingService: LocalstorageHandlingService,
         private router: Router,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private toastQueue: ToastQueueService
     ) { }
 
     ngOnInit(): void {
@@ -112,6 +114,17 @@ export class AchievementCollectionPageComponent implements OnInit {
     convertMarkdownLinksToHtml(title: string): SafeHtml {
         const regex = /\[(.*?)\]\((.*?)\)/g;
         return this.sanitizer.bypassSecurityTrustHtml(title.replace(regex, '<a href="$2" target="_blank" style="color: #e05b3e">$1</a>'));
+    }
+
+    achievementClick(achievement: Achievement): void {
+        if (achievement.localstorageUrl == "easterEggs.firstOneFree" && !achievement.found) {
+            this.localstorageHandlingService.addEditRequestToQueue(true, "easterEggs.firstOneFree");
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+            this.counters.normal[achievement.type].found++;
+            this.counters.mobileMode[achievement.type].found++;
+            achievement.found = true;
+            this.toastQueue.enqueueToast("You found the \"The first one\'s always free\" Achievement!", 'achievement', 69420)
+        }
     }
 
 }
