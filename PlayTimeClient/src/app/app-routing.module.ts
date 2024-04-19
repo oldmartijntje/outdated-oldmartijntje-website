@@ -19,6 +19,7 @@ import { TerminalComponent } from './components/global/terminal/terminal.compone
 import { EmptyComponent } from './components/other/empty/empty.component';
 import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
 import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.component';
+import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -40,6 +41,7 @@ const routes: Routes = [
     { path: 'void', component: EmptyComponent },
     { path: 'link', component: NavigatorPageComponent },
     { path: 'blueScreen', component: BlueScreenComponent },
+    { path: 'Fancy404', component: FancyNotFoundPageComponent },
 
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },

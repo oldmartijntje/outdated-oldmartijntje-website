@@ -52,6 +52,7 @@ import { EmptyComponent } from './components/other/empty/empty.component';
 import { GameTheoryComponent } from './components/global/game-theory/game-theory.component';
 import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
 import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.component';
+import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
 
 @NgModule({
     declarations: [
@@ -85,7 +86,8 @@ import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.compo
         EmptyComponent,
         GameTheoryComponent,
         NavigatorPageComponent,
-        BlueScreenComponent
+        BlueScreenComponent,
+        FancyNotFoundPageComponent
     ],
     imports: [
         AsyncPipe,

@@ -1,0 +1,20 @@
+<div class="not-found-page-container" [ngClass]="currentTheme">
+    <div id="titleRow" class="not-found-container">
+        <div *ngFor="let character of letters1; let i = index" (click)="handleClick(character)" class="letter large"
+            [ngClass]="{'drop-out': character.dropped}">
+            <p [style.transform]="'rotate(' + character.angle + 'deg)translateX('+character.offset[0]+'px)translateY('+character.offset[1]+'px)'"
+                *ngIf="character.value != ' '">{{character.value}}
+            </p>
+            <p *ngIf="character.value == ' '" style="width: 2rem"></p>
+        </div>
+    </div>
+    <div id="subtext" class="not-found-container">
+        <div *ngFor="let character of letters2; let i = index" (click)="handleClick(character)" class="letter small"
+            [ngClass]="{'drop-out': character.dropped}">
+            <p [style.transform]="'rotate(' + character.angle + 'deg)translateX('+character.offset[0]+'px)translateY('+character.offset[1]+'px)'"
+                *ngIf="character.value != ' '">{{character.value}}
+            </p>
+            <p *ngIf="character.value == ' '" style="width: 2rem"></p>
+        </div>
+    </div>
+</div>
