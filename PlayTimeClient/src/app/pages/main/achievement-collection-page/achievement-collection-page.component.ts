@@ -58,20 +58,18 @@ export class AchievementCollectionPageComponent implements OnInit {
             const response = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad(achievement.localstorageUrl);
             if (response != achievement.unlocksWhenLocolStorageUrlIsSetTo) {
                 achievement.found = false;
-                if (achievement.hideOnMobile) {
+                if (!achievement.hideOnMobile) {
                     this.counters.mobileMode[achievement.type].total++;
+                    this.counters.normal[achievement.type].total++;
                 } else {
                     this.counters.normal[achievement.type].total++;
                 }
             } else {
                 achievement.found = true;
-                if (achievement.hideOnMobile) {
-                    this.counters.mobileMode[achievement.type].found++;
-                    this.counters.mobileMode[achievement.type].total++;
-                } else {
-                    this.counters.normal[achievement.type].found++;
-                    this.counters.normal[achievement.type].total++;
-                }
+                this.counters.mobileMode[achievement.type].found++;
+                this.counters.mobileMode[achievement.type].total++;
+                this.counters.normal[achievement.type].found++;
+                this.counters.normal[achievement.type].total++;
             }
             if (this.achievementsTypeDict[achievement.type] == undefined) {
                 this.achievementsTypeDict[achievement.type] = [];
@@ -99,7 +97,6 @@ export class AchievementCollectionPageComponent implements OnInit {
         this.runtimeService.mobileModeSubjectValue$.subscribe((value) => {
             this.mobileMode = value['MobileMode'];
         });
-        console.log(this.achievementsTypeDict);
     }
 
     isUnlocked(achievement: Achievement): boolean {

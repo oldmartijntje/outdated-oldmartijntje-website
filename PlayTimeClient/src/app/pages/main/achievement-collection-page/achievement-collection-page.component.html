@@ -10,11 +10,14 @@
     <div class="categoryContainer">
         <ng-container *ngFor="let achievementsType of achievementTypes">
             <div class="category"
-                *ngIf="achievementsTypeDict[achievementsType] && achievementsTypeDict[achievementsType].length != 0">
-                <h2 class="typeTitle">{{achievementsType}}</h2>
+                *ngIf="achievementsTypeDict[achievementsType] && achievementsTypeDict[achievementsType].length != 0 && !(mobileMode && counters.mobileMode[achievementsType].total == 0)">
+                <h2 class="typeTitle" *ngIf="mobileMode">{{achievementsType}} -
+                    {{counters.mobileMode[achievementsType].found}}/{{counters.mobileMode[achievementsType].total}}</h2>
+                <h2 class="typeTitle" *ngIf="!mobileMode">{{achievementsType}} -
+                    {{counters.normal[achievementsType].found}}/{{counters.normal[achievementsType].total}}</h2>
                 <div class="achievementList">
                     <div *ngFor="let achievement of achievementsTypeDict[achievementsType]" class="achievementListItem">
-                        <div *ngIf="achievement.localstorageUrl != '' && !(achievement.hideOnMobile && mobileMode)"
+                        <div *ngIf="achievement.localstorageUrl != '' && !(achievement.hideOnMobile && mobileMode && !achievement.found)"
                             class="achievement-container"
                             [ngClass]="{'unlocked': achievement.found, 'locked': !achievement.found}">
                             <div>
