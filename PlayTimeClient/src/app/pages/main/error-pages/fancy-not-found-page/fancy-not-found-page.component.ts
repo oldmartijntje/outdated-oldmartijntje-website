@@ -80,6 +80,7 @@ export class FancyNotFoundPageComponent {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.LettersNotFound')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.LettersNotFound')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
                 this.toestQueueService.enqueueToast("You unlocked the \"404 Letters not found\" achievement!", 'achievement', 69420)
             }
             return;
@@ -89,6 +90,7 @@ export class FancyNotFoundPageComponent {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.theFunnyOne')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.theFunnyOne')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
                 this.toestQueueService.enqueueToast("You found the \"The Funny One\" easter egg!", 'achievement', 69420)
             }
         }
@@ -96,16 +98,18 @@ export class FancyNotFoundPageComponent {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.noNeedToBeFormal')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.noNeedToBeFormal')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
                 this.toestQueueService.enqueueToast("You found the \"Who needs interpunction?\" easter egg!", 'achievement', 69420)
             }
         }
-        if (stringReturn.toLowerCase().includes('found!') && stringReturn.toLowerCase().includes('thispagedoesexist')) {
+        if ((stringReturn.toLowerCase().startsWith('found') || stringReturn.toLowerCase().startsWith('404found')) && stringReturn.toLowerCase().includes('thispagedoesexist')) {
             this.pageFound = true;
-            this.runtimeService.setVolume(0.5);
+            this.runtimeService.setVolume(0.2);
             this.runtimeService.playAudio('../../../assets/audio/can-we-get-much-higher-one-piece-meme.mp3');
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.OhWaitItDoesExist')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.OhWaitItDoesExist')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
                 this.toestQueueService.enqueueToast("You found the \"The One Page is real!\" easter egg!", 'achievement', 69420)
             }
         }

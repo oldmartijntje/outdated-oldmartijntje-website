@@ -41,6 +41,7 @@ export class GameTheoryComponent {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.matpatCircle')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.matpatCircle')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
                 this.toestQueueService.enqueueToast("You unlocked the \"It's just a theory!\" achievement!", 'achievement', 69420)
             }
             this.router.navigate(['/simonGame', page]);
