@@ -39,6 +39,20 @@ export class LocalStorageHandler {
     }
 
     /**
+     * Checks if the data exists in the local storage, and returns it if it does.
+     * @param subkey The subkey in the localstorage stringified object.
+     * @param mainKeyOverride The key under which it is stored in localstorage. If not provided, the default key is used.
+     * @returns `any | null` - returns the data or null if it doesn't exist.
+     */
+    checkAndLoad(subkey: string, mainKeyOverride: string = this.defualtKey): any {
+        const data = this.loadData(subkey, mainKeyOverride);
+        if (data.success) {
+            return data.data;
+        }
+        return null;
+    }
+
+    /**
      * Saves the data in the local storage.
      * @param data Your data to save.
      * @param subKey The subkey in the localstorage stringified object.

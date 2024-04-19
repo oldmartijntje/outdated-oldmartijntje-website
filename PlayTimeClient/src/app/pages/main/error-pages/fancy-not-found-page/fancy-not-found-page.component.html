@@ -1,4 +1,4 @@
-<div class="not-found-page-container" [ngClass]="currentTheme">
+<div class="not-found-page-container">
     <div id="titleRow" class="not-found-container">
         <div *ngFor="let character of letters1; let i = index" (click)="handleClick(character)" class="letter large"
             [ngClass]="{'drop-out': character.dropped}">
