@@ -207,13 +207,13 @@ export const achievements: Achievement[] = [
             title: 'Shopaholic',
             description: 'Buy 50 things from the shop.\n\nIn [the clickerGame](http://oldmartijntje.nl/windows)',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0011-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0014-locked.png'
         },
         unlockedData: {
             title: 'Shopaholic',
             description: 'You bought 50 things from the shop in [the clickerGame](http://oldmartijntje.nl/windows).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0011-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0014-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.ClickerGame.shopaholic',
@@ -241,7 +241,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'I can open this?',
-            description: 'What happens when I click [this icon](http://oldmartijntje.nl/windows)?',
+            description: 'What happens when I click [this application](http://oldmartijntje.nl/windows)?',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0013-locked.png'
         },
@@ -261,13 +261,13 @@ export const achievements: Achievement[] = [
             title: 'Life saver',
             description: 'Use taskmanager to close 50 applications at once.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0014-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0011-locked.png'
         },
         unlockedData: {
             title: 'Life saver',
             description: 'Used taskmanager to close 50 applications at once.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0014-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0011-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.windows.delete50Processes',
