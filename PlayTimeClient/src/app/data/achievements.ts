@@ -35,7 +35,7 @@ export const achievements: Achievement[] = [
             show: true,
             icon: '../assets/icons/achievements/Sprite-0001-unlocked.png'
         },
-        type: AchievementType.Achievement,
+        type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.matpatCircle',
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: false
