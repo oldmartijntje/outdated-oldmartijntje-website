@@ -127,4 +127,32 @@ export class AchievementCollectionPageComponent implements OnInit {
         }
     }
 
+    checkForVariableAchievement(achievement: Achievement): number | null {
+        if (typeof achievement.unlocksWhenLocolStorageUrlIsSetTo == "number") {
+            const response = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad(achievement.localstorageUrl);
+            if (typeof response == 'number') {
+                return response
+            } else {
+                return 0
+            }
+        } else {
+            return null
+        }
+    }
+
+    calculateAchievementProgress(achievement: Achievement): number {
+        if (achievement.unlocksWhenLocolStorageUrlIsSetTo == true) {
+            return 100
+        } else if (typeof achievement.unlocksWhenLocolStorageUrlIsSetTo == "number") {
+            const response = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad(achievement.localstorageUrl);
+            if (typeof response == 'number') {
+                return (response / achievement.unlocksWhenLocolStorageUrlIsSetTo) * 100
+            } else {
+                return 0
+            }
+        } else {
+            return 0
+        }
+    }
+
 }

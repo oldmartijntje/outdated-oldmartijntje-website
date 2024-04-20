@@ -19,6 +19,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { AsyncPipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -89,7 +90,7 @@ import { AchievementCollectionPageComponent } from './pages/main/achievement-col
         NavigatorPageComponent,
         BlueScreenComponent,
         FancyNotFoundPageComponent,
-        AchievementCollectionPageComponent
+        AchievementCollectionPageComponent,
     ],
     imports: [
         AsyncPipe,
@@ -98,6 +99,7 @@ import { AchievementCollectionPageComponent } from './pages/main/achievement-col
         MatAutocompleteModule,
         BrowserModule,
         MatInputModule,
+        MatProgressBarModule,
         AngularSplitModule,
         AppRoutingModule,
         FormsModule,

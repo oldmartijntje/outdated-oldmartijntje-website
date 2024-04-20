@@ -44,6 +44,13 @@
                                         [innerHTML]="convertMarkdownLinksToHtml(achievement.lockedData.description)">
                                     </p>
                                 </div>
+                                <div class="progressBarContainer"
+                                    *ngIf="((!achievement.found && achievement.lockedData.show) || (achievement.found && achievement.unlockedData.show)) && checkForVariableAchievement(achievement) != null">
+                                    <p class="achievement-description">{{checkForVariableAchievement(achievement)}} /
+                                        {{achievement.unlocksWhenLocolStorageUrlIsSetTo}}</p>
+                                    <mat-progress-bar mode="determinate"
+                                        value="{{calculateAchievementProgress(achievement)}}"></mat-progress-bar>
+                                </div>
                             </div>
                         </div>
                     </div>

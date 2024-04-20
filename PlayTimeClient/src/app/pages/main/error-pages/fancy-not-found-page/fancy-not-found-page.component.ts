@@ -22,6 +22,7 @@ export class FancyNotFoundPageComponent {
     pageFound = false;
     letters1: Letter[] = [];
     letters2: Letter[] = [];
+    funnyWords = ['sex', 'penis', 'poop', 'tits'];
     readonly fullText1 = '404 Not Found!';
     readonly fullText2 = 'This page does not exist, oops!';
 
@@ -86,7 +87,8 @@ export class FancyNotFoundPageComponent {
             return;
         }
         const stringReturn2 = this.checkForCurrentSentence(false)
-        if (stringReturn2.toLowerCase().includes(' sex ') || stringReturn == 'sex' || stringReturn2.toLowerCase().includes(' poop ') || stringReturn == 'poop') {
+        // if it contains any of the funny words
+        if (this.funnyWords.some(word => stringReturn2.toLowerCase().includes(` ${word} `) || stringReturn.toLowerCase() == word)) {
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.theFunnyOne')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.theFunnyOne')
