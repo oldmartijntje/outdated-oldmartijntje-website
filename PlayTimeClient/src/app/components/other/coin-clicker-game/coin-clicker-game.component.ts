@@ -148,6 +148,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         if (mode == 0) {
 
             this.localstorageHandlingService.addEditRequestToQueue(this.clickerGame, "data", "ClickerGame.appData.oldmartijntje.nl");
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 1) {
             const response = this.localstorageHandlingService.getLocalstorageHandler().loadData("data", "ClickerGame.appData.oldmartijntje.nl");
@@ -158,6 +159,13 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
                 } catch (error) {
                     console.error("The save file is corrupted, resetting the save file...\nIt's not overwritten yet, so save it whilst you can!\n" + error);
                     this.clickerGame = this.deepClone(this.defaultClickerGame);
+                }
+
+                const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.ClickerGame.welcomeBack')
+                if (handlerResponse == null || handlerResponse == false) {
+                    this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.ClickerGame.welcomeBack')
+                    this.localstorageHandlingService.immediatlyGoThroughQueue();
+                    this.toastQueueService.enqueueToast("You found the \"I shall return!\" Achievement!", 'achievement', 69420)
                 }
 
             } else {
@@ -262,7 +270,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             if (buyType == "") {
                 return;
             }
-
+            this.checkForAchievement();
             this.clickerGame[buyType][type]['amount'] -= this.roundDownWithDiscount(amount);
             this.clickerGame[dir][item]['amount']++;
             this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
@@ -410,5 +418,19 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             }
         }
         return true;
+    }
+
+    checkForAchievement() {
+        const handlerResponse2 = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.ClickerGame.shopaholic')
+        if (handlerResponse2 == null || handlerResponse2 == false) {
+            this.localstorageHandlingService.addEditRequestToQueue(1, 'easterEggs.ClickerGame.shopaholic')
+        } else if (handlerResponse2 < 50) {
+            if (handlerResponse2 + 1 == 50) {
+                this.toastQueueService.enqueueToast("You found the \"Shopaholic\" Achievement!", 'achievement', 69420)
+            }
+            this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.ClickerGame.shopaholic');
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+        }
+
     }
 }

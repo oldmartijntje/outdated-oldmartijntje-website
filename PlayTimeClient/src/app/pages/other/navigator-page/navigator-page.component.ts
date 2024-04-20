@@ -130,7 +130,7 @@ export class NavigatorPageComponent {
             this.toastQueue.enqueueToast("You found the \"Fast Traval.\" Achievement!", 'achievement', 69420)
         }
         const handlerResponse2 = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.navigator.fastTravelCounter')
-        if (handlerResponse2 == null || handlerResponse == false) {
+        if (handlerResponse2 == null || handlerResponse2 == false) {
             this.localstorageHandlingService.addEditRequestToQueue(1, 'easterEggs.navigator.fastTravelCounter')
         } else if (handlerResponse2 < 10) {
             if (handlerResponse2 + 1 == 10) {

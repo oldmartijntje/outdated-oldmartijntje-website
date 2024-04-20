@@ -201,7 +201,79 @@ export const achievements: Achievement[] = [
         localstorageUrl: 'easterEggs.firstOneFree',
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: false
-    }
+    },
+    {
+        lockedData: {
+            title: 'Shopaholic',
+            description: 'Buy 50 things from the shop.\n\nIn [the clickerGame](http://oldmartijntje.nl/windows)',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0011-locked.png'
+        },
+        unlockedData: {
+            title: 'Shopaholic',
+            description: 'You bought 50 things from the shop in [the clickerGame](http://oldmartijntje.nl/windows).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0011-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.ClickerGame.shopaholic',
+        unlocksWhenLocolStorageUrlIsSetTo: 50,
+        hideOnMobile: false
+    },
+    {
+        lockedData: {
+            title: 'I shall return!',
+            description: 'The Clicker game awaits you.\n\n[Click here](http://oldmartijntje.nl/windows) to ascend.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0012-locked.png'
+        },
+        unlockedData: {
+            title: 'I shall return!',
+            description: 'You returned to [the clickerGame](http://oldmartijntje.nl/windows) with progression from a previous session.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0012-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.ClickerGame.welcomeBack',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false
+    },
+    {
+        lockedData: {
+            title: 'I can open this?',
+            description: 'What happens when I click [this icon](http://oldmartijntje.nl/windows)?',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0013-locked.png'
+        },
+        unlockedData: {
+            title: 'I can open this?',
+            description: 'Opened an application on the windows homepage.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0013-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.windows.runme',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true
+    },
+    {
+        lockedData: {
+            title: 'Life saver',
+            description: 'Use taskmanager to close 50 applications at once.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0014-locked.png'
+        },
+        unlockedData: {
+            title: 'Life saver',
+            description: 'Used taskmanager to close 50 applications at once.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0014-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.windows.delete50Processes',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true
+    },
 ];
 
 const emptyAchievement: Achievement = {
