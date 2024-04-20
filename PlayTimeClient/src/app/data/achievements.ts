@@ -274,6 +274,24 @@ export const achievements: Achievement[] = [
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: true
     },
+    {
+        lockedData: {
+            title: 'Well that doesn\'t close it...',
+            description: 'Encounter a "virus" and close it.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0015-locked.png'
+        },
+        unlockedData: {
+            title: 'Well that doesn\'t close it...',
+            description: 'You have tried to close the virus. Which did not turn out as expected.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0015-unlocked.png'
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.windows.duplication101',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true
+    },
 ];
 
 const emptyAchievement: Achievement = {

@@ -273,6 +273,12 @@ export class ApplicationPageComponent implements OnInit {
         } else {
             calcAmount = this.lastId;
         }
+        const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.windows.duplication101')
+        if (handlerResponse == null || handlerResponse == false) {
+            this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.windows.duplication101')
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+            this.toastQueueService.enqueueToast("You found the \"Well that doesn\'t close it...\" Achievement!", 'achievement', 69420)
+        }
         const amount = calcAmount;
         for (let index = 0; index < amount; index++) {
             this.reCreateBookmark(bookmark, parent)
