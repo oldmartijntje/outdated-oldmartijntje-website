@@ -86,6 +86,8 @@ export class MessagePageComponent implements OnInit {
             if (handlingRespone.data.length > Settings['usernameMaxLength']) {
                 nickname = this.generateRandomName();
                 this.localstorageHandlingService.addEditRequestToQueue(nickname, "app.Chat.nickname");
+            } else {
+                nickname = handlingRespone.data;
             }
             this.nickname = nickname;
         }
