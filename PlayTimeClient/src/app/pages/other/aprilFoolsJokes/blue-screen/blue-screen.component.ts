@@ -75,6 +75,7 @@ export class BlueScreenComponent {
             this.toastQueueService.enqueueToast('Nothing Happens..', 'info', 69420);
             this.toastQueueService.enqueueToast('To remove the cap of 100%, add "?ignoreMax=true" to the url', 'info', 69420);
             this.toastQueueService.enqueueToast('Click the :( or QR-code to go to the normal site.', 'info', 69420);
+            this.checkForAchievements('100%')
             return;
         }
         if (this.displayNumber >= 420) {
