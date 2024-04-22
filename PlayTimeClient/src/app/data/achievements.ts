@@ -425,7 +425,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'What else?',
-            description: 'Refres the [item display](https://oldmartijntje.nl/ItemDisplay).',
+            description: 'Refresh the [item display](https://oldmartijntje.nl/ItemDisplay).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0000-locked.png'
         },
