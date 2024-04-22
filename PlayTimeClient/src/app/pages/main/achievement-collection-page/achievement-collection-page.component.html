@@ -4,6 +4,7 @@
             <h1 class="pageTitle">Achievements</h1>
         </div>
         <div class="buttonContainer">
+            <button class="button" (click)="toggleGottenAcheievements()">{{buttonTitle}}</button>
             <button class="button" (click)="goToLink('home')"><mat-icon>home</mat-icon></button>
         </div>
     </header>
@@ -16,8 +17,8 @@
                 <h2 class="typeTitle" *ngIf="!mobileMode">{{achievementsType}} -
                     {{counters.normal[achievementsType].found}}/{{counters.normal[achievementsType].total}}</h2>
                 <div class="achievementList">
-                    <div *ngFor="let achievement of achievementsTypeDict[achievementsType]" class="achievementListItem">
-                        <div *ngIf="achievement.localstorageUrl != '' && !(achievement.hideOnMobile && mobileMode && !achievement.found)"
+                    <div *ngFor="let achievement of achievementsTypeDict[achievementsType]">
+                        <div *ngIf="achievement.localstorageUrl != '' && !(achievement.hideOnMobile && mobileMode && !achievement.found) && !(achievement.found && hideFoundAchievements)"
                             class="achievement-container"
                             [ngClass]="{'unlocked': achievement.found, 'locked': !achievement.found}">
                             <div (click)="achievementClick(achievement)">

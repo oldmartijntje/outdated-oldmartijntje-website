@@ -46,6 +46,8 @@ export class AchievementCollectionPageComponent implements OnInit {
             }
         }
     }
+    buttonTitle: string = '';
+    hideFoundAchievements: boolean = false;
 
     constructor(
         private runtimeService: RuntimeServiceService,
@@ -56,6 +58,7 @@ export class AchievementCollectionPageComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.toggleGottenAcheievements();
         for (const achievement of achievements) {
             const response = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad(achievement.localstorageUrl);
             if (response != achievement.unlocksWhenLocolStorageUrlIsSetTo && !(typeof achievement.unlocksWhenLocolStorageUrlIsSetTo == typeof response && response > achievement.unlocksWhenLocolStorageUrlIsSetTo)) {
@@ -84,12 +87,28 @@ export class AchievementCollectionPageComponent implements OnInit {
                 this.achievementsTypeDict[type] = [];
             }
             this.achievementsTypeDict[type] = this.achievementsTypeDict[type].sort((a, b) => {
-                if (a.found && !b.found) {
-                    return -1;
-                } else if (!a.found && b.found) {
-                    return 1;
+                if (!this.hideFoundAchievements) {
+                    if (a.found && !b.found) {
+                        return -1;
+                    } else if (!a.found && b.found) {
+                        return 1;
+                    } else {
+                        if (a.difficulty > b.difficulty) {
+                            return 1;
+                        }
+                        if (a.difficulty < b.difficulty) {
+                            return -1;
+                        }
+                        return 0;
+                    }
                 } else {
-                    return 0;
+                    if (a.difficulty > b.difficulty) {
+                        return 1;
+                    } else if (a.difficulty < b.difficulty) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
                 }
             });
         }
@@ -99,6 +118,16 @@ export class AchievementCollectionPageComponent implements OnInit {
         this.runtimeService.mobileModeSubjectValue$.subscribe((value) => {
             this.mobileMode = value['MobileMode'];
         });
+    }
+
+    toggleGottenAcheievements() {
+        if (this.buttonTitle == 'Hide Unlocked') {
+            this.buttonTitle = 'Show Unlocked';
+            this.hideFoundAchievements = true;
+        } else {
+            this.buttonTitle = 'Hide Unlocked';
+            this.hideFoundAchievements = false;
+        }
     }
 
     isUnlocked(achievement: Achievement): boolean {

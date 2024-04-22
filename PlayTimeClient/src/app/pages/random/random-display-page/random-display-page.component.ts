@@ -32,7 +32,7 @@ export class RandomDisplayPageComponent implements OnInit {
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.ItemDisplay.refreeeshh')
                 this.localstorageHandlingService.immediatlyGoThroughQueue();
-                this.toastQueue.enqueueToast("You found the \"Birdz and the Beez.\" Achievement!", 'achievement', 69420)
+                this.toastQueue.enqueueToast("You found the \"What else?\" Achievement!", 'achievement', 69420)
             }
         }
     }
