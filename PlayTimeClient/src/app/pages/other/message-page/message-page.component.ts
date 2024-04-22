@@ -6,6 +6,7 @@ import { BackendServiceService } from 'src/app/services/backend-service.service'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-message-page',
@@ -29,7 +30,8 @@ export class MessagePageComponent implements OnInit {
         private backendServiceService: BackendServiceService,
         private sanitizer: DomSanitizer,
         private runtimeServiceService: RuntimeServiceService,
-        private localstorageHandlingService: LocalstorageHandlingService
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueue: ToastQueueService
     ) { }
 
     gatAPI(): void {
@@ -187,6 +189,12 @@ export class MessagePageComponent implements OnInit {
             this.sentMessages = this.sentMessages.concat(
                 this.generateMessage(nickname, DefaultMessages[1][2], '||USERNAME||')
             );
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.chat.renameMe')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.chat.renameMe')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueue.enqueueToast("You found the \"Birdz and the Beez.\" Achievement!", 'achievement', 69420)
+            }
             return;
         } else if (this.messageBoxInput.startsWith('/')) {
             if (this.messageBoxInput == '/nick') {
@@ -262,6 +270,12 @@ export class MessagePageComponent implements OnInit {
                 this.sentMessages = this.sentMessages.concat(
                     this.generateMessage(data['message'], this.generateMessage(data['command'], this.generateMessage(data['data'], DefaultMessages[1][12], '||DATA||'), '||COMMAND||'), '||MESSAGE||')
                 );
+            }
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.chat.messages')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.chat.messages')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueue.enqueueToast("You found the \"Their first words.\" Achievement!", 'achievement', 69420)
             }
             this.onChange(true);
         },

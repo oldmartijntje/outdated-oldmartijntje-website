@@ -137,8 +137,8 @@ export class NavigatorPageComponent {
                 this.toastQueue.enqueueToast("You found the \"Fast Maniac.\" Achievement!", 'achievement', 69420)
             }
             this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.navigator.fastTravelCounter');
-            this.localstorageHandlingService.immediatlyGoThroughQueue();
         }
+        this.localstorageHandlingService.immediatlyGoThroughQueue();
 
     }
 }

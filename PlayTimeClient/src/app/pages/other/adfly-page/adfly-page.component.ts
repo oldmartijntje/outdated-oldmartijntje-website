@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { displayAd } from 'src/app/data/ads';
 import { AdHandler } from 'src/app/models/adHandler';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
     selector: 'app-adfly-page',
@@ -22,7 +24,9 @@ export class AdflyPageComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private clipboard: Clipboard
+        private clipboard: Clipboard,
+        private toastQueue: ToastQueueService,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) { }
 
     getRightStyling(index: number): any {
@@ -70,6 +74,12 @@ export class AdflyPageComponent implements OnInit {
 
     createURL(): void {
         this.madeUrl = AdflyPageComponent.startUrl + this.formatTextToParams(this.textToFormat);
+        const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.windows.adBee')
+        if (handlerResponse == null || handlerResponse == false) {
+            this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.windows.adBee')
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+            this.toastQueue.enqueueToast("You found the \"A new Identity!\" Achievement!", 'achievement', 69420)
+        }
     }
 
     getListOfdisplayAds(size: number = 0): displayAd[] {

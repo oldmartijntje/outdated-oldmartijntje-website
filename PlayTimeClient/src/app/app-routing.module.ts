@@ -18,7 +18,7 @@ import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-t
 import { TerminalComponent } from './components/global/terminal/terminal.component';
 import { EmptyComponent } from './components/other/empty/empty.component';
 import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
-import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.component';
+import { BlueScreenComponent } from './pages/other/aprilFoolsJokes/blue-screen/blue-screen.component';
 import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
 import { AchievementCollectionPageComponent } from './pages/main/achievement-collection-page/achievement-collection-page.component';
 

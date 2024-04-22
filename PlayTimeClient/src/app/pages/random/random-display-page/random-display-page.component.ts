@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RandomDisplayHandler, itemDisplay } from 'src/app/models/randomDisplayHandler';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,15 +15,26 @@ export class RandomDisplayPageComponent implements OnInit {
     amount = 0;
     development = !environment.production;
 
-    constructor() { }
+    constructor(
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueue: ToastQueueService
+    ) { }
 
     ngOnInit(): void {
-        this.getItems();
+        this.getItems(false);
         this.amount = this.randomDisplayHandler.getAmountOfItems();
     }
 
-    getItems(): void {
+    getItems(manual: boolean): void {
         this.displayItems = this.randomDisplayHandler.getItems(8);
+        if (manual) {
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.ItemDisplay.refreeeshh')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.ItemDisplay.refreeeshh')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueue.enqueueToast("You found the \"Birdz and the Beez.\" Achievement!", 'achievement', 69420)
+            }
+        }
     }
 
     getLatestItems(): void {

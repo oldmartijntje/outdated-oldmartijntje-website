@@ -6,6 +6,7 @@ export interface Achievement {
     unlocksWhenLocolStorageUrlIsSetTo: any;
     hideOnMobile: boolean;
     found?: boolean;
+    difficulty: number; // 1-10
 }
 
 export interface AchievementSettings {
@@ -38,7 +39,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.matpatCircle',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 6
     },
     {
         lockedData: {
@@ -56,7 +58,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.theFunnyOne',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: true
+        hideOnMobile: true,
+        difficulty: 2
     },
     {
         lockedData: {
@@ -74,7 +77,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.noNeedToBeFormal',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: true
+        hideOnMobile: true,
+        difficulty: 1
     },
     {
         lockedData: {
@@ -92,7 +96,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.OhWaitItDoesExist',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: true
+        hideOnMobile: true,
+        difficulty: 3
     },
     {
         lockedData: {
@@ -110,7 +115,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.Fancy404.LettersNotFound',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: true
+        hideOnMobile: true,
+        difficulty: 1
     },
     {
         lockedData: {
@@ -128,12 +134,13 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.404.EthernityNF',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 4
     },
     {
         lockedData: {
             title: '100 Clicks!',
-            description: 'Get a 1up mushroom.',
+            description: 'Get a 1up mushroom in [the clickerGame](http://oldmartijntje.nl/windows).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0007-locked.png'
         },
@@ -146,25 +153,27 @@ export const achievements: Achievement[] = [
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.ClickerGame.1up',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 2
     },
     {
         lockedData: {
             title: 'Fast Traval.',
-            description: 'If only there was a way to not have to type out the full URL to my socials...',
+            description: 'If only there was a way to not have to type out the full URL to my socials...\n\n[Navigator](https://oldmartijntje.nl/link).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0008-locked.png'
         },
         unlockedData: {
             title: 'Fast Travel.',
-            description: 'You used the [navigator](https://oldmartijntje.nl/link) to fast travel.',
+            description: 'You used the [navigator](https://oldmartijntje.nl/link) to fast travel.\n\nThese links will never change, even when I change my accounts.\n[https://oldmartijntje.nl/Link?me=github](https://oldmartijntje.nl/Link?me=github) will always point towards my current github profile.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0008-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.navigator.fastTravel',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 2
     },
     {
         lockedData: {
@@ -182,7 +191,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.navigator.fastTravelCounter',
         unlocksWhenLocolStorageUrlIsSetTo: 10,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 4
     },
     {
         lockedData: {
@@ -200,7 +210,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.firstOneFree',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 1
     },
     {
         lockedData: {
@@ -218,7 +229,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.ClickerGame.shopaholic',
         unlocksWhenLocolStorageUrlIsSetTo: 50,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 7
     },
     {
         lockedData: {
@@ -236,7 +248,8 @@ export const achievements: Achievement[] = [
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.ClickerGame.welcomeBack',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: false
+        hideOnMobile: false,
+        difficulty: 3
     },
     {
         lockedData: {
@@ -254,25 +267,27 @@ export const achievements: Achievement[] = [
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.windows.runme',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: true
+        hideOnMobile: true,
+        difficulty: 2
     },
     {
         lockedData: {
             title: 'Life saver',
-            description: 'Use taskmanager to close 50 applications at once.',
+            description: 'Use taskmanager to close 50 [applications](http://oldmartijntje.nl/windows) at once.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0011-locked.png'
         },
         unlockedData: {
             title: 'Life saver',
-            description: 'Used taskmanager to close 50 applications at once.',
+            description: 'Used taskmanager to close 50 [applications](http://oldmartijntje.nl/windows) at once.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0011-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.windows.delete50Processes',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: true
+        hideOnMobile: true,
+        difficulty: 4
     },
     {
         lockedData: {
@@ -290,8 +305,199 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.windows.duplication101',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: true
+        hideOnMobile: true,
+        difficulty: 3
     },
+    {
+        lockedData: {
+            title: 'Birdz and the Beez.',
+            description: 'Summon the [Bee](https://oldmartijntje.nl/AdBee).\n\nYou created an AdBee link.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Birdz and the Beez.',
+            description: 'You created an AdBee link.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.windows.adBee',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 3
+    },
+    {
+        lockedData: {
+            title: 'A new Identity!',
+            description: 'Give yourself a new alias for the [Chat](https://oldmartijntje.nl/Chat).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'A new Identity!',
+            description: 'You changed your name in the Chat.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.chat.renameMe',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 3
+    },
+    {
+        lockedData: {
+            title: 'Their first words',
+            description: 'Send a message in the [Chat](https://oldmartijntje.nl/Chat).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Their first words',
+            description: 'You sent a message in the Chat.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.chat.messages',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 3
+    },
+    {
+        lockedData: {
+            title: 'Hacktor',
+            description: 'Use the [terminal](https://oldmartijntje.nl/Chat)',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Hacktor',
+            description: 'You ran a command in the [terminal](https://oldmartijntje.nl/Chat).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.chat.terminal',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true,
+        difficulty: 3
+    },
+    {
+        lockedData: {
+            title: 'Tracing back the steps',
+            description: 'Use the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Tracing back the steps',
+            description: 'You used the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.StepTracker.countingSteps',
+        unlocksWhenLocolStorageUrlIsSetTo: 10,
+        hideOnMobile: false,
+        difficulty: 3
+    },
+    {
+        lockedData: {
+            title: 'Timeliness go brr',
+            description: 'Use the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps, And continue from a previous step.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Timeliness go brr',
+            description: 'You used the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps, And continued from a previous step.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.StepTracker.branchess',
+        unlocksWhenLocolStorageUrlIsSetTo: 5,
+        hideOnMobile: false,
+        difficulty: 5
+    },
+    {
+        lockedData: {
+            title: 'What else?',
+            description: 'Refres the [item display](https://oldmartijntje.nl/ItemDisplay).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'What else?',
+            description: 'You refreshed the [item display](https://oldmartijntje.nl/ItemDisplay).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.ItemDisplay.refreeeshh',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 1
+    },
+    {
+        lockedData: {
+            title: 'Blue screen of death',
+            description: 'Visit the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Blue screen of death',
+            description: 'You visited the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.aprilfools.deathening',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 2
+    },
+    {
+        lockedData: {
+            title: 'Blue screen of BORING',
+            description: 'Wait till the % reaches 100% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Blue screen of BORING',
+            description: 'You waited till the % reached 100% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.aprilfools.deathening-pt2-electricBoogaloo',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 5
+    },
+    {
+        lockedData: {
+            title: 'Blue screen of patience',
+            description: 'Reach 420% :D',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+        },
+        unlockedData: {
+            title: 'Blue screen of patience',
+            description: 'You waited till the % reached 420% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.aprilfools.deathening-pt3-theReckoning',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 6
+    }
 ];
 
 const emptyAchievement: Achievement = {
@@ -310,5 +516,6 @@ const emptyAchievement: Achievement = {
     type: AchievementType.Achievement,
     localstorageUrl: 'easterEggs.xxxxx',
     unlocksWhenLocolStorageUrlIsSetTo: true,
-    hideOnMobile: false
+    hideOnMobile: false,
+    difficulty: 0
 };
