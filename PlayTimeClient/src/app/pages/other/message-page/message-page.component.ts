@@ -193,7 +193,7 @@ export class MessagePageComponent implements OnInit {
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.chat.renameMe')
                 this.localstorageHandlingService.immediatlyGoThroughQueue();
-                this.toastQueue.enqueueToast("You found the \"Birdz and the Beez.\" Achievement!", 'achievement', 69420)
+                this.toastQueue.enqueueToast("You found the \"A new Identity\" Achievement!", 'achievement', 69420)
             }
             return;
         } else if (this.messageBoxInput.startsWith('/')) {

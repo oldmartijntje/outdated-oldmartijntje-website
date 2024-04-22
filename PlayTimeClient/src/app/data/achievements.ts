@@ -497,6 +497,25 @@ export const achievements: Achievement[] = [
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: false,
         difficulty: 6
+    },
+    {
+        lockedData: {
+            title: 'Self destruction',
+            description: "Unlock the hidden depths of control, where the orchestrator becomes the orchestrated.",
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        unlockedData: {
+            title: 'Self destruction',
+            description: 'Use Task Manager to close the Task Manager.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.windows.deleteTaskManager',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: true,
+        difficulty: 5
     }
 ];
 

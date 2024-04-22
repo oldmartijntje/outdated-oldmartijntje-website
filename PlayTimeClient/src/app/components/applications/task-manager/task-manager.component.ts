@@ -90,6 +90,15 @@ export class TaskManagerComponent implements OnInit {
                 this.toastQueueService.enqueueToast("You found the \"Life Saver\" Achievement!", 'achievement', 69420)
             }
         }
+        const find = application.find(process => process['ParentId'] === this.selectedProcessId);
+        if (find && find['Type'] == "TaskManager") {
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.windows.deleteTaskManager')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.windows.deleteTaskManager')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueueService.enqueueToast("You found the \"Self destruction\" Achievement!", 'achievement', 69420)
+            }
+        }
         while ((index = application.findIndex(process => process['ParentId'] === this.selectedProcessId)) !== -1) {
             application.splice(index, 1);
         }
