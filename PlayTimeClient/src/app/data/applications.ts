@@ -621,7 +621,34 @@ export const shortcuts: Shortcut[] = [
             "Y": -10
         }
     },
-
+    {
+        "Title": "digital garden",
+        "Icon": "https://i.imgur.com/BMpl8FL.png",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
+                {
+                    "Text": "Do you want to check out my digital garden?",
+                    "Img": "assets/icons/Question.png"
+                }
+            ],
+            "Title": "https://docs.oldmartijntje.nl",
+            "Size": { "Width": "350px" },
+            "Buttons": [
+                {
+                    "Text": "OK",
+                    "Command": "nav",
+                    "Link": "https://oldmartijntje.nl/link?me=docs"
+                }
+            ],
+            "Tabs": []
+        },
+        "Location": {
+            "X": 2,
+            "Y": -13
+        }
+    },
 ]
 
 export const taskBar: Shortcut[] = [
