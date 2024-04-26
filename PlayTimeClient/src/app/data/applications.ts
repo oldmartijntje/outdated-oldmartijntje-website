@@ -622,16 +622,20 @@ export const shortcuts: Shortcut[] = [
         }
     },
     {
-        "Title": "digital garden",
+        "Title": "Digital Garden",
         "Icon": "https://i.imgur.com/BMpl8FL.png",
         "Command": "openNewTab",
         "Link": "",
         "Payload": {
             "Popup": [
                 {
+                    "Text": "My Digital Garden is a place where I keep my documentation and notes. And notes can Link to other notes etc. It's a nice way to keep track of things.",
+                    "Img": "assets/icons/Information.png"
+                },
+                {
                     "Text": "Do you want to check out my digital garden?",
                     "Img": "assets/icons/Question.png"
-                }
+                },
             ],
             "Title": "https://docs.oldmartijntje.nl",
             "Size": { "Width": "350px" },
