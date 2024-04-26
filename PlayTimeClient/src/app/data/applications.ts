@@ -436,8 +436,8 @@ export const shortcuts: Shortcut[] = [
             "Tabs": []
         },
         "Location": {
-            "X": 5,
-            "Y": 0
+            "X": 2,
+            "Y": -1
         }
     },
     {
@@ -551,6 +551,74 @@ export const shortcuts: Shortcut[] = [
         "Location": {
             "X": 1,
             "Y": -9
+        }
+    },
+    {
+        "Title": "Youtube.mew",
+        "Icon": "https://i.imgur.com/4xsgRm6.png",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
+
+            ],
+            "Title": "dQw4w9WgXcQ",
+            "Size": { "Width": "700px", "Height": "350px" },
+            "Buttons": [
+
+            ],
+            "Tabs": [],
+            "Type": "Iframe",
+            "iframe": {
+                "src": "https://www.youtube.com/embed/DLzxrzFCyOs?hl=en_US&version=3&rel=0&autoplay=1",
+                "width": "680",
+                "height": "400",
+                "frameborder": true
+            }
+        },
+        "Location": {
+            "X": 3,
+            "Y": -11
+        }
+    },
+    {
+        "Title": "mielesgames",
+        "Icon": "https://i.imgur.com/efgkNK5.png",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
+                {
+                    "Text": "Do you want to check out my friends website?",
+                    "Img": "assets/icons/Question.png"
+                }
+            ],
+            "Title": "https://mielesgames.nl",
+            "Size": { "Width": "250px" },
+            "Buttons": [
+                {
+                    "Text": "OK",
+                    "Command": "nav",
+                    "Link": "https://mielesgames.nl/About"
+                }
+            ],
+            "Tabs": []
+        },
+        "Location": {
+            "X": 3,
+            "Y": -14
+        }
+    },
+    {
+        "Title": "Nintendo Switch",
+        "Icon": "https://i.imgur.com/metEtPg.png",
+        "Command": "nav",
+        "Link": "https://oldmartijntje.nl/nintendo",
+        "Payload": {
+        },
+        "Location": {
+            "X": 4,
+            "Y": -10
         }
     },
 
