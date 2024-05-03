@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 interface Step {
     stepText: string
@@ -51,9 +53,14 @@ export class StepTrackerPageComponent implements OnInit {
 
     alternativePath: boolean = true
 
-    showLineBraks: boolean = true
+    showLineBraks: boolean = false
 
     truncateTextMode = 'strikethrough'
+
+    constructor(
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueue: ToastQueueService
+    ) { }
 
     ngOnInit(): void {
         this.constructTimeline()
@@ -95,15 +102,46 @@ export class StepTrackerPageComponent implements OnInit {
             this.currentId++;
             this.lastStep = this.steps[this.steps.length - 1];
             this.parentBranchId = this.currentTimelineId;
+            this.checkForAchievements(0);
         } else {
             this.lastStep = item;
             this.parentBranchId = item.timelineId;
             this.currentId = item.id + 1;
             this.currentTimelineId += 1;
+            this.checkForAchievements(1);
         }
         this.inputFieldText = '';
         this.constructTimeline()
     }
+
+    checkForAchievements(achievement: number) {
+        if (achievement == 0) {
+            const handlerResponse2 = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.StepTracker.countingSteps')
+            if (handlerResponse2 == null || handlerResponse2 == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(1, 'easterEggs.StepTracker.countingSteps')
+            } else if (handlerResponse2 < 10) {
+                if (handlerResponse2 + 1 == 10) {
+                    this.toastQueue.enqueueToast("You found the \"Tracing back the steps\" Achievement!", 'achievement', 69420)
+                }
+                this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.StepTracker.countingSteps');
+            }
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+        }
+        if (achievement == 1) {
+            const handlerResponse2 = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.StepTracker.branchess')
+            if (handlerResponse2 == null || handlerResponse2 == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(1, 'easterEggs.StepTracker.branchess')
+            } else if (handlerResponse2 < 5) {
+                if (handlerResponse2 + 1 == 5) {
+                    this.toastQueue.enqueueToast("You found the \"Timeliness go brr\" Achievement!", 'achievement', 69420)
+                }
+                this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.StepTracker.branchess');
+            }
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+        }
+
+    }
+
 
     onModeChange() {
         this.constructTimeline()

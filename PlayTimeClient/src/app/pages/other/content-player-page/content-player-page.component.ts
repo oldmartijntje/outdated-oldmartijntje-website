@@ -36,7 +36,7 @@ export class ContentPlayerPageComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        const handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.Text-Adventures.selected-disc");
+        const handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.Text-Adventures.selected-disc", "textAdventures.appData.oldmartijntje");
         if (handlingRespone.success) {
             this.highlightDisc(parseInt(handlingRespone.data));
         } else {
@@ -89,7 +89,7 @@ export class ContentPlayerPageComponent implements OnInit {
                 "variables": message['variables']
             };
             var encrData = JSON.parse(JSON.stringify(data));
-            this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player");
+            this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player", "textAdventures.appData.oldmartijntje");
             this.toastQueue.enqueueToast('Your progress has been saved', 'info');
         }
     }
@@ -147,7 +147,7 @@ export class ContentPlayerPageComponent implements OnInit {
     }
 
     getLocalstorageDict(key: string): { [key: string]: any } {
-        const handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.Text-Adventures." + key);
+        const handlingRespone = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.Text-Adventures." + key, "textAdventures.appData.oldmartijntje");
         if (!handlingRespone.success) {
             return {};
         } else {
@@ -266,7 +266,7 @@ export class ContentPlayerPageComponent implements OnInit {
         }
         delete data[discName];
         var encrData = JSON.parse(JSON.stringify(data));
-        this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player");
+        this.localstorageHandlingService.addEditRequestToQueue(encrData, "app.Text-Adventures.content-player", "textAdventures.appData.oldmartijntje");
         this.toastQueue.enqueueToast('Your progress has been deleted', 'info');
         this.updateSelectedData();
         this.checkForImportedSaveFile();
@@ -319,7 +319,7 @@ export class ContentPlayerPageComponent implements OnInit {
             this.currentSlide = "-1";
             this.currentScene = "-1";
         }
-        this.localstorageHandlingService.addEditRequestToQueue(this.currentDiscDisplay.toString(), "app.Text-Adventures.selected-disc");
+        this.localstorageHandlingService.addEditRequestToQueue(this.currentDiscDisplay.toString(), "app.Text-Adventures.selected-disc", "textAdventures.appData.oldmartijntje");
     }
 
     debug() {

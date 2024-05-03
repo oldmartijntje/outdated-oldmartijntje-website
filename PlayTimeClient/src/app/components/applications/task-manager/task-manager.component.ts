@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { application, shortcuts } from 'src/app/data/applications';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-task-manager',
@@ -10,6 +12,11 @@ export class TaskManagerComponent implements OnInit {
     @Input() application: Record<string, any> = {};
     dictionaryOfShurtcuts: Record<string, any>[] = [];
     selectedProcessId: number = -1;
+
+    constructor(
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueueService: ToastQueueService
+    ) { }
 
     ngOnInit(): any {
         this.refreshProcesses()
@@ -73,6 +80,25 @@ export class TaskManagerComponent implements OnInit {
 
     deleteProcessesByParentId() {
         let index: number;
+        // find amount of processes with ParentId == selectedProcessId
+        const amount = application.filter(process => process['ParentId'] === this.selectedProcessId).length;
+        if (amount >= 50) {
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.windows.delete50Processes')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.windows.delete50Processes')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueueService.enqueueToast("You found the \"Life Saver\" Achievement!", 'achievement', 69420)
+            }
+        }
+        const find = application.find(process => process['ParentId'] === this.selectedProcessId);
+        if (find && find['Type'] == "TaskManager") {
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.windows.deleteTaskManager')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.windows.deleteTaskManager')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueueService.enqueueToast("You found the \"Self destruction\" Achievement!", 'achievement', 69420)
+            }
+        }
         while ((index = application.findIndex(process => process['ParentId'] === this.selectedProcessId)) !== -1) {
             application.splice(index, 1);
         }

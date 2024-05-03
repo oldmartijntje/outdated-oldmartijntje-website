@@ -1,7 +1,8 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MarioClicker } from 'src/app/data/gamesData';
-import { AudioPlayerService } from 'src/app/services/audio-player.service';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -26,9 +27,10 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     exportTextbox: string = "";
 
     constructor(
-        private audioPlayerService: AudioPlayerService,
+        private runtimeService: RuntimeServiceService,
         private ngZone: NgZone,
-        private localstorageHandlingService: LocalstorageHandlingService
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueueService: ToastQueueService
     ) {
 
     }
@@ -54,6 +56,12 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             var overflow = Math.floor(this.clickerGame['currency']['coin']['amount'] / this.getMaximum("coin"));
             this.clickerGame['currency']['coin']['amount'] -= overflow * this.getMaximum("coin");
             this.addLife(overflow, byClick)
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.ClickerGame.1up')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.ClickerGame.1up')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueueService.enqueueToast("You found the \"What a deal!\" Achievement!", 'achievement', 69420)
+            }
         }
     }
 
@@ -91,19 +99,19 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     }
 
     playAudio(url: string): void {
-        this.audioPlayerService.playAudio(url);
+        this.runtimeService.playAudio(url);
     }
 
     pauseAudio(): void {
-        this.audioPlayerService.pauseAudio();
+        this.runtimeService.pauseAudio();
     }
 
     setVolume(volume: number): void {
-        this.audioPlayerService.setVolume(volume);
+        this.runtimeService.setVolume(volume);
     }
 
     getVolume(): number {
-        return this.audioPlayerService.getVolume();
+        return this.runtimeService.getVolume();
     }
 
     checkContent() {
@@ -140,6 +148,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         if (mode == 0) {
 
             this.localstorageHandlingService.addEditRequestToQueue(this.clickerGame, "data", "ClickerGame.appData.oldmartijntje.nl");
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
             this.clickerGame['autoSave'] = 0;
         } else if (mode == 1) {
             const response = this.localstorageHandlingService.getLocalstorageHandler().loadData("data", "ClickerGame.appData.oldmartijntje.nl");
@@ -150,6 +159,13 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
                 } catch (error) {
                     console.error("The save file is corrupted, resetting the save file...\nIt's not overwritten yet, so save it whilst you can!\n" + error);
                     this.clickerGame = this.deepClone(this.defaultClickerGame);
+                }
+
+                const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.ClickerGame.welcomeBack')
+                if (handlerResponse == null || handlerResponse == false) {
+                    this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.ClickerGame.welcomeBack')
+                    this.localstorageHandlingService.immediatlyGoThroughQueue();
+                    this.toastQueueService.enqueueToast("You found the \"I shall return!\" Achievement!", 'achievement', 69420)
                 }
 
             } else {
@@ -254,7 +270,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             if (buyType == "") {
                 return;
             }
-
+            this.checkForAchievement();
             this.clickerGame[buyType][type]['amount'] -= this.roundDownWithDiscount(amount);
             this.clickerGame[dir][item]['amount']++;
             this.clickerGame[dir][item]['cost']['amount'] = this.clickerGame[dir][item]['cost']['amount'] * this.clickerGame[dir][item]['costMultiplier'];
@@ -402,5 +418,19 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
             }
         }
         return true;
+    }
+
+    checkForAchievement() {
+        const handlerResponse2 = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.ClickerGame.shopaholic')
+        if (handlerResponse2 == null || handlerResponse2 == false) {
+            this.localstorageHandlingService.addEditRequestToQueue(1, 'easterEggs.ClickerGame.shopaholic')
+        } else if (handlerResponse2 < 50) {
+            if (handlerResponse2 + 1 == 50) {
+                this.toastQueueService.enqueueToast("You found the \"Shopaholic\" Achievement!", 'achievement', 69420)
+            }
+            this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.ClickerGame.shopaholic');
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+        }
+
     }
 }

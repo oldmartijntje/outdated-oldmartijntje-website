@@ -132,7 +132,7 @@
     <div class="container">
         <div class="status-bar">
             <div class="profile">
-                <a>
+                <a (click)="goToLink('Fancy404')">
                     <!-- should do something with this -->
                     <img src="../../../../assets/images/mii.png" alt="Profile Image">
                 </a>
@@ -206,31 +206,45 @@
         </div>
         <div class="menu-container">
             <div class="menu">
-                <button class="item">
+                <button class="item" (click)="goToLink('achievements')">
+                    <mat-icon class="m-auto"
+                        style="font-size: 47px; height: 47px; width: 47px; color: rgb(0, 170, 43);">emoji_events</mat-icon>
+                    <p class="desc">
+                        achievements
+                    </p>
+                </button>
+                <button class="item" (click)="goToLink('Fancy404')">
+                    <mat-icon class="m-auto"
+                        style="font-size: 47px; height: 47px; width: 47px; color: rgb(185, 18, 171);">tips_and_updates</mat-icon>
+                    <p class="desc">
+                        Updates
+                    </p>
+                </button>
+                <button class="item" (click)="goToLink('Fancy404')">
                     <img src="../../../../assets/icons/switch/news.svg" class="m-auto">
                     <p class="desc">
                         news
                     </p>
                 </button>
-                <button class="item">
+                <button class="item" (click)="goToLink('Fancy404')">
                     <img src="../../../../assets/icons/switch/eshop.svg" class="m-auto">
                     <p class="desc">
                         eShop
                     </p>
                 </button>
-                <button class="item">
+                <button class="item" (click)="goToLink('Fancy404')">
                     <img src="../../../../assets/icons/switch/gallery.svg" class="m-auto">
                     <p class="desc">
                         gallery
                     </p>
                 </button>
-                <button class="item">
+                <button class="item" (click)="goToLink('Fancy404')">
                     <img src="../../../../assets/icons/switch/controlls.svg" class="m-auto">
                     <p class="desc">
                         controller
                     </p>
                 </button>
-                <button class="item">
+                <button class="item" (click)="goToLink('Fancy404')">
                     <img src="../../../../assets/icons/switch/settings.svg" class="m-auto">
                     <p class="desc">
                         setting

@@ -436,8 +436,8 @@ export const shortcuts: Shortcut[] = [
             "Tabs": []
         },
         "Location": {
-            "X": 5,
-            "Y": 0
+            "X": 2,
+            "Y": -1
         }
     },
     {
@@ -553,7 +553,106 @@ export const shortcuts: Shortcut[] = [
             "Y": -9
         }
     },
+    {
+        "Title": "Youtube.mew",
+        "Icon": "https://i.imgur.com/4xsgRm6.png",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
 
+            ],
+            "Title": "dQw4w9WgXcQ",
+            "Size": { "Width": "700px", "Height": "350px" },
+            "Buttons": [
+
+            ],
+            "Tabs": [],
+            "Type": "Iframe",
+            "iframe": {
+                "src": "https://www.youtube.com/embed/DLzxrzFCyOs?hl=en_US&version=3&rel=0&autoplay=1",
+                "width": "680",
+                "height": "400",
+                "frameborder": true
+            }
+        },
+        "Location": {
+            "X": 3,
+            "Y": -11
+        }
+    },
+    {
+        "Title": "mielesgames",
+        "Icon": "https://i.imgur.com/efgkNK5.png",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
+                {
+                    "Text": "Do you want to check out my friends website?",
+                    "Img": "assets/icons/Question.png"
+                }
+            ],
+            "Title": "https://mielesgames.nl",
+            "Size": { "Width": "250px" },
+            "Buttons": [
+                {
+                    "Text": "OK",
+                    "Command": "nav",
+                    "Link": "https://mielesgames.nl/About"
+                }
+            ],
+            "Tabs": []
+        },
+        "Location": {
+            "X": 3,
+            "Y": -14
+        }
+    },
+    {
+        "Title": "Nintendo Switch",
+        "Icon": "https://i.imgur.com/metEtPg.png",
+        "Command": "nav",
+        "Link": "https://oldmartijntje.nl/nintendo",
+        "Payload": {
+        },
+        "Location": {
+            "X": 4,
+            "Y": -10
+        }
+    },
+    {
+        "Title": "Digital Garden",
+        "Icon": "https://i.imgur.com/BMpl8FL.png",
+        "Command": "openNewTab",
+        "Link": "",
+        "Payload": {
+            "Popup": [
+                {
+                    "Text": "My Digital Garden is a place where I keep my documentation and notes. And notes can Link to other notes etc. It's a nice way to keep track of things.",
+                    "Img": "assets/icons/Information.png"
+                },
+                {
+                    "Text": "Do you want to check out my digital garden?",
+                    "Img": "assets/icons/Question.png"
+                },
+            ],
+            "Title": "https://docs.oldmartijntje.nl",
+            "Size": { "Width": "350px" },
+            "Buttons": [
+                {
+                    "Text": "OK",
+                    "Command": "nav",
+                    "Link": "https://oldmartijntje.nl/link?me=docs"
+                }
+            ],
+            "Tabs": []
+        },
+        "Location": {
+            "X": 2,
+            "Y": -13
+        }
+    },
 ]
 
 export const taskBar: Shortcut[] = [

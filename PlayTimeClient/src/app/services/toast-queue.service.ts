@@ -18,7 +18,7 @@ export class ToastQueueService {
  * Enqueue a toast message with optional parameters.
  *
  * @param {string} message - The message to be displayed in the toast.
- * @param {string} [typeOfToast='info'] - The type of toast (e.g., 'info', 'warning', 'error').
+ * @param {string} [typeOfToast='info'] - The type of toast (e.g., 'info', 'warning', 'error', 'achievement').
  * @param {number} [timeModifier=0] - An optional time modifier for controlling the display time of the toast. 1 == extra 1 second. 0 == default time. 69420 disables the timeout.
  * @returns {void}
  */
@@ -61,6 +61,14 @@ export class ToastQueueService {
         }
     }
 
+    /**
+* Enqueue a toast message with optional parameters.
+*
+* @param {string} message - The message to be displayed in the toast.
+* @param {string} [typeOfToast='info'] - The type of toast (e.g., 'info', 'warning', 'error', 'achievement').
+* @param {number} [timeModifier=0] - An optional time modifier for controlling the display time of the toast. 1 == extra 1 second. 0 == default time. 69420 disables the timeout.
+* @returns {void}
+*/
     showToast(toastMessage: string = 'Default Toast: "Hello World!"', type: string = 'info', timeModifier: number = 0) {
         this.enqueueToast(toastMessage, type, timeModifier);
     }

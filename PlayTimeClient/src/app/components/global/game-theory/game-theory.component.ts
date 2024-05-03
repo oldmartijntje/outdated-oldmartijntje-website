@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AudioPlayerService } from 'src/app/services/audio-player.service';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-game-theory',
@@ -19,27 +21,34 @@ export class GameTheoryComponent {
 
     constructor(
         private router: Router,
-        private audioService: AudioPlayerService
+        private runtimeService: RuntimeServiceService,
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toestQueueService: ToastQueueService,
     ) { }
 
     gameTheoryClicked(id: string): void {
         if (this.gameTheory['found']) {
             this.gameTheory['found'] = false;
             var page = '';
-            this.audioService.setVolume(0.1);
-            this.audioService.playAudio('../../../../assets/audio/simon tune4.mp3');
+            this.runtimeService.setVolume(0.1);
+            this.runtimeService.playAudio('../../../../assets/audio/simon tune4.mp3');
             if (id == 'middle') {
                 const tempText = `${Math.floor(Math.random() * 4) + 1}`
                 page = this.gameTheory['pageConvertor'][tempText];
             } else {
                 page = this.gameTheory['pageConvertor'][id];
             }
-
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.matpatCircle')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.matpatCircle')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toestQueueService.enqueueToast("You unlocked the \"It's just a theory!\" achievement!", 'achievement', 69420)
+            }
             this.router.navigate(['/simonGame', page]);
             return;
         }
-        this.audioService.setVolume(0.1);
-        this.audioService.playAudio(this.gameTheory['audioConvertor'][id]);
+        this.runtimeService.setVolume(0.1);
+        this.runtimeService.playAudio(this.gameTheory['audioConvertor'][id]);
         this.gameTheory['clickedOrder'].push(id);
         if (this.gameTheory['clickedOrder'].length > 5) {
             this.gameTheory['clickedOrder'].shift();

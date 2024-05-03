@@ -1,0 +1,62 @@
+<div class="pageContainer">
+    <header>
+        <div>
+            <h1 class="pageTitle">Achievements</h1>
+        </div>
+        <div class="buttonContainer">
+            <button class="button" (click)="toggleGottenAcheievements()">{{buttonTitle}}</button>
+            <button class="button" (click)="goToLink('home')"><mat-icon>home</mat-icon></button>
+        </div>
+    </header>
+    <div class="categoryContainer">
+        <ng-container *ngFor="let achievementsType of achievementTypes">
+            <div class="category"
+                *ngIf="achievementsTypeDict[achievementsType] && achievementsTypeDict[achievementsType].length != 0 && !(mobileMode && counters.mobileMode[achievementsType].total == 0)">
+                <h2 class="typeTitle" *ngIf="mobileMode">{{achievementsType}} -
+                    {{counters.mobileMode[achievementsType].found}}/{{counters.mobileMode[achievementsType].total}}</h2>
+                <h2 class="typeTitle" *ngIf="!mobileMode">{{achievementsType}} -
+                    {{counters.normal[achievementsType].found}}/{{counters.normal[achievementsType].total}}</h2>
+                <div class="achievementList">
+                    <div *ngFor="let achievement of achievementsTypeDict[achievementsType]">
+                        <div *ngIf="achievement.localstorageUrl != '' && !(achievement.hideOnMobile && mobileMode && !achievement.found) && !(achievement.found && hideFoundAchievements)"
+                            class="achievement-container"
+                            [ngClass]="{'unlocked': achievement.found, 'locked': !achievement.found}">
+                            <div (click)="achievementClick(achievement)">
+                                <div *ngIf="achievement.found && achievement.unlockedData.show">
+                                    <div class="itemHeader">
+                                        <img src="{{ achievement.unlockedData.icon }}" alt="" class="icon">
+                                        <h3 class="achievement-title"
+                                            [innerHTML]="convertMarkdownLinksToHtml(achievement.unlockedData.title)">
+                                        </h3>
+                                        <mat-icon title="unlocked!" style="color:#e9c603">emoji_events</mat-icon>
+                                    </div>
+                                    <p class="achievement-description"
+                                        [innerHTML]="convertMarkdownLinksToHtml(achievement.unlockedData.description)">
+                                    </p>
+                                </div>
+                                <div *ngIf="!achievement.found && achievement.lockedData.show">
+                                    <div class="itemHeader">
+                                        <img src="{{ achievement.lockedData.icon }}" alt="" class="icon">
+                                        <h3 class="achievement-title"
+                                            [innerHTML]="convertMarkdownLinksToHtml(achievement.lockedData.title)"></h3>
+                                        <mat-icon title="locked" style="color:#ad0000">lock</mat-icon>
+                                    </div>
+                                    <p class="achievement-description"
+                                        [innerHTML]="convertMarkdownLinksToHtml(achievement.lockedData.description)">
+                                    </p>
+                                </div>
+                                <div class="progressBarContainer"
+                                    *ngIf="((!achievement.found && achievement.lockedData.show) || (achievement.found && achievement.unlockedData.show)) && checkForVariableAchievement(achievement) != null">
+                                    <p class="achievement-description">{{checkForVariableAchievement(achievement)}} /
+                                        {{achievement.unlocksWhenLocolStorageUrlIsSetTo}}</p>
+                                    <mat-progress-bar mode="determinate" [color]="achievement.found ? 'accent' : 'warn'"
+                                        value="{{calculateAchievementProgress(achievement)}}"></mat-progress-bar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

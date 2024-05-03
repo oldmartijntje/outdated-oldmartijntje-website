@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModel } from 'src/app/models/commonModel';
-import { AudioPlayerService } from 'src/app/services/audio-player.service';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 @Component({
     selector: 'app-funky-css-page',
@@ -13,25 +13,25 @@ export class FunkyCssPageComponent {
     clicksOnThePointlessButton = 0;
 
     constructor(
-        private audioPlayerService: AudioPlayerService,
+        private runtimeService: RuntimeServiceService,
         private router: Router
     ) { }
 
     playAudio(url: string, volume: number = 0.5): void {
         this.setVolume(volume);
-        this.audioPlayerService.playAudio(url);
+        this.runtimeService.playAudio(url);
     }
 
     pauseAudio(): void {
-        this.audioPlayerService.pauseAudio();
+        this.runtimeService.pauseAudio();
     }
 
     setVolume(volume: number): void {
-        this.audioPlayerService.setVolume(volume);
+        this.runtimeService.setVolume(volume);
     }
 
     getVolume(): number {
-        return this.audioPlayerService.getVolume();
+        return this.runtimeService.getVolume();
     }
 
     selectPlayer(player: string): void {

@@ -1,8 +1,11 @@
 <div class="toast-container">
     <div class="toast {{toast.type}}" *ngFor="let toast of toastQueue">
-        <span [innerHTML]="scanForBreak(toast.message)"></span>
+        <button class="button" (click)="achievementClick(toast)">
+            <mat-icon *ngIf="toast.type === 'achievement'" style="color:#e9c603">emoji_events</mat-icon>
+        </button>
+        <span [innerHTML]="scanForBreak(toast.message)" (click)="achievementClick(toast)"></span>
         <button class="dismiss-button" (click)="dismissToast(toast.id)">
-            X
+            <mat-icon>close</mat-icon>
         </button>
     </div>
 </div>

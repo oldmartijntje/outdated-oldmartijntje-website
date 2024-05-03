@@ -5,6 +5,7 @@ import { CommonModel } from 'src/app/models/commonModel';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ToastQueueService } from 'src/app/services/toast-queue.service';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 @Component({
     selector: 'app-navigator-page',
@@ -24,7 +25,8 @@ export class NavigatorPageComponent {
         private router: Router,
         private backendServiceService: BackendServiceService,
         private clipboard: Clipboard,
-        private toastQueue: ToastQueueService
+        private toastQueue: ToastQueueService,
+        private localstorageHandlingService: LocalstorageHandlingService
     ) {
         this.route.queryParams.subscribe(params => {
             if (params['me']) {
@@ -53,6 +55,7 @@ export class NavigatorPageComponent {
                         delete params['/'];
 
                     }
+                    this.checkForAchievement();
                     CommonModel.navigateToLink(this.router, url.link, undefined, skipNav, params);
                 } else {
                     CommonModel.navigateToLink(this.router, [], undefined, true, undefined);
@@ -102,6 +105,7 @@ export class NavigatorPageComponent {
             return;
         }
         if (!this.search) {
+            this.checkForAchievement();
             const params = this.getParams(link);
             var skipNav = true;
             if (link.setSkipLocationChange != undefined) {
@@ -116,5 +120,25 @@ export class NavigatorPageComponent {
 
     onCheckbox(event: any) {
         this.search = event.target.checked;
+    }
+
+    checkForAchievement() {
+        const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.navigator.fastTravel')
+        if (handlerResponse == null || handlerResponse == false) {
+            this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.navigator.fastTravel')
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+            this.toastQueue.enqueueToast("You found the \"Fast Traval.\" Achievement!", 'achievement', 69420)
+        }
+        const handlerResponse2 = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.navigator.fastTravelCounter')
+        if (handlerResponse2 == null || handlerResponse2 == false) {
+            this.localstorageHandlingService.addEditRequestToQueue(1, 'easterEggs.navigator.fastTravelCounter')
+        } else if (handlerResponse2 < 10) {
+            if (handlerResponse2 + 1 == 10) {
+                this.toastQueue.enqueueToast("You found the \"Fast Maniac.\" Achievement!", 'achievement', 69420)
+            }
+            this.localstorageHandlingService.addEditRequestToQueue(handlerResponse2 + 1, 'easterEggs.navigator.fastTravelCounter');
+        }
+        this.localstorageHandlingService.immediatlyGoThroughQueue();
+
     }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Styling, DefaultScenes, DefaultStory, DefaultIdentifierForExceptions } from '../../../data/media'
-import { AudioPlayerService } from 'src/app/services/audio-player.service';
 import { FormControl } from '@angular/forms';
+import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 
 interface ComboboxOption {
     value: string;
@@ -94,7 +94,7 @@ export class VisualNovelComponent implements OnInit {
     }
 
     constructor(
-        private audioPlayerService: AudioPlayerService
+        private runtimeService: RuntimeServiceService,
     ) { }
 
     ngOnInit(): void {
@@ -518,19 +518,19 @@ export class VisualNovelComponent implements OnInit {
     }
 
     playAudio(url: string): void {
-        this.audioPlayerService.playAudio(url);
+        this.runtimeService.playAudio(url);
     }
 
     pauseAudio(): void {
-        this.audioPlayerService.pauseAudio();
+        this.runtimeService.pauseAudio();
     }
 
     setVolume(volume: number): void {
-        this.audioPlayerService.setVolume(volume);
+        this.runtimeService.setVolume(volume);
     }
 
     getVolume(): number {
-        return this.audioPlayerService.getVolume();
+        return this.runtimeService.getVolume();
     }
 
     tryToPlayAudio(from: string = 'slide'): void {

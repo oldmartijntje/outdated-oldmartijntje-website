@@ -1,0 +1,47 @@
+.not-found-container {
+    margin-top: 10rem;
+    height: 10rem;
+}
+
+.not-found-container,
+.not-found-page-container {
+    display: flex;
+
+    align-items: center;
+}
+
+.not-found-page-container {
+    flex-direction: column;
+    height: 100vh;
+}
+
+.letter {
+    /* Adjust angle as needed */
+    cursor: pointer;
+    user-select: none;
+}
+
+.small {
+    font-size: 2.5rem;
+}
+
+.large {
+    font-size: 5rem;
+}
+
+.drop-out {
+    animation: dropOut 1s ease forwards;
+}
+
+@keyframes dropOut {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh);
+        /* Drop the element to the bottom of the screen */
+        opacity: 0;
+    }
+}

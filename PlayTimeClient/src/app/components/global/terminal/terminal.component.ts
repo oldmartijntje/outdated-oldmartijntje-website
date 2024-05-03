@@ -3,6 +3,7 @@ import { terminalLine, CommandHandler } from 'src/app/models/commandHandler';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-terminal',
@@ -23,7 +24,8 @@ export class TerminalComponent implements OnInit {
     constructor(
         private backendServiceService: BackendServiceService,
         private backendMiddlemanService: BackendMiddlemanService,
-        private localstorageHandlingService: LocalstorageHandlingService
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueue: ToastQueueService
     ) { }
 
     commandHandler = new CommandHandler(this.backendServiceService, this.backendMiddlemanService, this.localstorageHandlingService);
@@ -34,11 +36,11 @@ export class TerminalComponent implements OnInit {
         const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().loadData("app.terminal.startupCommand");
         if (handlerResponse.success) {
             console.log("Running startup command: " + handlerResponse.data);
-            this.runCommand(handlerResponse.data, true);
+            this.runCommand(handlerResponse.data, true, false);
         } else {
             console.log("No startup command found");
             const defaultStartupCommand = "echo \"Welcome to the Terminal\nType 'help' for a list of commands\""
-            this.runCommand(defaultStartupCommand, true);
+            this.runCommand(defaultStartupCommand, true, false);
         }
         // this.commandHandler.runCommand("help");
         // this.history = this.commandHandler.getHistory();
@@ -54,7 +56,15 @@ export class TerminalComponent implements OnInit {
         }
     }
 
-    runCommand(command: string, silent: boolean = false) {
+    runCommand(command: string, silent: boolean = false, manualInput: boolean = false) {
+        if (manualInput) {
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.chat.terminal')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.chat.terminal')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueue.enqueueToast("You found the \"Hacktor\" Achievement!", 'achievement', 69420)
+            }
+        }
         this.commandHandler.runCommand(command, silent);
         this.history = this.commandHandler.getHistory();
         this.terminalInputValue = "";
@@ -68,7 +78,7 @@ export class TerminalComponent implements OnInit {
 
     onEnterPress() {
         if (this.terminalInputField && this.container) {
-            this.runCommand(this.terminalInputValue);
+            this.runCommand(this.terminalInputValue, false, true);
         }
     }
 

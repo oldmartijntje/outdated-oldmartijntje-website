@@ -11,6 +11,7 @@ import { AdHandler } from 'src/app/models/adHandler';
 import { RuntimeServiceService } from 'src/app/services/runtime-service.service';
 import { BackendMiddlemanService } from 'src/app/services/backend-middleman.service';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 
 @Component({
     selector: 'app-application-page',
@@ -46,7 +47,8 @@ export class ApplicationPageComponent implements OnInit {
         private runtimeServiceService: RuntimeServiceService,
         private sanitizer: DomSanitizer,
         private backendMiddlemanService: BackendMiddlemanService,
-        private localstorageHandlingService: LocalstorageHandlingService
+        private localstorageHandlingService: LocalstorageHandlingService,
+        private toastQueueService: ToastQueueService
     ) { }
 
     gatAPI(): void {
@@ -140,6 +142,12 @@ export class ApplicationPageComponent implements OnInit {
 
         if (!this.isDragging && clickDuration < shortClickThreshold && onIcon) {
             this.executeCommand(button, bookmark)
+            const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.windows.runme')
+            if (handlerResponse == null || handlerResponse == false) {
+                this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.windows.runme')
+                this.localstorageHandlingService.immediatlyGoThroughQueue();
+                this.toastQueueService.enqueueToast("You found the \"I can open this?\" Achievement!", 'achievement', 69420)
+            }
         }
     }
 
@@ -264,6 +272,12 @@ export class ApplicationPageComponent implements OnInit {
             calcAmount = 10;
         } else {
             calcAmount = this.lastId;
+        }
+        const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.windows.duplication101')
+        if (handlerResponse == null || handlerResponse == false) {
+            this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.windows.duplication101')
+            this.localstorageHandlingService.immediatlyGoThroughQueue();
+            this.toastQueueService.enqueueToast("You found the \"Well that doesn\'t close it...\" Achievement!", 'achievement', 69420)
         }
         const amount = calcAmount;
         for (let index = 0; index < amount; index++) {

@@ -19,12 +19,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { AsyncPipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
 import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
-import { RailroadinkPageComponent } from './pages/other/railroadink-page/railroadink-page.component';
+import { RailroadinkPageComponent } from './pages/random/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
 import { ErrorPageComponent } from './pages/main/error-pages/error-page/error-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
@@ -40,10 +41,10 @@ import { ContentPlayerPageComponent } from './pages/other/content-player-page/co
 import { VisualNovelComponent } from './components/other/visual-novel/visual-novel.component';
 import { GlitchTextComponent } from './components/other/glitch-text/glitch-text.component';
 import { TestingPageComponent } from './pages/other/testing-page/testing-page.component';
-import { RandomDisplayPageComponent } from './pages/other/random-display-page/random-display-page.component';
-import { FunkyCssPageComponent } from './pages/other/funky-css-page/funky-css-page.component';
+import { RandomDisplayPageComponent } from './pages/random/random-display-page/random-display-page.component';
+import { FunkyCssPageComponent } from './pages/random/funky-css-page/funky-css-page.component';
 import { HoverGlitchTextComponent } from './components/global/hover-glitch-text/hover-glitch-text.component';
-import { GameListComponent } from './pages/main/game-list/game-list.component';
+import { GameListComponent } from './pages/main/nintendo-switch/game-list.component';
 import { HomepageDeciderComponent } from './components/other/homepage-decider/homepage-decider.component';
 import { StepTrackerPageComponent } from './pages/other/step-tracker-page/step-tracker-page.component';
 import { MagnifierComponent } from './components/global/magnifier/magnifier.component';
@@ -51,7 +52,9 @@ import { TerminalComponent } from './components/global/terminal/terminal.compone
 import { EmptyComponent } from './components/other/empty/empty.component';
 import { GameTheoryComponent } from './components/global/game-theory/game-theory.component';
 import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-page.component';
-import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.component';
+import { BlueScreenComponent } from './pages/other/aprilFoolsJokes/blue-screen/blue-screen.component';
+import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
+import { AchievementCollectionPageComponent } from './pages/main/achievement-collection-page/achievement-collection-page.component';
 
 @NgModule({
     declarations: [
@@ -85,7 +88,9 @@ import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.compo
         EmptyComponent,
         GameTheoryComponent,
         NavigatorPageComponent,
-        BlueScreenComponent
+        BlueScreenComponent,
+        FancyNotFoundPageComponent,
+        AchievementCollectionPageComponent,
     ],
     imports: [
         AsyncPipe,
@@ -94,6 +99,7 @@ import { BlueScreenComponent } from './pages/other/blue-screen/blue-screen.compo
         MatAutocompleteModule,
         BrowserModule,
         MatInputModule,
+        MatProgressBarModule,
         AngularSplitModule,
         AppRoutingModule,
         FormsModule,

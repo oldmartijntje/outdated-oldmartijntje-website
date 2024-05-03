@@ -181,7 +181,8 @@ export const Settings: any = {
         "AdBee",
         "home",
         "link",
-        "blueScreen"
+        "blueScreen",
+        "achievements"
     ],
     "usernameMaxLength": 16,
     "messageMaxLength": 256,
