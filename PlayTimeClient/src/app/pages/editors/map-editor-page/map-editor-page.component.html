@@ -3,7 +3,23 @@
         <div id="editor">
             <header>
                 <div id="selectionBar">
-
+                    <div class="selectableTileMapper" [ngClass]="{'selected': emptyTile.value == tilePlacementValue}"
+                        (click)="selectTileMap(emptyTile)"
+                        [ngStyle]="{'background-color': emptyTile.backgroundColor, 'color': emptyTile.color}">
+                        <span *ngIf="emptyTile.type == 'text'"
+                            [ngStyle]="{'background-color': emptyTile.backgroundColor, 'color': emptyTile.color}">{{emptyTile.displayValue}}</span>
+                        <img *ngIf="emptyTile.type == 'image'" src="{{emptyTile.displayValue}}" alt="">
+                        <mat-icon *ngIf="emptyTile.type == 'icon'">{{emptyTile.displayValue}}</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper" *ngFor="let tileMapper of tileDisplays"
+                        [ngClass]="{'selected': tileMapper.value == tilePlacementValue}"
+                        (click)="selectTileMap(tileMapper)"
+                        [ngStyle]="{'background-color': tileMapper.backgroundColor, 'color': tileMapper.color}">
+                        <span *ngIf="tileMapper.type == 'text'"
+                            [ngStyle]="{'background-color': tileMapper.backgroundColor, 'color': tileMapper.color}">{{tileMapper.displayValue}}</span>
+                        <img *ngIf="tileMapper.type == 'image'" src="{{tileMapper.displayValue}}" alt="">
+                        <mat-icon *ngIf="tileMapper.type == 'icon'">{{tileMapper.displayValue}}</mat-icon>
+                    </div>
                 </div>
             </header>
             <div id="editorContent" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)"

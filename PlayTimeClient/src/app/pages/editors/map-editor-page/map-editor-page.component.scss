@@ -7,6 +7,19 @@
     background-size: 100%;
 }
 
+#selectionBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#editor {
+    height: 100%;
+    width: 100%;
+}
+
 .background-container * {
     user-select: none;
 }
@@ -23,6 +36,7 @@
     overflow-y: scroll;
     overflow-x: scroll;
     width: 100%;
+    max-height: 100%;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -31,6 +45,7 @@
     flex-direction: column;
 }
 
+.selectableTileMapper,
 .tile {
     /* Add your tile styles here */
     border: 1px solid black;
@@ -41,6 +56,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.selectableTileMapper.selected {
+    border: 2px solid yellow;
 }
 
 img {
@@ -55,10 +74,6 @@ img {
         max-width: 100%;
         min-width: none;
     }
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
 }
 
 
@@ -68,20 +83,4 @@ img {
         min-width: 1024px;
         max-width: 100%;
     }
-
-    ::-webkit-scrollbar {
-        width: 20px;
-    }
-}
-
-// show scrollbar
-
-
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
 }

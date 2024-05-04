@@ -11,9 +11,9 @@ interface TileDisplay {
 const emptyTile: TileDisplay = {
     backgroundColor: '',
     color: '',
-    type: 'image',
+    type: 'text',
     value: 0,
-    displayValue: 'https://i.imgur.com/kgZ3Dgm.png'
+    displayValue: ''
 }
 
 interface tileMapField {
@@ -28,6 +28,7 @@ interface tileMapField {
     styleUrl: './map-editor-page.component.scss'
 })
 export class MapEditorPageComponent {
+    readonly emptyTile = { ...emptyTile };
     tileDisplays: TileDisplay[] = [
         {
             backgroundColor: 'white',
@@ -35,6 +36,27 @@ export class MapEditorPageComponent {
             type: 'image',
             value: 1,
             displayValue: 'https://i.imgur.com/Ybl4wiW.png'
+        },
+        {
+            backgroundColor: 'white',
+            color: 'black',
+            type: 'image',
+            value: 2,
+            displayValue: 'https://i.imgur.com/kgZ3Dgm.png'
+        },
+        {
+            backgroundColor: 'white',
+            color: 'black',
+            type: 'icon',
+            value: 3,
+            displayValue: 'compost'
+        },
+        {
+            backgroundColor: '#ff00bf',
+            color: '#007fff',
+            type: 'text',
+            value: ':3',
+            displayValue: ':3'
         }
     ];
 
@@ -94,7 +116,6 @@ export class MapEditorPageComponent {
     }
 
     setTileValue(tile: tileMapField, value: any) {
-        console.log(tile)
         tile.value = value;
     }
 
@@ -148,6 +169,10 @@ export class MapEditorPageComponent {
 
     parse(tile: string): tileMapField {
         return JSON.parse(tile);
+    }
+
+    selectTileMap(tileMap: TileDisplay) {
+        this.tilePlacementValue = tileMap.value;
     }
 
 }
