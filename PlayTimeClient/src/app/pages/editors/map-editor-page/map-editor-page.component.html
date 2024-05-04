@@ -2,14 +2,27 @@
     <div class="container">
         <div id="editor">
             <header>
+                <!-- add new button -->
+                <div id="optionBar">
+                    <div class="selectableTileMapper" (click)="addNewTileMap()"
+                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                        <mat-icon>add</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper" (click)="setInspect()"
+                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}"
+                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                        <mat-icon>image_search</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper" (click)="setMove()"
+                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}"
+                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                        <mat-icon>mouse</mat-icon>
+                    </div>
+                </div>
                 <div id="selectionBar">
                     <div class="selectableTileMapper" [ngClass]="{'selected': emptyTile.value == tilePlacementValue}"
-                        (click)="selectTileMap(emptyTile)"
-                        [ngStyle]="{'background-color': emptyTile.backgroundColor, 'color': emptyTile.color}">
-                        <span *ngIf="emptyTile.type == 'text'"
-                            [ngStyle]="{'background-color': emptyTile.backgroundColor, 'color': emptyTile.color}">{{emptyTile.displayValue}}</span>
-                        <img *ngIf="emptyTile.type == 'image'" src="{{emptyTile.displayValue}}" alt="">
-                        <mat-icon *ngIf="emptyTile.type == 'icon'">{{emptyTile.displayValue}}</mat-icon>
+                        (click)="selectTileMap(emptyTile)">
+                        <img src="https://i.imgur.com/v0w8GZa.png" alt="">
                     </div>
                     <div class="selectableTileMapper" *ngFor="let tileMapper of tileDisplays"
                         [ngClass]="{'selected': tileMapper.value == tilePlacementValue}"
@@ -27,6 +40,7 @@
                 <div class="tileRow" *ngFor="let tileRow of tileMapData">
                     <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile)" [attr.id]="stringify(tile)"
                         (mouseenter)="onMouseEnter(tile)" (mouseleave)="onMouseEnter(tile)"
+                        [ngClass]="{'inspect': undefined == tilePlacementValue && uiMode == 'inspect'}"
                         [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}">
                         <span
                             [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}"
@@ -41,7 +55,66 @@
                     </div>
                 </div>
             </div>
-            <footer></footer>
+            <footer>
+                <div class="tileMapEditor" *ngIf="tilePlacementValue != undefined">
+                    <div class="selectableTileMapper"
+                        [ngStyle]="{'background-color': getTileDisplayCached(tilePlacementValue).backgroundColor, 'color': getTileDisplayCached(tilePlacementValue).color}">
+                        <span *ngIf="getTileDisplayCached(tilePlacementValue).type == 'text'"
+                            [ngStyle]="{'background-color': getTileDisplayCached(tilePlacementValue).backgroundColor, 'color': getTileDisplayCached(tilePlacementValue).color}">{{getTileDisplayCached(tilePlacementValue).displayValue}}</span>
+                        <img *ngIf="getTileDisplayCached(tilePlacementValue).type == 'image'"
+                            src="{{getTileDisplayCached(tilePlacementValue).displayValue}}" alt="">
+                        <mat-icon
+                            *ngIf="getTileDisplayCached(tilePlacementValue).type == 'icon'">{{getTileDisplayCached(tilePlacementValue).displayValue}}</mat-icon>
+                    </div>
+                    <div class="tileMapEditor" *ngIf="tilePlacementValue != 0">
+                        <div class="inputBox">
+                            <label for="value">value</label>
+                            <input type="text" id="value"
+                                [value]="stringify(getTileDisplayCached(tilePlacementValue).value)"
+                                (input)="changeTileMapValue($event)">
+                        </div>
+                        <div class="inputBox">
+                            <label for="background">background color</label>
+                            <input type="text" id="background"
+                                [(ngModel)]="getTileDisplayCached(tilePlacementValue).backgroundColor">
+                        </div>
+                        <div class="inputBox">
+                            <label for="color">color</label>
+                            <input type="text" id="color" [(ngModel)]="getTileDisplayCached(tilePlacementValue).color">
+                        </div>
+                        <div class="inputBox">
+                            <label for="display">display value</label>
+                            <input type="text" id="display"
+                                [(ngModel)]="getTileDisplayCached(tilePlacementValue).displayValue">
+                        </div>
+                        <div class="inputBox">
+                            <label for="type">type (text, image or icon)</label>
+                            <input type="text" id="type" [(ngModel)]="getTileDisplayCached(tilePlacementValue).type">
+                        </div>
+                        <div>
+                            <button (click)="deleteTileMap()">
+                                <span *ngIf="confirmDelete">Confirm?</span>
+                                <span *ngIf="!confirmDelete">Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="todo">
+                    <h1>todo</h1>
+                    <span>1. resizing, dont forget to cut off / add new rows but don't overwrite.</span><br>
+                    <span>2. exporting to json</span><br>
+                    <span>3. importing from json</span><br>
+                    <span>4. auto save to localstorage</span><br>
+                    <span>5. add entity support</span><br>
+                    <span>6. add layer support</span><br>
+                    <span>7. clear button</span><br>
+                    <span>8. rotate the map 90 degrees</span><br>
+                    <span>9. select multiple tiles</span><br>
+                    <span>9b. copy selection</span><br>
+                    <span>9c. paste selection</span><br>
+                    <span>9d. move selection</span><br>
+                </div>
+            </footer>
         </div>
     </div>
 </div>

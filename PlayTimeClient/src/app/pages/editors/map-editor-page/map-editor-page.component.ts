@@ -55,8 +55,22 @@ export class MapEditorPageComponent {
             backgroundColor: '#ff00bf',
             color: '#007fff',
             type: 'text',
-            value: ':3',
+            value: { mood: 'Goofy', expression: ':3' },
             displayValue: ':3'
+        },
+        {
+            backgroundColor: 'gold',
+            color: 'white',
+            type: 'icon',
+            value: 'warn',
+            displayValue: 'warning_amber'
+        },
+        {
+            backgroundColor: 'white',
+            color: 'red',
+            type: 'icon',
+            value: 'err',
+            displayValue: 'image_not_supported'
         }
     ];
 
@@ -71,6 +85,11 @@ export class MapEditorPageComponent {
     tilePlacementValue: any = 1;
 
     mouseDown: number = 0; // 0 = none, 1 = left, 2 = right
+
+    uiMode: string = 'inspect';
+
+    confirmDelete: boolean = false;
+    confirmDeleteTimout: any;
 
     constructor() {
         this.generateTileMap();
@@ -112,10 +131,18 @@ export class MapEditorPageComponent {
     }
 
     tileClick(tile: any) {
-        this.setTileValue(tile, this.tilePlacementValue);
+        this.setTileValue(tile, this.tilePlacementValue, 0);
     }
 
-    setTileValue(tile: tileMapField, value: any) {
+    setTileValue(tile: tileMapField, value: any, mode: number = 0) {
+        if (this.tilePlacementValue === undefined) {
+            if (mode === 1 || this.uiMode == 'move') {
+                return;
+            }
+            this.tilePlacementValue = tile.value;
+            this.mouseDown = 0;
+            return;
+        }
         tile.value = value;
     }
 
@@ -145,9 +172,9 @@ export class MapEditorPageComponent {
 
     onMouseEnter(tile: tileMapField) {
         if (this.mouseDown === 1) {
-            this.setTileValue(tile, this.tilePlacementValue);
+            this.setTileValue(tile, this.tilePlacementValue, 1);
         } else if (this.mouseDown === 2) {
-            this.setTileValue(tile, 0);
+            this.setTileValue(tile, 0, 1);
         }
     }
 
@@ -157,22 +184,131 @@ export class MapEditorPageComponent {
         if (element && element.classList.contains('tile')) {
             const attr = element.getAttribute('id');
             if (attr) {
+                if (this.tilePlacementValue === undefined) {
+                    this.mouseDown = 0;
+                    return;
+                }
                 const parsed = this.parse(attr);
                 this.tileMapData[parsed.x][parsed.y].value = this.tilePlacementValue;
             }
         }
     }
 
-    stringify(tile: tileMapField) {
+    stringify(tile: any): string {
         return JSON.stringify(tile);
     }
 
-    parse(tile: string): tileMapField {
+    parse(tile: string): any {
         return JSON.parse(tile);
     }
 
     selectTileMap(tileMap: TileDisplay) {
         this.tilePlacementValue = tileMap.value;
+    }
+
+    addNewTileMap() {
+        const defaultTile = {
+            backgroundColor: 'white',
+            color: 'black',
+            type: 'icon',
+            value: this.tileDisplays.length + 1,
+            displayValue: 'edit'
+        };
+        this.tileDisplays.push(defaultTile);
+
+
+        this.tilePlacementValue = this.tileDisplays.length;
+    }
+
+    setInspect() {
+        this.tilePlacementValue = undefined;
+        this.uiMode = 'inspect';
+    }
+
+    setMove() {
+        this.tilePlacementValue = undefined;
+        this.uiMode = 'move';
+    }
+
+    changeTileMapValue(event: any) {
+        const inputElement = event.target;
+        const oldValue = this.tilePlacementValue
+        const cursorStart = inputElement.selectionStart;
+        const cursorEnd = inputElement.selectionEnd;
+
+        var newValue = event.target.value;
+        if (newValue == '' || newValue == 0) {
+            newValue = oldValue
+        }
+        try {
+            newValue = this.parse(newValue);
+        } catch (e) {
+            // Do nothing
+        }
+        this.tilePlacementValue = newValue;
+
+        // Restore cursor position
+        setTimeout(() => { // Ensuring it runs after the value update
+            let setNewValue = newValue;
+            try {
+                setNewValue = this.stringify(setNewValue);
+            } catch (e) {
+                // Do nothing
+            }
+            inputElement.value = setNewValue;
+            inputElement.setSelectionRange(cursorStart, cursorEnd);
+        });
+
+        this.tileDisplays.forEach((tile: any) => {
+            if (tile.value === oldValue) {
+                tile.value = newValue;
+            }
+        });
+
+        this.tileMapData.forEach((row: any) => {
+            row.forEach((tile: any) => {
+                if (tile.value === oldValue) {
+                    tile.value = newValue;
+                }
+                try {
+                    if (this.stringify(tile.value) === this.stringify(oldValue)) {
+                        tile.value = newValue;
+                    }
+                } catch (e) {
+                    // Do nothing
+                }
+            });
+        });
+    }
+
+    deleteTileMap() {
+        if (this.confirmDelete) {
+            const index = this.tileDisplays.findIndex((tile: any) => tile.value === this.tilePlacementValue);
+            this.tileDisplays.splice(index, 1);
+            this.tilePlacementValue = emptyTile.value;
+
+            this.tileMapData.forEach((row: any) => {
+                row.forEach((tile: any) => {
+                    if (tile.value === this.tilePlacementValue) {
+                        tile.value = 0;
+                    }
+                    try {
+                        if (this.stringify(tile.value) === this.stringify(this.tilePlacementValue)) {
+                            tile.value = 0;
+                        }
+                    } catch (e) {
+                        // Do nothing
+                    }
+                });
+            });
+            this.confirmDelete = false;
+            clearTimeout(this.confirmDeleteTimout);
+        } else {
+            this.confirmDelete = true;
+            this.confirmDeleteTimout = setTimeout(() => {
+                this.confirmDelete = false;
+            }, 3000);
+        }
     }
 
 }
