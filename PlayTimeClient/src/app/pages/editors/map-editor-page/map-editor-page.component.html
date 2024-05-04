@@ -1,4 +1,4 @@
-<div class="background-container">
+<div class="background-container" (touchend)="onTouchEnd($event)" (mouseup)="onMouseUp($event)">
     <div class="container">
         <div id="editor">
             <header>
@@ -6,9 +6,10 @@
 
                 </div>
             </header>
-            <div id="editorContent" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+            <div id="editorContent" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)"
+                (touchmove)="onTouchMove($event)">
                 <div class="tileRow" *ngFor="let tileRow of tileMapData">
-                    <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile)"
+                    <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile)" [attr.id]="stringify(tile)"
                         (mouseenter)="onMouseEnter(tile)" (mouseleave)="onMouseEnter(tile)"
                         [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}">
                         <span

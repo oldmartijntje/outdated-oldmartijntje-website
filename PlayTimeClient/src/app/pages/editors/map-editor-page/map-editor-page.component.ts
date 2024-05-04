@@ -113,12 +113,42 @@ export class MapEditorPageComponent {
         }
     }
 
+    onTouchStart(event: TouchEvent) {
+        this.mouseDown = 1;
+        console.log(event);
+    }
+
+    onTouchEnd(event: TouchEvent) {
+        this.mouseDown = 0;
+        console.log(event);
+    }
+
     onMouseEnter(tile: tileMapField) {
         if (this.mouseDown === 1) {
             this.setTileValue(tile, this.tilePlacementValue);
         } else if (this.mouseDown === 2) {
             this.setTileValue(tile, 0);
         }
+    }
+
+    onTouchMove(event: TouchEvent) {
+        // Check if the touch is over the specific element you're interested in
+        const element = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+        if (element && element.classList.contains('tile')) {
+            const attr = element.getAttribute('id');
+            if (attr) {
+                const parsed = this.parse(attr);
+                this.tileMapData[parsed.x][parsed.y].value = this.tilePlacementValue;
+            }
+        }
+    }
+
+    stringify(tile: tileMapField) {
+        return JSON.stringify(tile);
+    }
+
+    parse(tile: string): tileMapField {
+        return JSON.parse(tile);
     }
 
 }
