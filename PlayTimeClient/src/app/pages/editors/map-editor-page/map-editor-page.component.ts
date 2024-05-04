@@ -195,11 +195,31 @@ export class MapEditorPageComponent {
     }
 
     stringify(tile: any): string {
+        if (typeof tile === 'number' || typeof tile === 'string') {
+            return `${tile}`;
+        } else if (typeof tile !== 'object') {
+            return tile;
+        }
         return JSON.stringify(tile);
     }
 
     parse(tile: string): any {
+        if (!this.isJSONString(tile)) {
+            if (!isNaN(Number(tile))) {
+                return Number(tile);
+            }
+            return tile;
+        }
         return JSON.parse(tile);
+    }
+
+    isJSONString(str: string): boolean {
+        if (/^[\],:{}\s]*$/.test(str.replace(/\\["\\\/bfnrtu]/g, '@')
+            .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+            return true;
+        }
+        return false;
     }
 
     selectTileMap(tileMap: TileDisplay) {
