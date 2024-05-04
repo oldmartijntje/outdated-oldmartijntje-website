@@ -109,6 +109,11 @@ img {
         min-width: none;
     }
 
+    .editorBar {
+        overflow-y: scroll;
+        height: 8rem;
+    }
+
     #todo {
         display: none;
     }

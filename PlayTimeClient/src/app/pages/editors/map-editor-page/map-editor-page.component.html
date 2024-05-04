@@ -56,7 +56,7 @@
                 </div>
             </div>
             <footer>
-                <div class="tileMapEditor" *ngIf="tilePlacementValue != undefined">
+                <div class="tileMapEditor editorBar" *ngIf="tilePlacementValue != undefined">
                     <div class="selectableTileMapper"
                         [ngStyle]="{'background-color': getTileDisplayCached(tilePlacementValue).backgroundColor, 'color': getTileDisplayCached(tilePlacementValue).color}">
                         <span *ngIf="getTileDisplayCached(tilePlacementValue).type == 'text'"
