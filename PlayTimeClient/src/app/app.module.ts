@@ -24,7 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastPopupComponent } from './components/global/toast-popup/toast-popup.component';
-import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
+import { EditorPageComponent } from './pages/editors/code-editor-page/editor-page.component';
 import { RailroadinkPageComponent } from './pages/random/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
 import { ErrorPageComponent } from './pages/main/error-pages/error-page/error-page.component';
@@ -55,6 +55,7 @@ import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-p
 import { BlueScreenComponent } from './pages/other/aprilFoolsJokes/blue-screen/blue-screen.component';
 import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
 import { AchievementCollectionPageComponent } from './pages/main/achievement-collection-page/achievement-collection-page.component';
+import { MapEditorPageComponent } from './pages/editors/map-editor-page/map-editor-page.component';
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import { AchievementCollectionPageComponent } from './pages/main/achievement-col
         BlueScreenComponent,
         FancyNotFoundPageComponent,
         AchievementCollectionPageComponent,
+        MapEditorPageComponent,
     ],
     imports: [
         AsyncPipe,

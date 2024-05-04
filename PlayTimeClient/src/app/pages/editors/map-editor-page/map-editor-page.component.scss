@@ -1,0 +1,48 @@
+.background-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: url(https://i.imgur.com/G2Nvy7v.png);
+    background-size: 100%;
+}
+
+.background-container * {
+    user-select: none;
+}
+
+.container {
+    margin: 0px auto 0px auto;
+    width: 90%;
+    min-width: 1024px;
+    max-width: 100%;
+    height: 100%;
+    background: url(https://i.imgur.com/gJUoIg8.png);
+}
+
+#editorContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.tileRow {
+    display: flex;
+}
+
+.tile {
+    /* Add your tile styles here */
+    border: 1px solid black;
+    width: 50px;
+    /* Adjust width as needed */
+    height: 50px;
+    /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}

@@ -1,0 +1,30 @@
+<div class="background-container">
+    <div class="container">
+        <div id="editor">
+            <header>
+                <div id="selectionBar">
+
+                </div>
+            </header>
+            <div id="editorContent" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)">
+                <div class="tileRow" *ngFor="let tileRow of tileMapData">
+                    <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile)"
+                        (mouseenter)="onMouseEnter(tile)" (mouseleave)="onMouseEnter(tile)"
+                        [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}">
+                        <span
+                            [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}"
+                            *ngIf="getTileDisplayCached(tile.value).type == 'text'">{{getTileDisplayCached(tile.value).displayValue}}
+                        </span>
+                        <img *ngIf="getTileDisplayCached(tile.value).type == 'image'"
+                            src="{{getTileDisplayCached(tile.value).displayValue}}" alt="">
+                        <mat-icon
+                            [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}"
+                            *ngIf="getTileDisplayCached(tile.value).type == 'icon'">{{getTileDisplayCached(tile.value).displayValue}}
+                        </mat-icon>
+                    </div>
+                </div>
+            </div>
+            <footer></footer>
+        </div>
+    </div>
+</div>

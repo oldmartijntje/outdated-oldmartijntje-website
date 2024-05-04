@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EditorPageComponent } from './pages/main/editor-page/editor-page.component';
+import { EditorPageComponent } from './pages/editors/code-editor-page/editor-page.component';
 import { RailroadinkPageComponent } from './pages/random/railroadink-page/railroadink-page.component';
 import { NotFoundPageComponent } from './pages/main/error-pages/not-found-page/not-found-page.component';
 import { HomePageComponent } from './pages/main/home-page/home-page.component';
@@ -21,12 +21,14 @@ import { NavigatorPageComponent } from './pages/other/navigator-page/navigator-p
 import { BlueScreenComponent } from './pages/other/aprilFoolsJokes/blue-screen/blue-screen.component';
 import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
 import { AchievementCollectionPageComponent } from './pages/main/achievement-collection-page/achievement-collection-page.component';
+import { MapEditorPageComponent } from './pages/editors/map-editor-page/map-editor-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
     { path: 'home', component: HomepageDeciderComponent },
     { path: 'windows', component: HomePageComponent },
     { path: 'Editor', component: EditorPageComponent },
+    { path: 'MapEditor', component: MapEditorPageComponent },
     { path: 'Railroad', component: RailroadinkPageComponent },
     { path: 'AdBee', component: AdflyPageComponent },
     { path: 'Chat', component: MessagePageComponent },
