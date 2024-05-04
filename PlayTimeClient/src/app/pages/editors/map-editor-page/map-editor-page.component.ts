@@ -94,6 +94,7 @@ export class MapEditorPageComponent {
     }
 
     setTileValue(tile: tileMapField, value: any) {
+        console.log(tile)
         tile.value = value;
     }
 
@@ -115,12 +116,10 @@ export class MapEditorPageComponent {
 
     onTouchStart(event: TouchEvent) {
         this.mouseDown = 1;
-        console.log(event);
     }
 
     onTouchEnd(event: TouchEvent) {
         this.mouseDown = 0;
-        console.log(event);
     }
 
     onMouseEnter(tile: tileMapField) {
