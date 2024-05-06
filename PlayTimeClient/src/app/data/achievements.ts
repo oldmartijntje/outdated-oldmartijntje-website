@@ -554,6 +554,44 @@ export const achievements: Achievement[] = [
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: false,
         difficulty: 8
+    },
+    {
+        lockedData: {
+            title: 'Loss of control.',
+            description: "7x5 art with just 0-1-2.\n\n[Map Editor](https://oldmartijntje.nl/MapEditor).",
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        unlockedData: {
+            title: 'Loss of control.',
+            description: 'You have created the loss meme in the map editor.\n\n7x5 art with just 0-1-2.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.mapEditor.loss',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 8
+    },
+    {
+        lockedData: {
+            title: 'Mogus Art',
+            description: "3x4 art with just 0-1.",
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        unlockedData: {
+            title: 'Mogus Art',
+            description: 'You have created the loss meme in the map editor.\n\n3x4 art with just 0-1.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.mapEditor.m-m-m-mogus',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 6
     }
 ];
 

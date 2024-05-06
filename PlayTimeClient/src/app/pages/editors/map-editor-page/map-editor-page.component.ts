@@ -197,8 +197,9 @@ export class MapEditorPageComponent implements OnInit {
                     if (raw) {
                         exportMap[i].push(temp[i][j].value);
                         continue;
+                    } else {
+                        exportMap[i].push(this.parse(temp[i][j].value));
                     }
-                    exportMap[i].push(this.parse(temp[i][j].value));
                 }
             }
             exportData['tileMap'] = exportMap;
@@ -491,7 +492,7 @@ export class MapEditorPageComponent implements OnInit {
      * @private
      */
     private setTileValue(tile: tileMapField, value: any, mode: number = 0, mouseButton: number): void {
-        if (value === undefined) {
+        if (this.tilePlacementValue === undefined) {
             if (mode === 1 || this.uiMode == 'move') { // ignore when not directly clicked on or when in move mode
                 return;
             } else if (this.uiMode == 'inspect') {
@@ -508,6 +509,13 @@ export class MapEditorPageComponent implements OnInit {
             return;
         }
         tile.value = this.stringify(value);
+        const loss = '[[{"value":"0","x":0,"y":0},{"value":"0","x":0,"y":1},{"value":"2","x":0,"y":2},{"value":"1","x":0,"y":3},{"value":"1","x":0,"y":4}],[{"value":"1","x":1,"y":0},{"value":"1","x":1,"y":1},{"value":"2","x":1,"y":2},{"value":"0","x":1,"y":3},{"value":"0","x":1,"y":4}],[{"value":"0","x":2,"y":0},{"value":"0","x":2,"y":1},{"value":"2","x":2,"y":2},{"value":"1","x":2,"y":3},{"value":"1","x":2,"y":4}],[{"value":"2","x":3,"y":0},{"value":"2","x":3,"y":1},{"value":"2","x":3,"y":2},{"value":"2","x":3,"y":3},{"value":"2","x":3,"y":4}],[{"value":"1","x":4,"y":0},{"value":"1","x":4,"y":1},{"value":"2","x":4,"y":2},{"value":"1","x":4,"y":3},{"value":"1","x":4,"y":4}],[{"value":"0","x":5,"y":0},{"value":"0","x":5,"y":1},{"value":"2","x":5,"y":2},{"value":"0","x":5,"y":3},{"value":"1","x":5,"y":4}],[{"value":"1","x":6,"y":0},{"value":"1","x":6,"y":1},{"value":"2","x":6,"y":2},{"value":"0","x":6,"y":3},{"value":"1","x":6,"y":4}]]'
+        const mogus = '[[{"value":"1","x":0,"y":0},{"value":"0","x":0,"y":1},{"value":"1","x":0,"y":2},{"value":"1","x":0,"y":3}],[{"value":"1","x":1,"y":0},{"value":"1","x":1,"y":1},{"value":"1","x":1,"y":2},{"value":"0","x":1,"y":3}],[{"value":"0","x":2,"y":0},{"value":"1","x":2,"y":1},{"value":"1","x":2,"y":2},{"value":"1","x":2,"y":3}]]'
+        if (JSON.stringify(this.tileMapData) == loss) {
+            this.checkAchievement('easterEggs.mapEditor.loss', "Loss of control");
+        } else if (JSON.stringify(this.tileMapData) == mogus) {
+            this.checkAchievement('easterEggs.mapEditor.m-m-m-mogus', "Mogus Art");
+        }
     }
 
     /**
@@ -611,10 +619,14 @@ export class MapEditorPageComponent implements OnInit {
      * @private
      */
     private isJSONString(str: string): boolean {
-        if (/^[\],:{}\s]*$/.test(str.replace(/\\["\\\/bfnrtu]/g, '@')
-            .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
-            .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-            return true;
+        try {
+            if (/^[\],:{}\s]*$/.test(str.replace(/\\["\\\/bfnrtu]/g, '@')
+                .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                return true;
+            }
+        } catch (e) {
+            return false;
         }
         return false;
     }
