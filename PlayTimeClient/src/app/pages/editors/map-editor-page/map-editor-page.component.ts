@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
 
 interface TileDisplay {
     backgroundColor: string;
@@ -27,7 +28,7 @@ interface tileMapField {
     templateUrl: './map-editor-page.component.html',
     styleUrl: './map-editor-page.component.scss'
 })
-export class MapEditorPageComponent {
+export class MapEditorPageComponent implements OnInit {
     readonly emptyTile = { ...emptyTile };
     tileDisplays: TileDisplay[] = [
         {
@@ -79,6 +80,7 @@ export class MapEditorPageComponent {
     tileMap = {
         width: 10,
         height: 10,
+        title: 'My Map.'
     };
     tileMapData: any[] = [];
 
@@ -101,8 +103,17 @@ export class MapEditorPageComponent {
         tileMap: 1
     }
 
-    constructor() {
+    constructor(
+        private localStorageHandler: LocalstorageHandlingService
+    ) {
         this.generateTileMap();
+    }
+
+    ngOnInit(): void {
+        var response = this.localStorageHandler.getLocalstorageHandler().loadData('data', 'MapEditor.appData.oldmartijntje.nl')
+        if (response.success) {
+            this.handleImportedData(response.data);
+        }
     }
 
     /**
@@ -122,6 +133,202 @@ export class MapEditorPageComponent {
                 this.confirmApply = false;
             }, 3000);
         }
+    }
+
+    /**
+     * Export JSON data
+     * @param tileMap Whether to export the tile map
+     * @param settings Whether to export the settings
+     * @param textures Whether to export the textures
+     * @param exportTo The location to export to
+     * @returns any, depending on the export location
+     */
+    export(tileMap: boolean, settings: boolean, textures: boolean, exportTo: string): any {
+        if (!tileMap && !settings && !textures) {
+            return;
+        }
+        const exportData: any = {
+            editerVersions: {
+
+            },
+            exported: []
+        };
+        var title = ''
+        if (settings) {
+
+            exportData['settings'] = {
+                width: this.tileMap.width,
+                height: this.tileMap.height,
+                title: this.tileMap.title
+            };
+            exportData.editerVersions.settings = this.editerVersions.settings;
+            exportData.exported.push('settings');
+            title = 'Settings-Export.json';
+        }
+        if (textures) {
+            exportData['textures'] = this.tileDisplays;
+            exportData.editerVersions.textures = this.editerVersions.textures;
+            exportData.exported.push('textures');
+            title = 'Textures-Export.json';
+        }
+        if (tileMap) {
+            const temp = JSON.parse(JSON.stringify(this.tileMapData));
+            const exportMap: any = [];
+            for (let i = 0; i < temp.length; i++) {
+                exportMap.push([]);
+                for (let j = 0; j < temp[i].length; j++) {
+                    exportMap[i].push(this.parse(temp[i][j].value));
+                }
+            }
+            exportData['tileMap'] = exportMap;
+            // turn every tile from tileDisplay to value
+            exportData.tileMap.forEach((row: any) => {
+                row.forEach((tile: any) => {
+                    tile = tile.value;
+                });
+            });
+            exportData.editerVersions.tileMap = this.editerVersions.tileMap;
+            exportData.exported.push('tileMap');
+            title = this.tileMap.title + '_Map-Export.json';
+        }
+        if (exportTo === 'console') {
+            console.log(exportData);
+            return;
+        } else if (exportTo === 'file') {
+            this.downloadFile(title, exportData);
+            return;
+        } else if (exportTo === 'localstorage') {
+            this.localStorageHandler.addEditRequestToQueue(exportData, 'data', 'MapEditor.appData.oldmartijntje.nl');
+            this.localStorageHandler.immediatlyGoThroughQueue();
+
+        } else {
+            return exportData;
+        }
+    }
+
+    /**
+     * Handling the import of JSON data
+     * @param event The event that triggered the import
+     * @returns void
+     */
+    importEvent(event: any): void {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const content = e.target?.result as string;
+                    var importedStory = this.parse(content);
+                    this.handleImportedData(importedStory);
+                } catch (e) {
+                    console.error(e);
+                    return;
+                }
+            }
+            reader.readAsText(file);
+        }
+    }
+
+    /**
+     * Converts the JSON data to the newest version
+     * @param importedData 
+     * @returns 
+     */
+    convertJsonToNewestVersion(importedData: any): any {
+        return importedData;
+    }
+
+
+    /**
+     * Handle the imported data
+     * @param importedData The imported data
+     * @returns void
+     */
+    handleImportedData(importedData: any): void {
+        if (typeof importedData !== 'object') {
+            console.error('Invalid JSON');
+            return;
+        }
+        if (importedData['editerVersions'] == undefined || importedData['exported'] == undefined) {
+            console.error('Invalid JSON');
+            return;
+        }
+        if (importedData['exported'].includes('settings')) {
+            if (importedData['editerVersions']['settings'] < this.editerVersions.settings) {
+                importedData = this.convertJsonToNewestVersion(importedData);
+            }
+            if (importedData['settings'] == undefined) {
+                console.error('Invalid JSON');
+                return;
+            }
+            this.tileMap.width = importedData['settings'].width;
+            this.tileMap.height = importedData['settings'].height;
+            this.tileMap.title = importedData['settings'].title;
+        }
+        if (importedData['exported'].includes('textures')) {
+            if (importedData['editerVersions']['textures'] < this.editerVersions.textures) {
+                importedData = this.convertJsonToNewestVersion(importedData);
+            }
+            if (importedData['textures'] == undefined) {
+                console.error('Invalid JSON');
+                return;
+            }
+            this.tileDisplays = importedData['textures'];
+        }
+        if (importedData['exported'].includes('tileMap')) {
+            if (importedData['editerVersions']['tileMap'] < this.editerVersions.tileMap) {
+                importedData = this.convertJsonToNewestVersion(importedData);
+            }
+            if (importedData['tileMap'] == undefined) {
+                console.error('Invalid JSON');
+                return;
+            }
+            const temp = JSON.parse(JSON.stringify(importedData['tileMap']));
+            const importMap: any = [];
+            const foundValues: any[] = []
+            for (let i = 0; i < temp.length; i++) {
+                importMap.push([]);
+                for (let j = 0; j < temp[i].length; j++) {
+                    let value = this.stringify(temp[i][j]);
+                    importMap[i].push({ value: value, x: i, y: j });
+                    if (!foundValues.includes(value)) {
+                        foundValues.push(value);
+                    }
+                }
+            }
+            for (let i = 0; i < foundValues.length; i++) {
+                if (foundValues[i] != this.stringify(emptyTile.value)) {
+                    if (!this.tileDisplays.find((tile: any) => this.stringify(tile.value) === foundValues[i])) {
+                        const newTile = { ...emptyTile };
+                        newTile.value = foundValues[i];
+                        this.tileDisplays.push(newTile);
+                    }
+                }
+            }
+            this.tileMapData = importMap;
+            this.generating.active = true;
+            setTimeout(() => {
+                this.generateTileMap();
+            }, 100);
+        }
+    }
+
+    /**
+     * Download a json file
+     * @param title 
+     * @param data 
+     */
+    downloadFile(title: string, data: { [key: string]: any }) {
+        const jsonContent = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonContent], { type: 'application/json' });
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = title;
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
     }
 
 
@@ -147,7 +354,7 @@ export class MapEditorPageComponent {
                 this.tileMapData[i].splice(this.tileMap.height, difference);
             } else if (difference < 0) {
                 for (let j = 0; j < Math.abs(difference); j++) {
-                    this.tileMapData[i].push({ value: 0, x: i, y: j });
+                    this.tileMapData[i].push({ value: this.stringify(emptyTile.value), x: i, y: j });
                 }
             } else {
             }
@@ -162,7 +369,7 @@ export class MapEditorPageComponent {
      * @returns TileDisplay
      */
     getTileDisplay(value: any): TileDisplay {
-        const item = this.tileDisplays.find(display => display.value === value);
+        const item = this.tileDisplays.find(display => this.stringify(display.value) === value);
         return item ? item : emptyTile;
     }
 
@@ -202,14 +409,17 @@ export class MapEditorPageComponent {
      */
     private setTileValue(tile: tileMapField, value: any, mode: number = 0): void {
         if (this.tilePlacementValue === undefined) {
-            if (mode === 1 || this.uiMode == 'move') {
+            if (mode === 1 || this.uiMode == 'move') { // ignore when not directly clicked on or when in move mode
+                return;
+            } else if (this.uiMode == 'inspect') {
+                this.tilePlacementValue = tile.value;
+                console.log(tile.value)
+                this.mouseDown = 0;
                 return;
             }
-            this.tilePlacementValue = tile.value;
-            this.mouseDown = 0;
             return;
         }
-        tile.value = value;
+        tile.value = this.stringify(value);
     }
 
     /**
@@ -260,6 +470,7 @@ export class MapEditorPageComponent {
                     this.mouseDown = 0;
                     return;
                 }
+                // convert '{value: 0, x: 0, y: 0}' to {x: 0, y: 0}
                 const parsed = this.parse(attr);
                 this.tileMapData[parsed.x][parsed.y].value = this.tilePlacementValue;
             }
@@ -369,16 +580,12 @@ export class MapEditorPageComponent {
 
         var newValue = event.target.value;
 
-        // Check if the value is already in use - might not work on parsed objects
+        // Check if the value is already in use.
         const found = this.tileDisplays.find((tile: any) => tile.value == newValue);
-        if (newValue == '' || newValue == 0 || found) {
+        if (newValue == '' || newValue == 0 || found || newValue == null) {
             newValue = oldValue
         }
-        try {
-            newValue = this.parse(newValue);
-        } catch (e) {
-            // Do nothing
-        }
+
         this.tilePlacementValue = newValue;
 
         // Restore cursor position

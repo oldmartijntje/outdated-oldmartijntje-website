@@ -4,25 +4,25 @@
             <header>
                 <!-- add new button -->
                 <div id="optionBar">
-                    <div class="selectableTileMapper" (click)="setUIMode('inspect')" tile="Inspect tile."
+                    <div class="selectableTileMapper" (click)="setUIMode('inspect')" tile="Inspect tile"
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>image_search</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" (click)="setUIMode('move')" title="Free Move."
+                    <div class="selectableTileMapper" (click)="setUIMode('move')" title="Free Move"
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>mouse</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" (click)="1+1" title="Save."
+                    <div class="selectableTileMapper" [matMenuTriggerFor]="saveMenu" title="Save"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>save</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" [matMenuTriggerFor]="exportMenu" title="Export."
+                    <div class="selectableTileMapper" [matMenuTriggerFor]="exportMenu" title="Export"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>ios_share</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" [matMenuTriggerFor]="importMenu" title="Import."
+                    <div class="selectableTileMapper" [matMenuTriggerFor]="importMenu" title="Import"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>save_alt</mat-icon>
                     </div>
@@ -30,16 +30,20 @@
                 <div id="optionBar">
                     <div class="inputBox">
                         <label for="width">Width</label>
-                        <input type="text" id="width" [(ngModel)]="tileMap.width">
+                        <input type="number" id="width" [(ngModel)]="tileMap.width">
                     </div>
                     <div class="inputBox">
                         <label for="height">Height</label>
-                        <input type="text" id="height" [(ngModel)]="tileMap.height">
+                        <input type="number" id="height" [(ngModel)]="tileMap.height">
                     </div>
                     <button (click)="resizeTileMap()">
                         <span *ngIf="confirmApply">Confirm?</span>
                         <span *ngIf="!confirmApply">Apply Resize</span>
                     </button>
+                    <div class="inputBox">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" [(ngModel)]="tileMap.title">
+                    </div>
                 </div>
                 <div id="selectionBar">
                     <div class="selectableTileMapper" (click)="addNewTileMap()" title="Add new tile."
@@ -160,32 +164,61 @@
         <mat-icon>data_array</mat-icon>
         <span>Export Map</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="export(false, false, true, 'file')">
         <mat-icon>texture</mat-icon>
         <span>Export Textures</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="export(false, true, false, 'file')">
         <mat-icon>settings</mat-icon>
         <span>Export Settings</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="export(true, true, true, 'file')">
         <mat-icon>all_inclusive</mat-icon>
         <span>Export All</span>
     </button>
 </mat-menu>
 
 <mat-menu #exportMapMenu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="export(true, false, true, 'file')">
         <mat-icon>texture</mat-icon>
         <span>Export With Textures</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="export(true, false, false, 'file')">
         <mat-icon>data_object</mat-icon>
         <span>Export Plain Map</span>
     </button>
 </mat-menu>
 
+<mat-menu #saveMenu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="saveMapMenu">
+        <mat-icon>data_array</mat-icon>
+        <span>Save Map</span>
+    </button>
+    <button mat-menu-item (click)="export(false, false, true, 'localstorage')">
+        <mat-icon>texture</mat-icon>
+        <span>Save Textures</span>
+    </button>
+    <button mat-menu-item (click)="export(false, true, false, 'localstorage')">
+        <mat-icon>settings</mat-icon>
+        <span>Save Settings</span>
+    </button>
+    <button mat-menu-item (click)="export(true, true, true, 'localstorage')">
+        <mat-icon>all_inclusive</mat-icon>
+        <span>Save All</span>
+    </button>
+</mat-menu>
+
+<mat-menu #saveMapMenu="matMenu">
+    <button mat-menu-item (click)="export(true, false, true, 'localstorage')">
+        <mat-icon>texture</mat-icon>
+        <span>Save With Textures</span>
+    </button>
+    <button mat-menu-item (click)="export(true, false, false, 'localstorage')">
+        <mat-icon>data_object</mat-icon>
+        <span>Save Plain Map</span>
+    </button>
+</mat-menu>
+
 <mat-menu #importMenu="matMenu">
-    <button mat-menu-item>Item 3</button>
-    <button mat-menu-item>Item 2</button>
+    <input type="file" (change)="importEvent($event)">
 </mat-menu>
