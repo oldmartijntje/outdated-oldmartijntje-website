@@ -18,11 +18,11 @@
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>save</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" (click)="1+1" title="Export."
+                    <div class="selectableTileMapper" [matMenuTriggerFor]="exportMenu" title="Export."
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>ios_share</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" (click)="1+1" title="Import."
+                    <div class="selectableTileMapper" [matMenuTriggerFor]="importMenu" title="Import."
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>save_alt</mat-icon>
                     </div>
@@ -154,3 +154,37 @@
         </div>
     </div>
 </div>
+<mat-menu #exportMenu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="exportMapMenu">
+        <mat-icon>data_array</mat-icon>
+        <span>Export Map</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>texture</mat-icon>
+        <span>Export Textures</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Export Settings</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>all_inclusive</mat-icon>
+        <span>Export All</span>
+    </button>
+</mat-menu>
+
+<mat-menu #exportMapMenu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>texture</mat-icon>
+        <span>Export With Textures</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>data_object</mat-icon>
+        <span>Export Plain Map</span>
+    </button>
+</mat-menu>
+
+<mat-menu #importMenu="matMenu">
+    <button mat-menu-item>Item 3</button>
+    <button mat-menu-item>Item 2</button>
+</mat-menu>

@@ -20,6 +20,7 @@ import { AsyncPipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -98,6 +99,7 @@ import { MapEditorPageComponent } from './pages/editors/map-editor-page/map-edit
         AsyncPipe,
         MatOptionModule,
         ReactiveFormsModule,
+        MatMenuModule,
         MatAutocompleteModule,
         BrowserModule,
         MatInputModule,

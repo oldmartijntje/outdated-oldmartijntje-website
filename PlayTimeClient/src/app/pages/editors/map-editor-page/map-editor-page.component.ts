@@ -95,11 +95,21 @@ export class MapEditorPageComponent {
         active: false
     }
 
+    editerVersions = {
+        textures: 1,
+        settings: 1,
+        tileMap: 1
+    }
+
     constructor() {
         this.generateTileMap();
     }
 
-    resizeTileMap() {
+    /**
+     * Make the "confirm button" work for the resize tile map button.
+     * @returns void
+     */
+    resizeTileMap(): void {
         if (this.confirmApply) {
             this.confirmApply = false;
             this.generating.active = true;
@@ -115,8 +125,13 @@ export class MapEditorPageComponent {
     }
 
 
-
-    async generateTileMap() {
+    /**
+     * Generate the tile map based on the width and height
+     * @returns Promise<void>
+     * @async
+     * @private
+     */
+    private async generateTileMap(): Promise<void> {
         var difference = this.tileMapData.length - this.tileMap.width;
         if (difference > 0) {
             this.tileMapData.splice(this.tileMap.width, difference);
