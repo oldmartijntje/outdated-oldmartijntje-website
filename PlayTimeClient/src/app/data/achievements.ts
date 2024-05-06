@@ -516,6 +516,44 @@ export const achievements: Achievement[] = [
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: true,
         difficulty: 5
+    },
+    {
+        lockedData: {
+            title: 'Inspector Gadget',
+            description: "Inspect a tile in [the map editor](https://oldmartijntje.nl/MapEditor).",
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        unlockedData: {
+            title: 'Inspector Gadget',
+            description: 'You inspected a tile in [the map editor](https://oldmartijntje.nl/MapEditor).',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.Achievement,
+        localstorageUrl: 'easterEggs.mapEditor.inspecting',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 3
+    },
+    {
+        lockedData: {
+            title: 'Magnifying-glass tilted Right.',
+            description: "I can haz 2 buttnz?",
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        unlockedData: {
+            title: 'Magnifying-glass tilted Right.',
+            description: 'You inspected a tile in the map editor, but with the right mouse button.',
+            show: true,
+            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+        },
+        type: AchievementType.EasterEgg,
+        localstorageUrl: 'easterEggs.mapEditor.inspecting2electricNotBoogaloo',
+        unlocksWhenLocolStorageUrlIsSetTo: true,
+        hideOnMobile: false,
+        difficulty: 8
     }
 ];
 

@@ -116,30 +116,32 @@
                     <div class="tileMapEditor" *ngIf="tilePlacementValue == emptyTile.value" style="color:black">
                         <p>This is an empty tile. It is represented by the value {{tilePlacementValue}}</p>
                     </div>
-                    <div class="tileMapEditor" *ngIf="tilePlacementValue != emptyTile.value">
+                    <div class="tileMapEditor" *ngIf="tilePlacementValue != emptyTile.value && mask != 'value'">
                         <div class="inputBox">
                             <label for="value">value</label>
                             <input type="text" id="value"
-                                [value]="stringify(getTileDisplayCached(tilePlacementValue).value)"
+                                [value]="stringify(getTileDisplayCached(tilePlacementValue, true).value)"
                                 (input)="changeTileMapValue($event)">
                         </div>
                         <div class="inputBox">
                             <label for="background">background color</label>
                             <input type="text" id="background"
-                                [(ngModel)]="getTileDisplayCached(tilePlacementValue).backgroundColor">
+                                [(ngModel)]="getTileDisplayCached(tilePlacementValue, true).backgroundColor">
                         </div>
                         <div class="inputBox">
                             <label for="color">color</label>
-                            <input type="text" id="color" [(ngModel)]="getTileDisplayCached(tilePlacementValue).color">
+                            <input type="text" id="color"
+                                [(ngModel)]="getTileDisplayCached(tilePlacementValue, true).color">
                         </div>
                         <div class="inputBox">
                             <label for="display">display value</label>
                             <input type="text" id="display"
-                                [(ngModel)]="getTileDisplayCached(tilePlacementValue).displayValue">
+                                [(ngModel)]="getTileDisplayCached(tilePlacementValue, true).displayValue">
                         </div>
                         <div class="inputBox">
                             <label for="type">type (text, image or icon)</label>
-                            <input type="text" id="type" [(ngModel)]="getTileDisplayCached(tilePlacementValue).type">
+                            <input type="text" id="type"
+                                [(ngModel)]="getTileDisplayCached(tilePlacementValue, true).type">
                         </div>
                         <div>
                             <button (click)="deleteTileMap()">

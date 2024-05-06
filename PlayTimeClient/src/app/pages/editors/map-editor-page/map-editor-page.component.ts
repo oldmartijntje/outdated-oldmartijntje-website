@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { ToastQueueService } from 'src/app/services/toast-queue.service';
 import { environment } from 'src/environments/environment';
 
 interface TileDisplay {
@@ -112,7 +113,8 @@ export class MapEditorPageComponent implements OnInit {
     parseToJSON: boolean = true;
 
     constructor(
-        private localStorageHandler: LocalstorageHandlingService
+        private localStorageHandler: LocalstorageHandlingService,
+        private toastQueueService: ToastQueueService
     ) {
         this.generateTileMap();
     }
@@ -275,6 +277,15 @@ export class MapEditorPageComponent implements OnInit {
         }
     }
 
+    checkAchievement(location: string, title: string): void {
+        const handlerResponse = this.localStorageHandler.getLocalstorageHandler().checkAndLoad(location)
+        if (handlerResponse == null || handlerResponse == false) {
+            this.localStorageHandler.addEditRequestToQueue(true, location)
+            this.localStorageHandler.immediatlyGoThroughQueue();
+            this.toastQueueService.enqueueToast(`You found the \"${title}\" Achievement!`, 'achievement', 69420)
+        }
+    }
+
     /**
      * Handle the imported data
      * @param importedData The imported data
@@ -429,13 +440,13 @@ export class MapEditorPageComponent implements OnInit {
      * @param tile The tile object
      * @returns TileDisplay
      */
-    getTileDisplayCached(tile: any): TileDisplay {
+    getTileDisplayCached(tile: any, ignoreMasksEtc: boolean = false): TileDisplay {
         const tileValue = tile; // Assuming tile object has an id property
         if (this.stringify(this.tileDisplayCache.value) != tileValue) {
             this.tileDisplayCache = this.getTileDisplay(tile); // Assuming getTileDisplay is defined in your component
         }
         var returnValue = { ...this.tileDisplayCache };
-        if (this.mask != '') {
+        if (this.mask != '' && !ignoreMasksEtc) {
             if (this.mask == 'value') {
                 returnValue.displayValue = returnValue.value;
                 returnValue.type = 'text';
@@ -450,8 +461,9 @@ export class MapEditorPageComponent implements OnInit {
                     returnValue.color = 'black';
                 }
             }
+            return returnValue;
         }
-        return returnValue;
+        return this.tileDisplayCache;
     }
 
 
@@ -463,9 +475,9 @@ export class MapEditorPageComponent implements OnInit {
      */
     tileClick(tile: any, button: number): void {
         if (button === 1) {
-            this.setTileValue(tile, this.tilePlacementValue, 0);
+            this.setTileValue(tile, this.tilePlacementValue, 0, 1);
         } else if (button === 2) {
-            this.setTileValue(tile, this.tileSecondPlacementValue, 0);
+            this.setTileValue(tile, this.tileSecondPlacementValue, 0, 2);
         }
     }
 
@@ -478,12 +490,18 @@ export class MapEditorPageComponent implements OnInit {
      * @returns void
      * @private
      */
-    private setTileValue(tile: tileMapField, value: any, mode: number = 0): void {
-        if (this.tilePlacementValue === undefined) {
+    private setTileValue(tile: tileMapField, value: any, mode: number = 0, mouseButton: number): void {
+        if (value === undefined) {
             if (mode === 1 || this.uiMode == 'move') { // ignore when not directly clicked on or when in move mode
                 return;
             } else if (this.uiMode == 'inspect') {
-                this.tilePlacementValue = tile.value;
+                this.checkAchievement('easterEggs.mapEditor.inspecting', 'Inspector Gadget');
+                if (mouseButton === 1) {
+                    this.tilePlacementValue = tile.value;
+                } else if (mouseButton === 2) {
+                    this.checkAchievement('easterEggs.mapEditor.inspecting2electricNotBoogaloo', 'Magnifying-glass tilted Right.');
+                    this.tileSecondPlacementValue = tile.value;
+                }
                 this.mouseDown = 0;
                 return;
             }
@@ -518,9 +536,9 @@ export class MapEditorPageComponent implements OnInit {
      */
     onMouseEnter(tile: tileMapField): void {
         if (this.mouseDown === 1) {
-            this.setTileValue(tile, this.tilePlacementValue, 1);
+            this.setTileValue(tile, this.tilePlacementValue, 1, 1);
         } else if (this.mouseDown === 2) {
-            this.setTileValue(tile, this.tileSecondPlacementValue, 1);
+            this.setTileValue(tile, this.tileSecondPlacementValue, 1, 2);
         }
     }
 
