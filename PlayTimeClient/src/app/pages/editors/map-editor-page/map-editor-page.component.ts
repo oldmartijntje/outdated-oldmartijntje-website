@@ -264,6 +264,7 @@ export class MapEditorPageComponent implements OnInit {
                     tile.value = this.stringify(emptyTile.value);
                 });
             });
+            this.tileDisplays = [];
             this.confirmClear = false;
             clearTimeout(this.confirmTimout);
         } else {

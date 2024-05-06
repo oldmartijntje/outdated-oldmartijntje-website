@@ -216,6 +216,10 @@
 </mat-menu>
 
 <mat-menu #saveMenu="matMenu">
+    <div class="warning">
+        <mat-icon>warning_amber</mat-icon>
+        <span>Saving a single thing means that the other things will be forgotten, even if already saved before.</span>
+    </div>
     <button mat-menu-item [matMenuTriggerFor]="saveMapMenu">
         <mat-icon>data_array</mat-icon>
         <span>Save Map</span>
