@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 interface TileDisplay {
     backgroundColor: string;
@@ -89,32 +89,55 @@ export class MapEditorPageComponent {
     uiMode: string = 'inspect';
 
     confirmDelete: boolean = false;
-    confirmDeleteTimout: any;
+    confirmApply: boolean = false;
+    confirmTimout: any;
+    generating = {
+        active: false
+    }
 
     constructor() {
         this.generateTileMap();
     }
 
+    resizeTileMap() {
+        if (this.confirmApply) {
+            this.confirmApply = false;
+            this.generating.active = true;
+            setTimeout(() => {
+                this.generateTileMap();
+            }, 100);
+        } else {
+            this.confirmApply = true;
+            this.confirmTimout = setTimeout(() => {
+                this.confirmApply = false;
+            }, 3000);
+        }
+    }
 
 
-    generateTileMap() {
-        for (let i = 0; i < this.tileMap.width; i++) {
-            if (this.tileMapData.length < i + 1) {
+
+    async generateTileMap() {
+        var difference = this.tileMapData.length - this.tileMap.width;
+        if (difference > 0) {
+            this.tileMapData.splice(this.tileMap.width, difference);
+        } else if (difference < 0) {
+            for (let i = 0; i < Math.abs(difference); i++) {
                 this.tileMapData.push([]);
             }
-            for (let j = 0; j < this.tileMap.height; j++) {
-                if (this.tileMapData[i].length < j + 1) {
-                    this.tileMapData[i].push([]);
+        } else {
+        }
+        for (let i = 0; i < this.tileMapData.length; i++) {
+            difference = this.tileMapData[i].length - this.tileMap.height;
+            if (difference > 0) {
+                this.tileMapData[i].splice(this.tileMap.height, difference);
+            } else if (difference < 0) {
+                for (let j = 0; j < Math.abs(difference); j++) {
+                    this.tileMapData[i].push({ value: 0, x: i, y: j });
                 }
-                this.tileMapData[i][j] = { value: 0, x: i, y: j };
-            }
-            if (this.tileMapData[i].length > this.tileMap.height) {
-                this.tileMapData[i].splice(this.tileMap.height, this.tileMapData[i].length - this.tileMap.height);
+            } else {
             }
         }
-        if (this.tileMapData.length > this.tileMap.width) {
-            this.tileMapData.splice(this.tileMap.width, this.tileMapData.length - this.tileMap.width);
-        }
+        this.generating.active = false;
     }
 
     getTileDisplay(value: any): TileDisplay {
@@ -322,10 +345,10 @@ export class MapEditorPageComponent {
                 });
             });
             this.confirmDelete = false;
-            clearTimeout(this.confirmDeleteTimout);
+            clearTimeout(this.confirmTimout);
         } else {
             this.confirmDelete = true;
-            this.confirmDeleteTimout = setTimeout(() => {
+            this.confirmTimout = setTimeout(() => {
                 this.confirmDelete = false;
             }, 3000);
         }

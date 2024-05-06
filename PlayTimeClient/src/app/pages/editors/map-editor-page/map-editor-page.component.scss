@@ -40,8 +40,7 @@
 #editorContent {
     display: flex;
     flex-direction: row;
-    overflow-y: scroll;
-    overflow-x: scroll;
+    overflow: auto;
     width: 100%;
     flex-grow: 1;
     -webkit-overflow-scrolling: touch;
@@ -55,6 +54,17 @@
 
 .tile.inspect {
     cursor: help;
+}
+
+.selectableTileMapper,
+.tile,
+button {
+    cursor: pointer;
+}
+
+.unclickable {
+    pointer-events: none;
+    cursor: default;
 }
 
 .selectableTileMapper,

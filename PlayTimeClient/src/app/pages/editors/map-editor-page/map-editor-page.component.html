@@ -4,29 +4,55 @@
             <header>
                 <!-- add new button -->
                 <div id="optionBar">
-                    <div class="selectableTileMapper" (click)="addNewTileMap()"
-                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
-                        <mat-icon>add</mat-icon>
-                    </div>
-                    <div class="selectableTileMapper" (click)="setInspect()"
+                    <div class="selectableTileMapper" (click)="setInspect()" tile="Inspect tile."
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>image_search</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" (click)="setMove()"
+                    <div class="selectableTileMapper" (click)="setMove()" title="Free Move."
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>mouse</mat-icon>
                     </div>
+                    <div class="selectableTileMapper" (click)="1+1" title="Save."
+                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                        <mat-icon>save</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper" (click)="1+1" title="Export."
+                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                        <mat-icon>ios_share</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper" (click)="1+1" title="Import."
+                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                        <mat-icon>save_alt</mat-icon>
+                    </div>
+                </div>
+                <div id="optionBar">
+                    <div class="inputBox">
+                        <label for="width">Width</label>
+                        <input type="text" id="width" [(ngModel)]="tileMap.width">
+                    </div>
+                    <div class="inputBox">
+                        <label for="height">Height</label>
+                        <input type="text" id="height" [(ngModel)]="tileMap.height">
+                    </div>
+                    <button (click)="resizeTileMap()">
+                        <span *ngIf="confirmApply">Confirm?</span>
+                        <span *ngIf="!confirmApply">Apply Resize</span>
+                    </button>
                 </div>
                 <div id="selectionBar">
+                    <div class="selectableTileMapper" (click)="addNewTileMap()" title="Add new tile."
+                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                        <mat-icon>add</mat-icon>
+                    </div>
                     <div class="selectableTileMapper" [ngClass]="{'selected': emptyTile.value == tilePlacementValue}"
-                        (click)="selectTileMap(emptyTile)">
+                        (click)="selectTileMap(emptyTile)" style="margin-right: 1rem;" title="Eraser.">
                         <img src="https://i.imgur.com/v0w8GZa.png" alt="">
                     </div>
                     <div class="selectableTileMapper" *ngFor="let tileMapper of tileDisplays"
                         [ngClass]="{'selected': tileMapper.value == tilePlacementValue}"
-                        (click)="selectTileMap(tileMapper)"
+                        (click)="selectTileMap(tileMapper)" title="Select tile."
                         [ngStyle]="{'background-color': tileMapper.backgroundColor, 'color': tileMapper.color}">
                         <span *ngIf="tileMapper.type == 'text'"
                             [ngStyle]="{'background-color': tileMapper.backgroundColor, 'color': tileMapper.color}">{{tileMapper.displayValue}}</span>
@@ -35,8 +61,9 @@
                     </div>
                 </div>
             </header>
-            <div id="editorContent" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)"
-                (touchmove)="onTouchMove($event)">
+            <div id="editorContent" (mousedown)="onMouseDown($event)" #scrollableElement *ngIf="!generating.active"
+                (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+
                 <div class="tileRow" *ngFor="let tileRow of tileMapData">
                     <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile)" [attr.id]="stringify(tile)"
                         (mouseenter)="onMouseEnter(tile)" (mouseleave)="onMouseEnter(tile)"
@@ -55,9 +82,13 @@
                     </div>
                 </div>
             </div>
+            <div id="editorContent" *ngIf="generating.active" style="color:black">
+                <h1>Generating...</h1>
+
+            </div>
             <footer>
                 <div class="tileMapEditor editorBar" *ngIf="tilePlacementValue != undefined">
-                    <div class="selectableTileMapper"
+                    <div class="selectableTileMapper unclickable"
                         [ngStyle]="{'background-color': getTileDisplayCached(tilePlacementValue).backgroundColor, 'color': getTileDisplayCached(tilePlacementValue).color}">
                         <span *ngIf="getTileDisplayCached(tilePlacementValue).type == 'text'"
                             [ngStyle]="{'background-color': getTileDisplayCached(tilePlacementValue).backgroundColor, 'color': getTileDisplayCached(tilePlacementValue).color}">{{getTileDisplayCached(tilePlacementValue).displayValue}}</span>
@@ -66,7 +97,10 @@
                         <mat-icon
                             *ngIf="getTileDisplayCached(tilePlacementValue).type == 'icon'">{{getTileDisplayCached(tilePlacementValue).displayValue}}</mat-icon>
                     </div>
-                    <div class="tileMapEditor" *ngIf="tilePlacementValue != 0">
+                    <div class="tileMapEditor" *ngIf="tilePlacementValue == emptyTile.value" style="color:black">
+                        <p>This is an empty tile. It is represented by the value {{tilePlacementValue}}</p>
+                    </div>
+                    <div class="tileMapEditor" *ngIf="tilePlacementValue != emptyTile.value">
                         <div class="inputBox">
                             <label for="value">value</label>
                             <input type="text" id="value"
@@ -101,7 +135,6 @@
                 </div>
                 <div id="todo">
                     <h1>todo</h1>
-                    <span>1. resizing, dont forget to cut off / add new rows but don't overwrite.</span><br>
                     <span>2. exporting to json</span><br>
                     <span>3. importing from json</span><br>
                     <span>4. auto save to localstorage</span><br>
@@ -115,6 +148,7 @@
                     <span>9d. move selection</span><br>
                     <span>10. button to go to other pages</span><br>
                     <span>10b. link other pages to this one</span><br>
+                    <span>11. display value mode</span><br>
                 </div>
             </footer>
         </div>
