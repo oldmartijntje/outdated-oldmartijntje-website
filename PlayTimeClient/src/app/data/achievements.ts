@@ -545,7 +545,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Magnifying-glass tilted Right.',
-            description: 'You inspected a tile in the map editor, but with the right mouse button.',
+            description: 'You inspected a tile in [the map editor](https://oldmartijntje.nl/MapEditor), but with the right mouse button.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0018-unlocked.png'
         },
@@ -564,7 +564,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Loss of control.',
-            description: 'You have created the loss meme in the map editor.\n\n7x5 art with just 0-1-2.',
+            description: 'You have created the loss meme in [the map editor](https://oldmartijntje.nl/MapEditor).\n\n7x5 art with just 0-1-2.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0021-unlocked.png'
         },
@@ -583,7 +583,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Mogus Art',
-            description: 'You have created the loss meme in the map editor.\n\n3x4 art with just 0-1.',
+            description: 'You have created the loss meme in [the map editor](https://oldmartijntje.nl/MapEditor).\n\n3x4 art with just 0-1.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0016-unlocked.png'
         },
