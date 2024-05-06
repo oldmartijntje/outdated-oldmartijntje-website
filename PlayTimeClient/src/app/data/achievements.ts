@@ -579,7 +579,7 @@ export const achievements: Achievement[] = [
             title: 'Mogus Art',
             description: "3x4 art with just 0-1.",
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0016-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0016-locked.png'
         },
         unlockedData: {
             title: 'Mogus Art',
