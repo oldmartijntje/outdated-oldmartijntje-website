@@ -71,7 +71,6 @@ button {
 .tile {
     flex: 0 0 auto;
     /* Add your tile styles here */
-    border: 1px solid black;
     width: 50px;
     /* Adjust width as needed */
     height: 50px;
@@ -81,10 +80,26 @@ button {
     align-items: center;
 }
 
+.selectableTileMapper.grid,
+.tile.grid {
+    border: 1px solid black;
+}
+
 .selectableTileMapper.selected,
 .selectableTileMapper.selected {
     border: 2px solid yellow;
 }
+
+.selectableTileMapper.secondSelected,
+.selectableTileMapper.secondSelected {
+    border: 2px solid #007fff;
+}
+
+.defaultIcon {
+    background-color: white;
+    color: black;
+}
+
 
 .tileMapEditor {
     display: flex;

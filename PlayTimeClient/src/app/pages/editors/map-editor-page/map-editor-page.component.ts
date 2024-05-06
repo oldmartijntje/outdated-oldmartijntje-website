@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalstorageHandlingService } from 'src/app/services/localstorage-handling.service';
+import { environment } from 'src/environments/environment';
 
 interface TileDisplay {
     backgroundColor: string;
@@ -85,6 +86,7 @@ export class MapEditorPageComponent implements OnInit {
     tileMapData: any[] = [];
 
     tilePlacementValue: any = 1;
+    tileSecondPlacementValue: any = 2;
 
     mouseDown: number = 0; // 0 = none, 1 = left, 2 = right
 
@@ -92,10 +94,14 @@ export class MapEditorPageComponent implements OnInit {
 
     confirmDelete: boolean = false;
     confirmApply: boolean = false;
+    confirmClear: boolean = false;
     confirmTimout: any;
     generating = {
         active: false
     }
+    production = environment.production;
+    mask = ''
+    grid = true
 
     editerVersions = {
         textures: 1,
@@ -143,7 +149,7 @@ export class MapEditorPageComponent implements OnInit {
      * @param exportTo The location to export to
      * @returns any, depending on the export location
      */
-    export(tileMap: boolean, settings: boolean, textures: boolean, exportTo: string): any {
+    export(tileMap: boolean, settings: boolean, textures: boolean, exportTo: string, raw: boolean = false): any {
         if (!tileMap && !settings && !textures) {
             return;
         }
@@ -159,7 +165,12 @@ export class MapEditorPageComponent implements OnInit {
             exportData['settings'] = {
                 width: this.tileMap.width,
                 height: this.tileMap.height,
-                title: this.tileMap.title
+                title: this.tileMap.title,
+                tilePlacementValue: this.tilePlacementValue,
+                uiMode: this.uiMode,
+                mask: this.mask,
+                tileSecondPlacementValue: this.tileSecondPlacementValue,
+                grid: this.grid
             };
             exportData.editerVersions.settings = this.editerVersions.settings;
             exportData.exported.push('settings');
@@ -177,6 +188,10 @@ export class MapEditorPageComponent implements OnInit {
             for (let i = 0; i < temp.length; i++) {
                 exportMap.push([]);
                 for (let j = 0; j < temp[i].length; j++) {
+                    if (raw) {
+                        exportMap[i].push(temp[i][j].value);
+                        continue;
+                    }
                     exportMap[i].push(this.parse(temp[i][j].value));
                 }
             }
@@ -238,6 +253,22 @@ export class MapEditorPageComponent implements OnInit {
         return importedData;
     }
 
+    clearMap(): void {
+        if (this.confirmClear) {
+            this.tileMapData.forEach((row: any) => {
+                row.forEach((tile: any) => {
+                    tile.value = this.stringify(emptyTile.value);
+                });
+            });
+            this.confirmClear = false;
+            clearTimeout(this.confirmTimout);
+        } else {
+            this.confirmClear = true;
+            this.confirmTimout = setTimeout(() => {
+                this.confirmClear = false;
+            }, 3000);
+        }
+    }
 
     /**
      * Handle the imported data
@@ -264,6 +295,11 @@ export class MapEditorPageComponent implements OnInit {
             this.tileMap.width = importedData['settings'].width;
             this.tileMap.height = importedData['settings'].height;
             this.tileMap.title = importedData['settings'].title;
+            this.tilePlacementValue = importedData['settings'].tilePlacementValue;
+            this.uiMode = importedData['settings'].uiMode;
+            this.mask = importedData['settings'].mask;
+            this.tileSecondPlacementValue = importedData['settings'].tileSecondPlacementValue;
+            this.grid = importedData['settings'].grid;
         }
         if (importedData['exported'].includes('textures')) {
             if (importedData['editerVersions']['textures'] < this.editerVersions.textures) {
@@ -299,13 +335,20 @@ export class MapEditorPageComponent implements OnInit {
             for (let i = 0; i < foundValues.length; i++) {
                 if (foundValues[i] != this.stringify(emptyTile.value)) {
                     if (!this.tileDisplays.find((tile: any) => this.stringify(tile.value) === foundValues[i])) {
-                        const newTile = { ...emptyTile };
-                        newTile.value = foundValues[i];
+                        const newTile = {
+                            backgroundColor: '',
+                            color: '',
+                            type: 'image',
+                            value: foundValues[i],
+                            displayValue: 'https://i.imgur.com/6f0kkE4.png'
+                        };
                         this.tileDisplays.push(newTile);
                     }
                 }
             }
             this.tileMapData = importMap;
+        }
+        if (importedData['exported'].includes('settings') && !importedData['exported'].includes('tileMap')) {
             this.generating.active = true;
             setTimeout(() => {
                 this.generateTileMap();
@@ -369,7 +412,7 @@ export class MapEditorPageComponent implements OnInit {
      * @returns TileDisplay
      */
     getTileDisplay(value: any): TileDisplay {
-        const item = this.tileDisplays.find(display => this.stringify(display.value) === value);
+        const item = this.tileDisplays.find(display => this.stringify(display.value) === this.stringify(value));
         return item ? item : emptyTile;
     }
 
@@ -382,20 +425,42 @@ export class MapEditorPageComponent implements OnInit {
      */
     getTileDisplayCached(tile: any): TileDisplay {
         const tileValue = tile; // Assuming tile object has an id property
-        if (this.tileDisplayCache.value != tileValue) {
+        if (this.stringify(this.tileDisplayCache.value) != tileValue) {
             this.tileDisplayCache = this.getTileDisplay(tile); // Assuming getTileDisplay is defined in your component
         }
-        return this.tileDisplayCache;
+        var returnValue = { ...this.tileDisplayCache };
+        if (this.mask != '') {
+            if (this.mask == 'value') {
+                returnValue.displayValue = returnValue.value;
+                returnValue.type = 'text';
+                if (returnValue.value == this.tilePlacementValue) {
+                    returnValue.backgroundColor = 'gold';
+                    returnValue.color = 'black';
+                } else if (returnValue.value == this.tileSecondPlacementValue) {
+                    returnValue.backgroundColor = '#007fff';
+                    returnValue.color = 'white';
+                } else {
+                    returnValue.backgroundColor = 'white';
+                    returnValue.color = 'black';
+                }
+            }
+        }
+        return returnValue;
     }
 
 
     /**
      * Handle the click event on a tile
      * @param tile The tile object
+     * @param button The button that was clicked (1 = left, 2 = right)
      * @returns void
      */
-    tileClick(tile: any): void {
-        this.setTileValue(tile, this.tilePlacementValue, 0);
+    tileClick(tile: any, button: number): void {
+        if (button === 1) {
+            this.setTileValue(tile, this.tilePlacementValue, 0);
+        } else if (button === 2) {
+            this.setTileValue(tile, this.tileSecondPlacementValue, 0);
+        }
     }
 
 
@@ -413,7 +478,6 @@ export class MapEditorPageComponent implements OnInit {
                 return;
             } else if (this.uiMode == 'inspect') {
                 this.tilePlacementValue = tile.value;
-                console.log(tile.value)
                 this.mouseDown = 0;
                 return;
             }
@@ -450,7 +514,7 @@ export class MapEditorPageComponent implements OnInit {
         if (this.mouseDown === 1) {
             this.setTileValue(tile, this.tilePlacementValue, 1);
         } else if (this.mouseDown === 2) {
-            this.setTileValue(tile, 0, 1);
+            this.setTileValue(tile, this.tileSecondPlacementValue, 1);
         }
     }
 
@@ -534,9 +598,16 @@ export class MapEditorPageComponent implements OnInit {
     /**
      * Set an active tile map
      * @param tileMap 
+     * @param mouseButton 1 is left, 2 is right
+     * @param event
      */
-    selectTileMap(tileMap: TileDisplay): void {
-        this.tilePlacementValue = tileMap.value;
+    selectTileMap(tileMap: TileDisplay, mouseButton: number, event: any): void {
+        if (mouseButton === 1) {
+            this.tilePlacementValue = tileMap.value;
+        } else if (mouseButton === 2) {
+            this.tileSecondPlacementValue = tileMap.value;
+            event.preventDefault();
+        }
     }
 
     /**

@@ -4,27 +4,39 @@
             <header>
                 <!-- add new button -->
                 <div id="optionBar">
-                    <div class="selectableTileMapper" (click)="setUIMode('inspect')" tile="Inspect tile"
-                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}"
-                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                    <div class="selectableTileMapper grid defaultIcon" (click)="setUIMode('inspect')"
+                        tile="Inspect tile"
+                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}">
                         <mat-icon>image_search</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" (click)="setUIMode('move')" title="Free Move"
-                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}"
-                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                    <div class="selectableTileMapper grid defaultIcon" (click)="setUIMode('move')" title="Free Move"
+                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}">
                         <mat-icon>mouse</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" [matMenuTriggerFor]="saveMenu" title="Save"
-                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                    <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="saveMenu" title="Save">
                         <mat-icon>save</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" [matMenuTriggerFor]="exportMenu" title="Export"
-                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                    <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="exportMenu" title="Export">
                         <mat-icon>ios_share</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" [matMenuTriggerFor]="importMenu" title="Import"
-                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                    <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="importMenu" title="Import">
                         <mat-icon>save_alt</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper grid defaultIcon" title="Value View"
+                        (click)="mask = mask == 'value' ? '' : 'value'" [ngClass]="{'selected': mask == 'value'}">
+                        <mat-icon>data_object</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper grid defaultIcon" title="Toggle Grid" (click)="grid = !grid"
+                        [ngClass]="{'selected': !grid}">
+                        <mat-icon>border_clear</mat-icon>
+                    </div>
+                    <div class="selectableTileMapper grid defaultIcon" title="Clear Page" (click)="clearMap()">
+                        <mat-icon *ngIf="!confirmClear">delete_forever</mat-icon>
+                        <mat-icon *ngIf="confirmClear">dangerous</mat-icon>
+                    </div>
+                    <div *ngIf="!production" class="selectableTileMapper grid defaultIcon" title="Debug"
+                        [matMenuTriggerFor]="debugMenu">
+                        <mat-icon>developer_mode</mat-icon>
                     </div>
                 </div>
                 <div id="optionBar">
@@ -46,17 +58,19 @@
                     </div>
                 </div>
                 <div id="selectionBar">
-                    <div class="selectableTileMapper" (click)="addNewTileMap()" title="Add new tile."
-                        [ngStyle]="{'background-color': 'white', 'color': 'black'}">
+                    <div class="selectableTileMapper grid defaultIcon" (click)="addNewTileMap()" title="Add new tile.">
                         <mat-icon>add</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" [ngClass]="{'selected': emptyTile.value == tilePlacementValue}"
-                        (click)="selectTileMap(emptyTile)" style="margin-right: 1rem;" title="Eraser.">
+                    <div class="selectableTileMapper grid"
+                        [ngClass]="{'selected': emptyTile.value == tilePlacementValue}"
+                        (click)="selectTileMap(emptyTile, 1, $event)"
+                        (contextmenu)="selectTileMap(emptyTile, 2, $event)" style="margin-right: 1rem;" title="Eraser.">
                         <img src="https://i.imgur.com/v0w8GZa.png" alt="">
                     </div>
-                    <div class="selectableTileMapper" *ngFor="let tileMapper of tileDisplays"
-                        [ngClass]="{'selected': tileMapper.value == tilePlacementValue}"
-                        (click)="selectTileMap(tileMapper)" title="Select tile."
+                    <div class="selectableTileMapper grid" *ngFor="let tileMapper of tileDisplays"
+                        [ngClass]="{'selected': tileMapper.value == tilePlacementValue, 'secondSelected': tileMapper.value == tileSecondPlacementValue && tileSecondPlacementValue != tilePlacementValue}"
+                        (click)="selectTileMap(tileMapper, 1, $event)" title="Select tile."
+                        (contextmenu)="selectTileMap(tileMapper, 2, $event)"
                         [ngStyle]="{'background-color': tileMapper.backgroundColor, 'color': tileMapper.color}">
                         <span *ngIf="tileMapper.type == 'text'"
                             [ngStyle]="{'background-color': tileMapper.backgroundColor, 'color': tileMapper.color}">{{tileMapper.displayValue}}</span>
@@ -66,12 +80,14 @@
                 </div>
             </header>
             <div id="editorContent" (mousedown)="onMouseDown($event)" #scrollableElement *ngIf="!generating.active"
-                (touchstart)="setMouseDownValue(1)" (touchmove)="onTouchMove($event)">
+                (touchstart)="setMouseDownValue(1)" (touchmove)="onTouchMove($event)"
+                (contextmenu)="$event.preventDefault()">
 
                 <div class="tileRow" *ngFor="let tileRow of tileMapData">
-                    <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile)" [attr.id]="stringify(tile)"
-                        (mouseenter)="onMouseEnter(tile)" (mouseleave)="onMouseEnter(tile)"
-                        [ngClass]="{'inspect': undefined == tilePlacementValue && uiMode == 'inspect'}"
+                    <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile, 1)"
+                        [attr.id]="stringify(tile)" (mouseenter)="onMouseEnter(tile)" (mouseleave)="onMouseEnter(tile)"
+                        (contextmenu)="tileClick(tile, 2)"
+                        [ngClass]="{'inspect': undefined == tilePlacementValue && uiMode == 'inspect', 'grid': grid}"
                         [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}">
                         <span
                             [ngStyle]="{'background-color': getTileDisplayCached(tile.value).backgroundColor, 'color': getTileDisplayCached(tile.value).color}"
@@ -92,7 +108,7 @@
             </div>
             <footer>
                 <div class="tileMapEditor editorBar" *ngIf="tilePlacementValue != undefined">
-                    <div class="selectableTileMapper unclickable"
+                    <div class="selectableTileMapper grid unclickable"
                         [ngStyle]="{'background-color': getTileDisplayCached(tilePlacementValue).backgroundColor, 'color': getTileDisplayCached(tilePlacementValue).color}">
                         <span *ngIf="getTileDisplayCached(tilePlacementValue).type == 'text'"
                             [ngStyle]="{'background-color': getTileDisplayCached(tilePlacementValue).backgroundColor, 'color': getTileDisplayCached(tilePlacementValue).color}">{{getTileDisplayCached(tilePlacementValue).displayValue}}</span>
@@ -139,12 +155,8 @@
                 </div>
                 <div id="todo">
                     <h1>todo</h1>
-                    <span>2. exporting to json</span><br>
-                    <span>3. importing from json</span><br>
-                    <span>4. auto save to localstorage</span><br>
                     <span>5. add entity support</span><br>
                     <span>6. add layer support</span><br>
-                    <span>7. clear button</span><br>
                     <span>8. rotate the map 90 degrees</span><br>
                     <span>9. select multiple tiles</span><br>
                     <span>9b. copy selection</span><br>
@@ -152,8 +164,6 @@
                     <span>9d. move selection</span><br>
                     <span>10. button to go to other pages</span><br>
                     <span>10b. link other pages to this one</span><br>
-                    <span>11. display value mode</span><br>
-                    <span>12. select a right click tile to place on right click drag.</span><br>
                 </div>
             </footer>
         </div>
@@ -173,7 +183,7 @@
         <span>Export Settings</span>
     </button>
     <button mat-menu-item (click)="export(true, true, true, 'file')">
-        <mat-icon>all_inclusive</mat-icon>
+        <mat-icon>ios_share</mat-icon>
         <span>Export All</span>
     </button>
 </mat-menu>
@@ -203,7 +213,7 @@
         <span>Save Settings</span>
     </button>
     <button mat-menu-item (click)="export(true, true, true, 'localstorage')">
-        <mat-icon>all_inclusive</mat-icon>
+        <mat-icon>save</mat-icon>
         <span>Save All</span>
     </button>
 </mat-menu>
@@ -216,6 +226,17 @@
     <button mat-menu-item (click)="export(true, false, false, 'localstorage')">
         <mat-icon>data_object</mat-icon>
         <span>Save Plain Map</span>
+    </button>
+</mat-menu>
+
+<mat-menu #debugMenu="matMenu">
+    <button mat-menu-item (click)="export(true, true, true, 'console')">
+        <mat-icon>texture</mat-icon>
+        <span>Export to Console</span>
+    </button>
+    <button mat-menu-item (click)="export(true, true, true, 'console', true)">
+        <mat-icon>data_object</mat-icon>
+        <span>Export to Console RAW</span>
     </button>
 </mat-menu>
 
