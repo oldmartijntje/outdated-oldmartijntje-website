@@ -311,15 +311,15 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Birdz and the Beez.',
-            description: 'Summon the [Bee](https://oldmartijntje.nl/AdBee).\n\nYou created an AdBee link.',
+            description: 'Summon the [Bee](https://oldmartijntje.nl/AdBee).\n\nCreate an AdBee link.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0022-locked.png'
         },
         unlockedData: {
             title: 'Birdz and the Beez.',
             description: 'You created an AdBee link.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0022-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.windows.adBee',
@@ -332,13 +332,13 @@ export const achievements: Achievement[] = [
             title: 'A new Identity!',
             description: 'Give yourself a new alias for the [Chat](https://oldmartijntje.nl/Chat).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0025-locked.png'
         },
         unlockedData: {
             title: 'A new Identity!',
             description: 'You changed your name in the Chat.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0025-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.chat.renameMe',
@@ -351,13 +351,13 @@ export const achievements: Achievement[] = [
             title: 'Their first words',
             description: 'Send a message in the [Chat](https://oldmartijntje.nl/Chat).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0026-locked.png'
         },
         unlockedData: {
             title: 'Their first words',
             description: 'You sent a message in the Chat.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0026-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.chat.messages',
@@ -370,13 +370,13 @@ export const achievements: Achievement[] = [
             title: 'Hacktor',
             description: 'Use the [terminal](https://oldmartijntje.nl/Chat)',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0020-locked.png'
         },
         unlockedData: {
             title: 'Hacktor',
             description: 'You ran a command in the [terminal](https://oldmartijntje.nl/Chat).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0020-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.chat.terminal',
@@ -389,13 +389,13 @@ export const achievements: Achievement[] = [
             title: 'Tracing back the steps',
             description: 'Use the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0024-locked.png'
         },
         unlockedData: {
             title: 'Tracing back the steps',
             description: 'You used the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0024-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.StepTracker.countingSteps',
@@ -408,13 +408,13 @@ export const achievements: Achievement[] = [
             title: 'Timeliness go brr',
             description: 'Use the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps, And continue from a previous step.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0023-locked.png'
         },
         unlockedData: {
             title: 'Timeliness go brr',
             description: 'You used the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps, And continued from a previous step.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0023-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.StepTracker.branchess',
@@ -427,13 +427,13 @@ export const achievements: Achievement[] = [
             title: 'What else?',
             description: 'Refresh the [item display](https://oldmartijntje.nl/ItemDisplay).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0017-locked.png'
         },
         unlockedData: {
             title: 'What else?',
             description: 'You refreshed the [item display](https://oldmartijntje.nl/ItemDisplay).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0017-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.ItemDisplay.refreeeshh',
@@ -446,13 +446,13 @@ export const achievements: Achievement[] = [
             title: 'Blue screen of death',
             description: 'Visit the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0019-locked.png'
         },
         unlockedData: {
             title: 'Blue screen of death',
             description: 'You visited the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0019-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.aprilfools.deathening',
@@ -465,13 +465,13 @@ export const achievements: Achievement[] = [
             title: 'Blue screen of BORING',
             description: 'Wait till the % reaches 100% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0019-locked.png'
         },
         unlockedData: {
             title: 'Blue screen of BORING',
             description: 'You waited till the % reached 100% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0019-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.aprilfools.deathening-pt2-electricBoogaloo',
@@ -484,13 +484,13 @@ export const achievements: Achievement[] = [
             title: 'Blue screen of patience',
             description: 'Reach 420% :D',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-locked.png'
+            icon: '../assets/icons/achievements/Sprite-0019-locked.png'
         },
         unlockedData: {
             title: 'Blue screen of patience',
             description: 'You waited till the % reached 420% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0019-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.aprilfools.deathening-pt3-theReckoning',
@@ -503,13 +503,13 @@ export const achievements: Achievement[] = [
             title: 'Self destruction',
             description: "Unlock the hidden depths of control, where the orchestrator becomes the orchestrated.",
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0015-locked.png'
         },
         unlockedData: {
             title: 'Self destruction',
             description: 'Use Task Manager to close the Task Manager.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0015-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.windows.deleteTaskManager',
@@ -522,13 +522,13 @@ export const achievements: Achievement[] = [
             title: 'Inspector Gadget',
             description: "Inspect a tile in [the map editor](https://oldmartijntje.nl/MapEditor).",
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0018-locked.png'
         },
         unlockedData: {
             title: 'Inspector Gadget',
             description: 'You inspected a tile in [the map editor](https://oldmartijntje.nl/MapEditor).',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0018-unlocked.png'
         },
         type: AchievementType.Achievement,
         localstorageUrl: 'easterEggs.mapEditor.inspecting',
@@ -541,32 +541,32 @@ export const achievements: Achievement[] = [
             title: 'Magnifying-glass tilted Right.',
             description: "I can haz 2 buttnz?",
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0018-locked.png'
         },
         unlockedData: {
             title: 'Magnifying-glass tilted Right.',
             description: 'You inspected a tile in the map editor, but with the right mouse button.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0018-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.mapEditor.inspecting2electricNotBoogaloo',
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: false,
-        difficulty: 8
+        difficulty: 5
     },
     {
         lockedData: {
             title: 'Loss of control.',
             description: "7x5 art with just 0-1-2.\n\n[Map Editor](https://oldmartijntje.nl/MapEditor).",
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0021-locked.png'
         },
         unlockedData: {
             title: 'Loss of control.',
             description: 'You have created the loss meme in the map editor.\n\n7x5 art with just 0-1-2.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0021-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.mapEditor.loss',
@@ -579,19 +579,19 @@ export const achievements: Achievement[] = [
             title: 'Mogus Art',
             description: "3x4 art with just 0-1.",
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0016-unlocked.png'
         },
         unlockedData: {
             title: 'Mogus Art',
             description: 'You have created the loss meme in the map editor.\n\n3x4 art with just 0-1.',
             show: true,
-            icon: '../assets/icons/achievements/Sprite-0000-unlocked.png'
+            icon: '../assets/icons/achievements/Sprite-0016-unlocked.png'
         },
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.mapEditor.m-m-m-mogus',
         unlocksWhenLocolStorageUrlIsSetTo: true,
         hideOnMobile: false,
-        difficulty: 6
+        difficulty: 7
     }
 ];
 
