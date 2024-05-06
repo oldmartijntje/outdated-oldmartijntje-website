@@ -552,7 +552,7 @@ export const achievements: Achievement[] = [
         type: AchievementType.EasterEgg,
         localstorageUrl: 'easterEggs.mapEditor.inspecting2electricNotBoogaloo',
         unlocksWhenLocolStorageUrlIsSetTo: true,
-        hideOnMobile: false,
+        hideOnMobile: true,
         difficulty: 5
     },
     {
