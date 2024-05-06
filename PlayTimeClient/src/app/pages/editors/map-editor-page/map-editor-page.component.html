@@ -13,15 +13,11 @@
                         title="Free Move" [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}">
                         <mat-icon>mouse</mat-icon>
                     </div>
-                    <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="saveMenu" title="Save">
+                    <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="importExportSaveMenu"
+                        title="Save">
                         <mat-icon>save</mat-icon>
                     </div>
-                    <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="exportMenu" title="Export">
-                        <mat-icon>ios_share</mat-icon>
-                    </div>
-                    <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="importMenu" title="Import">
-                        <mat-icon>save_alt</mat-icon>
-                    </div>
+
                     <div class="selectableTileMapper grid defaultIcon" title="Value View"
                         (click)="mask = mask == 'value' ? '' : 'value'" [ngClass]="{'selected': mask == 'value'}">
                         <mat-icon>data_object</mat-icon>
@@ -169,6 +165,22 @@
         </div>
     </div>
 </div>
+
+<mat-menu #importExportSaveMenu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="saveMenu">
+        <mat-icon>save</mat-icon>
+        <span>Save</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="exportMenu">
+        <mat-icon>ios_share</mat-icon>
+        <span>Export</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="importMenu">
+        <mat-icon>save_alt</mat-icon>
+        <span>Import</span>
+    </button>
+</mat-menu>
+
 <mat-menu #exportMenu="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="exportMapMenu">
         <mat-icon>data_array</mat-icon>
