@@ -9,8 +9,8 @@
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}">
                         <mat-icon>image_search</mat-icon>
                     </div>
-                    <div class="selectableTileMapper grid defaultIcon" (click)="setUIMode('move')" title="Free Move"
-                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}">
+                    <div class="selectableTileMapper grid defaultIcon hide-on-desktop" (click)="setUIMode('move')"
+                        title="Free Move" [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}">
                         <mat-icon>mouse</mat-icon>
                     </div>
                     <div class="selectableTileMapper grid defaultIcon" [matMenuTriggerFor]="saveMenu" title="Save">
@@ -174,26 +174,30 @@
         <mat-icon>data_array</mat-icon>
         <span>Export Map</span>
     </button>
-    <button mat-menu-item (click)="export(false, false, true, 'file')">
+    <button mat-menu-item (click)="export(false, false, true, 'file', !parseToJSON)">
         <mat-icon>texture</mat-icon>
         <span>Export Textures</span>
     </button>
-    <button mat-menu-item (click)="export(false, true, false, 'file')">
+    <button mat-menu-item (click)="export(false, true, false, 'file', !parseToJSON)">
         <mat-icon>settings</mat-icon>
         <span>Export Settings</span>
     </button>
-    <button mat-menu-item (click)="export(true, true, true, 'file')">
+    <button mat-menu-item (click)="export(true, true, true, 'file', !parseToJSON)">
         <mat-icon>ios_share</mat-icon>
         <span>Export All</span>
+    </button>
+    <button mat-menu-item (click)="parseToJSON = !parseToJSON">
+        <mat-icon>data_object</mat-icon>
+        <span>{{parseToJSON ? 'Disable Parsing' : 'Enable Parsing'}}</span>
     </button>
 </mat-menu>
 
 <mat-menu #exportMapMenu="matMenu">
-    <button mat-menu-item (click)="export(true, false, true, 'file')">
+    <button mat-menu-item (click)="export(true, false, true, 'file', !parseToJSON)">
         <mat-icon>texture</mat-icon>
         <span>Export With Textures</span>
     </button>
-    <button mat-menu-item (click)="export(true, false, false, 'file')">
+    <button mat-menu-item (click)="export(true, false, false, 'file', !parseToJSON)">
         <mat-icon>data_object</mat-icon>
         <span>Export Plain Map</span>
     </button>
@@ -230,13 +234,13 @@
 </mat-menu>
 
 <mat-menu #debugMenu="matMenu">
-    <button mat-menu-item (click)="export(true, true, true, 'console')">
-        <mat-icon>texture</mat-icon>
+    <button mat-menu-item (click)="export(true, true, true, 'console', !parseToJSON)">
+        <mat-icon>ios_share</mat-icon>
         <span>Export to Console</span>
     </button>
-    <button mat-menu-item (click)="export(true, true, true, 'console', true)">
+    <button mat-menu-item (click)="parseToJSON = !parseToJSON">
         <mat-icon>data_object</mat-icon>
-        <span>Export to Console RAW</span>
+        <span>{{parseToJSON ? 'Disable Parsing' : 'Enable Parsing'}}</span>
     </button>
 </mat-menu>
 

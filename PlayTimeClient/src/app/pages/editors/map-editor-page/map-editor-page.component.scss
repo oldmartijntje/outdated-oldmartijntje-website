@@ -142,6 +142,10 @@ img {
     #todo {
         display: none;
     }
+
+    .hide-on-mobile {
+        display: none;
+    }
 }
 
 
@@ -150,5 +154,9 @@ img {
         width: 90%;
         min-width: 1024px;
         max-width: 100%;
+    }
+
+    .hide-on-desktop {
+        display: none;
     }
 }

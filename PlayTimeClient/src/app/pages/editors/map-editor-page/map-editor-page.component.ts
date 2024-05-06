@@ -109,6 +109,8 @@ export class MapEditorPageComponent implements OnInit {
         tileMap: 1
     }
 
+    parseToJSON: boolean = true;
+
     constructor(
         private localStorageHandler: LocalstorageHandlingService
     ) {
@@ -147,6 +149,7 @@ export class MapEditorPageComponent implements OnInit {
      * @param settings Whether to export the settings
      * @param textures Whether to export the textures
      * @param exportTo The location to export to
+     * @param raw Whether to export the raw data (so not getting parsed)
      * @returns any, depending on the export location
      */
     export(tileMap: boolean, settings: boolean, textures: boolean, exportTo: string, raw: boolean = false): any {
@@ -170,7 +173,8 @@ export class MapEditorPageComponent implements OnInit {
                 uiMode: this.uiMode,
                 mask: this.mask,
                 tileSecondPlacementValue: this.tileSecondPlacementValue,
-                grid: this.grid
+                grid: this.grid,
+                parsing: this.parseToJSON
             };
             exportData.editerVersions.settings = this.editerVersions.settings;
             exportData.exported.push('settings');
@@ -300,6 +304,7 @@ export class MapEditorPageComponent implements OnInit {
             this.mask = importedData['settings'].mask;
             this.tileSecondPlacementValue = importedData['settings'].tileSecondPlacementValue;
             this.grid = importedData['settings'].grid;
+            this.parseToJSON = importedData['settings'].parsing;
         }
         if (importedData['exported'].includes('textures')) {
             if (importedData['editerVersions']['textures'] < this.editerVersions.textures) {
