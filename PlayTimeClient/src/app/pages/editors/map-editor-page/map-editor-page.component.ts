@@ -155,11 +155,24 @@ export class MapEditorPageComponent {
         this.generating.active = false;
     }
 
+
+    /**
+     * Get the tile display based on the value
+     * @param value The value of the tile
+     * @returns TileDisplay
+     */
     getTileDisplay(value: any): TileDisplay {
         const item = this.tileDisplays.find(display => display.value === value);
         return item ? item : emptyTile;
     }
 
+    /**
+     * Get the tile display based on the value, but cache the result.
+     * If the value is the same as the last value, return the cached value.
+     * 
+     * @param tile The tile object
+     * @returns TileDisplay
+     */
     getTileDisplayCached(tile: any): TileDisplay {
         const tileValue = tile; // Assuming tile object has an id property
         if (this.tileDisplayCache.value != tileValue) {
@@ -168,11 +181,26 @@ export class MapEditorPageComponent {
         return this.tileDisplayCache;
     }
 
-    tileClick(tile: any) {
+
+    /**
+     * Handle the click event on a tile
+     * @param tile The tile object
+     * @returns void
+     */
+    tileClick(tile: any): void {
         this.setTileValue(tile, this.tilePlacementValue, 0);
     }
 
-    setTileValue(tile: tileMapField, value: any, mode: number = 0) {
+
+    /**
+     * Set the value of a tile
+     * @param tile The tile object
+     * @param value The new value of the tile
+     * @param mode The mode of the replacement
+     * @returns void
+     * @private
+     */
+    private setTileValue(tile: tileMapField, value: any, mode: number = 0): void {
         if (this.tilePlacementValue === undefined) {
             if (mode === 1 || this.uiMode == 'move') {
                 return;
@@ -184,7 +212,11 @@ export class MapEditorPageComponent {
         tile.value = value;
     }
 
-    onMouseDown(event: MouseEvent) {
+    /**
+     * While the mouse is down, set the tile value
+     * @param event 
+     */
+    onMouseDown(event: MouseEvent): void {
         if (event.button === 0) {
             this.mouseDown = 1;
         } else if (event.button === 2) {
@@ -192,23 +224,19 @@ export class MapEditorPageComponent {
         }
     }
 
-    onMouseUp(event: MouseEvent) {
-        if (event.button === 0) {
-            this.mouseDown = 0;
-        } else if (event.button === 2) {
-            this.mouseDown = 0;
-        }
+    /**
+     * Set the mouse down to a specific value
+     * @param event 
+     */
+    setMouseDownValue(value: number): void {
+        this.mouseDown = value;
     }
 
-    onTouchStart(event: TouchEvent) {
-        this.mouseDown = 1;
-    }
-
-    onTouchEnd(event: TouchEvent) {
-        this.mouseDown = 0;
-    }
-
-    onMouseEnter(tile: tileMapField) {
+    /**
+     * When the mouse enters a tile, set the tile value
+     * @param tile 
+     */
+    onMouseEnter(tile: tileMapField): void {
         if (this.mouseDown === 1) {
             this.setTileValue(tile, this.tilePlacementValue, 1);
         } else if (this.mouseDown === 2) {
@@ -216,7 +244,13 @@ export class MapEditorPageComponent {
         }
     }
 
-    onTouchMove(event: TouchEvent) {
+
+    /**
+     * When dragged over a tile, set the tile value.
+     * @param event 
+     * @returns 
+     */
+    onTouchMove(event: TouchEvent): void {
         // Check if the touch is over the specific element you're interested in
         const element = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
         if (element && element.classList.contains('tile')) {
@@ -232,26 +266,52 @@ export class MapEditorPageComponent {
         }
     }
 
+    /**
+     * Stringify a variable
+     * @param tile 
+     * @returns 
+     */
     stringify(tile: any): string {
-        if (typeof tile === 'number' || typeof tile === 'string') {
+        if (typeof tile !== 'object') {
             return `${tile}`;
-        } else if (typeof tile !== 'object') {
-            return tile;
         }
         return JSON.stringify(tile);
     }
 
+    /**
+     * Parse a string into a variable
+     * 
+     * If the string is a number, return the number.
+     * 
+     * If the string is a JSON string, parse the JSON string.
+     * 
+     * If the string is a boolean, return the boolean.
+     * 
+     * If the string is null, return null.
+     * @param tile 
+     * @returns 
+     */
     parse(tile: string): any {
         if (!this.isJSONString(tile)) {
             if (!isNaN(Number(tile))) {
                 return Number(tile);
+            } else if (tile === 'true' || tile === 'false') {
+                return tile === 'true';
+            } else if (tile === 'null') {
+                return null;
             }
             return tile;
         }
         return JSON.parse(tile);
     }
 
-    isJSONString(str: string): boolean {
+    /**
+     * Check if a string is a JSON string (cause JSON.parse doesn't throw an error if it's not a JSON string)
+     * @param str 
+     * @returns 
+     * @private
+     */
+    private isJSONString(str: string): boolean {
         if (/^[\],:{}\s]*$/.test(str.replace(/\\["\\\/bfnrtu]/g, '@')
             .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
             .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
@@ -260,11 +320,19 @@ export class MapEditorPageComponent {
         return false;
     }
 
-    selectTileMap(tileMap: TileDisplay) {
+    /**
+     * Set an active tile map
+     * @param tileMap 
+     */
+    selectTileMap(tileMap: TileDisplay): void {
         this.tilePlacementValue = tileMap.value;
     }
 
-    addNewTileMap() {
+    /**
+     * Add a new tile map
+     * @returns void
+     */
+    addNewTileMap(): void {
         const defaultTile = {
             backgroundColor: 'white',
             color: 'black',
@@ -278,24 +346,32 @@ export class MapEditorPageComponent {
         this.tilePlacementValue = this.tileDisplays.length;
     }
 
-    setInspect() {
+    /**
+     * Set the UI mode
+     * @returns void
+     */
+    setUIMode(type: string): void {
         this.tilePlacementValue = undefined;
-        this.uiMode = 'inspect';
+        this.uiMode = type;
     }
 
-    setMove() {
-        this.tilePlacementValue = undefined;
-        this.uiMode = 'move';
-    }
-
-    changeTileMapValue(event: any) {
+    /**
+     * Change the value of a tile display. And update all instances of the old value with the new value.
+     * @param event 
+     * @returns void
+     */
+    changeTileMapValue(event: any): void {
         const inputElement = event.target;
         const oldValue = this.tilePlacementValue
         const cursorStart = inputElement.selectionStart;
         const cursorEnd = inputElement.selectionEnd;
 
+
         var newValue = event.target.value;
-        if (newValue == '' || newValue == 0) {
+
+        // Check if the value is already in use - might not work on parsed objects
+        const found = this.tileDisplays.find((tile: any) => tile.value == newValue);
+        if (newValue == '' || newValue == 0 || found) {
             newValue = oldValue
         }
         try {
@@ -323,6 +399,7 @@ export class MapEditorPageComponent {
             }
         });
 
+        // replace all instances of the old value with the new value
         this.tileMapData.forEach((row: any) => {
             row.forEach((tile: any) => {
                 if (tile.value === oldValue) {
@@ -339,6 +416,10 @@ export class MapEditorPageComponent {
         });
     }
 
+    /**
+     * Delete a tile display
+     * @returns void
+     */
     deleteTileMap() {
         if (this.confirmDelete) {
             const index = this.tileDisplays.findIndex((tile: any) => tile.value === this.tilePlacementValue);

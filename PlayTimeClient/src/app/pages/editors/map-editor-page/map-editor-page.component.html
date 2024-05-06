@@ -1,15 +1,15 @@
-<div class="background-container" (touchend)="onTouchEnd($event)" (mouseup)="onMouseUp($event)">
+<div class="background-container" (touchend)="setMouseDownValue(0)" (mouseup)="setMouseDownValue(0)">
     <div class="container">
         <div id="editor">
             <header>
                 <!-- add new button -->
                 <div id="optionBar">
-                    <div class="selectableTileMapper" (click)="setInspect()" tile="Inspect tile."
+                    <div class="selectableTileMapper" (click)="setUIMode('inspect')" tile="Inspect tile."
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>image_search</mat-icon>
                     </div>
-                    <div class="selectableTileMapper" (click)="setMove()" title="Free Move."
+                    <div class="selectableTileMapper" (click)="setUIMode('move')" title="Free Move."
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'move'}"
                         [ngStyle]="{'background-color': 'white', 'color': 'black'}">
                         <mat-icon>mouse</mat-icon>
@@ -62,7 +62,7 @@
                 </div>
             </header>
             <div id="editorContent" (mousedown)="onMouseDown($event)" #scrollableElement *ngIf="!generating.active"
-                (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+                (touchstart)="setMouseDownValue(1)" (touchmove)="onTouchMove($event)">
 
                 <div class="tileRow" *ngFor="let tileRow of tileMapData">
                     <div class="tile" *ngFor="let tile of tileRow" (click)="tileClick(tile)" [attr.id]="stringify(tile)"
@@ -149,6 +149,7 @@
                     <span>10. button to go to other pages</span><br>
                     <span>10b. link other pages to this one</span><br>
                     <span>11. display value mode</span><br>
+                    <span>12. select a right click tile to place on right click drag.</span><br>
                 </div>
             </footer>
         </div>
