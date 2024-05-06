@@ -58,7 +58,7 @@
                         <mat-icon>add</mat-icon>
                     </div>
                     <div class="selectableTileMapper grid"
-                        [ngClass]="{'selected': emptyTile.value == tilePlacementValue}"
+                        [ngClass]="{'selected': emptyTile.value == tilePlacementValue, 'secondSelected': emptyTile.value == tileSecondPlacementValue && tileSecondPlacementValue != tilePlacementValue}"
                         (click)="selectTileMap(emptyTile, 1, $event)"
                         (contextmenu)="selectTileMap(emptyTile, 2, $event)" style="margin-right: 1rem;" title="Eraser.">
                         <img src="https://i.imgur.com/v0w8GZa.png" alt="">
