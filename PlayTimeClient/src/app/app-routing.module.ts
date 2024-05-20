@@ -22,6 +22,7 @@ import { BlueScreenComponent } from './pages/other/aprilFoolsJokes/blue-screen/b
 import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
 import { AchievementCollectionPageComponent } from './pages/main/achievement-collection-page/achievement-collection-page.component';
 import { MapEditorPageComponent } from './pages/editors/map-editor-page/map-editor-page.component';
+import { MinecraftPageComponent } from './pages/random/minecraft-page/minecraft-page.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -46,6 +47,7 @@ const routes: Routes = [
     { path: 'blueScreen', component: BlueScreenComponent },
     { path: 'Fancy404', component: FancyNotFoundPageComponent },
     { path: 'achievements', component: AchievementCollectionPageComponent },
+    { path: 'minecraft', component: MinecraftPageComponent },
 
     //   { path: 'Store/Category/:View', component: StorePageComponent },
     //   { path: 'Datapage', component: DataPageComponent },

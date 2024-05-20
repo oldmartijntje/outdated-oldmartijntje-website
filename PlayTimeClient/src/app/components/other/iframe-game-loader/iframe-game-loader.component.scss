@@ -1,0 +1,35 @@
+::ng-deep body {
+    background-color: #ffffff !important;
+}
+
+#popup {
+    background-color: #ee3c44;
+    white-space: pre-line;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#popup>p {
+    width: 80%
+}
+
+#popup>button {
+    border-radius: 1rem;
+    background-color: #313338;
+    color: #605df1;
+    border: 0.1rem solid #605df1;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem;
+
+}
+
+#container {
+    flex: 2;
+}
+
+.importantMessage {
+    color: #ee3c44;
+}

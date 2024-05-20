@@ -4,8 +4,12 @@
             <header>
                 <!-- add new button -->
                 <div id="optionBar">
+                    <a class="selectableTileMapper grid defaultIcon" title="Homepage" routerLink=""
+                        [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}">
+                        <mat-icon>home</mat-icon>
+                    </a>
                     <div class="selectableTileMapper grid defaultIcon" (click)="setUIMode('inspect')"
-                        tile="Inspect tile"
+                        title="Inspect tile"
                         [ngClass]="{'selected': undefined == tilePlacementValue && uiMode == 'inspect'}">
                         <mat-icon>image_search</mat-icon>
                     </div>
@@ -160,7 +164,6 @@
                     <span>9b. copy selection</span><br>
                     <span>9c. paste selection</span><br>
                     <span>9d. move selection</span><br>
-                    <span>10. button to go to other pages</span><br>
                     <span>10b. link other pages to this one</span><br>
                 </div>
             </footer>

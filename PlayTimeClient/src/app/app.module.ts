@@ -57,6 +57,8 @@ import { BlueScreenComponent } from './pages/other/aprilFoolsJokes/blue-screen/b
 import { FancyNotFoundPageComponent } from './pages/main/error-pages/fancy-not-found-page/fancy-not-found-page.component';
 import { AchievementCollectionPageComponent } from './pages/main/achievement-collection-page/achievement-collection-page.component';
 import { MapEditorPageComponent } from './pages/editors/map-editor-page/map-editor-page.component';
+import { IframeGameLoaderComponent } from './components/other/iframe-game-loader/iframe-game-loader.component';
+import { MinecraftPageComponent } from './pages/random/minecraft-page/minecraft-page.component';
 
 @NgModule({
     declarations: [
@@ -94,6 +96,8 @@ import { MapEditorPageComponent } from './pages/editors/map-editor-page/map-edit
         FancyNotFoundPageComponent,
         AchievementCollectionPageComponent,
         MapEditorPageComponent,
+        IframeGameLoaderComponent,
+        MinecraftPageComponent,
     ],
     imports: [
         AsyncPipe,

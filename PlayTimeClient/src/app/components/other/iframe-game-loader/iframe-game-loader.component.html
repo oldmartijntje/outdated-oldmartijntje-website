@@ -1,0 +1,14 @@
+<div style="display:flex; flex-direction: column; height: 100%;">
+    <div id="popup" *ngIf="disclaimer">
+        <p>For legal reasons: I did not make this game, this page is purely loading a website running {{gameName}}.
+
+            This game might run better on <a href="{{gameUrl}}">{{gameUrl}}</a></p>
+        <button (click)="hidePopup()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div id="container" *ngIf="!disclaimer">
+        <iframe [src]="sanitizedUrl" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+    <div id="container" *ngIf="disclaimer">
+        <h1 class="importantMessage">Click the disclaimer close button to play {{gameName}}!</h1>
+    </div>
+</div>
