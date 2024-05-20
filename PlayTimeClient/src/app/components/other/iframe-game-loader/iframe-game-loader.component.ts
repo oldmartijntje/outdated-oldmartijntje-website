@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -14,6 +14,14 @@ export class IframeGameLoaderComponent {
     public sanitizedUrl: SafeResourceUrl = '';
 
     constructor(private sanitizer: DomSanitizer) { }
+
+    @ViewChild('gameIframe', { static: false }) gameIframe?: ElementRef = undefined;
+
+    focusIframe() {
+        if (this.gameIframe && this.gameIframe.nativeElement) {
+            this.gameIframe.nativeElement.focus();
+        }
+    }
 
     ngOnInit(): void {
         this.sanitizedUrl = this.getSanitizedUrl(this.gameUrl);
