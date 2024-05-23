@@ -6,10 +6,19 @@
         <button (click)="hidePopup()"><mat-icon>close</mat-icon></button>
     </div>
     <div id="container" *ngIf="!disclaimer">
-        <iframe #gameIframe [src]="sanitizedUrl" width="100%" height="100%" frameborder="0"
-            (load)="focusIframe()"></iframe>
+        <iframe #gameIframe [src]="sanitizedUrl" width="100%" height="100%" frameborder="0" (load)="focusIframe()"
+            (click)="focusIframe()"></iframe>
     </div>
     <div id="container" *ngIf="disclaimer">
         <h1 class="importantMessage">Click the disclaimer close button to play {{gameName}}!</h1>
     </div>
+    <!-- <footer *ngIf="disclaimer">
+        <button title="show overlay" (click)="mobile = !mobile"><mat-icon>keyboard_alt</mat-icon></button>
+    </footer>
+    <div id="overlay" *ngIf="!disclaimer && mobile">
+        <button (touchstart)="sendKey('w')" class="overlay-btn up"><mat-icon>arrow_upward</mat-icon></button>
+        <button (touchstart)="sendKey('a')" class="overlay-btn left"><mat-icon>arrow_back</mat-icon></button>
+        <button (touchstart)="sendKey('s')" class="overlay-btn down"><mat-icon>arrow_downward</mat-icon></button>
+        <button (touchstart)="sendKey('d')" class="overlay-btn right"><mat-icon>arrow_forward</mat-icon></button>
+    </div> -->
 </div>

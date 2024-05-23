@@ -33,3 +33,44 @@
 .importantMessage {
     color: #ee3c44;
 }
+
+#overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-btn {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.overlay-btn:active {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.overlay-btn.up {
+    margin-bottom: 40px;
+}
+
+.overlay-btn.down {
+    margin-top: 40px;
+}
+
+.overlay-btn.left,
+.overlay-btn.right {
+    margin-top: -15px;
+}

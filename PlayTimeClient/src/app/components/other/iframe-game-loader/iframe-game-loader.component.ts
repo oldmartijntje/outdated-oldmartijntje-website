@@ -10,6 +10,7 @@ export class IframeGameLoaderComponent {
     @Input() gameUrl: string = '';
     @Input() gameName: string = '';
     @Input() disclaimer: boolean = true;
+    // mobile: boolean = this.isMobile();
 
     public sanitizedUrl: SafeResourceUrl = '';
 
@@ -25,6 +26,7 @@ export class IframeGameLoaderComponent {
 
     ngOnInit(): void {
         this.sanitizedUrl = this.getSanitizedUrl(this.gameUrl);
+        // this.sanitizedUrl = this.getSanitizedUrl('https://isde-subsidie.nl/chatbot/');
     }
 
     getSanitizedUrl(url: string): SafeResourceUrl {
@@ -39,5 +41,25 @@ export class IframeGameLoaderComponent {
         this.disclaimer = false;
     }
 
+    // isMobile(): boolean {
+    //     return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    // }
+
+    // sendKey(key: string) {
+    //     if (this.gameIframe && this.gameIframe.nativeElement) {
+    //         const iframeDocument = this.gameIframe.nativeElement.contentDocument;
+    //         const eventInitDict: KeyboardEventInit = { key, bubbles: true };
+
+    //         if (iframeDocument) {
+    //             const keydownEvent = new KeyboardEvent('keydown', eventInitDict);
+    //             const keyupEvent = new KeyboardEvent('keyup', eventInitDict);
+
+    //             iframeDocument.dispatchEvent(keydownEvent);
+    //             setTimeout(() => {
+    //                 iframeDocument.dispatchEvent(keyupEvent);
+    //             }, 1000);
+    //         }
+    //     }
+    // }
 
 }
