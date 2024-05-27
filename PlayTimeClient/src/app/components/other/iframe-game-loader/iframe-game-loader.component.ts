@@ -10,19 +10,12 @@ export class IframeGameLoaderComponent {
     @Input() gameUrl: string = '';
     @Input() gameName: string = '';
     @Input() disclaimer: boolean = true;
-    // mobile: boolean = this.isMobile();
+    mobile: boolean = this.isMobile();
 
     public sanitizedUrl: SafeResourceUrl = '';
 
     constructor(private sanitizer: DomSanitizer) { }
 
-    @ViewChild('gameIframe', { static: false }) gameIframe?: ElementRef = undefined;
-
-    focusIframe() {
-        if (this.gameIframe && this.gameIframe.nativeElement) {
-            this.gameIframe.nativeElement.focus();
-        }
-    }
 
     ngOnInit(): void {
         this.sanitizedUrl = this.getSanitizedUrl(this.gameUrl);
@@ -40,26 +33,46 @@ export class IframeGameLoaderComponent {
     hidePopup() {
         this.disclaimer = false;
     }
+    @ViewChild('gameIframe', { static: false }) gameIframe?: ElementRef;
 
-    // isMobile(): boolean {
-    //     return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-    // }
+    isMobile(): boolean {
+        return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    }
 
-    // sendKey(key: string) {
-    //     if (this.gameIframe && this.gameIframe.nativeElement) {
-    //         const iframeDocument = this.gameIframe.nativeElement.contentDocument;
-    //         const eventInitDict: KeyboardEventInit = { key, bubbles: true };
+    focusIframe() {
+        if (this.gameIframe && this.gameIframe.nativeElement) {
+            this.gameIframe.nativeElement.focus();
+            this.gameIframe.nativeElement.contentWindow.focus();
+        }
+    }
 
-    //         if (iframeDocument) {
-    //             const keydownEvent = new KeyboardEvent('keydown', eventInitDict);
-    //             const keyupEvent = new KeyboardEvent('keyup', eventInitDict);
+    sendKey(key: string) {
+        console.log(this.gameIframe);
+        if (this.gameIframe && this.gameIframe.nativeElement) {
+            this.focusIframe();
+            console.log('Sending key: ', key);
+            const iframeDocument = this.gameIframe.nativeElement.contentDocument || this.gameIframe.nativeElement.contentWindow.document;
 
-    //             iframeDocument.dispatchEvent(keydownEvent);
-    //             setTimeout(() => {
-    //                 iframeDocument.dispatchEvent(keyupEvent);
-    //             }, 1000);
-    //         }
-    //     }
-    // }
+            if (iframeDocument) {
+                const eventInitDict: KeyboardEventInit = {
+                    key,
+                    code: `Key${key.toUpperCase()}`,
+                    keyCode: key.toUpperCase().charCodeAt(0),
+                    bubbles: true,
+                    cancelable: true
+                };
+
+                const keydownEvent = new KeyboardEvent('keydown', eventInitDict);
+                const keyupEvent = new KeyboardEvent('keyup', eventInitDict);
+
+                const activeElement = iframeDocument.activeElement || iframeDocument.body;
+
+                activeElement.dispatchEvent(keydownEvent);
+                setTimeout(() => {
+                    activeElement.dispatchEvent(keyupEvent);
+                }, 100);
+            }
+        }
+    }
 
 }
