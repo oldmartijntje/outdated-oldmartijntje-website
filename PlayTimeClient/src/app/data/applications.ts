@@ -543,7 +543,7 @@ export const shortcuts: Shortcut[] = [
     },
     {
         "Title": "Mail",
-        "Icon": "../assets/images/turtleWithEnvelope.png",
+        "Icon": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/turtleWithEnvelope.png",
         "Command": "nav",
         "Link": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/Chat",
         "Payload": {

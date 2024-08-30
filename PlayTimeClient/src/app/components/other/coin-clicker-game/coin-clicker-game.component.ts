@@ -16,12 +16,12 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
     clickerGame: Record<string, any> = {}
     defaultClickerGame: Record<string, any> = { ...MarioClicker }
     rename: Record<string, any> = {
-        "coin": "../../../../assets/icons/Retro-Coin-icon.png",
-        "life": "../../../../assets/icons/1up.png",
-        "heart": "../../../../assets/icons/marioHeart.png",
-        "powerHeart": "../../../../assets/icons/marioPowerHeart.png",
-        "rebirth": "../../../../assets/icons/flag.png",
-        "better-rebirth": "../../../../assets/icons/flag2.png",
+        "coin": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/Retro-Coin-icon.png",
+        "life": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/1up.png",
+        "heart": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/marioHeart.png",
+        "powerHeart": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/marioPowerHeart.png",
+        "rebirth": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/flag.png",
+        "better-rebirth": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/flag2.png",
     }
     deleteButton = 0;
     exportTextbox: string = "";
@@ -90,7 +90,7 @@ export class CoinClickerGameComponent implements OnInit, OnDestroy {
         if (byClick) {
             var temp = this.getVolume();
             this.setVolume(0.1);
-            this.playAudio("../../../../assets/audio/mario-1-up.mp3");
+            this.playAudio("https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/mario-1-up.mp3");
         }
         this.clickerGame['currency']['life']['amount'] += amount
         if (this.clickerGame['currency']['life']['amount'] > this.getMaximum("life")) {

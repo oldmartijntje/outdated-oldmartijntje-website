@@ -21,13 +21,15 @@
                         <div class="image-container" style="overflow: hidden; ">
                             <p class="banner">{{item.bannerText}}</p>
                             <img *ngIf="item.image != ''" src="{{item.image}}" alt="{{item.title}}" class="image" />
-                            <img *ngIf="item.image == ''" src="../../../../assets/images/404.png" alt="{{item.title}}"
-                                class="image" />
+                            <img *ngIf="item.image == ''"
+                                src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assetss/images/404.png"
+                                alt="{{item.title}}" class="image" />
                         </div>
                         <div class="itemText"
                             style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                            <img *ngIf="item.myOwn" src="../../../../assets/images/crown.png" alt="My own thing."
-                                class="crown">
+                            <img *ngIf="item.myOwn"
+                                src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assetss/images/crown.png"
+                                alt="My own thing." class="crown">
                             <h3 style="text-align: center; margin-bottom: 0; padding: 0.5rem; word-wrap: break-word;">
                                 {{item.title}}</h3>
                             <p *ngIf="item.bannerText == 'Discord Video'" class="warning" style="margin:0">Warning:

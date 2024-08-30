@@ -107,7 +107,7 @@ export class FancyNotFoundPageComponent {
         if ((stringReturn.toLowerCase().startsWith('found') || stringReturn.toLowerCase().startsWith('404found')) && stringReturn.toLowerCase().includes('thispagedoesexist')) {
             this.pageFound = true;
             this.runtimeService.setVolume(0.2);
-            this.runtimeService.playAudio('../../../assets/audio/can-we-get-much-higher-one-piece-meme.mp3');
+            this.runtimeService.playAudio('https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/can-we-get-much-higher-one-piece-meme.mp3');
             const handlerResponse = this.localstorageHandlingService.getLocalstorageHandler().checkAndLoad('easterEggs.Fancy404.OhWaitItDoesExist')
             if (handlerResponse == null || handlerResponse == false) {
                 this.localstorageHandlingService.addEditRequestToQueue(true, 'easterEggs.Fancy404.OhWaitItDoesExist')

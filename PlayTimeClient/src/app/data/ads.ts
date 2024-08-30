@@ -7,7 +7,7 @@ export interface displayAd {
 const smallAdList: displayAd[] = [
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/nicelyCSSed.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/nicelyCSSed.gif",
         "blank_": true
     },
     {
@@ -17,7 +17,7 @@ const smallAdList: displayAd[] = [
     },
     {
         "link": "./Chat",
-        "image": "../../../../assets/images/buttons/single.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/single.gif",
         "blank_": false
     },
     {
@@ -57,7 +57,7 @@ const smallAdList: displayAd[] = [
     },
     {
         "link": "http://www.saitogames.com/battlepainters/",
-        "image": "../../../../assets/images/buttons/battlePainters.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/battlePainters.gif",
         "blank_": true
     },
     {
@@ -67,7 +67,7 @@ const smallAdList: displayAd[] = [
     },
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/robuzx.png",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/robuzx.png",
         "blank_": true
     },
     {
@@ -97,7 +97,7 @@ const smallAdList: displayAd[] = [
     },
     {
         "link": "https://open.spotify.com/track/0X3FKutBnvxqEBxH5xwkU2?si=f38dc45e5b734ef1",
-        "image": "../../../../assets/images/buttons/Button1.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/Button1.gif",
         "blank_": true
     },
     {
@@ -112,7 +112,7 @@ const smallAdList: displayAd[] = [
     },
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/brainTraining.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/brainTraining.gif",
         "blank_": true
     },
     {
@@ -132,12 +132,12 @@ const smallAdList: displayAd[] = [
     },
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/longus.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/longus.gif",
         "blank_": true
     },
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/marioScared.png",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/marioScared.png",
         "blank_": true
     },
 ]
@@ -148,17 +148,17 @@ const mediumAdList: displayAd[] = [
 const bigAdList: displayAd[] = [
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/carcassonne.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/carcassonne.gif",
         "blank_": true
     },
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/scratch.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/scratch.gif",
         "blank_": true
     },
     {
         "link": "",
-        "image": "../../../../assets/images/buttons/partnerzInTiem.gif",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/buttons/partnerzInTiem.gif",
         "blank_": true
     }
 ]

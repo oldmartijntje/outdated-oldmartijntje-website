@@ -37,14 +37,14 @@ export class FunkyCssPageComponent {
     selectPlayer(player: string): void {
         this.character = player;
         if (player == "mario") {
-            this.playAudio('../../../../assets/audio/mario-64-here-we-go-voice.mp3', 0.5)
+            this.playAudio('https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/mario-64-here-we-go-voice.mp3', 0.5)
         } else if (player == "luigi") {
-            this.playAudio('../../../../assets/audio/luigi-here-we-go.mp3', 0.5)
+            this.playAudio('https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/luigi-here-we-go.mp3', 0.5)
         }
     }
 
     switchToSwitchUI(): void {
-        this.playAudio('../../../../assets/audio/enter-painting.mp3', 0.5)
+        this.playAudio('https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/enter-painting.mp3', 0.5)
         this.navigateToLink("Homepage")
     }
 

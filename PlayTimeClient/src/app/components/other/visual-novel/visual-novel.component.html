@@ -4,12 +4,12 @@
     </header>
     <div class="screen" [ngStyle]="scene.styling">
         <div class="save icon" style="display: flex; flex-direction: row-reverse; justify-content: space-between; ">
-            <img src="../../../../assets/icons/saveButton.png" alt="Save Button"
-                style="cursor: pointer; user-select:none;" title="Save Button" (click)="emitSavingEvent()"
-                *ngIf="showSaveIcon" class="image">
-            <img src="../../../../assets/icons/exitButton.png" alt="Close Button"
-                style="cursor: pointer; user-select:none;" title="Exit Button" (click)="emitExitEvent()"
-                *ngIf="showExitButton" class="image">
+            <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/saveButton.png"
+                alt="Save Button" style="cursor: pointer; user-select:none;" title="Save Button"
+                (click)="emitSavingEvent()" *ngIf="showSaveIcon" class="image">
+            <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/exitButton.png"
+                alt="Close Button" style="cursor: pointer; user-select:none;" title="Exit Button"
+                (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
         </div>
         <div class="textbox" [ngStyle]="getStyling('prompt')">
             {{getText()}}
@@ -40,10 +40,12 @@
 </div>
 <div class="body scroll" *ngIf="editing && !runtimeError">
     <div class="save icon" style="display: flex; flex-direction: row-reverse; justify-content: space-between; ">
-        <img src="../../../../assets/icons/saveButton.png" alt="Save Button" style="cursor: pointer; user-select:none;"
-            title="Save Button" (click)="emitSavingEvent()" *ngIf="showSaveIcon" class="image">
-        <img src="../../../../assets/icons/exitButton.png" alt="Close Button" style="cursor: pointer; user-select:none;"
-            title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
+        <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/saveButton.png"
+            alt="Save Button" style="cursor: pointer; user-select:none;" title="Save Button" (click)="emitSavingEvent()"
+            *ngIf="showSaveIcon" class="image">
+        <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/exitButton.png"
+            alt="Close Button" style="cursor: pointer; user-select:none;" title="Exit Button" (click)="emitExitEvent()"
+            *ngIf="showExitButton" class="image">
         <button mat-raised-button (click)="removeUnusedParamaters(true)" color="warn">remove Useless data</button>
         <button mat-raised-button (click)="debug()">debug</button>
     </div>
@@ -379,8 +381,9 @@
     </div>
 </div>
 <div *ngIf="runtimeError">
-    <img src="../../../../assets/icons/exitButton.png" alt="Close Button" style="cursor: pointer; user-select:none;"
-        title="Exit Button" (click)="emitExitEvent()" *ngIf="showExitButton" class="image">
+    <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/exitButton.png"
+        alt="Close Button" style="cursor: pointer; user-select:none;" title="Exit Button" (click)="emitExitEvent()"
+        *ngIf="showExitButton" class="image">
     <app-glitch-text [text]="'ERROR'" [locationStyling]="{'margin-top': '10%'}"
         [textStyling]="{'font-size': '4rem'}"></app-glitch-text>
     <app-glitch-text [text]="'A catastrophic failure happened.'" [locationStyling]="{'margin-top': '10%'}"

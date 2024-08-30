@@ -15,12 +15,14 @@
             <div class="disc" *ngFor="let disc of getDiscs(); let i = index">
                 <div *ngIf="firstDiscShowedId + i == currentDiscDisplay" class="image-container"
                     (click)="highlightDisc(firstDiscShowedId + i)">
-                    <img src="../../../../assets/icons/portal1.png" alt="Selected" class="background-image">
+                    <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/portal1.png"
+                        alt="Selected" class="background-image">
                     <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
                 </div>
                 <div *ngIf="firstDiscShowedId + i != currentDiscDisplay" class="image-container"
                     (click)="highlightDisc(firstDiscShowedId + i)">
-                    <img src="../../../../assets/icons/portal2.png" alt="Unselected" class="background-image">
+                    <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/portal2.png"
+                        alt="Unselected" class="background-image">
                     <img src="{{disc.image}}" alt="Disc" title="Disc" class="image">
                 </div>
                 <!-- <p>{{firstDiscShowedId + i}}</p> -->

@@ -130,7 +130,7 @@ export const stylusStory: { [key: string]: any } = {
         "1": {
             "type": "playSound",
             "next": "4",
-            "sound": "../assets/audio/stylus.mp3",
+            "sound": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/stylus.mp3",
             "volume": 0.1,
         }
     }
@@ -139,7 +139,7 @@ export const stylusStory: { [key: string]: any } = {
 export const DefaultScenes: { [key: string]: any } = {
     "1": {
         "styling": {
-            "background": "url(\"../assets/images/background.gif\")"
+            "background": "url(\"https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/background.gif\")"
         }
     },
     "2": {
@@ -157,7 +157,7 @@ export const DefaultScenes: { [key: string]: any } = {
 export const stylusScenes: { [key: string]: any } = {
     "1": {
         "styling": {
-            "background": "url(\"../assets/videos/stylus.mp4\")"
+            "background": "url(\"https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/videos/stylus.mp4\")"
         }
     },
     "2": {

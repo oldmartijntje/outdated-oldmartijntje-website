@@ -345,7 +345,7 @@ export const randomWebsites: itemDisplay[] = [
     },
     {
         "url": "https://github.com/oldmartijntje/oldmartijntje.nl-client",
-        "image": "../../assets/images/mii.png",
+        "image": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/mii.png",
         "title": "oldmartijntje.nl",
         "description": "This websites github repository.",
         "bannerText": "Github Repository",

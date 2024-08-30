@@ -16,7 +16,7 @@ export class GameTheoryComponent {
         secretClickOrder: ['1', '2', '3', '4', 'middle'],
         found: false,
         pageConvertor: { '1': 'game', '2': 'film', '3': 'food', '4': 'style', 'middle': 'middle' },
-        audioConvertor: { '1': '../../../../assets/audio/simon tune1.mp3', '2': '../../../../assets/audio/simon tune1.mp3', '3': '../../../../assets/audio/simon tune2.mp3', '4': '../../../../assets/audio/simon tune2.mp3', 'middle': '../../../../assets/audio/simon tune3.mp3' }
+        audioConvertor: { '1': 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/simon tune1.mp3', '2': 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/simon tune1.mp3', '3': 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/simon tune2.mp3', '4': 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/simon tune2.mp3', 'middle': 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/simon tune3.mp3' }
     }
 
     constructor(
@@ -31,7 +31,7 @@ export class GameTheoryComponent {
             this.gameTheory['found'] = false;
             var page = '';
             this.runtimeService.setVolume(0.1);
-            this.runtimeService.playAudio('../../../../assets/audio/simon tune4.mp3');
+            this.runtimeService.playAudio('https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/simon tune4.mp3');
             if (id == 'middle') {
                 const tempText = `${Math.floor(Math.random() * 4) + 1}`
                 page = this.gameTheory['pageConvertor'][tempText];

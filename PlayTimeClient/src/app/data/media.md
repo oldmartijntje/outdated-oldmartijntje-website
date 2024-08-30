@@ -64,7 +64,7 @@ export const DefaultStory = {
         "4": {
             "type": "playSound",
             "next": "1",
-            "sound": "../assets/audio/mario-1-up.mp3",
+            "sound": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/audio/mario-1-up.mp3",
             "volume": 0.1,
         },
         "5": {
@@ -108,7 +108,7 @@ export const DefaultStory = {
 export const DefaultScenes = {
     "1": {
         "styling": {
-            "background": "url(\"../assets/images/background.gif\")"
+            "background": "url(\"https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/background.gif\")"
         },
         "music": "assets/music/1.mp3",
         "volume": 0.5

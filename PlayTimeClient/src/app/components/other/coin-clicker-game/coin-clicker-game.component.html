@@ -21,7 +21,8 @@
     </div>
 </div>
 <div class="flexBox">
-    <button (click)="addCoin(1, true)" class="growButton"><img src="../../../../assets/icons/Retro-Coin-icon.png"
+    <button (click)="addCoin(1, true)" class="growButton"><img
+            src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/Retro-Coin-icon.png"
             alt="coin" style="width:1rem"></button>
 </div>
 <div class="flexBox">
@@ -87,17 +88,21 @@
 <div class="flexBox">
     <button (click)="clickerDataHandler(0)" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton">Save
         Game
-        <img src="../../../../assets/icons/save.ico" alt="" style="width:1rem"></button>
+        <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/save.ico" alt=""
+            style="width:1rem"></button>
     <button (click)="clickerDataHandler(1)" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton">Load
         Game
-        <img src="../../../../assets/icons/load.ico" alt="" style="width:1rem"></button>
+        <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/load.ico" alt=""
+            style="width:1rem"></button>
     <button (click)="resetGame()" *ngIf="areAllDiscoveriesMet(['1up'])" class="marioText growButton"><span
             *ngIf="deleteButton == 0">Reset Game</span><span *ngIf="deleteButton != 0">Confirm Reset</span>
-        <img src="../../../../assets/icons/trash.ico" alt="" style="width:1rem"></button>
+        <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/trash.ico" alt=""
+            style="width:1rem"></button>
     <button (click)="clickerDataHandler(3)" *ngIf="areAllDiscoveriesMet(['1up']) && logButton"
         class="marioText growButton">Soft
         Delete
-        <img src="../../../../assets/icons/trash.ico" alt="" style="width:1rem"></button>
+        <img src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/trash.ico" alt=""
+            style="width:1rem"></button>
 </div>
 <p *ngIf="areAllDiscoveriesMet(['1up'])">Auto saves in {{120 - clickerGame['autoSave']}} seconds.</p>
 <div class="flexBox">

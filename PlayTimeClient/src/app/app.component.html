@@ -3,8 +3,9 @@
 </app-application-page>
 <div *ngIf="showWindows && mobileMode['MobileMode']"
     style="background-image: url('https://i.imgur.com/yOpoaJH.jpg'); height:100%">
-    <img *ngIf="mobileMode['MobileUser'] && mobileModePopup && !ignoreDisclaimer" src="../assets/images/mobileUser.png"
-        alt="" (click)="mobileModePopup = false" style="width:100%;">
+    <img *ngIf="mobileMode['MobileUser'] && mobileModePopup && !ignoreDisclaimer"
+        src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/mobileUser.png" alt=""
+        (click)="mobileModePopup = false" style="width:100%;">
     <app-mobile-application-page *ngIf="!mobileMode['MobileUser'] || !mobileModePopup || ignoreDisclaimer">
         <router-outlet></router-outlet>
     </app-mobile-application-page>
@@ -12,11 +13,14 @@
 <div *ngIf="!showWindows && mobileMode['MobileUser']">
     <div *ngIf="mobileModePopup && !ignoreDisclaimer" (click)="mobileModePopup = false" class="mobileMode">
         <div class="disclaimerContainer">
-            <img class="disclaimer" src="../assets/images/mobileUserRegularCopyright.png" alt="copyright"
-                style="z-index: 3;">
-            <img class="disclaimer" src="../assets/images/mobileUserRegular4.png" alt="disclaimer image"
-                style="z-index: 2;">
-            <img class="disclaimer" src="../assets/images/mobileUserRegularPressAnywhere.png"
+            <img class="disclaimer"
+                src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/mobileUserRegularCopyright.png"
+                alt="copyright" style="z-index: 3;">
+            <img class="disclaimer"
+                src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/mobileUserRegular4.png"
+                alt="disclaimer image" style="z-index: 2;">
+            <img class="disclaimer"
+                src="https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/mobileUserRegularPressAnywhere.png"
                 alt="press anywhere message" style="z-index: 1;">
         </div>
     </div>
