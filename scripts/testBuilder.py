@@ -10,7 +10,7 @@ defaultData = {
     "AngularProjectFolder": "PlayTimeClient",
     "BuildDataPath": "src/app/Models/buildData.ts",
     "AngularDistName": "play-time",
-    "HostToUrl": "https://oldmartijntje.nl",
+    "HostToUrl": "https://oldmartijntje.github.io/outdated-oldmartijntje-website",
     "BuilderMakeBranch": True,
     "MainBranch": "main",
     "GitRepo": "https://github.com/oldmartijntje/playtime/"

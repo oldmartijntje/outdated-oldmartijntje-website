@@ -359,7 +359,7 @@ export const shortcuts: Shortcut[] = [
                 {
                     "Text": "OK",
                     "Command": "nav",
-                    "Link": "https://oldmartijntje.nl/link?me=github"
+                    "Link": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/link?me=github"
                 },
                 {
                     "Text": "This website is open source!",
@@ -453,11 +453,11 @@ export const shortcuts: Shortcut[] = [
             "Tabs": [
                 {
                     "Title": "Small",
-                    "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="https://i.imgur.com/5svJRQD.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://i.imgur.com/5svJRQD.png" alt=""&gt;&lt;/a&gt;</textarea>'
+                    "InnerHTML": '<a href="https://oldmartijntje.github.io/outdated-oldmartijntje-website/"><img src="https://i.imgur.com/5svJRQD.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.github.io/outdated-oldmartijntje-website/"&gt;&lt;img src="https://i.imgur.com/5svJRQD.png" alt=""&gt;&lt;/a&gt;</textarea>'
                 },
                 {
                     "Title": "Wide",
-                    "InnerHTML": '<a href="https://oldmartijntje.nl/"><img src="https://i.imgur.com/HCb2U1H.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.nl/"&gt;&lt;img src="https://i.imgur.com/HCb2U1H.png" alt=""&gt;&lt;/a&gt;</textarea>'
+                    "InnerHTML": '<a href="https://oldmartijntje.github.io/outdated-oldmartijntje-website/"><img src="https://i.imgur.com/HCb2U1H.png" alt=""></a><textarea style="border-width: 2px; border-color: #919b9c; border-style: solid;" rows="4" cols="50">&lt;a href="https://oldmartijntje.github.io/outdated-oldmartijntje-website/"&gt;&lt;img src="https://i.imgur.com/HCb2U1H.png" alt=""&gt;&lt;/a&gt;</textarea>'
                 }
             ],
             "TopText": "Link me!",
@@ -545,7 +545,7 @@ export const shortcuts: Shortcut[] = [
         "Title": "Mail",
         "Icon": "../assets/images/turtleWithEnvelope.png",
         "Command": "nav",
-        "Link": "https://oldmartijntje.nl/Chat",
+        "Link": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/Chat",
         "Payload": {
         },
         "Location": {
@@ -613,7 +613,7 @@ export const shortcuts: Shortcut[] = [
         "Title": "Nintendo Switch",
         "Icon": "https://i.imgur.com/metEtPg.png",
         "Command": "nav",
-        "Link": "https://oldmartijntje.nl/nintendo",
+        "Link": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/nintendo",
         "Payload": {
         },
         "Location": {
@@ -643,7 +643,7 @@ export const shortcuts: Shortcut[] = [
                 {
                     "Text": "OK",
                     "Command": "nav",
-                    "Link": "https://oldmartijntje.nl/link?me=docs"
+                    "Link": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/link?me=docs"
                 }
             ],
             "Tabs": []

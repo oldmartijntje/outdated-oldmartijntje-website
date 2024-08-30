@@ -51,7 +51,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Peepee poopoo',
-            description: 'Made a funny word on the [404 page](https://oldmartijntje.nl/Fancy404).',
+            description: 'Made a funny word on the [404 page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Fancy404).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0002-unlocked.png'
         },
@@ -64,13 +64,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: '!.,?;:',
-            description: '[404](https://oldmartijntje.nl/Fancy404) characters not found.',
+            description: '[404](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Fancy404) characters not found.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0004-locked.png'
         },
         unlockedData: {
             title: 'No need to be formal',
-            description: 'You removed the interpunction from the [404 page](https://oldmartijntje.nl/Fancy404).',
+            description: 'You removed the interpunction from the [404 page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Fancy404).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0004-unlocked.png'
         },
@@ -108,7 +108,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: '404 Letters not found',
-            description: 'You removed all the characters from the [404 page](https://oldmartijntje.nl/Fancy404).',
+            description: 'You removed all the characters from the [404 page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Fancy404).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0005-unlocked.png'
         },
@@ -159,13 +159,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Fast Traval.',
-            description: 'If only there was a way to not have to type out the full URL to my socials...\n\n[Navigator](https://oldmartijntje.nl/link).',
+            description: 'If only there was a way to not have to type out the full URL to my socials...\n\n[Navigator](https://oldmartijntje.github.io/outdated-oldmartijntje-website/link).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0008-locked.png'
         },
         unlockedData: {
             title: 'Fast Travel.',
-            description: 'You used the [navigator](https://oldmartijntje.nl/link) to fast travel.\n\nThese links will never change, even when I change my accounts.\n[https://oldmartijntje.nl/Link?me=github](https://oldmartijntje.nl/Link?me=github) will always point towards my current github profile.',
+            description: 'You used the [navigator](https://oldmartijntje.github.io/outdated-oldmartijntje-website/link) to fast travel.\n\nThese links will never change, even when I change my accounts.\n[https://oldmartijntje.github.io/outdated-oldmartijntje-website/Link?me=github](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Link?me=github) will always point towards my current github profile.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0008-unlocked.png'
         },
@@ -184,7 +184,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Fast Maniac.',
-            description: 'You used the [navigator](https://oldmartijntje.nl/link) to fast travel 10 times.',
+            description: 'You used the [navigator](https://oldmartijntje.github.io/outdated-oldmartijntje-website/link) to fast travel 10 times.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0009-unlocked.png'
         },
@@ -311,7 +311,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Birdz and the Beez.',
-            description: 'Summon the [Bee](https://oldmartijntje.nl/AdBee).\n\nCreate an AdBee link.',
+            description: 'Summon the [Bee](https://oldmartijntje.github.io/outdated-oldmartijntje-website/AdBee).\n\nCreate an AdBee link.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0022-locked.png'
         },
@@ -330,7 +330,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'A new Identity!',
-            description: 'Give yourself a new alias for the [Chat](https://oldmartijntje.nl/Chat).',
+            description: 'Give yourself a new alias for the [Chat](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Chat).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0025-locked.png'
         },
@@ -349,7 +349,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Their first words',
-            description: 'Send a message in the [Chat](https://oldmartijntje.nl/Chat).',
+            description: 'Send a message in the [Chat](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Chat).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0026-locked.png'
         },
@@ -368,13 +368,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Hacktor',
-            description: 'Use the [terminal](https://oldmartijntje.nl/Chat)',
+            description: 'Use the [terminal](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Chat)',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0020-locked.png'
         },
         unlockedData: {
             title: 'Hacktor',
-            description: 'You ran a command in the [terminal](https://oldmartijntje.nl/Chat).',
+            description: 'You ran a command in the [terminal](https://oldmartijntje.github.io/outdated-oldmartijntje-website/Chat).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0020-unlocked.png'
         },
@@ -387,13 +387,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Tracing back the steps',
-            description: 'Use the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps.',
+            description: 'Use the [step tracker](https://oldmartijntje.github.io/outdated-oldmartijntje-website/StepTracker) to track your steps.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0024-locked.png'
         },
         unlockedData: {
             title: 'Tracing back the steps',
-            description: 'You used the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps.',
+            description: 'You used the [step tracker](https://oldmartijntje.github.io/outdated-oldmartijntje-website/StepTracker) to track your steps.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0024-unlocked.png'
         },
@@ -406,13 +406,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Timeliness go brr',
-            description: 'Use the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps, And continue from a previous step.',
+            description: 'Use the [step tracker](https://oldmartijntje.github.io/outdated-oldmartijntje-website/StepTracker) to track your steps, And continue from a previous step.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0023-locked.png'
         },
         unlockedData: {
             title: 'Timeliness go brr',
-            description: 'You used the [step tracker](https://oldmartijntje.nl/StepTracker) to track your steps, And continued from a previous step.',
+            description: 'You used the [step tracker](https://oldmartijntje.github.io/outdated-oldmartijntje-website/StepTracker) to track your steps, And continued from a previous step.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0023-unlocked.png'
         },
@@ -425,13 +425,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'What else?',
-            description: 'Refresh the [item display](https://oldmartijntje.nl/ItemDisplay).',
+            description: 'Refresh the [item display](https://oldmartijntje.github.io/outdated-oldmartijntje-website/ItemDisplay).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0017-locked.png'
         },
         unlockedData: {
             title: 'What else?',
-            description: 'You refreshed the [item display](https://oldmartijntje.nl/ItemDisplay).',
+            description: 'You refreshed the [item display](https://oldmartijntje.github.io/outdated-oldmartijntje-website/ItemDisplay).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0017-unlocked.png'
         },
@@ -444,13 +444,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Blue screen of death',
-            description: 'Visit the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            description: 'Visit the april fools 2024 [page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/blueScreen).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0019-locked.png'
         },
         unlockedData: {
             title: 'Blue screen of death',
-            description: 'You visited the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            description: 'You visited the april fools 2024 [page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/blueScreen).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0019-unlocked.png'
         },
@@ -463,13 +463,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Blue screen of BORING',
-            description: 'Wait till the % reaches 100% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            description: 'Wait till the % reaches 100% on the april fools 2024 [page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/blueScreen).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0019-locked.png'
         },
         unlockedData: {
             title: 'Blue screen of BORING',
-            description: 'You waited till the % reached 100% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            description: 'You waited till the % reached 100% on the april fools 2024 [page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/blueScreen).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0019-unlocked.png'
         },
@@ -488,7 +488,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Blue screen of patience',
-            description: 'You waited till the % reached 420% on the april fools 2024 [page](https://oldmartijntje.nl/blueScreen).',
+            description: 'You waited till the % reached 420% on the april fools 2024 [page](https://oldmartijntje.github.io/outdated-oldmartijntje-website/blueScreen).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0019-unlocked.png'
         },
@@ -520,13 +520,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Inspector Gadget',
-            description: "Inspect a tile in [the map editor](https://oldmartijntje.nl/MapEditor).",
+            description: "Inspect a tile in [the map editor](https://oldmartijntje.github.io/outdated-oldmartijntje-website/MapEditor).",
             show: true,
             icon: '../assets/icons/achievements/Sprite-0018-locked.png'
         },
         unlockedData: {
             title: 'Inspector Gadget',
-            description: 'You inspected a tile in [the map editor](https://oldmartijntje.nl/MapEditor).',
+            description: 'You inspected a tile in [the map editor](https://oldmartijntje.github.io/outdated-oldmartijntje-website/MapEditor).',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0018-unlocked.png'
         },
@@ -545,7 +545,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Magnifying-glass tilted Right.',
-            description: 'You inspected a tile in [the map editor](https://oldmartijntje.nl/MapEditor), but with the right mouse button.',
+            description: 'You inspected a tile in [the map editor](https://oldmartijntje.github.io/outdated-oldmartijntje-website/MapEditor), but with the right mouse button.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0018-unlocked.png'
         },
@@ -558,13 +558,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Loss of control.',
-            description: "7x5 art with just 0-1-2.\n\n[Map Editor](https://oldmartijntje.nl/MapEditor).",
+            description: "7x5 art with just 0-1-2.\n\n[Map Editor](https://oldmartijntje.github.io/outdated-oldmartijntje-website/MapEditor).",
             show: true,
             icon: '../assets/icons/achievements/Sprite-0021-locked.png'
         },
         unlockedData: {
             title: 'Loss of control.',
-            description: 'You have created the loss meme in [the map editor](https://oldmartijntje.nl/MapEditor).\n\n7x5 art with just 0-1-2.',
+            description: 'You have created the loss meme in [the map editor](https://oldmartijntje.github.io/outdated-oldmartijntje-website/MapEditor).\n\n7x5 art with just 0-1-2.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0021-unlocked.png'
         },
@@ -583,7 +583,7 @@ export const achievements: Achievement[] = [
         },
         unlockedData: {
             title: 'Mogus Art',
-            description: 'You have created the loss meme in [the map editor](https://oldmartijntje.nl/MapEditor).\n\n3x4 art with just 0-1.',
+            description: 'You have created the loss meme in [the map editor](https://oldmartijntje.github.io/outdated-oldmartijntje-website/MapEditor).\n\n3x4 art with just 0-1.',
             show: true,
             icon: '../assets/icons/achievements/Sprite-0016-unlocked.png'
         },

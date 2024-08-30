@@ -52,7 +52,7 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Website",
     },
     {
-        "url": "https://oldmartijntje.nl/link?me=spotify",
+        "url": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/link?me=spotify",
         "image": "https://stats.fm/_next/image?url=https%3A%2F%2Fcdn.stats.fm%2Ffile%2Fstatsfm%2Fimages%2Fusers%2F7uatf47gcofdupwdxammpxliw%2Fc15df2d67ccfdf5eef5927054f6d830b.webp&w=256&q=75",
         "title": "My Spotify Stats",
         "description": "A website that tracks my Spotify listening habits.",
@@ -95,7 +95,7 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Website"
     },
     {
-        "url": "https://oldmartijntje.nl/link?me=youtube",
+        "url": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/link?me=youtube",
         "image": "https://i.imgur.com/nzuaJtS.png",
         "title": "My youtube channel",
         "description": "This youtube channel is now full of random shitposts, but I used to upload Minecraft videos on it.",
@@ -336,7 +336,7 @@ export const randomWebsites: itemDisplay[] = [
         "bannerText": "Spotify"
     },
     {
-        "url": "https://oldmartijntje.nl/link?me=github",
+        "url": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/link?me=github",
         "image": "https://avatars.githubusercontent.com/u/64547812?v=4",
         "title": "My Github Profile",
         "description": "I mean, it's also linked literally everywhere else on this website lol.",
@@ -368,7 +368,7 @@ export const randomWebsites: itemDisplay[] = [
         "myOwn": true,
     },
     {
-        "url": "https://oldmartijntje.nl/link?me=docs",
+        "url": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/link?me=docs",
         "image": "https://i.imgur.com/TmlM3qN.png",
         "title": "Articles",
         "description": "My big library of knowledge, Digital Garden. Using the obsidian app to merge my markdowns into a big library.",

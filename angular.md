@@ -45,7 +45,7 @@ If `scripts/builderData.json` does not exist, run `builder.py`, this will give y
     "AngularProjectFolder": "PlayTimeClient",
     "BuildDataPath": "/src/app/Models/buildData.ts",
     "AngularDistName": "play-time",
-    "HostToUrl": "https://oldmartijntje.nl",
+    "HostToUrl": "https://oldmartijntje.github.io/outdated-oldmartijntje-website",
     "BuilderMakeBranch": true,
     "MainBranch": "main"
 }
@@ -90,7 +90,7 @@ don't touch `JSONVersion`, this is for me to debug builder script issues.
 
 4. `HostToUrl`
 
-    this is the url you want to host to. For example I am hosting to `https://oldmartijntje.nl`
+    this is the url you want to host to. For example I am hosting to `https://oldmartijntje.github.io/outdated-oldmartijntje-website`
 
     But you can also use `https://yourGithubUsername.github.io/YourGithubRepo` if you are using default github pages.
 

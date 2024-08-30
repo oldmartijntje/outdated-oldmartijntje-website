@@ -17,7 +17,7 @@ export class AdflyPageComponent implements OnInit {
     textToFormat: string = "";
     madeUrl: string = "";
     error = false;
-    static startUrl = "https://oldmartijntje.nl/AdBee?nav=";
+    static startUrl = "https://oldmartijntje.github.io/outdated-oldmartijntje-website/AdBee?nav=";
     adSizeOrder = [0, 1, 2];
     adSizeStyling = [{ 'width': '88px', 'height': '31px' }, { 'width': '264px', 'height': '62px' }, { 'width': '264px', 'height': '93px' }]
 

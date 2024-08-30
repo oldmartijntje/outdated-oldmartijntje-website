@@ -323,7 +323,7 @@ export const experimentalCommands: Record<string, FullCommandFunction> = {
                 obj.appendHistory({ text: "Message sent.", type: "output" });
             });
         },
-        description: "Send a message to https://oldmartijntje.nl/Chat.",
+        description: "Send a message to https://oldmartijntje.github.io/outdated-oldmartijntje-website/Chat.",
         arguments: [
             {
                 name: "message",

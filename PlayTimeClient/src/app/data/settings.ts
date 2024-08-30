@@ -6,7 +6,7 @@ export interface Link {
     queryParamsInLink?: { [key: string]: string }; // only works with same website links
     setSkipLocationChange?: boolean; // default is true
 }
-export const linkTooltip: string = "https://oldmartijntje.nl/link?me=";
+export const linkTooltip: string = "https://oldmartijntje.github.io/outdated-oldmartijntje-website/link?me=";
 
 // never use link: '' or link: [''] as a link, it will remove the queryparams
 export const Links: Link[] = [
@@ -139,7 +139,7 @@ export const Links: Link[] = [
     },
     {
         queryParam: "pfp",
-        link: "https://oldmartijntje.nl/assets/images/mii.png",
+        link: "https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/images/mii.png",
         title: "My profile picture.",
         discoverable: true
     },

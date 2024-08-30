@@ -36,7 +36,7 @@ const smallAdList: displayAd[] = [
         "blank_": true
     },
     {
-        "link": "https://oldmartijntje.nl/",
+        "link": "https://oldmartijntje.github.io/outdated-oldmartijntje-website/",
         "image": "https://i.imgur.com/5svJRQD.png",
         "blank_": false
     },
