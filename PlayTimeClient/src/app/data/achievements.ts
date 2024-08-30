@@ -140,7 +140,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: '100 Clicks!',
-            description: 'Get a 1up mushroom in [the clickerGame](http://oldmartijntje.nl/windows).',
+            description: 'Get a 1up mushroom in [the clickerGame](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows).',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0007-locked.png'
         },
@@ -216,13 +216,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Shopaholic',
-            description: 'Buy 50 things from the shop.\n\nIn [the clickerGame](http://oldmartijntje.nl/windows)',
+            description: 'Buy 50 things from the shop.\n\nIn [the clickerGame](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows)',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0014-locked.png'
         },
         unlockedData: {
             title: 'Shopaholic',
-            description: 'You bought 50 things from the shop in [the clickerGame](http://oldmartijntje.nl/windows).',
+            description: 'You bought 50 things from the shop in [the clickerGame](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows).',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0014-unlocked.png'
         },
@@ -235,13 +235,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'I shall return!',
-            description: 'The Clicker game awaits you.\n\n[Click here](http://oldmartijntje.nl/windows) to ascend.',
+            description: 'The Clicker game awaits you.\n\n[Click here](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows) to ascend.',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0012-locked.png'
         },
         unlockedData: {
             title: 'I shall return!',
-            description: 'You returned to [the clickerGame](http://oldmartijntje.nl/windows) with progression from a previous session.',
+            description: 'You returned to [the clickerGame](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows) with progression from a previous session.',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0012-unlocked.png'
         },
@@ -254,7 +254,7 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'I can open this?',
-            description: 'What happens when I click [this application](http://oldmartijntje.nl/windows)?',
+            description: 'What happens when I click [this application](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows)?',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0013-locked.png'
         },
@@ -273,13 +273,13 @@ export const achievements: Achievement[] = [
     {
         lockedData: {
             title: 'Life saver',
-            description: 'Use taskmanager to close 50 [applications](http://oldmartijntje.nl/windows) at once.',
+            description: 'Use taskmanager to close 50 [applications](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows) at once.',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0011-locked.png'
         },
         unlockedData: {
             title: 'Life saver',
-            description: 'Used taskmanager to close 50 [applications](http://oldmartijntje.nl/windows) at once.',
+            description: 'Used taskmanager to close 50 [applications](https://oldmartijntje.github.io/outdated-oldmartijntje-website/windows) at once.',
             show: true,
             icon: 'https://oldmartijntje.github.io/outdated-oldmartijntje-website/assets/icons/achievements/Sprite-0011-unlocked.png'
         },
